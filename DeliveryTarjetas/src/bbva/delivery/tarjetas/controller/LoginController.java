@@ -287,6 +287,9 @@ public class LoginController extends BaseController{
 			}
 		}
 		
+		
+		//COMENTARIO DE PRUEBA
+		
 		result = "{"
 				+ "\"privatekey\"" + ":\"" + privatekey 	+ "\"" + ","
 				+ "\"publickey\"" + ":\"" + publickey 	 	+ "\"" + "}";
