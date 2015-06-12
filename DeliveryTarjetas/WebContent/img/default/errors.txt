@@ -1,0 +1,11 @@
+[Tue Feb 24 2015 12:12:09 GMT-0500 (PET)] Layer "Clínica San Felipe www.clinicasanfelipe.com": Unsupported extension: com
+[Tue Feb 24 2015 12:12:09 GMT-0500 (PET)] Layer "Policlinico Santa María Magdalena www.clinicasanfelipe.com": Unsupported extension: com
+[Tue Feb 24 2015 12:12:09 GMT-0500 (PET)] Layer "Clínica San Felipe www.clinicasanfelipe.com": Unsupported extension: com
+[Tue Feb 24 2015 12:12:09 GMT-0500 (PET)] Layer "Policlinico Santa María Magdalena www.clinicasanfelipe.com": Unsupported extension: com
+[Tue Feb 24 2015 12:12:09 GMT-0500 (PET)] Layer "Policlinico Santa María Magdalena www.clinicasanfelipe.com copy": Expected end of input but "c" found.
+[Tue Feb 24 2015 12:12:09 GMT-0500 (PET)] Layer "Policlinico Santa María Magdalena www.clinicasanfelipe.com copy 2": Expected end of input but "c" found.
+[Tue Feb 24 2015 12:12:09 GMT-0500 (PET)] Layer "Policlinico Santa María Magdalena www.clinicasanfelipe.com copy 3": Expected end of input but "c" found.
+[Tue Feb 24 2015 12:12:09 GMT-0500 (PET)] Layer "Policlinico Santa María Magdalena www.clinicasanfelipe.com copy 3": Expected end of input but "c" found.
+[Tue Feb 24 2015 12:12:09 GMT-0500 (PET)] Layer "Policlinico Santa María Magdalena www.clinicasanfelipe.com copy 3": Expected end of input but "c" found.
+[Tue Feb 24 2015 12:12:09 GMT-0500 (PET)] Layer "iconorderoff.png": Duplicate path: iconorderoff.png
+[Tue Feb 24 2015 12:12:09 GMT-0500 (PET)] Layer "iconorderon.png": Duplicate path: iconorderon.png
