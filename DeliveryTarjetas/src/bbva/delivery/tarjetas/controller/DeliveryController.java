@@ -8,10 +8,12 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import bbva.delivery.tarjetas.anotaciones.AdviceController;
+import bbva.delivery.tarjetas.bean.CargaEntregaTarjeta;
 import bbva.delivery.tarjetas.commons.Constants;
 import bbva.delivery.tarjetas.comun.bean.ListaParametroCursor;
 import bbva.delivery.tarjetas.comun.bean.Parametro;
@@ -22,7 +24,7 @@ import bbva.delivery.tarjetas.perfil.bean.PuntoContacto;
 import bbva.delivery.tarjetas.perfil.bean.UsuarioLDAP;
 import bbva.delivery.tarjetas.perfil.bean.UsuarioWeb;
 import bbva.delivery.tarjetas.perfil.service.PerfilService;
-
+import bbva.delivery.tarjetas.service.DeliveryService;
 import commons.framework.BaseController;
 import commons.web.UtilWeb;
 
@@ -39,11 +41,14 @@ public class DeliveryController extends BaseController{
 	LdapService ldapService 								= LdapService.getInstance();
 		
 	@Autowired
+	private DeliveryService deliveryService;
+	
+	@Autowired
 	private ComunService comunService;
 	
 	@Autowired
 	private PerfilService perfilService;
-	
+
 	@SuppressWarnings("unused")
 	private void setupCookies(HttpServletRequest request, HttpServletResponse response){
 		System.out.println("request.getParameter(usuario)	: "+ request.getParameter("usuario"));
@@ -190,5 +195,43 @@ public class DeliveryController extends BaseController{
 		result = "{\"RESULTADO\":["+cadenaJson+"]}";
 		
 		this.escribirTextoSalida(response, result);
+	}
+	
+	
+	public String goCargaEntregaTarjeta(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		return "carga/carga-entrega-tarjeta";
+	}
+	
+	public void cargaEntregaTarjeta(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		JSONObject joRetorno = new JSONObject();
+		String fileName = request.getParameter("fileName");
+		joRetorno = deliveryService.cargaEntregaTarjeta(fileName);
+
+		this.escribirTextoSalida(response, joRetorno.toString());
+	}
+
+	public void lstCargarEntregaTarjeta(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		List<CargaEntregaTarjeta> listaCarga = null;
+		String lstcarga = "";
+
+		CargaEntregaTarjeta carga = null;
+
+		String texto = null;
+		carga = new CargaEntregaTarjeta(request.getParameterMap());
+
+		try {
+			listaCarga = deliveryService.lstCargarEntregaTarjeta(carga);
+			lstcarga = commons.web.UtilWeb.listaToArrayJson(listaCarga, null,
+					CargaEntregaTarjeta.class.getName());
+		} catch (Error e) {
+			lstcarga = "{" + e.getMessage() + "}";
+		}
+
+		this.escribirTextoSalida(response, lstcarga);
+		 
 	}
 }

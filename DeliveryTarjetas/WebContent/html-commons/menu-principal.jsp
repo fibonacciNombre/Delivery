@@ -66,7 +66,7 @@
 							<a href="#" id="obtSinistro" data-url="/PORTALWEB/asistenciaveh.do?method=goSiniestro">Colaboradores por courier</a>
 						</li>						
 						<li>
-							<a href="#" id="obtAuxilio" data-url="/PORTALWEB/asistenciaveh.do?method=goAuxilio">Carga de archivo<br>colaboradores por courier</a>
+							<a href="#" id="goCargaEntregaTarjeta" data-url="/DeliveryTarjetas/delivery.do?method=goCargaEntregaTarjeta">Carga de archivo<br>colaboradores por courier</a>
 						</li>						
 					</ul>
 				</div>

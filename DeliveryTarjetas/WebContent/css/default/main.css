@@ -11069,3 +11069,38 @@ span.loading-animate:nth-child(5) {
 	}
 }
 /* fin mfarfanr - bbva */
+
+
+
+
+.vineta-carga-entrega-tarjetas {
+  border-left: 10px solid #22bb22;
+  padding-left: 10px;
+}
+
+.column-formulario-carga{
+	width: 49%; 
+	vertical-align: top; 
+	display: inline-block;
+}
+
+.column-formulario-carga{
+	width: 49%; 
+	vertical-align: top; 
+	display: inline-block;
+}
+
+.form-group-carga{
+	min-height: 60px;
+}
+
+.carga-content-maxim{
+	width: 100%;
+}
+
+/*********Web Responsive***********/
+@media (max-width: 550px) {
+	.column-formulario-carga{
+		width: 100%; 
+	}
+}

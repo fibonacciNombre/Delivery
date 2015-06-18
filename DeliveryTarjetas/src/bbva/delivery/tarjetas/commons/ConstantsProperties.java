@@ -15,7 +15,7 @@ public class ConstantsProperties {
 	//Packages de base de datos
 	public static final String PQ_ACUERDO_CERTIFICADO_V2 	= "package.acuerdo.certificadov2";
 	
-	public static final String PQ_ACUERDO_ALERTA 			= "package.acuerdo.alerta";
+	public static final String PACKAGE_CARGA_TARJETAS 		= "package.carga.tarjetas";
 	public static final String PQ_ACUERDO_CARTA_GARANTIA	= "package.acuerdo.cartasgarantia";
 	public static final String PQ_ACUERDO_REEMBOLSO			= "package.acuerdo.reembolso";
 	public static final String PQ_ACUERDO_POLIZA_DIGITAL	= "package.acuerdo.polizadigital";
