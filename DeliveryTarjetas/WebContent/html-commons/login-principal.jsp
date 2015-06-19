@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
-<%
-	String nrodocumento	= (String)request.getParameter("userlogin");
-
-	if(nrodocumento==null) nrodocumento="";
-
-%>    
+    
 <div id="todo" class="container-body">
 	
 	<div class="logo-login"></div>
@@ -50,7 +45,6 @@
 																		class="col-md-12 i-group form-control"
 																		maxlength="15"
 																		style="margin-bottom: 5px;"
-																		value="<%=nrodocumento%>"
 																		placeholder="Nro. de documento">																
 													  			<div class="result"></div>
 													  		</div>													    	
@@ -62,7 +56,7 @@
 																		maxlength="12"
 																		placeholder="Contraseña"
 																		style="margin-bottom: 5px;"
-																		onkeypress="javascript:enterPORTALWEB(event);">
+																		onkeypress="javascript:enterLOGIN(event);">
 													      		<div class="result"></div>
 													    	</div>													    	
 													    	<input id="mobile" name="mobile" type="hidden" value="0"/>
@@ -83,17 +77,7 @@
 															</div>
 														</div>			   								   	
 												   	</div>
-												   													   	
-													<div class="text-center">
-														<a id="btn_olvide_contrasena"
-															data-toggle="modal"
-															href="<%=request.getContextPath()%>/jsp/registro/olvido-contrasena.jsp"
-															data-target="#modalOlvideContrasenia"
-															class="btn btn-link">
-																Olvidé mi contraseña
-														</a>
-													</div>													
-															                                            														
+												   		                                            														
 												</form>
 											
 											</div>
@@ -124,19 +108,6 @@
 	</div>
 	
 	<div id="inicioLog"></div>
-	
-	<div class="modal fade"
-			id="modalOlvideContrasenia"
-			tabindex="-1"
-			role="dialog"
-			aria-labelledby="olvide mi contrasenia"
-			aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-body"></div>
-			</div>
-		</div>
-	</div>
 	
 	<%-- INI MODAL LOADING --%>
 	<a id="link-content-cargando"

@@ -1,6 +1,5 @@
 package bbva.delivery.tarjetas.comun.dao.imp;
 
-import java.math.BigDecimal;
 import java.sql.Types;
 import java.util.List;
 import java.util.Map;
@@ -19,15 +18,9 @@ import org.springframework.stereotype.Repository;
 
 import bbva.delivery.tarjetas.commons.ConstantsProperties;
 import bbva.delivery.tarjetas.comun.bean.ArchivoBlob;
-import bbva.delivery.tarjetas.comun.bean.Atributo;
-import bbva.delivery.tarjetas.comun.bean.CboDepartamento;
-import bbva.delivery.tarjetas.comun.bean.CboDistrito;
-import bbva.delivery.tarjetas.comun.bean.CboPais;
-import bbva.delivery.tarjetas.comun.bean.CboProvincia;
 import bbva.delivery.tarjetas.comun.bean.Constante;
 import bbva.delivery.tarjetas.comun.bean.ListaParametroCursor;
 import bbva.delivery.tarjetas.comun.bean.Parametro;
-import bbva.delivery.tarjetas.comun.bean.Valor;
 import bbva.delivery.tarjetas.comun.dao.ComunDao;
 
 import com.rimac.sas.utiles.comunes.JdbcHelper;
@@ -39,12 +32,7 @@ public class ComunDaoImp extends JdbcDaoBase implements ComunDao {
 	
 	private String OWNER_ESQUEMA_COMUNES 	= resources.getString(ConstantsProperties.OWNER_ESQUEMA_COMUNES);
 	private String PQ_COMUNES_COMUN 		= resources.getString(ConstantsProperties.PQ_COMUNES_COMUN);
-	private String PQ_FICHA_TECNICA 		= resources.getString(ConstantsProperties.PQ_COMUNES_FICHATECNICA);
 	
-	private String OWNER_ESQUEMA_PRODUCTO 	= resources.getString(ConstantsProperties.OWNER_ESQUEMA_PRODUCTO);
-	private String PQ_LISTAR_TABLAS_PROD  	= resources.getString(ConstantsProperties.PQ_PRODUCTO_LST_TABLAS_PROD);
-	private String OWNER_ESQUEMA_TERCERO 	= resources.getString(ConstantsProperties.OWNER_ESQUEMA_TERCERO);
-	private String PQ_TERCERO_PUNTOCONTACTO = resources.getString(ConstantsProperties.PQ_TERCERO_PUNTOCONTACTO);
 	/*
 	 * (non-Javadoc)
 	 * @see rimac.portalweb.dao.ComunDaoImp#
@@ -165,100 +153,6 @@ public class ComunDaoImp extends JdbcDaoBase implements ComunDao {
 		param.setCursor((List<ListaParametroCursor>) out.get("a_cursor"));
 	}
 	
-	/* (non-Javadoc)
-	 * @see rimac.portalweb.comun.dao.ComunDao#obtenerEstadoPlan(java.math.BigDecimal)
-	 */
-	public String obtenerEstadoPlan(BigDecimal ideplan) {
-		logger.debug("Ejecutando m�todo obtenerEstadoPlan");
-		String resultado = null;
-		SimpleJdbcCall call = null;
-		MapSqlParameterSource in = null;
-		in = new MapSqlParameterSource();
-		
-		call = JdbcHelper.initializeSimpleJdbcCallFunction(getJdbcTemplate(), 
-				OWNER_ESQUEMA_PRODUCTO,
-				PQ_LISTAR_TABLAS_PROD,
-				"fn_obt_stsplan");
-		
-		JdbcHelper.setOutParameter(call, "return", Types.VARCHAR);
-		JdbcHelper.setInParameter(call, in, "a_ideplan", Types.NUMERIC, ideplan);
-				
-		resultado = call.executeFunction(String.class, in);
-		
-		return resultado;
-	}
-
-	
-	/* (non-Javadoc)
-	 * @see rimac.portalweb.comun.dao.ComunDao#obtenerSinMonedaPlan(java.math.BigDecimal)
-	 */
-	public String obtenerSinMonedaPlan(BigDecimal ideplan) {
-		logger.debug("Ejecutando m�todo obtenerSinMonedaPlan");
-		String resultado = null;
-		SimpleJdbcCall call = null;
-		MapSqlParameterSource in = null;
-		in = new MapSqlParameterSource();
-		
-		call = JdbcHelper.initializeSimpleJdbcCallFunction(getJdbcTemplate(), 
-				OWNER_ESQUEMA_PRODUCTO,
-				PQ_LISTAR_TABLAS_PROD,
-				"fn_obt_simmonedaplan");
-		
-		JdbcHelper.setOutParameter(call, "return", Types.VARCHAR);
-		JdbcHelper.setInParameter(call, in, "a_ideplan", Types.NUMERIC, ideplan);
-				
-		resultado = call.executeFunction(String.class, in);
-		
-		return resultado;
-    }
-	
-	/* (non-Javadoc)
-	 * @see rimac.portalweb.comun.dao.ComunDao#listarValoresxAtributoHijo(rimac.portalweb.comun.bean.Atributo)
-	 */
-	public List<Valor> listarValoresxAtributoHijo(Atributo atributo){
-		logger.info("Ejecutando m�todo: listarValoresxAtributoHijo");
-		SimpleJdbcCall call = null;
-		MapSqlParameterSource in = null;
-		Map<String, Object> out = null;
-		
-		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), 
-				OWNER_ESQUEMA_COMUNES, PQ_FICHA_TECNICA,"sp_lst_valorxidevalorp");//"sp_obt_cfg_valorh");
-		
-		in = new MapSqlParameterSource();
-		
-		JdbcHelper.setInParameter(call,in,"a_ideatributo",	Types.NUMERIC, atributo.getIdeAtributo());
-		JdbcHelper.setInParameter(call,in,"a_idevalorp",	Types.NUMERIC, atributo.getIdeValor());
-		
-//		JdbcHelper.setInParameter(call,in,"p_descripcion",	Types.VARCHAR, atributo.getDescripcion());
-//		JdbcHelper.setInParameter(call,in,"p_idatributop",	Types.NUMERIC, atributo.getIdeAtributoRel());
-//		JdbcHelper.setInParameter(call,in,"p_idatributo",	Types.NUMERIC, atributo.getIdeAtributo());
-//		JdbcHelper.setInParameter(call,in,"p_grupoficha",	Types.NUMERIC, atributo.getGrupoFicha());
-		JdbcHelper.setOutParameter(call,  "c_cursor",	OracleTypes.CURSOR, Valor.class);
-
-		out = call.execute(in);
-		return JdbcHelper.getListResultSet(out, "c_cursor", Valor.class);	
-	}
-	
-	/* (non-Javadoc)
-	 * @see rimac.portalweb.comun.dao.ComunDao#listarValoresxAtributo(rimac.portalweb.comun.bean.Atributo)
-	 */
-	public List<Valor> listarValoresxAtributo(Atributo atributo){
-		logger.info("Ejecutando m�todo: listarValoresxAtributo");
-		SimpleJdbcCall call = null;
-		MapSqlParameterSource in = null;
-		Map<String, Object> out = null;
-		
-		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), 
-				OWNER_ESQUEMA_COMUNES, PQ_FICHA_TECNICA,"sp_lst_valor");
-		
-		in = new MapSqlParameterSource();
-		JdbcHelper.setInParameter(call,in,"p_idatributo",	Types.NUMERIC, atributo.getIdeAtributo());
-		JdbcHelper.setOutParameter(call,  "p_resultado",	OracleTypes.CURSOR, Valor.class);
-
-		out = call.execute(in);
-		return JdbcHelper.getListResultSet(out, "p_resultado", Valor.class);
-	}
-	
 	public void mntArchivoblob(ArchivoBlob param) {      
 		logger.info("Ejecutando m�todo mntArchivoblob");
 		SimpleJdbcCall call = null;
@@ -291,114 +185,4 @@ public class ComunDaoImp extends JdbcDaoBase implements ComunDao {
 		out = call.execute(in);		
 		param.setIdearchivoblob((Integer)out.get("a_idearchivoblob"));      
   }
-  
-  public void actArchivoblob(ArchivoBlob param) {      
-		logger.info("Ejecutando m�todo actArchivoblob");
-		SimpleJdbcCall call = null;
-		SqlParameterSource in = null;
-		Map<String, Object> out = null;
-//		System.out.println(ToStringBuilder.reflectionToString(param,ToStringStyle.MULTI_LINE_STYLE));
-		call = new SimpleJdbcCall(getJdbcTemplate()).
-				withSchemaName(OWNER_ESQUEMA_COMUNES).
-				withCatalogName(PQ_COMUNES_COMUN).
-				withProcedureName("sp_act_archivoblob").
-				withoutProcedureColumnMetaDataAccess().
-				declareParameters(
-						new SqlInOutParameter("a_idearchivoblob", Types.INTEGER),
-						new SqlParameter("a_descripcion", Types.VARCHAR));
-					
-		in = new MapSqlParameterSource().
-				addValue("a_idearchivoblob", param.getIdearchivoblob()).
-				addValue("a_descripcion", param.getDescripcion());
-				
-		
-		out = call.execute(in);		
-		param.setIdearchivoblob((Integer)out.get("a_idearchivoblob"));      
-  }
-  
-  /**
- 	 * M�todo para listar departamentos en un combo
- 	 * @param param Filtro(tipo CboPais) para la b�squeda de departamentos
- 	 * @return Lista de Departamentos 
- 	 */
- 	  public List<CboDepartamento> cboDepartamento(CboPais param) {
- 		
- 		logger.info("Ejecutando m�todo: cboDepartamento");
- 		List<CboDepartamento> departamentos = null;
- 		SimpleJdbcCall call = null;
- 		MapSqlParameterSource in = null;
- 		Map<String, Object> out = null;
- 		
- 		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), 
- 				  OWNER_ESQUEMA_TERCERO, 
- 				  PQ_TERCERO_PUNTOCONTACTO, 
- 				  "SP_CBO_DEPARTAMENTO");
- 		
- 		in = new MapSqlParameterSource();
- 		JdbcHelper.setInParameter(call,in,"a_idepais",Types.NUMERIC, param.getIdepais());
- 		JdbcHelper.setOutParameter(call, "a_cursor",OracleTypes.CURSOR, CboDepartamento.class);
- 		out = call.execute(in);
- 		
- 		departamentos = JdbcHelper.getListResultSet(out, "a_cursor", CboDepartamento.class);
- 		
- 		return departamentos; 
- 	      
- 	  }
- 	
- 	  
- 	 /**
- 	 * M�todo para listar provincias en un combo
- 	 * @param param Filtro(tipo CboDepartamento) para la b�squeda de provincias
- 	 * @return  Lista de Provincias
- 	 */
- 	  public List<CboProvincia> cboProvincia(CboDepartamento param) {
- 	    
- 		logger.info("Ejecutando m�todo: cboProvincia");
- 		List<CboProvincia> lstProvincias = null;
- 		SimpleJdbcCall call = null;
- 		MapSqlParameterSource in = null;
- 		Map<String, Object> out = null;
- 		
- 		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), 
- 				  OWNER_ESQUEMA_TERCERO, 
- 				  PQ_TERCERO_PUNTOCONTACTO, 
- 				  "SP_CBO_PROVINCIA");
- 		
- 		in = new MapSqlParameterSource();
- 		JdbcHelper.setInParameter(call,in,"a_idedepartamento",Types.NUMERIC, param.getIdedepartamento());
- 		JdbcHelper.setOutParameter(call, "a_cursor",OracleTypes.CURSOR, CboProvincia.class);
- 		out = call.execute(in);
- 		
- 		lstProvincias = JdbcHelper.getListResultSet(out, "a_cursor", CboProvincia.class);
- 		
- 		return lstProvincias;   
- 	  }
- 	  
- 	  /**
- 	  * M�todo para listar distritos en un combo
- 	  * @param param Filtro(tipo CboProvincia) para la b�squeda de distritos
- 	  * @return Lista de Distritos
- 	  */
- 	  public List<CboDistrito> cboDistrito(CboProvincia param) {
- 	    logger.info("Ejecutando m�todo: cboDistrito");
- 	    
- 		List<CboDistrito> lstDistrito = null;
- 		SimpleJdbcCall call = null;
- 		MapSqlParameterSource in = null;
- 		Map<String, Object> out = null;
- 		
- 		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), 
- 				  OWNER_ESQUEMA_TERCERO, 
- 				  PQ_TERCERO_PUNTOCONTACTO, 
- 				  "SP_CBO_DISTRITO");
- 		
- 		in = new MapSqlParameterSource();
- 		JdbcHelper.setInParameter(call,in,"a_ideprovincia",Types.NUMERIC, param.getIdeprovincia());
- 		JdbcHelper.setOutParameter(call, "a_cursor",OracleTypes.CURSOR, CboDistrito.class);
- 		out = call.execute(in);
- 		
- 		lstDistrito = JdbcHelper.getListResultSet(out, "a_cursor", CboDistrito.class);
- 		
- 		return lstDistrito;
- 	  }
 }

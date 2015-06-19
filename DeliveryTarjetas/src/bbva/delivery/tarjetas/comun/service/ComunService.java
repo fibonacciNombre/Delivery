@@ -1,17 +1,10 @@
 package bbva.delivery.tarjetas.comun.service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import bbva.delivery.tarjetas.comun.bean.ArchivoBlob;
-import bbva.delivery.tarjetas.comun.bean.Atributo;
-import bbva.delivery.tarjetas.comun.bean.CboDepartamento;
-import bbva.delivery.tarjetas.comun.bean.CboDistrito;
-import bbva.delivery.tarjetas.comun.bean.CboPais;
-import bbva.delivery.tarjetas.comun.bean.CboProvincia;
 import bbva.delivery.tarjetas.comun.bean.Constante;
 import bbva.delivery.tarjetas.comun.bean.Parametro;
-import bbva.delivery.tarjetas.comun.bean.Valor;
 
 public interface ComunService {	
 	
@@ -43,30 +36,6 @@ public interface ComunService {
 	 * @param param
 	 */
 	void obtenerListaParametros(Parametro param);
-	
-	/**
-	 * @param ideplan
-	 * @return
-	 */
-	String obtenerEstadoPlan(BigDecimal ideplan);
-	
-	/**
-	 * @param ideplan
-	 * @return
-	 */
-	String obtenerSinMonedaPlan(BigDecimal ideplan);
-	
-	/**
-	 * @param param
-	 * @return
-	 */
-	List<Valor> listarValoresxAtributoHijo(Atributo param);
-	
-	/**
-	 * @param param
-	 * @return
-	 */
-	List<Valor> listarValoresxAtributo(Atributo param);
 		
 	/**
 	 * 
@@ -74,30 +43,4 @@ public interface ComunService {
 	 */
 	void mntArchivoblob(ArchivoBlob param);
 	
-	/**
-	 * 
-	 * @param param
-	 */
-	void actArchivoblob(ArchivoBlob param) ;
-	
-	/**
-	 * 
-	 * @param param
-	 * @return
-	 */
-	List<CboDepartamento> cboDepartamento(CboPais param);
-	
-	/**
-	 * 
-	 * @param param
-	 * @return
-	 */
-	List<CboProvincia> cboProvincia(CboDepartamento param);
-	
-	/**
-	 * 
-	 * @param param
-	 * @return
-	 */
-	List<CboDistrito> cboDistrito(CboProvincia param);
 }

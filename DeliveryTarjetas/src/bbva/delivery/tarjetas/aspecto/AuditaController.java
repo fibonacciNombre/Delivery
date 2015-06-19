@@ -15,7 +15,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import bbva.delivery.tarjetas.commons.CommonsHelper;
+import bbva.delivery.tarjetas.util.CommonsHelper;
 import commons.framework.BaseController;
 
 @Aspect

@@ -20,7 +20,7 @@ public class MedioContacto implements Serializable {
 	private String numlocal;
 	private String anexo;
 	private String indmovil;
-	private String usucreacion = Constants.USUARIO_PWEB;
+	private String usucreacion = Constants.USUARIO_WEB_BBVA;
 	private String usumodif;
 	private String direccionweb;
 	private String nodo;

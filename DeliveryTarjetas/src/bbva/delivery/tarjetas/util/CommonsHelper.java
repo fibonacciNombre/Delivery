@@ -1,4 +1,4 @@
-package bbva.delivery.tarjetas.commons;
+package bbva.delivery.tarjetas.util;
 
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
+import bbva.delivery.tarjetas.commons.ConstantsProperties;
 import bbva.delivery.tarjetas.exception.ValidationException;
-
 import commons.mapper.Utils;
 
 public class CommonsHelper {

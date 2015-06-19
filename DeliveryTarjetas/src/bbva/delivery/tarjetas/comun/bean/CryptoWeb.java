@@ -12,7 +12,6 @@ public class CryptoWeb implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	
 	private String texto;
 	private String textoencriptado;
 	private String cryptokey;
