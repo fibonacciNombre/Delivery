@@ -13,9 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import bbva.delivery.tarjetas.anotaciones.AdviceController;
 import bbva.delivery.tarjetas.bean.CargaEntregaTarjeta;
 import bbva.delivery.tarjetas.comun.service.ComunService;
-import bbva.delivery.tarjetas.perfil.service.PerfilService;
 import bbva.delivery.tarjetas.service.DeliveryService;
-
+import bbva.delivery.tarjetas.usuario.service.UsuarioService;
 import commons.framework.BaseController;
 
 @AdviceController
@@ -28,7 +27,7 @@ public class DeliveryController extends BaseController{
 	private ComunService comunService;
 	
 	@Autowired
-	private PerfilService perfilService;
+	private UsuarioService perfilService;
 	
 	@Override 
 	public ModelAndView buscar(HttpServletRequest request,HttpServletResponse response) {return null;}

@@ -74,7 +74,7 @@ function loginForm(){
 		
 		$.ajax({
 			type 		: "POST",
-			url 		: "/DeliveryTarjetas/login.do"+"?method=login",
+			url 		: "/DeliveryTarjetas/usuario.do"+"?method=login",
 			cache 		: false,
 			async 		: false,
 			dataType 	: 'json',
@@ -85,9 +85,8 @@ function loginForm(){
 							console.log(rsp);
 				
 							var indlogin 	= rsp.escenario;	
-							var nrointento	= rsp.nrointento;
 							
-					  	    if (indlogin == 1 ){
+					  	    if (indlogin == 1){
 									window.location.href = contextPath + "/"+ rsp.urldestino;
 					  	    }else{							  	    	
 					  	    	$("#formlogin #passlogin").val('');					  	    	
@@ -108,13 +107,14 @@ function loginForm(){
 function obtDatosUsuarioSesion(){
 	$.ajax({
 		type 		: "POST",
-		url 		: "/DeliveryTarjetas/perfil.do"+"?method=obtDatosUsuarioSesion",
+		url 		: "/DeliveryTarjetas/usuario.do"+"?method=obtDatosUsuarioSesion",
 		cache 		: false,
 		async 		: false,
 		dataType 	: 'json',
 		contentType : "application/x-www-form-urlencoded;charset=utf-8",
 		success 	: function(rsp) {
-		
+			
+			/*
 			CTE_JSON_TELFSECPWEB = rsp.TelefonoSecweb[0];
 			
 			if(rsp.Correoweb.length>0)
@@ -142,8 +142,36 @@ function obtDatosUsuarioSesion(){
 			
 			if($.trim(CTE_JSON_PERSONAPWEB.nombre))
 				$("#nameTitularHeader").text(toTitleCase(CTE_JSON_PERSONAPWEB.nombre));							
-							
+			*/				
 		},
 		error : function(xhr, ajaxOptions, thrownError) {}
 	});			
+}
+
+function loadSesionInicial(){
+	
+	/*
+	if(
+		((CTE_JSON_USUARIOPWEB==undefined || CTE_JSON_USUARIOPWEB==null)||
+	     (CTE_JSON_PERSONAPWEB==undefined || CTE_JSON_PERSONAPWEB==null)||
+	     //(CTE_JSON_TELFPWEB==undefined 	|| CTE_JSON_TELFPWEB==null)||
+	     //(CTE_JSON_DIRPWEB==undefined 	|| CTE_JSON_DIRPWEB==null)||
+	     (CTE_JSON_CORREOPWEB==undefined 	|| CTE_JSON_CORREOPWEB==null)||
+	     ($("#form-datos-cliente #idetercero").val()=="" || $("#form-datos-cliente #idetercero").val()=="null")||
+	     ($("#form-datos-cliente #codexterno").val()=="" || $("#form-datos-cliente #codexterno").val()=="null")
+	    ) && 
+		   $("#form-datos-cliente #validacionlogin").val()!=RSP_LOGIN_REG_DIRECCION
+	){
+		cerrarSession();					
+	}else{
+		CTE_IDETERCERO 		= $("#form-datos-cliente #idetercero").val();
+		CTE_NUM_DOC 		= $("#form-datos-cliente #numerodoc").val();
+		CTE_RESP_VAL_LOGIN 	= $("#form-datos-cliente #validacionlogin").val();
+	*/	
+		if(CTE_RESP_VAL_LOGIN==USR_STS_RENOVAR_PASSWORD){
+			closeModalCargando();						 
+			$("#link-renovarcontrasena").click();
+		}
+		
+	//}	
 }

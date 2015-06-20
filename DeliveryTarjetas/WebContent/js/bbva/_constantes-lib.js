@@ -1,0 +1,288 @@
+var CTE_JSON_CORREOPWEB;
+var CTE_JSON_DIRPWEB;
+var CTE_JSON_TELFPWEB;
+var CTE_JSON_PERSONAPWEB;
+var CTE_JSON_USUARIOPWEB;
+var CTE_JSON_TELFSECPWEB;
+var CTE_JSON_DIRCORRESP;
+var CTE_MAP;
+var RSP_LOGIN_REG_DIRECCION	= "5";
+var RSP_LOGIN_PRIMER_LOGIN	= "0";
+var RSP_LOGIN_OK			= "3";
+var DIR_PDF_TERMCOND_DATOS = "/recursos/TyC_ActualizacionDeDatos.pdf";
+var DIR_PDF_TERMCOND_GENER = "/recursos/CONDICIONES-GENERALES-DE-USO.pdf";
+var DIR_PDF_TERMCOND;
+var CTE_INIT_INDMOBILE_TRUE = 1;
+
+var CTE_PAGEINIT;
+var CTE_IDETERCERO;
+var CTE_PREG_SEG;
+var CTE_RESP_SEG;
+var CTE_NUM_DOC;
+var CTE_TIP_DOC;
+var CTE_EMAIL;
+var CTE_PUNTOCONTACTO_EMAIL;
+var CTE_RESP_VAL_LOGIN;
+
+var TIPO_CAMBIO_GLOBAL;
+var CTE_ELEM_DISABLE					= "";
+var CTE_CODEXTERNO						= "";
+var PLACE_INDEX							= 0;
+var FLAG_VALORCOMERCIAL_WS				= 0;
+var ASYNC_BSQ_TER_RUNNING				= false;
+
+var CN_MONEDA							= 'US$ ';
+var CN_MONEDA_NACIONAL					= 'S/. ';
+
+var CTE_USUARIO;
+
+/* INI CONSTANTES UBIGEO */
+var CODIGO_PERU 						= '80' ;
+var CODIGO_DEPARTAMENTO_LIMA 			= 192;
+var CODIGO_PROVINCIA_LIMA 				= 413;
+var CODIGO_DISTRITO_LIMA				= 1762;
+/* FIN CONSTANTES UBIGEO */
+
+/* INI SERVICIOS SAS */
+var SERVICIO_LISTA_TERCEROS 			= "/TERCERO/util.do?method=listaParametro" ;
+var SERVICIO_LISTA_UBICACION 			= "/TERCERO/puntocontacto.do" ;
+var SERVICIO_TERCERO_PERSONA			= "/TERCERO/persona.do";
+
+var SERVICIO_ASISTENCIA					= "/ASISTENCIA/asistencia.do";
+var SERVICIO_ASISTENCIA_RECLAMO			= "/ASISTENCIA/reclamo.do";
+var SERVICIO_CONFIGURACION				= "/CONFIGURACION/emergenciavh.do";
+/* FIN SERVICIOS SAS */
+
+/* INI SERVICIOS PORTALWEB */
+var SERVICIO_CARTAS_GARANTIA			= "/PORTALWEB/cartasGarantia.do";
+/* INI SERVICIOS PORTALWEB */
+
+/* INI CONSTANTES RECLAMOS */
+
+/* TIPOS DE RECLAMO */
+var RECLAMO_TIPO_REC_RECLAMO	= "REC";
+var RECLAMO_TIPO_REC_QUEJA		= "QUE";
+
+/* TIPOS DE RECLAMO */
+var RECLAMO_CANAL_ATENCION		= "WEB";
+
+/* TIPOS DE PRODUCTO */
+var RECLAMO_TIPO_PRODUCTO_SALUD		= "Salud";
+var RECLAMO_TIPO_PRODUCTO_VEHICULAR	= "Vehicular";
+
+/* ESTADOS DE RECLAMO */
+var RECLAMO_ESTADO_APROBADO		= "1";
+var RECLAMO_ESTADO_PENDIENTE	= "2";
+var RECLAMO_ESTADO_NO_APROBADO	= "3";
+/* FIN CONSTANTES RECLAMOS */
+	
+/* INI CONSTANTES CARTA GARANTIA */
+
+/* ESTADOS CARTAS GARANTIA */
+var CARTA_GARANTIA_ESTADO_RECEPCIONADO	= "01";
+var CARTA_GARANTIA_ESTADO_APROBADO		= "05";
+var CARTA_GARANTIA_ESTADO_RECHAZADO		= "07";
+var CARTA_GARANTIA_ESTADO_ANULADO		= "12";
+
+/* ESTADOS CARTAS GARANTIA */
+var POLIZA_PRENTESCO_ESPOSA				= "CONYUGE";
+
+/* FIN CONSTANTES CARTA GARANTIA */
+
+var CTE_SI	 							= 'S' ;
+var CTE_NO	 							= 'N' ;
+
+var DESC_SI 							= 'SI' ;
+var DESC_NO 							= 'NO' ;
+
+var SELECCIONAR 						= 'Seleccionar' ;
+var NO_DESEO 							= 'No deseo' ;
+
+var CTE_FORMATO_HORA_AM					= 'am.';
+var CTE_FORMATO_HORA_PM					= 'pm.';
+
+var CTE_DATOS_TERCERO;
+var CTE_MNT_TERCERO;
+
+var CTE_TIPO_DOC;
+var CTE_NUMERO_DOC;
+
+/*INI ASISTENCIAS VEHICULARES DISPONIBLES*/
+var CTE_IDESOLICITUD;
+var CTE_GRUPOFICHA;
+var CTE_SERVICIO_CONDUCTOR;
+var CTE_SERVICIO_CONDUCTOR_PROG;
+var CTE_SERVICIO_AUXILIO;
+var CTE_SERVICIO_SINIESTRO;
+var CTE_SERVICIO_GRUA;
+var CTE_SERVICIO_ACTUAL;
+var CTE_FRM_EMERGENCIAS;
+var CTE_PASO_SINIESTRO		 		= 0;
+var CTE_PASO_GRUA					= 0;
+var CTE_CANTIDAD_GRUA;
+var CTE_IDESOLICITUD_REL;
+var CTE_SRV_PIVOTAL;
+var CTE_IDEMODULO;
+var CTE_EMER_REGISTRADO;
+var CTE_EMER_PIVOTAL;
+var C_ORIGEN 							= 'SAS';
+var CTE_PARAM_ANULAR_SOL;
+var CTE_PARAM_SAS_AZOTEA;
+var CTE_PARAM_SAS_SOTANO;
+var CTE_CONDUC_TIEMPOTIPOATENCION;
+//Etiquetas
+var CTE_PARAM_SAS_MOVILIZARVEH_SI;
+var CTE_TAG_MOVILIZARVEH;
+var CTE_TAG_UBICACIONVEH;
+var CTE_TAG_LATITUDORIGEN;
+var CTE_TAG_LONGITUDORIGEN;
+var CTE_TAG_DIRECCIONORIGEN;
+var CTE_TAG_DEPARTORIGEN;
+var CTE_TAG_PROVINCIAORIGEN;
+var CTE_TAG_DISTRITOORIGEN;
+var CTE_TAG_ZONAS;
+var CTE_TAG_LATITUDDEST;
+var CTE_TAG_LONGITUDDEST;
+var CTE_TAG_DIRECCIONDEST;
+var CTE_TAG_DEPARTDEST;
+var CTE_TAG_PROVINCIADEST;
+var CTE_TAG_DISTRITODEST;
+var CTE_TAG_FECHAREGISTRO;
+var CTE_TAG_HORAREGISTRO;
+var CTE_TAG_NOMBRE;
+var CTE_TAG_APEPATERNO;
+var CTE_TAG_APEMATERNO;
+var CTE_TAG_NRODOCUMENTO;
+var CTE_TAG_CORREO;
+var CTE_TAG_TELEFONO;
+var CTE_TAG_TEMA;
+var CTE_TAG_CATEGORIA;
+
+/* ACCESO MOVIL */
+var CTE_MOBILE_ACCESS					= false;
+var CTE_VAL_REGLAS;
+var CTE_VAL_MENSAJES;
+/*FIN ASISTENCIAS VEHICULARES DISPONIBLES*/
+
+var PWEB_EMVH_ESTADOS_SOLICITUD = 'PWEB_EMVH_ESTADOS_SOLICITUD';
+
+var CTE_MOBILE_IND;
+
+var CTE_GRID_SIN_DATA 			= 0;
+
+/*ID TIPO DE DOCUMENTOS - PARAM PWEB_USR_TIPDOC*/
+var CTE_TIPDOCUM_CE = "4";
+var CTE_TIPDOCUM_DNI = "2";
+var CTE_TIPDOCUM_PAS = "3";
+var CTE_TIPDOCUM_CIP = "19";
+
+/* LLAVES RECAPTCHA*/
+var	CTE_PUBLIC_KEY;
+var CTE_PRIVATE_KEY;
+
+/*CONSTANTES DE COORDENADAS*/
+var CTE_MAPA;
+var CTE_ZOOM_DEFAULT = 17;
+var CTE_DIRORIGEN   = "A";
+var CTE_DIRDESTINO  = "B";
+var CTE_LATITUD		= "LatA";
+var CTE_LONGITUD	= "LngA";
+var CTE_LATITUDDEST	 = "LatB";
+var CTE_LONGITUDDEST = "LngB";
+var CTE_GRUPO_IDEFICHAINS = "";
+var CTE_CENTER_OK = '';
+var CTE_DRAG_MARKER = 0;
+var CTE_IND_DUPLICAR	= "N";
+
+
+/*RECLAMOS KEVY*/
+var CTE_NEGOCIO;
+var CTE_NEGOCIO_SBS = 'SBS';
+var CTE_NEGOCIO_EPS = 'EPS';
+
+var CTE_BANCO_BCP 			= '1';
+var CTE_BANCO_BBVA 			= '2';
+var CTE_BANCO_INTERBANK 	= '3';
+var CTE_BANCO_SCOTIABANK 	= '4';
+
+var CTE_CUENTA_AHORROS		= 'CA';
+var CTE_CUENTA_CORRIENTE	= 'CC';
+var CTE_CUENTA_MAESTRA		= 'CM';
+
+var CTE_DISCLAIMER1;
+var CTE_DISCLAIMER2;
+var CTE_DISCLAIMER_FINAL = 'C_FINAL';
+var CTE_MISSEGUROS_NWR;
+var CTE_TIPOCONTACTO_OTROS = '6';
+
+var CTE_IND_ZONA_EXT = '1';
+var CTE_IND_ZONA_INT = '0';
+
+//Valores de las rutas
+var RUTA_HOJA_RECLAMO;
+var RUTA_CONSTANCIA_RECLAMO;
+var RUTA_RESPUESTA_RECLAMO;
+
+//Valores de Tipo de documentos (internos y externos (pivotal))
+var V_TIPO_DOC_EXTERNO;
+var V_TIPO_DOC_INTERNO;
+
+//Parametros de Reclamos
+var CTE_PWEB_REC_DISCLAIMERS    = 'PWEB_REC_DISCLAIMERS';
+var CTE_PWEB_REC_MOTIVOS		= 'PWEB_REC_MOTIVOS';
+var CTE_PWEB_REC_TIPRECLAMO		= 'PWEB_REC_TIPRECLAMO';
+var CTE_PWEB_REC_ENTBANCARIA    = 'PWEB_REC_ENTBANCARIA';
+var CTE_PWEB_REC_TIPCTABANCARIA = 'PWEB_REC_TIPCTABANCARIA';
+var CTE_PWEB_REC_MONEDAS        = 'PWEB_REC_MONEDAS';
+var CTE_PWEB_REC_TIPDOC			= 'PWEB_REC_TIPDOC';
+var CTE_PWEB_REC_TIPOVIA        = 'PWEB_REC_TIPOVIA';
+var CTE_PWEB_REC_VIA            = 'PWEB_REC_VIA';
+var CTE_PWEB_REC_TIPOINTERIOR   = 'PWEB_REC_TIPOINTERIOR';
+var CTE_PWEB_REC_OPERACIONES   = 'PWEB_REC_OPERACIONES';
+var CTE_PWEB_REC_TIPO_PROV_NO_REG = 'PWEB_REC_TIPO_PROV_NO_REG';
+
+/*CONSTANTES GOOGLE TAG MANAGER*/
+//Virtual Pages
+var VP_GO_MIS_SEGUROS = '/zonaprivada/mis-seguros';
+var VP_GO_BUSCADOR_CLINICAS01 = '/zonaprivada/buscador-de-clinicas-paso01';
+var VP_GO_BUSCADOR_CLINICAS02 = '/zonaprivada/buscador-de-clinicas-paso02';
+var VP_GO_BUSCADOR_CLINICAS03 = '/zonaprivada/buscador-de-clinicas-paso03';
+var VP_GO_BUSCADOR_TALLERES01 = '/zonaprivada/servicios-vehiculos/buscador-talleres-paso01';
+var VP_GO_BUSCADOR_TALLERES02 = '/zonaprivada/servicios-vehiculos/buscador-talleres-paso02';
+var VP_GO_BUSCADOR_TALLERES03 = '/zonaprivada/servicios-vehiculos/buscador-talleres-paso03';
+var VP_GO_CHOFER_REEMPLAZO = '/zonaprivada/servicios-vehiculos/chofer-reemplazo';
+//var VP_GO_CHOFER_REEMPLAZO_FILTRO = '/zonaprivada/servicios-vehiculos/chofer-reemplazo/filtro';
+var VP_GO_CHOFER_REEMPLAZO_SOLICITAR = '/zonaprivada/servicios-vehiculos/chofer-reemplazo/solicitar';
+var VP_GO_AUXILIO_MECANICO = '/zonaprivada/servicios-vehiculos/auxilio-mecanico';
+var VP_GO_GRUA = '/zonaprivada/servicios-vehiculos/grua';
+var VP_GO_CHOQUE_ROBO = '/zonaprivada/choque-robo';
+var VP_GO_MEDICO_ONLINE = '/zonaprivada/servicios-salud/medico-online';
+var VP_GO_CARTA_GARANTIA = '/zonaprivada/servicios-salud/carta-garantia';
+var VP_GO_ACTUALIZAR_DATOS = '/zonaprivada/actualiza-datos';
+var VP_GO_CAMBIO_CONTRASENA = '/zonaprivada/mi-perfil/cambio-contrasena';
+var VP_GO_CAMBIO_PREGUNTA = '/zonaprivada/mi-perfil/cambio-pregunta';
+var VP_GO_ALERTAS = 'zonaprivada/mi-perfil/alertas';
+var VP_GO_RECLAMO = '/zonaprivada/reclamos';
+var VP_GO_RECLAMO_REGISTRAR = '/zonaprivada/reclamos/registrar';
+
+
+//Eventos
+var EV_VIRTUAL_PAGE 		   = 'virtualPage';
+var EV_VIEW_DETAILS 		   = 'viewDetails';
+var EV_VIEW_COVERAGE 		   = 'viewCoverage';
+var EV_ACTUALIZA_DATOS    = 'updateDataProfile';
+var EV_ACTUALIZA_CONTRASENA    = 'updatePassword';
+var EV_VALIDA_PREGUNTA_SEGURIDAD    = 'validateSecurityQuestion';
+var EV_CAMBIO_PREGUNTA_SEGURIDAD    = 'changeSecurityQuestion';
+var EV_HISTORIAL_SOLICITUDES    = 'solicitudHistory';
+var EV_TIPO_CHOFER_REEMPLAZO    = 'tipoChoferReemplazo';
+var EV_GENERAR_SINIESTRO_TRY    = 'generarSiniestroTry';
+var EV_GENERAR_GRUA_TRY    = 'generarGruaTry';
+var EV_GENERAR_SOLICITUD_SERVICIO    = 'generarSolicitudServicio';
+var EV_REGISTRAR_RECLAMO    = 'registrarReclamo';
+//var EV_GRABAR_EDICION_ALERTA    = 'saveAlertEdit';
+var EV_DETALLE_CUOTA    = 'cuotaDetail';
+var EV_USAR_MAPA    = 'guardarUbicacionMapa';
+
+var CTE_INDACTIVO 	= '1';
+var CTE_INDINACTIVO = '0';

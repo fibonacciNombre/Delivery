@@ -39,6 +39,7 @@ public class Constants {
 	public static final String ESCENARIO_LOGIN_ACCESOS_INCORRECTOS		= "2";
 	public static final String ESCENARIO_LOGIN_USUARIO_NO_EXITE			= "3";
 	public static final String ESCENARIO_LOGIN_USUARIO_INACTIVO			= "4";
+	public static final String ESCENARIO_LOGIN_COURIER_INACTIVA			= "5";
 	
 	//Constantes INDICADORES DE ESTADOS DEL USUARIOWEB
 	public static final Integer USR_STS_ACTIVO							= 1;

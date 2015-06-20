@@ -58,32 +58,23 @@
 		<script>
 	
 			$().ready(function(){ 
-				/*
+				
 				loadModalCargando();
 				
 				obtDatosUsuarioSesion();
 
 				loadSesionInicial();
-				*/
-				
-				//$(".content-rws").load("/DeliveryTarjetas/perfil.do?method=goDashboard", null);
-				
-				/*
-				if(CTE_RESP_VAL_LOGIN != RSP_LOGIN_PRIMER_LOGIN && CTE_RESP_VAL_LOGIN != RSP_LOGIN_REG_DIRECCION)
-					$(".content-rws").load("/DeliveryTarjetas/perfil.do?method=goDashboard", function(){						
-						var MD5_CTE_IDETERCERO = CryptoJS.MD5(CTE_IDETERCERO);																					
-					});
-				*/
+							
 			});
 			
 		</script>
 		
    		<script type="text/javascript">
-   			/*
+   			
 			$.idleTimeout('#idletimeout', '.container-body', {
 				idleAfter				: 1200,
 				pollingInterval			: 300,
-				keepAliveURL			: '/DeliveryTarjetas/perfil.do?method=obtDatosUsuarioSesion',
+				keepAliveURL			: '/DeliveryTarjetas/usuario.do?method=obtDatosUsuarioSesion',
 				serverResponseEquals	: 'OK',
 				onTimeout				: function(){
 											$(this).slideUp();
@@ -99,7 +90,6 @@
 											$(this).slideUp(); // hide the warning bar
 				}
 			});
-			*/
 			
 		</script>
 				

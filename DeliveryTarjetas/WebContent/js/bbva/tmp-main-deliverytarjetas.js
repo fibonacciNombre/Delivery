@@ -650,36 +650,6 @@ function obtDatosUsuarioSesionToken(token){
 	});			
 }
 
-function loadSesionInicial(){
-	
-	if(
-		((CTE_JSON_USUARIOPWEB==undefined || CTE_JSON_USUARIOPWEB==null)||
-	     (CTE_JSON_PERSONAPWEB==undefined || CTE_JSON_PERSONAPWEB==null)||
-	     //(CTE_JSON_TELFPWEB==undefined 	|| CTE_JSON_TELFPWEB==null)||
-	     //(CTE_JSON_DIRPWEB==undefined 	|| CTE_JSON_DIRPWEB==null)||
-	     (CTE_JSON_CORREOPWEB==undefined 	|| CTE_JSON_CORREOPWEB==null)||
-	     ($("#form-datos-cliente #idetercero").val()=="" || $("#form-datos-cliente #idetercero").val()=="null")||
-	     ($("#form-datos-cliente #codexterno").val()=="" || $("#form-datos-cliente #codexterno").val()=="null")
-	    ) && 
-		   $("#form-datos-cliente #validacionlogin").val()!=RSP_LOGIN_REG_DIRECCION
-	){
-		cerrarSession();					
-	}else{
-		CTE_IDETERCERO 		= $("#form-datos-cliente #idetercero").val();
-		CTE_NUM_DOC 		= $("#form-datos-cliente #numerodoc").val();
-		CTE_RESP_VAL_LOGIN 	= $("#form-datos-cliente #validacionlogin").val();
-		
-		if(CTE_RESP_VAL_LOGIN==RSP_LOGIN_PRIMER_LOGIN){
-			closeModalCargando();						 
-			$("#link-primerlogueo").click();
-		}
-		if(CTE_RESP_VAL_LOGIN==RSP_LOGIN_REG_DIRECCION){
-			closeModalCargando();						
-			$("#link-registrardireccion").click();
-		}
-	}	
-}
-
 function initGTM(){
 	var MD5_CTE_IDETERCERO = CryptoJS.MD5(CTE_IDETERCERO);
 	

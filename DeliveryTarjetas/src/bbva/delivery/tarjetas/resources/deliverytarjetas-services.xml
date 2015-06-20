@@ -19,7 +19,11 @@
 	
 	<context:component-scan base-package="bbva.delivery.tarjetas.comun.service" />
 
-	<context:component-scan base-package="bbva.delivery.tarjetas.perfil.service" />
+	<context:component-scan base-package="bbva.delivery.tarjetas.courier.service" />
+
+	<context:component-scan base-package="bbva.delivery.tarjetas.tercero.service" />
+
+	<context:component-scan base-package="bbva.delivery.tarjetas.usuario.service" />
 
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
