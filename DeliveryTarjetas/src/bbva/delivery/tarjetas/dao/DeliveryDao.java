@@ -3,14 +3,18 @@ package bbva.delivery.tarjetas.dao;
 import java.math.BigDecimal;
 import java.util.List;
 
-import bbva.delivery.tarjetas.bean.CargaEntregaTarjeta;
+import org.json.simple.JSONObject;
+
+import bbva.delivery.tarjetas.bean.Delivery;
+import bbva.delivery.tarjetas.bean.Parametro;
 
 public interface DeliveryDao{
 	void test();
 	
+	 
+	public void mntDelivery(Delivery param);
+	public List<Delivery> lstDelivery(Delivery param);
+	public BigDecimal crearGrupoCargaDelivery();
 	
-	
-	public void cargarEntregaTarjeta(CargaEntregaTarjeta param);
-	public List<CargaEntregaTarjeta> lstCargarEntregaTarjeta(CargaEntregaTarjeta param);
-	public BigDecimal crearGrupoCarga();
+	public List<Parametro> lstParametro(Parametro param);
 }

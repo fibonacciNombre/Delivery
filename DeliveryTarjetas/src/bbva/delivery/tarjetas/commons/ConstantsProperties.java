@@ -7,7 +7,7 @@ public class ConstantsProperties {
 	public static final String ORIGEN_ERROR_VALIDACION 	 	= "validation";
 	
 	//Owners de los esquemas de base de datos
-	public static final String OWNER_ESQUEMA_ACUERDO 	 	= "owner.esquema.acuerdo";
+	public static final String OWNER_ESQUEMA_DELIVERY	 	= "owner.esquema.delivery";
 	public static final String OWNER_ESQUEMA_COMUNES  	 	= "owner.esquema.comunes";
 	public static final String OWNER_ESQUEMA_PRODUCTO 	 	= "owner.esquema.producto";
 	public static final String OWNER_ESQUEMA_TERCERO 	 	= "owner.esquema.tercero";
@@ -15,7 +15,7 @@ public class ConstantsProperties {
 	//Packages de base de datos
 	public static final String PQ_ACUERDO_CERTIFICADO_V2 	= "package.acuerdo.certificadov2";
 	
-	public static final String PACKAGE_CARGA_TARJETAS 		= "package.carga.tarjetas";
+	public static final String PQ_DEL_COURIER 		= "package.courier";
 	public static final String PQ_ACUERDO_CARTA_GARANTIA	= "package.acuerdo.cartasgarantia";
 	public static final String PQ_ACUERDO_REEMBOLSO			= "package.acuerdo.reembolso";
 	public static final String PQ_ACUERDO_POLIZA_DIGITAL	= "package.acuerdo.polizadigital";

@@ -2,7 +2,7 @@ package bbva.delivery.tarjetas.service.imp;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.math.BigDecimal;
+import java.math.BigDecimal; 
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -17,7 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import bbva.delivery.tarjetas.bean.CargaEntregaTarjeta;
+import bbva.delivery.tarjetas.bean.Delivery;
+import bbva.delivery.tarjetas.bean.Parametro;
 import bbva.delivery.tarjetas.dao.DeliveryDao;
 import bbva.delivery.tarjetas.service.DeliveryService;
 
@@ -36,7 +37,7 @@ public class DeliveryServiceImp implements DeliveryService {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public JSONObject cargaEntregaTarjeta(String fileName) throws FileNotFoundException{
+	public JSONObject cargarExcelDelivery(String fileName) throws FileNotFoundException{
 		
 		JSONObject joRetorno = new JSONObject();
 		Integer resultado = 0;
@@ -45,7 +46,7 @@ public class DeliveryServiceImp implements DeliveryService {
 		Integer errorCarga = 0; 
 		
 		
-		CargaEntregaTarjeta carga = new CargaEntregaTarjeta();
+		Delivery carga = new Delivery();
 		
 		FileInputStream fileInput = null;
 		Workbook wb = null;
@@ -70,7 +71,7 @@ public class DeliveryServiceImp implements DeliveryService {
 				} 
 			}
 			
-			BigDecimal grupoCarga = crearGrupoCarga();
+			BigDecimal grupoCarga = crearGrupoCargaDelivery();
 			
 			/** Recorrer las hojas del excel **/
 			for (int k = 0; k < wb.getNumberOfSheets(); k++) {
@@ -86,61 +87,99 @@ public class DeliveryServiceImp implements DeliveryService {
 						continue;
 					}
 					 
-					carga.setIdecarga(null);
+					carga.setIddelivery(null);
 					carga.setGrupocarga(grupoCarga);
-					carga.setNumerotarjeta(getCellValue(row, 0));
-					carga.setUltimosdigitos(getCellValue(row, 1));
-					carga.setDnicliente(getCellValue(row, 2));
-					carga.setNomcliente(getCellValue(row, 3));
-					carga.setLoccliente(getCellValue(row, 4));
-					carga.setDircliente(getCellValue(row, 5));
-					carga.setDistcliente(getCellValue(row, 6));
-					carga.setTipoprod(getCellValue(row, 7));
-					carga.setSubtipoprod(getCellValue(row, 8));
-					
+					carga.setTipodocumento(getCellValue(row, 0));
+					carga.setNrodocumentocli(getCellValue(row, 1));
+					carga.setNombrescli(getCellValue(row, 2));
+					carga.setTipotarjeta(getCellValue(row, 3));
+					carga.setPridigtarjeta(getCellValue(row, 4));
+					carga.setUltdigtarjeta(getCellValue(row, 5));
+					carga.setNrocontrato(getCellValue(row, 6));
 					try {
-						carga.setMontocred(new BigDecimal(getCellValue(row, 9)));
+						carga.setMtoasoctarjeta(new BigDecimal(getCellValue(row, 7)));
 					} catch (Exception e) {
-						carga.setMontocred(null);
-					}
-					
-					carga.setUbientrega(getCellValue(row, 10));
-					
-					try {
-						carga.setLatoficina(new BigDecimal(getCellValue(row, 11)));
-					} catch (Exception e) {
-						carga.setLatoficina(null);
+						carga.setMtoasoctarjeta(null);
 					}
 					
 					try {
-						carga.setLngoficina(new BigDecimal(getCellValue(row, 12)));
+						carga.setFecentrega(null);
 					} catch (Exception e) {
-						carga.setLngoficina(null);
+						carga.setFecentrega(null);
+					}
+					
+
+					try {
+						carga.setHoraentrega(null);
+					} catch (Exception e) {
+						carga.setHoraentrega(null);
+					}
+					
+					
+
+					carga.setLugarentrega(getCellValue(row, 10));
+
+					carga.setIndverificacion(getCellValue(row, 11));
+					carga.setDireccioncli(getCellValue(row, 12));
+					carga.setDistritocli(getCellValue(row, 13));
+					
+					try {
+						carga.setLatitudofi(new BigDecimal(getCellValue(row, 14)));
+					} catch (Exception e) {
+						carga.setLatitudofi(null);
 					}
 					
 					try {
-						carga.setLatdomicilio(new BigDecimal(getCellValue(row, 13)));
+						carga.setLongitudofi(new BigDecimal(getCellValue(row, 15)));
 					} catch (Exception e) {
-						carga.setLatdomicilio(null);
+						carga.setLongitudofi(null);
+					}
+					
+					carga.setCorreocli(getCellValue(row, 16));
+					carga.setTelmovilcli(getCellValue(row, 17));
+					carga.setOrdenentrega(getCellValue(row, 18));
+					
+					try {
+						carga.setIdcourier(new BigDecimal(getCellValue(row, 13)));
+					} catch (Exception e) {
+						carga.setIdcourier(null);
 					}
 					
 					try {
-						carga.setLngdomicilio(new BigDecimal(getCellValue(row, 14)));
+						carga.setIdtercero(new BigDecimal(getCellValue(row, 14)));
 					} catch (Exception e) {
-						carga.setLngdomicilio(null);
+						carga.setIdtercero(null);
 					}
 					
-					carga.setFecentregaprog(getCellValue(row, 15));
-					carga.setHorentregaprog(getCellValue(row, 16));
-					carga.setDirentrega(getCellValue(row, 17));
-					carga.setDistentrega(getCellValue(row, 18));
-					carga.setProventrega(getCellValue(row, 19));
-					carga.setDepentrega(getCellValue(row, 20));
-					carga.setCourierasoc(getCellValue(row, 21));
-					carga.setDnicourier(getCellValue(row, 22));
+					try {
+						carga.setIdpestado(new Integer(getCellValue(row, 14)));
+					} catch (Exception e) {
+						carga.setIdpestado(null);
+					}
 					
 					try {
-						portalWebDao.cargarEntregaTarjeta(carga); 
+						carga.setIdarchivo(new Integer(getCellValue(row, 14)));
+					} catch (Exception e) {
+						carga.setIdarchivo(null);
+					}
+					
+					try {
+						carga.setIdpestadocarga(new Integer(getCellValue(row, 14)));
+					} catch (Exception e) {
+						carga.setIdpestadocarga(null);
+					}
+					
+					carga.setMensajecarga(getCellValue(row, 15));
+					
+					try {
+						carga.setGrupocarga(new BigDecimal(getCellValue(row, 14)));
+					} catch (Exception e) {
+						carga.setGrupocarga(null);
+					}
+					
+					try {
+						portalWebDao.mntDelivery(carga);
+						
 					} catch (Exception e) {
 						errorCarga = 2;
 						logCarga += "Fila N°: " + r + "\n Error : " + e.getMessage() + "\n\n"; 
@@ -187,13 +226,21 @@ public class DeliveryServiceImp implements DeliveryService {
 	}
 	
 	@Override
-	public List<CargaEntregaTarjeta> lstCargarEntregaTarjeta(CargaEntregaTarjeta param){
-		return portalWebDao.lstCargarEntregaTarjeta(param);
+	public List<Delivery> lstDelivery(Delivery param){
+		return portalWebDao.lstDelivery(param);
+	}
+	 
+	public BigDecimal crearGrupoCargaDelivery(){
+		return portalWebDao.crearGrupoCargaDelivery();
+	}
+ 
+	public void mntDelivery(Delivery param) throws FileNotFoundException {
+		portalWebDao.mntDelivery(param);
 	}
 	
 	@Override
-	public BigDecimal crearGrupoCarga(){
-		return portalWebDao.crearGrupoCarga();
+	public List<Parametro> lstParametro(Parametro param){
+		return portalWebDao.lstParametro(param);
 	}
 
 }
