@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.json.simple.JSONObject;
 
+import bbva.delivery.tarjetas.bean.Courier;
 import bbva.delivery.tarjetas.bean.Delivery; 
 import bbva.delivery.tarjetas.bean.Parametro;
 
@@ -16,4 +17,8 @@ public interface DeliveryService {
 	public List<Delivery> lstDelivery(Delivery param);
 	
 	public List<Parametro> lstParametro(Parametro param);
+	
+	public List<Courier> lstCourier(Courier param);
+	public void mntCourier(Courier param);
+	public Integer valCourierDelivery(String dnicourier);
 }

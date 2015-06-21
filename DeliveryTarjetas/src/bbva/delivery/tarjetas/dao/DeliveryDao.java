@@ -2,11 +2,8 @@ package bbva.delivery.tarjetas.dao;
 
 import java.math.BigDecimal;
 import java.util.List;
-
-import org.json.simple.JSONObject;
-
-import bbva.delivery.tarjetas.bean.Delivery;
-import bbva.delivery.tarjetas.bean.Parametro;
+ 
+import bbva.delivery.tarjetas.bean.*;
 
 public interface DeliveryDao{
 	void test();
@@ -17,4 +14,8 @@ public interface DeliveryDao{
 	public BigDecimal crearGrupoCargaDelivery();
 	
 	public List<Parametro> lstParametro(Parametro param);
+	public List<Courier> lstCourier(Courier param);
+	public void mntCourier(Courier param);
+	
+	public Integer valCourierDelivery(String dnicourier);
 }

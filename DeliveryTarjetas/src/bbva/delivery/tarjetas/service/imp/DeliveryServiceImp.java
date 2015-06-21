@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import bbva.delivery.tarjetas.bean.Courier;
 import bbva.delivery.tarjetas.bean.Delivery;
 import bbva.delivery.tarjetas.bean.Parametro;
 import bbva.delivery.tarjetas.dao.DeliveryDao;
@@ -44,8 +45,7 @@ public class DeliveryServiceImp implements DeliveryService {
 		String mensaje = "Datos subidos satisfactoriamente!!";
 		String logCarga = "";
 		Integer errorCarga = 0; 
-		
-		
+		 
 		Delivery carga = new Delivery();
 		
 		FileInputStream fileInput = null;
@@ -71,8 +71,8 @@ public class DeliveryServiceImp implements DeliveryService {
 				} 
 			}
 			
-			BigDecimal grupoCarga = crearGrupoCargaDelivery();
-			
+			BigDecimal idgrupoCarga = crearGrupoCargaDelivery();
+			Integer existeCourier;
 			/** Recorrer las hojas del excel **/
 			for (int k = 0; k < wb.getNumberOfSheets(); k++) {
 				Sheet sheet = wb.getSheetAt(k);
@@ -86,9 +86,10 @@ public class DeliveryServiceImp implements DeliveryService {
 					if (row == null) {
 						continue;
 					}
-					 
+					 existeCourier = valCourierDelivery(getCellValue(row, 0));
+					
 					carga.setIddelivery(null);
-					carga.setGrupocarga(grupoCarga);
+					carga.setGrupocarga(idgrupoCarga);
 					carga.setTipodocumento(getCellValue(row, 0));
 					carga.setNrodocumentocli(getCellValue(row, 1));
 					carga.setNombrescli(getCellValue(row, 2));
@@ -114,9 +115,7 @@ public class DeliveryServiceImp implements DeliveryService {
 					} catch (Exception e) {
 						carga.setHoraentrega(null);
 					}
-					
-					
-
+					 
 					carga.setLugarentrega(getCellValue(row, 10));
 
 					carga.setIndverificacion(getCellValue(row, 11));
@@ -242,5 +241,21 @@ public class DeliveryServiceImp implements DeliveryService {
 	public List<Parametro> lstParametro(Parametro param){
 		return portalWebDao.lstParametro(param);
 	}
+
+	@Override
+	public List<Courier> lstCourier(Courier param) {
+		return portalWebDao.lstCourier(param);
+	}
+
+	@Override
+	public void mntCourier(Courier param) {
+		portalWebDao.mntCourier(param);
+	}
+	
+	@Override
+	public Integer valCourierDelivery(String dnicourier){
+		return portalWebDao.valCourierDelivery(dnicourier);
+	}
+	
 
 }

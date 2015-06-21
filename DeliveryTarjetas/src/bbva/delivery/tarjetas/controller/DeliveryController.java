@@ -12,10 +12,9 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
-import bbva.delivery.tarjetas.anotaciones.AdviceController; 
-import bbva.delivery.tarjetas.bean.Delivery;
+import bbva.delivery.tarjetas.anotaciones.AdviceController;  
 import bbva.delivery.tarjetas.commons.Constants; 
-import bbva.delivery.tarjetas.bean.Parametro;
+import bbva.delivery.tarjetas.bean.*;
 import bbva.delivery.tarjetas.comun.service.ComunService;
 import bbva.delivery.tarjetas.ldap.service.LdapService;
 import bbva.delivery.tarjetas.perfil.bean.MedioContacto;
@@ -34,10 +33,7 @@ public class DeliveryController extends BaseController{
 	public static final String COOKIE_USUARIO_SAS 			= "SAS_CODUSUARIO_COOKIE";
 	
 	public static final String WEBAPP_SAS 					= "/" ;
-	
-	
-	
-	
+	 
 	public static final String token 						= "F2DA2A4571F9A6BF8B85BB6452CAFAFF";
 	
 	LdapService ldapService 								= LdapService.getInstance();
@@ -239,6 +235,42 @@ public class DeliveryController extends BaseController{
 		}
 
 		this.escribirTextoSalida(response, lstparametro);
+		 
+	}
+	
+	public void lstCourier(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		List<Courier> listaCourier = null;
+		String lstcourier = "";
+
+		Courier courier = null;
+ 
+		courier = new Courier(request.getParameterMap());
+
+		try {
+			listaCourier = deliveryService.lstCourier(courier);
+			lstcourier = commons.web.UtilWeb.listaToArrayJson(listaCourier, null,
+					Courier.class.getName());
+		} catch (Error e) {
+			lstcourier = "{" + e.getMessage() + "}";
+		}
+
+		this.escribirTextoSalida(response, lstcourier);
+		 
+	}
+	
+	public void mntCourier(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+ 		Courier courier = null;
+ 
+		courier = new Courier(request.getParameterMap());
+
+		try {
+			deliveryService.mntCourier(courier); 
+		} catch (Error e) { 
+		}
+
+		this.escribirTextoSalida(response, "0");
 		 
 	}
 	
