@@ -1,6 +1,11 @@
 package bbva.delivery.tarjetas.usuario.bean;
 
 import java.io.Serializable;
+import java.util.Map;
+
+import commons.mapper.ResourceManager;
+
+import bbva.delivery.tarjetas.tercero.bean.Tercero;
 
 public class UsuarioWeb implements Serializable {
 
@@ -17,6 +22,19 @@ public class UsuarioWeb implements Serializable {
 	private String fecmodifcacion;
 	private String historial;
 	private Integer idtercero;
+	private Integer idperfil;
+	
+	private Tercero tercero;
+	private Perfil perfil;
+	
+	@SuppressWarnings("rawtypes")
+	public UsuarioWeb(Map map) throws Exception {
+	    ResourceManager.populateDtoFromMap(this, map);
+	}
+	
+	public UsuarioWeb() {
+	}
+	
 	public Integer getIdusuario() {
 		return idusuario;
 	}
@@ -83,5 +101,24 @@ public class UsuarioWeb implements Serializable {
 	public void setIdtercero(Integer idtercero) {
 		this.idtercero = idtercero;
 	}
+	public Integer getIdperfil() {
+		return idperfil;
+	}
+	public void setIdperfil(Integer idperfil) {
+		this.idperfil = idperfil;
+	}
+	public Tercero getTercero() {
+		return tercero;
+	}
+	public void setTercero(Tercero tercero) {
+		this.tercero = tercero;
+	}
+	public Perfil getPerfil() {
+		return perfil;
+	}
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
+	}
+	
 	
 }

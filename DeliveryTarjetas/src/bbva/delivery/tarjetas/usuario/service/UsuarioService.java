@@ -19,5 +19,7 @@ public interface UsuarioService {
 		
 	boolean validarContrasena(UsuarioWeb usuarioWeb);
 	
-	UsuarioWeb autenticarUsuario(LoginWeb loginWeb)throws Exception;
+	UsuarioWeb autenticarUsuario(LoginWeb loginWeb);
+	
+	void actContrasena(UsuarioWeb usuarioWeb);
 }

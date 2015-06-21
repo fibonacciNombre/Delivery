@@ -62,5 +62,11 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 		logger.info("Dao obtDetalleUsuarioWeb");
 		return null;
 	}
+
+	@Override
+	public void actContrasena(UsuarioWeb usuarioWeb) {
+		// TODO Auto-generated method stub
+		logger.info("Dao actContrasena");
+	}
 }
 

@@ -10,8 +10,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import bbva.delivery.tarjetas.anotaciones.AdviceController;
 import bbva.delivery.tarjetas.commons.Constants;
+import bbva.delivery.tarjetas.comun.bean.TransaccionWeb;
 import bbva.delivery.tarjetas.comun.service.ComunService;
+import bbva.delivery.tarjetas.courier.bean.Courier;
+import bbva.delivery.tarjetas.courier.service.CourierService;
+import bbva.delivery.tarjetas.tercero.bean.Tercero;
+import bbva.delivery.tarjetas.tercero.service.TerceroService;
 import bbva.delivery.tarjetas.usuario.bean.LoginWeb;
+import bbva.delivery.tarjetas.usuario.bean.Perfil;
 import bbva.delivery.tarjetas.usuario.bean.UsuarioWeb;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
 import commons.framework.BaseController;
@@ -19,11 +25,17 @@ import commons.framework.BaseController;
 @AdviceController
 public class UsuarioController extends BaseController {
 	
-	private static Logger logger = Logger.getLogger(
-			UsuarioController.class.getName());
+	private static Logger logger = Logger.getLogger(UsuarioController.class.getName());
 	
 	@Autowired
 	private ComunService comunService;
+
+	@Autowired
+	private CourierService courierService;
+	
+	@Autowired
+	private TerceroService terceroService;
+	
 	@Autowired
 	private UsuarioService usuarioService;
 	
@@ -107,5 +119,93 @@ public class UsuarioController extends BaseController {
 		response.sendRedirect(request.getContextPath());			
 		
 		logger.info("*** fin logout *** ");
+	}
+	
+	public void obtDatosUsuarioSesion(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		logger.info("*** ini obtDatosUsuarioSesion *** ");
+		
+		HttpSession session			= request.getSession();
+		
+		String result				= "";
+		UsuarioWeb usuarioWeb		= null;
+		Perfil perfil				= new Perfil();
+		Courier courier				= new Courier();
+		Tercero tercero				= new Tercero();
+		
+		String jsonUsuario			= "\"Usuarioweb\":[";
+		String jsonPerfil			= "\"Perfil\":[";
+		String jsonTercero			= "\"Tercero\":[";
+		String jsonCourier			= "\"Courier\":[";
+		
+		usuarioWeb	= (UsuarioWeb) session.getAttribute(Constants.REQ_SESSION_USUARIO);
+		
+//		usuarioWeb = usuarioService.obtDetalleUsuarioWeb(usuarioWeb);
+		
+		usuarioWeb.setEstado(Constants.USR_STS_ACTIVO.toString());
+		
+		jsonUsuario += commons.web.UtilWeb.objectToJson(usuarioWeb, null, UsuarioWeb.class.getName());
+		
+		jsonUsuario += "]";
+		
+		if(usuarioWeb.getIdperfil()!=null){
+			perfil.setIdperfil(usuarioWeb.getIdperfil());
+//			perfil = perfilService.obtDetallePerfil(perfil);	
+			jsonPerfil += commons.web.UtilWeb.objectToJson(perfil, null, Perfil.class.getName());
+		}
+		
+		jsonPerfil += "]";
+		
+		if(usuarioWeb.getIdtercero()!=null){
+			tercero.setIdtercero(usuarioWeb.getIdtercero());
+			tercero = terceroService.obtDetalleTercero(tercero);	
+			jsonTercero += commons.web.UtilWeb.objectToJson(tercero, null, Tercero.class.getName());
+		}
+		
+		jsonTercero += "]";
+		
+		if(tercero.getIdcourier()!=null){
+			courier.setIdcourier(tercero.getIdcourier());
+			courier = courierService.obtDetalleCourier(courier);	
+			jsonCourier += commons.web.UtilWeb.objectToJson(courier, null, Courier.class.getName());
+		}
+		
+		jsonCourier += "]";
+		
+		result = "{" +
+					jsonCourier + "," +
+					jsonTercero + "," +
+					jsonUsuario + "," +
+					jsonPerfil +
+				"}";
+		
+		this.escribirTextoSalida(response, result);
+		
+		logger.info("*** fin obtDatosUsuarioSesion *** ");
+	}
+	
+	public void actContrasena(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		logger.info("*** ini actContrasena *** ");
+		
+		HttpSession session			= request.getSession();
+		
+		String result				= "";
+		TransaccionWeb tx			= new TransaccionWeb();
+		UsuarioWeb usuarioWeb 		= new UsuarioWeb(request.getParameterMap());
+		
+//		usuarioService.actContrasena(usuarioWeb);
+		
+		usuarioWeb.setEstado(Constants.USR_STS_ACTIVO);
+		
+//		usuarioService.mntUsuarioWeb(usuarioWeb);
+		
+		session.setAttribute(Constants.REQ_SESSION_USUARIO, usuarioWeb);
+		
+		result = commons.web.UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName());
+		
+		this.escribirTextoSalida(response, result);
+		
+		logger.info("*** fin actContrasena *** ");
 	}
 }

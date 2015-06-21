@@ -1,16 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
-  <div class="modal-header">
+<div class="modal-header">
 	<button id="closebtnconfig" type="button" class="close" data-dismiss="modal" aria-hidden="true" hidden="true">&times;</button>
-	<h3 class="modal-title">Registra tu contraseña</h3>
-  </div>
-  <div class="modal-body">
+	<h3 class="modal-title">Registra tu nueva contraseña</h3>
+</div>
+  
+<div class="modal-body">
 	
 	<div class="row">
-		<div class="col-md-12" id="configPrimerLogin">
-			<form id="form-configPrimerLogin" autocomplete="off">
+		<div class="col-md-12" id="renovar-contrasena">
+			
+			<form id="form-renovarcontrasena" autocomplete="off">
+			
 				<div class="col-md-12">
 					<h5>Cambiar Contraseña</h5>
 				</div>
+			
 				<div class="col-md-7">
 			  		<div class="form-group">
 				   			
@@ -28,6 +32,7 @@
 				   			</div>
 				   	</div>
 				</div>
+				
 			    <div class="col-md-5">
 			   		<p>
 			   			Una contraseña segura está compuesta de 8 a 12 caracteres.
@@ -41,28 +46,31 @@
 			    </div>
 			    
 				<br>
+				
 				<div class="col-md-12 text-right ">
 						<button type="button" 
 		                   		class="btn btn-primary"
-		                   		onclick="javascript:actualizarContrasena();">
+		                   		onclick="javascript:actContrasena();">
 		                		Finalizar
 		                </button>
 				</div>
+				
 			</form>
+			
 		</div>
 	</div>
-  </div>
+	
+</div>
   
-  <script src="<%=request.getContextPath()%>/js/rimac/main-portal.js"></script>
+<script>
   
-  <script>
-  $().ready(function(){
+  	$().ready(function(){
 	  
 		validateAlfanumerico();
 
 		validateSinEspacios();
 		
-	  	$("#form-configPrimerLogin").validate({
+	  	$("#form-renovarcontrasena").validate({
 			rules			: {
 								nuevacontrasena	: {
 										required 		: true,
@@ -88,61 +96,56 @@
 		});
 		
 		closeModalCargando(); 	  
-  }); 
+  	}); 
   
   
-  function actualizarContrasena(){
+	function actContrasena(){
 		
-		if($("#form-configPrimerLogin").valid()){
+		if($("#form-renovarcontrasena").valid()){
 
 			loadModalCargando();
 			
 			setTimeout( function() {
-							CTE_JSON_USUARIOPWEB.newpassword = $("#nuevacontrasena").val();
+							
+							CTE_JSON_USUARIOWEB.password = $("#nuevacontrasena").val();
 							
 							$.ajax({
 								type 		: "POST",
-								url 		: "/PORTALWEB/perfil.do"+"?method=actContrasena",
+								url 		: "/DeliveryTarjetas/usuario.do"+"?method=actContrasena",
 								cache 		: false ,
 								dataType	: "json",
 								contentType : "application/x-www-form-urlencoded; charset=UTF-8",
 								async 		: false,
-								data 		: CTE_JSON_USUARIOPWEB,		
+								data 		: CTE_JSON_USUARIOWEB,		
 								success 	: function(rsp){
 			
 												var statustx	= rsp.statustx;
 												var messagetx	= rsp.messagetx;
-
+												
 												closeModalCargando();
 												
 												if(statustx == 0){
 													$("#modalPrimerLogueo").modal('hide');
 													
-													loadModalMensaje("Felicitaciones","Haz culminado satisfactoriamente tu registro",
+													loadModalMensaje("Felicitaciones","Haz culminado satisfactoriamente el registro de tu contraseña",
 																		function(){
 																			loadModalCargando();
-
-																			obtDatosUsuarioSesion();
-																			
-																			if(CTE_MOBILE_IND!="1"){
-																				$(".content-rws").load("/PORTALWEB/perfil.do?method=goDashboard",function(){});
-																			}else{
-																				closeModalCargando();
-																				document.forminit.submit();
-																			}		
+		
+																			$(".content-rws").load("/DeliveryTarjetas/delivery.do?method=goHomePage",function(){});
+																					
 																	});														
 												}else
 													loadModalMensaje("Mensaje",messagetx,null); 							 
 								},
-								complete : function (){},
-								error: function (rsp, xhr, ajaxOptions, thrownError) {
-									closeModalCargando();
-									$("#closebtnconfig").click(); 
-									loadModalMensaje("Error","ERROR EN CONFIGURACION INICIAL",null); 					
+								complete 	: function (){},
+								error		: function (rsp, xhr, ajaxOptions, thrownError) {									
+												closeModalCargando();
+												$("#closebtnconfig").click(); 
+												loadModalMensaje("Error","ERROR EN CONFIGURACION INICIAL",null); 					
 								}				
 							});
 					  }, 1000);			
 		}
-  }
+	}
 
 </script>

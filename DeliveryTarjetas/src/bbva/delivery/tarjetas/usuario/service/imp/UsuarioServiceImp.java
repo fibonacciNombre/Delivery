@@ -34,12 +34,11 @@ public class UsuarioServiceImp implements UsuarioService {
 	private static Logger logger 			= Logger.getLogger(UsuarioServiceImp.class.getName());
 	
 	public UsuarioWeb obtDetalleUsuarioWeb(UsuarioWeb usuarioWeb) {
-		logger.info("Service obtDetalleUsuarioWeb");
-		
+		logger.info("Service obtDetalleUsuarioWeb");		
 		return usuarioDao.obtDetalleUsuarioWeb(usuarioWeb);
 	}
 		
-	public UsuarioWeb autenticarUsuario(LoginWeb loginWeb)throws Exception {
+	public UsuarioWeb autenticarUsuario(LoginWeb loginWeb){
 		
 		logger.info("Service autenticarUsuario");
 		
@@ -47,7 +46,7 @@ public class UsuarioServiceImp implements UsuarioService {
 		
 		Courier courier				= new Courier();
 		Tercero tercero				= new Tercero();
-		UsuarioWeb usuarioWeb		= null;
+		UsuarioWeb usuarioWeb		= new UsuarioWeb();
 		UsuarioWeb usuarioWebTmp	= new UsuarioWeb();
 
 		String idUsuario 		= loginWeb.getUserlogin();
@@ -72,7 +71,7 @@ public class UsuarioServiceImp implements UsuarioService {
 //				else{
 					
 					loginWeb.setEscenario(Constants.ESCENARIO_LOGIN_ACCESOS_CORRECTOS);
-					
+//					
 //					tercero.setIdtercero(usuarioWeb.getIdtercero());
 //					
 //					tercero = terceroDao.obtDetalleTercero(tercero);
@@ -82,7 +81,7 @@ public class UsuarioServiceImp implements UsuarioService {
 //						
 //						courier = courierDao.obtDetalleCourier(courier);
 //						
-//						if(courier.getEstado().equals(Constants.USR_STS_INACTIVO))
+//						if(courier.getEstado().equals(Constants.BBVA_DELIVERY_STS_INACTIVO))
 //							loginWeb.setEscenario(Constants.ESCENARIO_LOGIN_COURIER_INACTIVA);						
 //					}
 //				}
@@ -123,5 +122,12 @@ public class UsuarioServiceImp implements UsuarioService {
 		// TODO Auto-generated method stub
 		logger.info("Service lstUsuariosWeb");
 		return null;
+	}
+
+	@Override
+	public void actContrasena(UsuarioWeb usuarioWeb) {
+		// TODO Auto-generated method stub
+		logger.info("Service actContrasena");
+		usuarioDao.actContrasena(usuarioWeb);
 	}
 }

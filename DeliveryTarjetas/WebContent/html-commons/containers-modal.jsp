@@ -69,7 +69,7 @@
 		aria-hidden="true">			
 	<div class="modal-mensaje">		      
 		<div class="modal-content">
-			<span  style="color: white; font-weight: bold; display: block; padding: 5px; width: auto; text-align: center; background-color: rgb(231, 40, 24);">
+			<span  style="color: white; font-weight: bold; display: block; padding: 5px; width: auto; text-align: center; background-color: #00559d;">
 				<span id="titulo-mensaje"></span>
 				<button id="btnclosemodal" type="button" class="close-white" data-dismiss="modal" aria-hidden="true">&times;</button>
 			</span>

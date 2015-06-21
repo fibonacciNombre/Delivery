@@ -16,4 +16,6 @@ public interface UsuarioDao {
 	UsuarioWeb obtDetalleUsuarioWeb(UsuarioWeb usuarioWeb);
 		
 	boolean validarContrasena(UsuarioWeb usuarioWeb);
+	
+	void actContrasena(UsuarioWeb usuarioWeb);
 }

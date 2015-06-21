@@ -34,10 +34,16 @@
 					<ul>
 
 						<li>
-							<a href="#" id="lstClinicas" data-url="/PORTALWEB/clinicas.do?method=goMisClinicas">Registrar usuario</a>
+							<a href="#" id="lstClinicas" data-url="/PORTALWEB/clinicas.do?method=goMisClinicas">Registro de usuario web</a>
 						</li>
 						<li>
-							<a href="#" data-url="/PORTALWEB/cartasGarantia.do?method=goCartasGarantia">Edición de usuario</a>
+							<a href="#" data-url="/PORTALWEB/cartasGarantia.do?method=goCartasGarantia">Edición de usuarios web</a>
+						</li>
+						<li>
+							<a href="#" id="lstClinicas" data-url="/PORTALWEB/clinicas.do?method=goMisClinicas">Registro de <br>usuario servicio web</a>
+						</li>
+						<li>
+							<a href="#" data-url="/PORTALWEB/cartasGarantia.do?method=goCartasGarantia">Edición de <br>usuarios servicio web</a>
 						</li>
 						
 					</ul>
@@ -60,14 +66,14 @@
 							<a href="#" id="lstTalleres" data-url="/PORTALWEB/talleres.do?method=goMisTalleres">Registro de courier</a>
 						</li>
 						<li>
-							<a href="#" id="obtConductor" data-url="/PORTALWEB/asistenciaveh.do?method=goConductor">Edición de courier</a>
+							<a href="#" id="obtConductor" data-url="/PORTALWEB/asistenciaveh.do?method=goConductor">Edición de couriers</a>
 						</li>
 						<li>
-							<a href="#" id="obtSinistro" data-url="/PORTALWEB/asistenciaveh.do?method=goSiniestro">Colaboradores por courier</a>
+							<a href="#" id="obtSinistro" data-url="/PORTALWEB/asistenciaveh.do?method=goSiniestro">Registro de <br>Colaboradores por courier</a>
 						</li>						
 						<li>
-							<a href="#" id="goCargaEntregaTarjeta" data-url="/DeliveryTarjetas/delivery.do?method=goCargaEntregaTarjeta">Carga de archivo<br>colaboradores por courier</a>
-						</li>						
+							<a href="#" id="obtSinistro" data-url="/PORTALWEB/asistenciaveh.do?method=goSiniestro">Edición de <br>Colaboradores por courier</a>
+						</li>
 					</ul>
 				</div>
 			</li>
@@ -75,7 +81,6 @@
 			<li class="panel">
 			    <a href="#" 
 			    	id="panelPerfil"
-			    	<%--data-url="pages/mi-perfil/mi-perfil"--%> 
 			    	data-toggle="collapse" 
 			    	data-parent="#accordion" 
 			    	data-target="#miperfil">
@@ -93,10 +98,10 @@
 			    </div>
 			</li>
 			
+			<%--			
 			<li class="panel">
 				<a href="#" 
 					id="panelReclamos"
-					<%--data-url="/PORTALWEB/reclamos.do?method=goMisReclamos"--%>  
 					data-toggle="collapse" 
 					data-parent="#accordion" 
 					data-target="#reclamos">
@@ -116,6 +121,7 @@
 					</ul>
 				</div>
 			</li>
+			--%>
 		</ul>
 	</div>
 	
