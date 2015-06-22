@@ -12,11 +12,9 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
-import bbva.delivery.tarjetas.anotaciones.AdviceController;
-import bbva.delivery.tarjetas.bean.CargaEntregaTarjeta;
-import bbva.delivery.tarjetas.commons.Constants;
-import bbva.delivery.tarjetas.comun.bean.ListaParametroCursor;
-import bbva.delivery.tarjetas.comun.bean.Parametro;
+import bbva.delivery.tarjetas.anotaciones.AdviceController;  
+import bbva.delivery.tarjetas.commons.Constants; 
+import bbva.delivery.tarjetas.bean.*;
 import bbva.delivery.tarjetas.comun.service.ComunService;
 import bbva.delivery.tarjetas.ldap.service.LdapService;
 import bbva.delivery.tarjetas.perfil.bean.MedioContacto;
@@ -35,10 +33,7 @@ public class DeliveryController extends BaseController{
 	public static final String COOKIE_USUARIO_SAS 			= "SAS_CODUSUARIO_COOKIE";
 	
 	public static final String WEBAPP_SAS 					= "/" ;
-	
-	
-	
-	
+	 
 	public static final String token 						= "F2DA2A4571F9A6BF8B85BB6452CAFAFF";
 	
 	LdapService ldapService 								= LdapService.getInstance();
@@ -68,23 +63,7 @@ public class DeliveryController extends BaseController{
 
 	@Override
 	public ModelAndView save(HttpServletRequest request,HttpServletResponse response) {return null;}
-
-	public ModelAndView comboParametro(HttpServletRequest request, HttpServletResponse response){
-		response.setContentType("text/html; charset=UTF-8");
-		Parametro parametro = new Parametro();
-		String result;
-		
-		parametro.setIdeTipPar(request.getParameter("tipo"));
-		comunService.obtenerListaParametros(parametro);
-		
-		result = commons.web.UtilWeb.listaToArrayJavaScript(parametro.getCursor(), null, ListaParametroCursor.class.getName());
-		
-		this.escribirTextoSalida(response, result);
-		
-		
-		return new ModelAndView();
-	}
-	
+ 
 	public String goHomePage(HttpServletRequest request,
 			HttpServletResponse response)throws Exception {
 		
@@ -205,31 +184,30 @@ public class DeliveryController extends BaseController{
 		return "carga/carga-entrega-tarjeta";
 	}
 	
-	public void cargaEntregaTarjeta(HttpServletRequest request,
+	public void cargaExcelDelivery(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
 		JSONObject joRetorno = new JSONObject();
 		String fileName = request.getParameter("fileName");
-		joRetorno = deliveryService.cargaEntregaTarjeta(fileName);
+		joRetorno = deliveryService.cargarExcelDelivery(fileName);
 
 		this.escribirTextoSalida(response, joRetorno.toString());
 	}
 
-	public void lstCargarEntregaTarjeta(HttpServletRequest request,
+	public void lstDelivery(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
-		List<CargaEntregaTarjeta> listaCarga = null;
+		List<Delivery> listaCarga = null;
 		String lstcarga = "";
 
-		CargaEntregaTarjeta carga = null;
-
-		String texto = null;
-		carga = new CargaEntregaTarjeta(request.getParameterMap());
+		Delivery carga = null;
+ 
+		carga = new Delivery(request.getParameterMap());
 
 		try {
-			listaCarga = deliveryService.lstCargarEntregaTarjeta(carga);
+			listaCarga = deliveryService.lstDelivery(carga);
 			lstcarga = commons.web.UtilWeb.listaToArrayJson(listaCarga, null,
-					CargaEntregaTarjeta.class.getName());
+					Delivery.class.getName());
 		} catch (Error e) {
 			lstcarga = "{" + e.getMessage() + "}";
 		}
@@ -237,4 +215,63 @@ public class DeliveryController extends BaseController{
 		this.escribirTextoSalida(response, lstcarga);
 		 
 	}
+	
+	public void lstParametro(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		List<Parametro> listaParametro = null;
+		String lstparametro = "";
+
+		Parametro parametro = null;
+ 
+		parametro = new Parametro(request.getParameterMap());
+
+		try {
+			listaParametro = deliveryService.lstParametro(parametro);
+			lstparametro = commons.web.UtilWeb.listaToArrayJson(listaParametro, null,
+					Parametro.class.getName());
+		} catch (Error e) {
+			lstparametro = "{" + e.getMessage() + "}";
+		}
+
+		this.escribirTextoSalida(response, lstparametro);
+		 
+	}
+	
+	public void lstCourier(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		List<Courier> listaCourier = null;
+		String lstcourier = "";
+
+		Courier courier = null;
+ 
+		courier = new Courier(request.getParameterMap());
+
+		try {
+			listaCourier = deliveryService.lstCourier(courier);
+			lstcourier = commons.web.UtilWeb.listaToArrayJson(listaCourier, null,
+					Courier.class.getName());
+		} catch (Error e) {
+			lstcourier = "{" + e.getMessage() + "}";
+		}
+
+		this.escribirTextoSalida(response, lstcourier);
+		 
+	}
+	
+	public void mntCourier(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+ 		Courier courier = null;
+ 
+		courier = new Courier(request.getParameterMap());
+
+		try {
+			deliveryService.mntCourier(courier); 
+		} catch (Error e) { 
+		}
+
+		this.escribirTextoSalida(response, "0");
+		 
+	}
+	
 }

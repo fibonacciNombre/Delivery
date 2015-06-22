@@ -14,7 +14,9 @@ import org.springframework.stereotype.Repository;
 
 import com.rimac.sas.utiles.comunes.JdbcHelper;
 
-import bbva.delivery.tarjetas.bean.CargaEntregaTarjeta;
+import bbva.delivery.tarjetas.bean.Courier;
+import bbva.delivery.tarjetas.bean.Delivery;
+import bbva.delivery.tarjetas.bean.Parametro;
 import bbva.delivery.tarjetas.commons.ConstantsProperties;
 import bbva.delivery.tarjetas.comun.dao.imp.JdbcDaoBase;
 import bbva.delivery.tarjetas.dao.DeliveryDao;
@@ -32,59 +34,59 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 	}	
 	
 	@Override
-	public void cargarEntregaTarjeta(CargaEntregaTarjeta param) { 
+	public void mntDelivery(Delivery param) { 
 		
 		SimpleJdbcCall call = null;
 		MapSqlParameterSource in = null;
 		Map<String, Object> out = null; 
 		in = new MapSqlParameterSource(); 
-		BigDecimal idecarga = null;
+		BigDecimal iddelivery = null;
 		
 		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), 
-				resources.getString(ConstantsProperties.OWNER_ESQUEMA_COMUNES), 
-				resources.getString(ConstantsProperties.PACKAGE_CARGA_TARJETAS), 
-				"sp_carga_entregatarjeta");
+				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY), 
+				resources.getString(ConstantsProperties.PQ_DEL_COURIER), 
+				"sp_mnt_delivery");
 		
-		JdbcHelper.setInOutParameter(call, in, "a_idecarga", 	Types.NUMERIC, param.getIdecarga()); 
-		JdbcHelper.setInParameter(call, in, "a_numerotarjeta", 	Types.VARCHAR, param.getNumerotarjeta());
-		JdbcHelper.setInParameter(call, in, "a_ultimosdigitos", Types.VARCHAR, param.getUltimosdigitos());
-		JdbcHelper.setInParameter(call, in, "a_dnicliente", 	Types.VARCHAR, param.getDnicliente());
-		JdbcHelper.setInParameter(call, in, "a_nomcliente", 	Types.VARCHAR, param.getNomcliente());
-		JdbcHelper.setInParameter(call, in, "a_loccliente", 	Types.VARCHAR, param.getLoccliente());
-		JdbcHelper.setInParameter(call, in, "a_dircliente", 	Types.VARCHAR, param.getDircliente());
-		JdbcHelper.setInParameter(call, in, "a_distcliente", 	Types.VARCHAR, param.getDistcliente());
-		JdbcHelper.setInParameter(call, in, "a_tipoprod", 		Types.VARCHAR, param.getTipoprod());
-		JdbcHelper.setInParameter(call, in, "a_subtipoprod", 	Types.VARCHAR, param.getSubtipoprod()); 
-		JdbcHelper.setInParameter(call, in, "a_montocred", 		Types.NUMERIC, param.getMontocred()); 
-		JdbcHelper.setInParameter(call, in, "a_ubientrega", 	Types.VARCHAR, param.getUbientrega());
-		JdbcHelper.setInParameter(call, in, "a_latoficina", 	Types.NUMERIC, param.getLatoficina());
-		JdbcHelper.setInParameter(call, in, "a_lngoficina", 	Types.NUMERIC, param.getLngoficina());
-		JdbcHelper.setInParameter(call, in, "a_latdomicilio", 	Types.NUMERIC, param.getLatdomicilio());
-		JdbcHelper.setInParameter(call, in, "a_lngdomicilio", 	Types.NUMERIC, param.getLngdomicilio());
-		JdbcHelper.setInParameter(call, in, "a_fecentregaprog", Types.VARCHAR, param.getFecentregaprog());
-		JdbcHelper.setInParameter(call, in, "a_horentregaprog", Types.VARCHAR, param.getHorentregaprog());
-		JdbcHelper.setInParameter(call, in, "a_direntrega", 	Types.VARCHAR, param.getDirentrega());
-		JdbcHelper.setInParameter(call, in, "a_distentrega", 	Types.VARCHAR, param.getDistentrega());
-		JdbcHelper.setInParameter(call, in, "a_proventrega", 	Types.VARCHAR, param.getProventrega());
-		
-		JdbcHelper.setInParameter(call, in, "a_depentrega", 	Types.VARCHAR, param.getDepentrega());
-		JdbcHelper.setInParameter(call, in, "a_courierasoc", 	Types.VARCHAR, param.getCourierasoc());
-		JdbcHelper.setInParameter(call, in, "a_dnicourier", 	Types.VARCHAR, param.getDnicourier()); 
-		JdbcHelper.setInParameter(call, in, "a_grupocarga", 	Types.VARCHAR, param.getGrupocarga()); 
+		  JdbcHelper.setInOutParameter(call, in, "a_iddelivery"      , 	Types.NUMERIC, param.getIddelivery());  
+	      JdbcHelper.setInParameter(call, in, "a_tipodocumento" , 	Types.VARCHAR, param.getTipodocumento());  	  
+	      JdbcHelper.setInParameter(call, in, "a_nrodocumentocli" , 	Types.VARCHAR, param.getNrodocumentocli()); 	  
+	      JdbcHelper.setInParameter(call, in, "a_nombrescli"      , 	Types.VARCHAR, param.getNombrescli()); 
+	      JdbcHelper.setInParameter(call, in, "a_tipotarjeta"     , 	Types.VARCHAR, param.getTipotarjeta());  
+	      JdbcHelper.setInParameter(call, in, "a_pridigtarjeta"   , 	Types.VARCHAR, param.getPridigtarjeta()); 
+	      JdbcHelper.setInParameter(call, in, "a_ultdigtarjeta"   , 	Types.VARCHAR, param.getUltdigtarjeta()); 
+	      JdbcHelper.setInParameter(call, in, "a_nrocontrato"     , 	Types.VARCHAR, param.getNrocontrato()); 
+	      JdbcHelper.setInParameter(call, in, "a_mtoasoctarjeta"  , 	Types.VARCHAR, param.getMtoasoctarjeta()); 
+	      JdbcHelper.setInParameter(call, in, "a_fecentrega"      , 	Types.DATE, param.getFecentrega()); 
+	      JdbcHelper.setInParameter(call, in, "a_horaentrega"     , 	Types.DATE, param.getHoraentrega()); 
+	      JdbcHelper.setInParameter(call, in, "a_lugarentrega"    , 	Types.VARCHAR, param.getLugarentrega()); 
+	      JdbcHelper.setInParameter(call, in, "a_indverificacion" , 	Types.VARCHAR, param.getIndverificacion()); 
+	      JdbcHelper.setInParameter(call, in, "a_direccioncli"    , 	Types.VARCHAR, param.getDireccioncli()); 
+	      JdbcHelper.setInParameter(call, in, "a_distritocli"     , 	Types.VARCHAR, param.getDistritocli()); 
+	      JdbcHelper.setInParameter(call, in, "a_latitudofi"      , 	Types.NUMERIC, param.getLatitudofi()); 
+	      JdbcHelper.setInParameter(call, in, "a_longitudofi"     , 	Types.NUMERIC, param.getLongitudofi()); 
+	      JdbcHelper.setInParameter(call, in, "a_correocli"       , 	Types.VARCHAR, param.getCorreocli()); 
+	      JdbcHelper.setInParameter(call, in, "a_telmovilcli"     , 	Types.VARCHAR, param.getTelmovilcli()); 
+	      JdbcHelper.setInParameter(call, in, "a_ordenentrega"    , 	Types.VARCHAR, param.getOrdenentrega()); 
+	      JdbcHelper.setInParameter(call, in, "a_idcourier"       , 	Types.NUMERIC, param.getIdcourier()); 
+	      JdbcHelper.setInParameter(call, in, "a_idtercero"       , 	Types.NUMERIC, param.getIdtercero()); 
+	      JdbcHelper.setInParameter(call, in, "a_idpestado"        , 	Types.INTEGER, param.getIdpestado()); 
+	      JdbcHelper.setInParameter(call, in, "a_idarchivo"       , 	Types.INTEGER, param.getIdarchivo()); 
+	      JdbcHelper.setInParameter(call, in, "a_idpestadocarga"     , 	Types.INTEGER, param.getIdpestadocarga()); 
+	      JdbcHelper.setInParameter(call, in, "a_mensajecarga"    , 	Types.VARCHAR, param.getMensajecarga()); 
+	      JdbcHelper.setInParameter(call, in, "a_grupocarga"      , 	Types.NUMERIC, param.getGrupocarga()); 
 		
 		out = call.execute(in);
 		
-		idecarga = JdbcHelper.getOutResult(out, "a_idecarga", BigDecimal.class);
-		param.setIdecarga(idecarga); 
+		iddelivery = JdbcHelper.getOutResult(out, "a_iddelivery", BigDecimal.class);
+		param.setIddelivery(iddelivery); 
 
 	}
 	 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<CargaEntregaTarjeta> lstCargarEntregaTarjeta(CargaEntregaTarjeta param) {
-		 
-		
-		List<CargaEntregaTarjeta> lista = null; 
+	public List<Delivery> lstDelivery(Delivery param) {
+		  
+		List<Delivery> lista = null; 
 		MapSqlParameterSource in = null;
 
 		SimpleJdbcCall call = null;
@@ -92,26 +94,26 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 		in = new MapSqlParameterSource();
 
 		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
-				resources.getString(ConstantsProperties.OWNER_ESQUEMA_COMUNES),
-				resources.getString(ConstantsProperties.PACKAGE_CARGA_TARJETAS),
-				"sp_lst_carga_entregatarjeta");
+				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
+				resources.getString(ConstantsProperties.PQ_DEL_COURIER),
+				"sp_lst_delivery");
  
-		JdbcHelper.setInParameter(call, in, "a_dnicliente", OracleTypes.VARCHAR, param.getDnicliente());
-		JdbcHelper.setInParameter(call, in, "a_nomcliente", OracleTypes.VARCHAR, param.getNomcliente());
-		JdbcHelper.setInParameter(call, in, "a_dnicourier", OracleTypes.VARCHAR, param.getDnicourier());
-		JdbcHelper.setInParameter(call, in, "a_courierasoc", OracleTypes.VARCHAR, param.getCourierasoc());
-		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, CargaEntregaTarjeta.class);
+		JdbcHelper.setInParameter(call, in, "a_nrodocumentocli", OracleTypes.VARCHAR, param.getNrodocumentocli());
+		JdbcHelper.setInParameter(call, in, "a_nombrescli", OracleTypes.VARCHAR, param.getNombrescli());
+		JdbcHelper.setInParameter(call, in, "a_nrodocumentocou", OracleTypes.VARCHAR, param.getNrodocumentocli());
+		JdbcHelper.setInParameter(call, in, "a_nombrecou", OracleTypes.VARCHAR, param.getNombrescli());
+		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, Delivery.class);
 		
 
 		out = call.execute(in);
-		lista = (List<CargaEntregaTarjeta>) out.get("a_cursor");
+		lista = (List<Delivery>) out.get("a_cursor");
 		 
 		 
 		return lista;
 	}
 	
 	@Override
-	public BigDecimal crearGrupoCarga() { 
+	public BigDecimal crearGrupoCargaDelivery() { 
 		
 		SimpleJdbcCall call = null;
 		MapSqlParameterSource in = null;
@@ -120,8 +122,8 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 		BigDecimal grupocarga = null;
 		
 		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), 
-				resources.getString(ConstantsProperties.OWNER_ESQUEMA_COMUNES), 
-				resources.getString(ConstantsProperties.PACKAGE_CARGA_TARJETAS), 
+				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY), 
+				resources.getString(ConstantsProperties.PQ_DEL_COURIER), 
 				"sp_crear_grupocarga");
 		
 		JdbcHelper.setInOutParameter(call, in, "a_grupocarga", 	Types.NUMERIC, grupocarga); 
@@ -133,5 +135,110 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 		return grupocarga;
 
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Parametro> lstParametro(Parametro param) {
+		  
+		List<Parametro> lista = null; 
+		MapSqlParameterSource in = null;
+
+		SimpleJdbcCall call = null;
+		Map<String, Object> out = null;
+		in = new MapSqlParameterSource();
+
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
+				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
+				resources.getString(ConstantsProperties.PQ_DEL_COURIER),
+				"sp_lst_parametro");
+ 
+		JdbcHelper.setInParameter(call, in, "a_idparametrotipo", OracleTypes.INTEGER, param.getIdparametrotipo()); 
+		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, Parametro.class);
+		 
+		out = call.execute(in);
+		lista = (List<Parametro>) out.get("a_cursor");
+		  
+		return lista;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Courier> lstCourier(Courier param) {
+		List<Courier> lista = null; 
+		MapSqlParameterSource in = null;
+
+		SimpleJdbcCall call = null;
+		Map<String, Object> out = null;
+		in = new MapSqlParameterSource();
+
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
+				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
+				resources.getString(ConstantsProperties.PQ_DEL_COURIER),
+				"sp_lst_courier");
+ 
+		JdbcHelper.setInParameter(call, in, "a_codigo", OracleTypes.VARCHAR, param.getCodigo());
+		JdbcHelper.setInParameter(call, in, "a_nombre", OracleTypes.VARCHAR, param.getNombre());
+		JdbcHelper.setInParameter(call, in, "a_nrodocumentocou", OracleTypes.VARCHAR, param.getNrodocumentocou()); 
+		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, Courier.class);
+		 
+		out = call.execute(in);
+		lista = (List<Courier>) out.get("a_cursor");
+		  
+		return lista;
+	}
+
+	@Override
+	public void mntCourier(Courier param) {
+		SimpleJdbcCall call = null;
+		MapSqlParameterSource in = null;
+		Map<String, Object> out = null; 
+		in = new MapSqlParameterSource(); 
+		BigDecimal iddelivery = null;
+		
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), 
+				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY), 
+				resources.getString(ConstantsProperties.PQ_DEL_COURIER), 
+				"sp_mnt_courier");
+		
+		  JdbcHelper.setInOutParameter(call, in, "a_idcourier", 	Types.NUMERIC, param.getIdcourier());  
+	      JdbcHelper.setInParameter(call, in, "a_codigo" , 			Types.VARCHAR, param.getCodigo());  	  
+	      JdbcHelper.setInParameter(call, in, "a_nombre" , 			Types.VARCHAR, param.getNombre()); 	  
+	      JdbcHelper.setInParameter(call, in, "a_telffijo", 		Types.VARCHAR, param.getTelffijo()); 
+	      JdbcHelper.setInParameter(call, in, "a_telfmovil", 		Types.VARCHAR, param.getTelfmovil());  
+	      JdbcHelper.setInParameter(call, in, "a_observacion", 		Types.VARCHAR, param.getObservacion()); 
+	      JdbcHelper.setInParameter(call, in, "a_nrodocumentocou", 	Types.VARCHAR, param.getNrodocumentocou()); 
+	      JdbcHelper.setInParameter(call, in, "a_idptipodocumento", Types.INTEGER, param.getIdptipodocumento());   
+		
+		out = call.execute(in);
+		
+		iddelivery = JdbcHelper.getOutResult(out, "a_idcourier", BigDecimal.class);
+		param.setIdcourier(iddelivery); 
+		
+	}
+
+	@Override
+	public Integer valCourierDelivery(String dnicourier) {
+		SimpleJdbcCall call = null;
+		MapSqlParameterSource in = null;
+		Map<String, Object> out = null; 
+		in = new MapSqlParameterSource(); 
+		Integer valor = null;
+		
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), 
+				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY), 
+				resources.getString(ConstantsProperties.PQ_DEL_COURIER), 
+				"sp_val_courier_delivery");
+		
+		JdbcHelper.setInParameter(call, in, "a_nrodoccou_xls", 	Types.VARCHAR, dnicourier); 
+		JdbcHelper.setInOutParameter(call, in, "a_valor", 	Types.INTEGER, dnicourier); 
+		 
+		
+		out = call.execute(in);
+		
+		valor = JdbcHelper.getOutResult(out, "a_nrodoccou_xls", Integer.class);
+		return valor;
+
+	}
+	
 }
 

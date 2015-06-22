@@ -1,18 +1,24 @@
 package bbva.delivery.tarjetas.service;
 
-import java.io.FileNotFoundException;
-import java.math.BigDecimal;
+import java.io.FileNotFoundException; 
 import java.util.List;
 
 import org.json.simple.JSONObject;
 
-import bbva.delivery.tarjetas.bean.CargaEntregaTarjeta;
+import bbva.delivery.tarjetas.bean.Courier;
+import bbva.delivery.tarjetas.bean.Delivery; 
+import bbva.delivery.tarjetas.bean.Parametro;
 
 public interface DeliveryService {
 
 	public void test();
 
-	public JSONObject cargaEntregaTarjeta(String fileName) throws FileNotFoundException;
-	public List<CargaEntregaTarjeta> lstCargarEntregaTarjeta(CargaEntregaTarjeta param);
-	public BigDecimal crearGrupoCarga();
+	public JSONObject cargarExcelDelivery(String fileName) throws FileNotFoundException;
+	public List<Delivery> lstDelivery(Delivery param);
+	
+	public List<Parametro> lstParametro(Parametro param);
+	
+	public List<Courier> lstCourier(Courier param);
+	public void mntCourier(Courier param);
+	public Integer valCourierDelivery(String dnicourier);
 }

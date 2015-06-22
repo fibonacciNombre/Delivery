@@ -9,13 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import rimac.sas.correo.service.CorreoService;
+ 
 import bbva.delivery.tarjetas.commons.Constants;
 import bbva.delivery.tarjetas.comun.bean.ListaParametroCursor;
 import bbva.delivery.tarjetas.comun.bean.Parametro;
-import bbva.delivery.tarjetas.comun.bean.Persona;
-import bbva.delivery.tarjetas.comun.service.ComunService;
+import bbva.delivery.tarjetas.comun.bean.Persona; 
 import bbva.delivery.tarjetas.ldap.service.LdapService;
 import bbva.delivery.tarjetas.perfil.bean.LoginWeb;
 import bbva.delivery.tarjetas.perfil.bean.MedioContacto;
