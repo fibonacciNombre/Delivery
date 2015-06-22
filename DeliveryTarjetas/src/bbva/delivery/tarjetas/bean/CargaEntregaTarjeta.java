@@ -35,7 +35,6 @@ public class CargaEntregaTarjeta {
 	private String dnicourier;
 	private BigDecimal grupocarga;
 
-	
 	private List cursor;
 	
 	public CargaEntregaTarjeta(){
