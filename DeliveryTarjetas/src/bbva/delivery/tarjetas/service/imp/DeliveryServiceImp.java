@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import bbva.delivery.tarjetas.bean.CargaEntregaTarjetav1;
+import bbva.delivery.tarjetas.bean.CargaEntregaTarjeta;
 import bbva.delivery.tarjetas.dao.DeliveryDao;
 import bbva.delivery.tarjetas.service.DeliveryService;
 
@@ -45,7 +45,7 @@ public class DeliveryServiceImp implements DeliveryService {
 		Integer errorCarga = 0; 
 		
 		
-		CargaEntregaTarjetav1 carga = new CargaEntregaTarjetav1();
+		CargaEntregaTarjeta carga = new CargaEntregaTarjeta();
 		
 		FileInputStream fileInput = null;
 		Workbook wb = null;
@@ -187,7 +187,7 @@ public class DeliveryServiceImp implements DeliveryService {
 	}
 	
 	@Override
-	public List<CargaEntregaTarjetav1> lstCargarEntregaTarjeta(CargaEntregaTarjetav1 param){
+	public List<CargaEntregaTarjeta> lstCargarEntregaTarjeta(CargaEntregaTarjeta param){
 		return portalWebDao.lstCargarEntregaTarjeta(param);
 	}
 	

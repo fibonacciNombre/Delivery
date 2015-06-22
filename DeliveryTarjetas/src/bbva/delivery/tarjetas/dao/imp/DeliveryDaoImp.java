@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import com.rimac.sas.utiles.comunes.JdbcHelper;
 
-import bbva.delivery.tarjetas.bean.CargaEntregaTarjetav1;
+import bbva.delivery.tarjetas.bean.CargaEntregaTarjeta;
 import bbva.delivery.tarjetas.commons.ConstantsProperties;
 import bbva.delivery.tarjetas.comun.dao.imp.JdbcDaoBase;
 import bbva.delivery.tarjetas.dao.DeliveryDao;
@@ -32,7 +32,7 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 	}	
 	
 	@Override
-	public void cargarEntregaTarjeta(CargaEntregaTarjetav1 param) { 
+	public void cargarEntregaTarjeta(CargaEntregaTarjeta param) { 
 		
 		SimpleJdbcCall call = null;
 		MapSqlParameterSource in = null;
@@ -81,10 +81,10 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 	 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<CargaEntregaTarjetav1> lstCargarEntregaTarjeta(CargaEntregaTarjetav1 param) {
+	public List<CargaEntregaTarjeta> lstCargarEntregaTarjeta(CargaEntregaTarjeta param) {
 		 
 		
-		List<CargaEntregaTarjetav1> lista = null; 
+		List<CargaEntregaTarjeta> lista = null; 
 		MapSqlParameterSource in = null;
 
 		SimpleJdbcCall call = null;
@@ -100,11 +100,11 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 		JdbcHelper.setInParameter(call, in, "a_nomcliente", OracleTypes.VARCHAR, param.getNomcliente());
 		JdbcHelper.setInParameter(call, in, "a_dnicourier", OracleTypes.VARCHAR, param.getDnicourier());
 		JdbcHelper.setInParameter(call, in, "a_courierasoc", OracleTypes.VARCHAR, param.getCourierasoc());
-		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, CargaEntregaTarjetav1.class);
+		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, CargaEntregaTarjeta.class);
 		
 
 		out = call.execute(in);
-		lista = (List<CargaEntregaTarjetav1>) out.get("a_cursor");
+		lista = (List<CargaEntregaTarjeta>) out.get("a_cursor");
 		 
 		 
 		return lista;

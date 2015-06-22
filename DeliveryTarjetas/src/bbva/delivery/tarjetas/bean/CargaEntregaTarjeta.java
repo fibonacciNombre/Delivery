@@ -7,7 +7,7 @@ import java.util.Map;
 import commons.mapper.ResourceManager;
 
 @SuppressWarnings("rawtypes")
-public class CargaEntregaTarjetav1 {
+public class CargaEntregaTarjeta {
 	
 	private BigDecimal idecarga;
 	private String numerotarjeta;
@@ -37,11 +37,11 @@ public class CargaEntregaTarjetav1 {
 
 	private List cursor;
 	
-	public CargaEntregaTarjetav1(){
+	public CargaEntregaTarjeta(){
 		
 	}
  
-	public CargaEntregaTarjetav1(Map params) throws Exception {
+	public CargaEntregaTarjeta(Map params) throws Exception {
 		ResourceManager.populateDtoFromMap(this, params);
 	}
 	

@@ -6,13 +6,13 @@ import java.util.List;
 
 import org.json.simple.JSONObject;
 
-import bbva.delivery.tarjetas.bean.CargaEntregaTarjetav1;
+import bbva.delivery.tarjetas.bean.CargaEntregaTarjeta;
 
 public interface DeliveryService {
 
 	public void test();
 
 	public JSONObject cargaEntregaTarjeta(String fileName) throws FileNotFoundException;
-	public List<CargaEntregaTarjetav1> lstCargarEntregaTarjeta(CargaEntregaTarjetav1 param);
+	public List<CargaEntregaTarjeta> lstCargarEntregaTarjeta(CargaEntregaTarjeta param);
 	public BigDecimal crearGrupoCarga();
 }
