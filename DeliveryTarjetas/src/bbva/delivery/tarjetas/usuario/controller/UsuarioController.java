@@ -202,7 +202,7 @@ public class UsuarioController extends BaseController {
 		
 		if(usuarioWeb.getIdtercero()!=null){
 			tercero.setIdtercero(usuarioWeb.getIdtercero());
-			tercero = terceroService.obtDetalleTercero(tercero);	
+			//tercero = terceroService.obtDetalleTercero(tercero);	
 			jsonTercero += commons.web.UtilWeb.objectToJson(tercero, null, Tercero.class.getName());
 		}
 		

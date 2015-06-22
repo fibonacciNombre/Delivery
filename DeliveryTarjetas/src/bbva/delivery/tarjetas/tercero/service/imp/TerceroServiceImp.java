@@ -18,7 +18,7 @@ public class TerceroServiceImp implements TerceroService {
 	private static Logger logger = Logger.getLogger(TerceroServiceImp.class.getName());
 	
 	private TerceroDao terceroDao;
-	
+	/*
 	@Override
 	public void regTercero(Tercero tercero) {
 		logger.info("Service regCourier");
@@ -41,5 +41,5 @@ public class TerceroServiceImp implements TerceroService {
 	public Tercero obtDetalleTercero(Tercero tercero) {
 		logger.info("Service regCourier");
 		return terceroDao.obtDetalleTercero(tercero);
-	}
+	}*/
 }

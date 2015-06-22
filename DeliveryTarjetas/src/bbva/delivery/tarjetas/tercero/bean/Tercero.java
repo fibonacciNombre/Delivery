@@ -14,15 +14,15 @@ public class Tercero implements Serializable {
 	private String apepaterno;
 	private String apematerno;
 	private String rznsocial;
-	private String estado;
-	private String usucreacion;
-	private String usumodificacion;
-	private String feccreacion;
-	private String fecmodifcacion;
-	private String historial;
-	private Integer idcourier;
+	private String idpestado;
+	private String usuario; 
+ 	private String historial;
+ 	private Integer idcourier;
+ 	private Integer idarchivo;
 	private Integer idroltercero;
-	private Integer idtipodocumento;
+	private Integer idptipodocumento;
+
+ 	private Integer idtercerorel;
 	
 	private Courier courier;
 	private TipoDocumento tipdocumento;
@@ -64,36 +64,14 @@ public class Tercero implements Serializable {
 	public void setRznsocial(String rznsocial) {
 		this.rznsocial = rznsocial;
 	}
-	public String getEstado() {
-		return estado;
+	
+	public String getUsuario() {
+		return usuario;
 	}
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
-	public String getUsucreacion() {
-		return usucreacion;
-	}
-	public void setUsucreacion(String usucreacion) {
-		this.usucreacion = usucreacion;
-	}
-	public String getUsumodificacion() {
-		return usumodificacion;
-	}
-	public void setUsumodificacion(String usumodificacion) {
-		this.usumodificacion = usumodificacion;
-	}
-	public String getFeccreacion() {
-		return feccreacion;
-	}
-	public void setFeccreacion(String feccreacion) {
-		this.feccreacion = feccreacion;
-	}
-	public String getFecmodifcacion() {
-		return fecmodifcacion;
-	}
-	public void setFecmodifcacion(String fecmodifcacion) {
-		this.fecmodifcacion = fecmodifcacion;
-	}
+	
 	public String getHistorial() {
 		return historial;
 	}
@@ -130,11 +108,29 @@ public class Tercero implements Serializable {
 	public void setIdroltercero(Integer idroltercero) {
 		this.idroltercero = idroltercero;
 	}
-	public Integer getIdtipodocumento() {
-		return idtipodocumento;
+	public String getIdpestado() {
+		return idpestado;
 	}
-	public void setIdtipodocumento(Integer idtipodocumento) {
-		this.idtipodocumento = idtipodocumento;
+	public void setIdpestado(String idpestado) {
+		this.idpestado = idpestado;
 	}
-	
+	public Integer getIdptipodocumento() {
+		return idptipodocumento;
+	}
+	public void setIdptipodocumento(Integer idptipodocumento) {
+		this.idptipodocumento = idptipodocumento;
+	}
+	public Integer getIdtercerorel() {
+		return idtercerorel;
+	}
+	public void setIdtercerorel(Integer idtercerorel) {
+		this.idtercerorel = idtercerorel;
+	}
+	public Integer getIdarchivo() {
+		return idarchivo;
+	}
+	public void setIdarchivo(Integer idarchivo) {
+		this.idarchivo = idarchivo;
+	}
+	 
 }
