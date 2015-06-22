@@ -6,4 +6,4 @@
 
 <%@include file="/html-commons/js.jsp" %>
 
-<%@include file="../jsp/carga/lib.jsp" %>
+<%@include file="../jsp/courier/lib.jsp" %>

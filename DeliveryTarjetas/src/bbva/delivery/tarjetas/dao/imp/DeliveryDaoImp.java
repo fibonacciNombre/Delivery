@@ -85,8 +85,7 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Delivery> lstDelivery(Delivery param) {
-		 
-		
+		  
 		List<Delivery> lista = null; 
 		MapSqlParameterSource in = null;
 
@@ -177,6 +176,9 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 				resources.getString(ConstantsProperties.PQ_DEL_COURIER),
 				"sp_lst_courier");
  
+		JdbcHelper.setInParameter(call, in, "a_codigo", OracleTypes.VARCHAR, param.getCodigo());
+		JdbcHelper.setInParameter(call, in, "a_nombre", OracleTypes.VARCHAR, param.getNombre());
+		JdbcHelper.setInParameter(call, in, "a_nrodocumentocou", OracleTypes.VARCHAR, param.getNrodocumentocou()); 
 		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, Courier.class);
 		 
 		out = call.execute(in);

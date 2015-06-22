@@ -86,7 +86,8 @@ public class DeliveryServiceImp implements DeliveryService {
 					if (row == null) {
 						continue;
 					}
-					 existeCourier = valCourierDelivery(getCellValue(row, 0));
+					
+					existeCourier = valCourierDelivery(getCellValue(row, 0));
 					
 					carga.setIddelivery(null);
 					carga.setGrupocarga(idgrupoCarga);
