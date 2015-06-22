@@ -22,6 +22,7 @@ public class CourierController extends BaseController {
 	@Override
 	public ModelAndView save(HttpServletRequest request,HttpServletResponse response) {return null;}
 	
+	
 	public String goRegCourier(HttpServletRequest request,
 			HttpServletResponse response)throws Exception {
 		
