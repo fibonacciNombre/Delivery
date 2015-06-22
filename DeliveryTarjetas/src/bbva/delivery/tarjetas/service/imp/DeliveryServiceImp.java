@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import bbva.delivery.tarjetas.bean.CargaEntregaTarjeta;
+import bbva.delivery.tarjetas.bean.CargaEntregaTarjetav1;
 import bbva.delivery.tarjetas.dao.DeliveryDao;
 import bbva.delivery.tarjetas.service.DeliveryService;
 
@@ -45,7 +45,7 @@ public class DeliveryServiceImp implements DeliveryService {
 		Integer errorCarga = 0; 
 		
 		
-		CargaEntregaTarjeta carga = new CargaEntregaTarjeta();
+		CargaEntregaTarjetav1 carga = new CargaEntregaTarjetav1();
 		
 		FileInputStream fileInput = null;
 		Workbook wb = null;
@@ -143,7 +143,7 @@ public class DeliveryServiceImp implements DeliveryService {
 						portalWebDao.cargarEntregaTarjeta(carga); 
 					} catch (Exception e) {
 						errorCarga = 2;
-						logCarga += "Fila N°: " + r + "\n Error : " + e.getMessage() + "\n\n"; 
+						logCarga += "Fila Nï¿½: " + r + "\n Error : " + e.getMessage() + "\n\n"; 
 					}
 					 
 				}
@@ -151,7 +151,7 @@ public class DeliveryServiceImp implements DeliveryService {
 			
 			if (errorCarga == 2){
 				resultado = errorCarga;
-				mensaje = "Hubo problemas en la carga de uno o más registros \n " + logCarga;
+				mensaje = "Hubo problemas en la carga de uno o mï¿½s registros \n " + logCarga;
 			}
 
 		} catch (Exception e) {
@@ -187,7 +187,7 @@ public class DeliveryServiceImp implements DeliveryService {
 	}
 	
 	@Override
-	public List<CargaEntregaTarjeta> lstCargarEntregaTarjeta(CargaEntregaTarjeta param){
+	public List<CargaEntregaTarjetav1> lstCargarEntregaTarjeta(CargaEntregaTarjetav1 param){
 		return portalWebDao.lstCargarEntregaTarjeta(param);
 	}
 	

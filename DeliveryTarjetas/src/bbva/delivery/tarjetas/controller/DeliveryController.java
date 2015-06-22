@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import bbva.delivery.tarjetas.anotaciones.AdviceController;
-import bbva.delivery.tarjetas.bean.CargaEntregaTarjeta;
+import bbva.delivery.tarjetas.bean.CargaEntregaTarjetav1;
 import bbva.delivery.tarjetas.comun.service.ComunService;
 import bbva.delivery.tarjetas.service.DeliveryService;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
@@ -81,18 +81,18 @@ public class DeliveryController extends BaseController{
 	public void lstCargarEntregaTarjeta(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
-		List<CargaEntregaTarjeta> listaCarga = null;
+		List<CargaEntregaTarjetav1> listaCarga = null;
 		String lstcarga = "";
 
-		CargaEntregaTarjeta carga = null;
+		CargaEntregaTarjetav1 carga = null;
 
 		String texto = null;
-		carga = new CargaEntregaTarjeta(request.getParameterMap());
+		carga = new CargaEntregaTarjetav1(request.getParameterMap());
 
 		try {
 			listaCarga = deliveryService.lstCargarEntregaTarjeta(carga);
 			lstcarga = commons.web.UtilWeb.listaToArrayJson(listaCarga, null,
-					CargaEntregaTarjeta.class.getName());
+					CargaEntregaTarjetav1.class.getName());
 		} catch (Error e) {
 			lstcarga = "{" + e.getMessage() + "}";
 		}
