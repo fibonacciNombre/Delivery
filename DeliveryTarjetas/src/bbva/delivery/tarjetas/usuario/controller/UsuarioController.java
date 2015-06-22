@@ -48,6 +48,47 @@ public class UsuarioController extends BaseController {
 	@Override
 	public ModelAndView save(HttpServletRequest request,HttpServletResponse response) {return null;}
 	
+	public String goRegUsuarioWeb(HttpServletRequest request,
+			HttpServletResponse response)throws Exception {
+		
+		System.out.println("goRegUsuarioWeb	-->		reg-usuario.jsp");
+		return "usuario/reg-usuario"; 
+	}
+	
+	public String goMntUsuarioWeb(HttpServletRequest request,
+			HttpServletResponse response)throws Exception {
+		
+		System.out.println("goMntUsuarioWeb	-->		mnt-usuario.jsp");
+		return "usuario/mnt-usuario"; 
+	}
+	
+	public String goRegUsuarioWS(HttpServletRequest request,
+			HttpServletResponse response)throws Exception {
+		
+		System.out.println("goRegUsuarioWS	-->		reg-usuario-ws.jsp");
+		return "usuario/reg-usuario-ws"; 
+	}
+	
+	public String goMntUsuarioWS(HttpServletRequest request,
+			HttpServletResponse response)throws Exception {
+		
+		System.out.println("goMntUsuarioWS	-->		mnt-usuario-ws.jsp");
+		return "usuario/mnt-usuario-ws"; 
+	}
+	
+	public String goMiCuenta(HttpServletRequest request,
+			HttpServletResponse response)throws Exception {
+		
+		System.out.println("goMiCuenta	-->		mnt-cuenta.jsp");
+		return "usuario/mnt-cuenta"; 
+	}
+	
+	public String goActContrasena(HttpServletRequest request,
+			HttpServletResponse response)throws Exception {
+		
+		System.out.println("goActContrasena	-->		act-contrasena.jsp");
+		return "usuario/act-contrasena"; 
+	}
 	public void login(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
 		String escenarioLogin 			= "";

@@ -13,10 +13,10 @@
 			<li class="panel" >
 				<a 	href="#" 
 					id="panelSeguros"
-					data-url="/PORTALWEB/misseguros.do?method=goMisSeguros" 
+					data-url="/DeliveryTarjetas/usuario.do?method=goMiCuenta" 
 					data-toggle="collapse" 
 					data-parent="#accordion" 
-					data-target="#seguros">
+					data-target="#micuenta">
 					<i class="ui-icn-mi-cuenta"></i>Mi cuenta
 				</a>				
 			</li>
@@ -24,26 +24,25 @@
 			<li class="panel">
 				<a href="#" 
 				    id="panelSalud"
-				    <%--data-url="pages/servicios-salud/clinicas"--%> 
-					data-toggle="collapse" 
+				    data-toggle="collapse" 
 					data-parent="#accordion" 
-					data-target="#salud"  >
+					data-target="#usuario-menu"  >
 					<i class="ui-icn-usuarios"></i>Mantenimiento de Usuarios<i class="arrow"></i>
 				</a>
-				<div id="salud" class="collapse">
+				<div id="usuario-menu" class="collapse">
 					<ul>
 
 						<li>
-							<a href="#" id="lstClinicas" data-url="/PORTALWEB/clinicas.do?method=goMisClinicas">Registro de usuario web</a>
+							<a href="#" id="view-reg-usuarioweb" data-url="/DeliveryTarjetas/usuario.do?method=goRegUsuarioWeb">Registro de usuario web</a>
 						</li>
 						<li>
-							<a href="#" data-url="/PORTALWEB/cartasGarantia.do?method=goCartasGarantia">Edición de usuarios web</a>
+							<a href="#" id="view-mnt-usuarioweb" data-url="/DeliveryTarjetas/usuario.do?method=goMntUsuarioWeb">Edición de usuarios web</a>
 						</li>
 						<li>
-							<a href="#" id="lstClinicas" data-url="/PORTALWEB/clinicas.do?method=goMisClinicas">Registro de <br>usuario servicio web</a>
+							<a href="#" id="view-reg-usuariows" data-url="/DeliveryTarjetas/usuario.do?method=goRegUsuarioWS">Registro de <br>usuario servicio web</a>
 						</li>
 						<li>
-							<a href="#" data-url="/PORTALWEB/cartasGarantia.do?method=goCartasGarantia">Edición de <br>usuarios servicio web</a>
+							<a href="#" id="view-mnt-usuariows" data-url="/DeliveryTarjetas/usuario.do?method=goMntUsuarioWS">Edición de <br>usuarios servicio web</a>
 						</li>
 						
 					</ul>
@@ -56,23 +55,22 @@
 					<%--data-url="pages/servicios-vehiculos/emergencias"--%> 
 					data-toggle="collapse" 
 					data-parent="#accordion" 
-					data-target="#segurovehicular">
+					data-target="#courier-menu">
 					<i class="ui-icn_couriers"></i>Mantenimiento de Couriers<i class="arrow"></i>
 				</a>
-				<div id="segurovehicular" class="collapse">   
+				<div id="courier-menu" class="collapse">   
 					<ul>
-
 						<li>
-							<a href="#" id="lstTalleres" data-url="/PORTALWEB/talleres.do?method=goMisTalleres">Registro de courier</a>
+							<a href="#" id="view-reg-courier" data-url="/DeliveryTarjetas/courier.do?method=goRegCourier">Registro de courier</a>
 						</li>
 						<li>
-							<a href="#" id="obtConductor" data-url="/PORTALWEB/asistenciaveh.do?method=goConductor">Edición de couriers</a>
+							<a href="#" id="view-mnt-courier" data-url="/DeliveryTarjetas/courier.do?method=goMntCourier">Edición de couriers</a>
 						</li>
 						<li>
-							<a href="#" id="obtSinistro" data-url="/PORTALWEB/asistenciaveh.do?method=goSiniestro">Registro de <br>Colaboradores por courier</a>
+							<a href="#" id="view-reg-colaborador" data-url="/DeliveryTarjetas/courier.do?method=goRegColaborador">Registro de <br>Colaboradores por courier</a>
 						</li>						
 						<li>
-							<a href="#" id="obtSinistro" data-url="/PORTALWEB/asistenciaveh.do?method=goSiniestro">Edición de <br>Colaboradores por courier</a>
+							<a href="#" id="view-mtn-colaborador" data-url="/DeliveryTarjetas/courier.do?method=goMntColaborador">Edición de <br>Colaboradores por courier</a>
 						</li>
 					</ul>
 				</div>
@@ -83,10 +81,10 @@
 			    	id="panelPerfil"
 			    	data-toggle="collapse" 
 			    	data-parent="#accordion" 
-			    	data-target="#miperfil">
+			    	data-target="#delivery-menu">
 			        <i class="ui-icn_tarjetas"></i>Delivery de Tarjetas <i class="arrow"></i>
 			    </a>
-			    <div id="miperfil" class="collapse">
+			    <div id="delivery-menu" class="collapse">
 			        <ul>
 			            <li>
 			                <a href="#" data-url="/PORTALWEB/perfil.do?method=goActualizaDatos">Editar datos <br>de una entrega</a>
@@ -104,19 +102,19 @@
 					id="panelReclamos"
 					data-toggle="collapse" 
 					data-parent="#accordion" 
-					data-target="#reclamos">
+					data-target="#maestros-menu">
 					<i class="ui-icn_maestros"></i>Maestros<i class="arrow"></i>
 				</a>				
-				<div id="reclamos" class="collapse">
+				<div id="maestros-menu" class="collapse">
 					<ul>												
 						<li>														 
-							<a href="#" id="obtreclamos" data-url="../jsp/reclamos/reclamos-registrar.jsp">Agencias</a>
+							<a href="#" id="view-reg-agencia" data-url="/DeliveryTarjetas/maestro.do?method=goRegAgencia">Agencias</a>
 						</li>	
 						<li>														 
-							<a href="#" data-url="../jsp/reclamos/reclamos-mis-reclamos.jsp">Productos</a>
+							<a href="#" id="view-reg-producto" data-url="/DeliveryTarjetas/maestro.do?method=goRegProducto">Productos</a>
 						</li>	
 						<li>														 
-							<a href="#" data-url="../jsp/reclamos/reclamos-mis-reclamos.jsp">Sub productos</a>
+							<a href="#" id="view-reg-subproducto" data-url="/DeliveryTarjetas/maestro.do?method=goSubproducto">Sub productos</a>
 						</li>
 					</ul>
 				</div>
