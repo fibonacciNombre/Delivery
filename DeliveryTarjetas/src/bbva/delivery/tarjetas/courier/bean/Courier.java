@@ -1,13 +1,17 @@
 package bbva.delivery.tarjetas.courier.bean;
 
 import java.io.Serializable;
+import java.util.Map;
+
+import commons.mapper.ResourceManager;
 
 public class Courier implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private int idcourier;
-	private String codigobbva;
+	private String codbbva;
+	private String rznsocial;
 	private String nombre;
 	private String correo;
 	private String tlffijo;
@@ -20,17 +24,29 @@ public class Courier implements Serializable {
 	private String fecmodifcacion;
 	private String historial;
 	
+	@SuppressWarnings("rawtypes")
+	public Courier(Map map) throws Exception {
+	    ResourceManager.populateDtoFromMap(this, map);
+	}	
+	public Courier(){
+	}
+	public String getCodbbva() {
+		return codbbva;
+	}
+	public void setCodbbva(String codbbva) {
+		this.codbbva = codbbva;
+	}
+	public String getRznsocial() {
+		return rznsocial;
+	}
+	public void setRznsocial(String rznsocial) {
+		this.rznsocial = rznsocial;
+	}
 	public int getIdcourier() {
 		return idcourier;
 	}
 	public void setIdcourier(int idcourier) {
 		this.idcourier = idcourier;
-	}
-	public String getCodigobbva() {
-		return codigobbva;
-	}
-	public void setCodigobbva(String codigobbva) {
-		this.codigobbva = codigobbva;
 	}
 	public String getNombre() {
 		return nombre;
