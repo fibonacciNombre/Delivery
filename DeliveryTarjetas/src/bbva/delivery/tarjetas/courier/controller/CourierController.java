@@ -1,17 +1,26 @@
 package bbva.delivery.tarjetas.courier.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
-import bbva.delivery.tarjetas.anotaciones.AdviceController;
+import bbva.delivery.tarjetas.anotaciones.AdviceController; 
+import bbva.delivery.tarjetas.courier.bean.Courier;
+import bbva.delivery.tarjetas.courier.service.CourierService;
+import bbva.delivery.tarjetas.service.DeliveryService;
 import commons.framework.BaseController;
 
 @AdviceController
 public class CourierController extends BaseController {
 	
 //	private static Logger logger = Logger.getLogger(CourierController.class.getName());
+	
+	@Autowired
+	private CourierService courierService;
 	
 	@Override 
 	public ModelAndView buscar(HttpServletRequest request,HttpServletResponse response) {return null;}
@@ -50,5 +59,65 @@ public class CourierController extends BaseController {
 		System.out.println("goMntColaborador	-->		mnt-colaboradorcourier.jsp");
 		return "courier/mnt-colaboradorcourier"; 
 	}
+	
+	public void lstCourier(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		List<Courier> listaCourier = null;
+		String lstcourier = "";
+
+		Courier courier = null;
+ 
+		courier = new Courier(request.getParameterMap());
+
+		try {
+			listaCourier = courierService.lstCouriers(courier);
+			lstcourier = commons.web.UtilWeb.listaToArrayJson(listaCourier, null,
+					Courier.class.getName());
+		} catch (Error e) {
+			lstcourier = "{" + e.getMessage() + "}";
+		}
+
+		this.escribirTextoSalida(response, lstcourier);
+		 
+	}
+	
+	public void obtCourier(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		List<Courier> listaCourier = null;
+		String lstcourier = "";
+
+		Courier courier = null;
+ 
+		courier = new Courier(request.getParameterMap());
+
+		try {
+			listaCourier = courierService.obtCourier(courier);
+			lstcourier = commons.web.UtilWeb.listaToJson(listaCourier, null,
+					Courier.class.getName());
+		} catch (Error e) {
+			lstcourier = "{" + e.getMessage() + "}";
+		}
+
+		this.escribirTextoSalida(response, lstcourier);
+		 
+	}
+	
+	
+	
+	public void mntCourier(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+ 		Courier courier = null;
+ 
+		courier = new Courier(request.getParameterMap());
+
+		try {
+			courierService.mntCourier(courier); 
+		} catch (Error e) { 
+		}
+
+		this.escribirTextoSalida(response, "0");
+		 
+	}
+	
 	
 }

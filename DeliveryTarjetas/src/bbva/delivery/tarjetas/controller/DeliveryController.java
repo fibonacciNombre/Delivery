@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import bbva.delivery.tarjetas.anotaciones.AdviceController;
-import bbva.delivery.tarjetas.bean.Courier;
 import bbva.delivery.tarjetas.bean.Delivery;
 import bbva.delivery.tarjetas.bean.Parametro;
 import bbva.delivery.tarjetas.comun.service.ComunService;
@@ -126,40 +125,5 @@ public class DeliveryController extends BaseController{
 		 
 	}
 	
-	public void lstCourier(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-		List<Courier> listaCourier = null;
-		String lstcourier = "";
-
-		Courier courier = null;
- 
-		courier = new Courier(request.getParameterMap());
-
-		try {
-			listaCourier = deliveryService.lstCourier(courier);
-			lstcourier = commons.web.UtilWeb.listaToArrayJson(listaCourier, null,
-					Courier.class.getName());
-		} catch (Error e) {
-			lstcourier = "{" + e.getMessage() + "}";
-		}
-
-		this.escribirTextoSalida(response, lstcourier);
-		 
-	}
-	
-	public void mntCourier(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
- 		Courier courier = null;
- 
-		courier = new Courier(request.getParameterMap());
-
-		try {
-			deliveryService.mntCourier(courier); 
-		} catch (Error e) { 
-		}
-
-		this.escribirTextoSalida(response, "0");
-		 
-	}
 	
 }

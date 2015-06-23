@@ -20,26 +20,20 @@ public class CourierServiceImp implements CourierService {
 	private CourierDao courierDao;
 	
 	@Override
-	public void regCourier(Courier courier) {
-		logger.info("Service regCourier");
-		courierDao.regCourier(courier);
-	}
-
-	@Override
 	public void mntCourier(Courier courier) {
 		logger.info("Service mntCourier");
 		courierDao.mntCourier(courier);
 	}
 
 	@Override
-	public List<Courier> lstCouriers(String estado) {
+	public List<Courier> lstCouriers(Courier courier) {
 		logger.info("Service lstCourier");
-		return courierDao.lstCouriers(estado);
+		return courierDao.lstCouriers(courier);
 	}
 
 	@Override
-	public Courier obtDetalleCourier(Courier courier) {
+	public List<Courier>  obtCourier(Courier courier) {
 		logger.info("Service obtDetalleCourier");
-		return courierDao.obtDetalleCourier(courier);
+		return courierDao.obtCourier(courier);
 	}
 }

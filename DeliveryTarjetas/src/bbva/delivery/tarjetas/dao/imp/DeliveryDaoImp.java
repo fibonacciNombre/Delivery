@@ -14,7 +14,6 @@ import org.springframework.stereotype.Repository;
 
 import com.rimac.sas.utiles.comunes.JdbcHelper;
 
-import bbva.delivery.tarjetas.bean.Courier;
 import bbva.delivery.tarjetas.bean.Delivery;
 import bbva.delivery.tarjetas.bean.Parametro;
 import bbva.delivery.tarjetas.commons.ConstantsProperties;
@@ -98,6 +97,7 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 				resources.getString(ConstantsProperties.PQ_DEL_COURIER),
 				"sp_lst_delivery");
  
+		
 		JdbcHelper.setInParameter(call, in, "a_nrodocumentocli", OracleTypes.VARCHAR, param.getNrodocumentocli());
 		JdbcHelper.setInParameter(call, in, "a_nombrescli", OracleTypes.VARCHAR, param.getNombrescli());
 		JdbcHelper.setInParameter(call, in, "a_nrodocumentocou", OracleTypes.VARCHAR, param.getNrodocumentocli());
@@ -161,61 +161,7 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 		return lista;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Courier> lstCourier(Courier param) {
-		List<Courier> lista = null; 
-		MapSqlParameterSource in = null;
-
-		SimpleJdbcCall call = null;
-		Map<String, Object> out = null;
-		in = new MapSqlParameterSource();
-
-		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
-				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
-				resources.getString(ConstantsProperties.PQ_DEL_COURIER),
-				"sp_lst_courier");
- 
-		JdbcHelper.setInParameter(call, in, "a_codigo", OracleTypes.VARCHAR, param.getCodigo());
-		JdbcHelper.setInParameter(call, in, "a_nombre", OracleTypes.VARCHAR, param.getNombre());
-		JdbcHelper.setInParameter(call, in, "a_nrodocumentocou", OracleTypes.VARCHAR, param.getNrodocumentocou()); 
-		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, Courier.class);
-		 
-		out = call.execute(in);
-		lista = (List<Courier>) out.get("a_cursor");
-		  
-		return lista;
-	}
-
-	@Override
-	public void mntCourier(Courier param) {
-		SimpleJdbcCall call = null;
-		MapSqlParameterSource in = null;
-		Map<String, Object> out = null; 
-		in = new MapSqlParameterSource(); 
-		BigDecimal iddelivery = null;
-		
-		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), 
-				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY), 
-				resources.getString(ConstantsProperties.PQ_DEL_COURIER), 
-				"sp_mnt_courier");
-		
-		  JdbcHelper.setInOutParameter(call, in, "a_idcourier", 	Types.NUMERIC, param.getIdcourier());  
-	      JdbcHelper.setInParameter(call, in, "a_codigo" , 			Types.VARCHAR, param.getCodigo());  	  
-	      JdbcHelper.setInParameter(call, in, "a_nombre" , 			Types.VARCHAR, param.getNombre()); 	  
-	      JdbcHelper.setInParameter(call, in, "a_telffijo", 		Types.VARCHAR, param.getTelffijo()); 
-	      JdbcHelper.setInParameter(call, in, "a_telfmovil", 		Types.VARCHAR, param.getTelfmovil());  
-	      JdbcHelper.setInParameter(call, in, "a_observacion", 		Types.VARCHAR, param.getObservacion()); 
-	      JdbcHelper.setInParameter(call, in, "a_nrodocumentocou", 	Types.VARCHAR, param.getNrodocumentocou()); 
-	      JdbcHelper.setInParameter(call, in, "a_idptipodocumento", Types.INTEGER, param.getIdptipodocumento());   
-		
-		out = call.execute(in);
-		
-		iddelivery = JdbcHelper.getOutResult(out, "a_idcourier", BigDecimal.class);
-		param.setIdcourier(iddelivery); 
-		
-	}
-
+	
 	@Override
 	public Integer valCourierDelivery(String dnicourier) {
 		SimpleJdbcCall call = null;
@@ -238,7 +184,10 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 		valor = JdbcHelper.getOutResult(out, "a_nrodoccou_xls", Integer.class);
 		return valor;
 
-	}
+	} 
+	 
+
+	
 	
 }
 

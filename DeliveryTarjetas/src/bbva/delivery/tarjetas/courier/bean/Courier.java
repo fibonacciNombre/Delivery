@@ -14,10 +14,13 @@ public class Courier implements Serializable {
 	private String rznsocial;
 	private String nombre;
 	private String correo;
-	private String tlffijo;
-	private String tlfmovil;
-	private String observaciones;
-	private String estado;
+	private String telffijo;
+	private String telfmovil;
+	private String observacion;
+	private String idpestado;
+	private String nrodocumentocou;
+	private String idptipodocumento;
+	private String direccion;
 	private String usucreacion;
 	private String usumodificacion;
 	private String feccreacion;
@@ -60,30 +63,19 @@ public class Courier implements Serializable {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	public String getTlffijo() {
-		return tlffijo;
+	public String getTelffijo() {
+		return telffijo;
 	}
-	public void setTlffijo(String tlffijo) {
-		this.tlffijo = tlffijo;
+	public void setTlffijo(String telffijo) {
+		this.telffijo = telffijo;
 	}
-	public String getTlfmovil() {
-		return tlfmovil;
+	public String getTelfmovil() {
+		return telfmovil;
 	}
-	public void setTlfmovil(String tlfmovil) {
-		this.tlfmovil = tlfmovil;
+	public void setTelfmovil(String telfmovil) {
+		this.telfmovil = telfmovil;
 	}
-	public String getObservaciones() {
-		return observaciones;
-	}
-	public void setObservaciones(String observaciones) {
-		this.observaciones = observaciones;
-	}
-	public String getEstado() {
-		return estado;
-	}
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
+	 
 	public String getUsucreacion() {
 		return usucreacion;
 	}
@@ -113,6 +105,36 @@ public class Courier implements Serializable {
 	}
 	public void setHistorial(String historial) {
 		this.historial = historial;
+	}
+	public String getIdpestado() {
+		return idpestado;
+	}
+	public void setIdpestado(String idpestado) {
+		this.idpestado = idpestado;
+	}
+	public String getObservacion() {
+		return observacion;
+	}
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
+	}
+	public String getNrodocumentocou() {
+		return nrodocumentocou;
+	}
+	public void setNrodocumentocou(String nrodocumentocou) {
+		this.nrodocumentocou = nrodocumentocou;
+	}
+	public String getIdptipodocumento() {
+		return idptipodocumento;
+	}
+	public void setIdptipodocumento(String idptipodocumento) {
+		this.idptipodocumento = idptipodocumento;
+	}
+	public String getDireccion() {
+		return direccion;
+	}
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 		
 }

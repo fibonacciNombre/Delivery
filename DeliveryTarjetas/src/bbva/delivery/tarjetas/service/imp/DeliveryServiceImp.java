@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import bbva.delivery.tarjetas.bean.Courier;
 import bbva.delivery.tarjetas.bean.Delivery;
 import bbva.delivery.tarjetas.bean.Parametro;
 import bbva.delivery.tarjetas.dao.DeliveryDao;
@@ -244,19 +243,11 @@ public class DeliveryServiceImp implements DeliveryService {
 	}
 
 	@Override
-	public List<Courier> lstCourier(Courier param) {
-		return portalWebDao.lstCourier(param);
-	}
-
-	@Override
-	public void mntCourier(Courier param) {
-		portalWebDao.mntCourier(param);
-	}
-	
-	@Override
-	public Integer valCourierDelivery(String dnicourier){
+	public Integer valCourierDelivery(String dnicourier) {
 		return portalWebDao.valCourierDelivery(dnicourier);
 	}
+ 
+	
 	
 
 }
