@@ -176,8 +176,7 @@ public class UsuarioController extends BaseController {
 		Courier courier				= new Courier();
 		Tercero tercero				= new Tercero();
 		List<Courier> lstcourier;
-		
-		
+				
 		String jsonUsuario			= "\"Usuarioweb\":[";
 		String jsonPerfil			= "\"Perfil\":[";
 		String jsonTercero			= "\"Tercero\":[";
