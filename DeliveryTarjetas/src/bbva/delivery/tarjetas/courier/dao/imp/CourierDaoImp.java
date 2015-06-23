@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.rimac.sas.utiles.comunes.JdbcHelper;
 
+import bbva.delivery.tarjetas.bean.Delivery;
 import bbva.delivery.tarjetas.commons.ConstantsProperties;
 import bbva.delivery.tarjetas.comun.dao.imp.JdbcDaoBase;
 import bbva.delivery.tarjetas.courier.bean.Courier;
@@ -132,4 +133,6 @@ public class CourierDaoImp extends JdbcDaoBase implements CourierDao {
 		logger.info("Dao lstTercerosxCourier");
 		return null;
 	}
+ 
+	
 }

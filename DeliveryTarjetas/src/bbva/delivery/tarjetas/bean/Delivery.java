@@ -32,7 +32,7 @@ public class Delivery {
 	private Integer idpestado;
 	private Integer idarchivo;
 	private Integer idpestadocarga;
-	private String mensajecarga;
+	private String historial;
 	private BigDecimal grupocarga;
 	
 	public Delivery(){
@@ -223,12 +223,12 @@ public class Delivery {
 	}
 
 
-	public String getMensajecarga() {
-		return mensajecarga;
+	public String getHistorial() {
+		return historial;
 	}
 
-	public void setMensajecarga(String mensajecarga) {
-		this.mensajecarga = mensajecarga;
+	public void setHistorial(String historial) {
+		this.historial = historial;
 	}
 
 	public BigDecimal getGrupocarga() {

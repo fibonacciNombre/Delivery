@@ -168,7 +168,7 @@ public class DeliveryServiceImp implements DeliveryService {
 						carga.setIdpestadocarga(null);
 					}
 					
-					carga.setMensajecarga(getCellValue(row, 15));
+					carga.setHistorial(getCellValue(row, 15));
 					
 					try {
 						carga.setGrupocarga(new BigDecimal(getCellValue(row, 14)));

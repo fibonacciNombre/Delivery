@@ -4,8 +4,10 @@
     <!--  Botón Importar Excel -->
 	<div class="form-group">
 		<div class="col-md-6">
-			<h6>Importar datos desde un archivo Excel</h6>
+			<h6>Importar datos desde un archivo Excel xxx</h6>
 		</div>
+
+ 
 
 		<div class="col-md-6">
 			<div class="form-group">
