@@ -6,6 +6,7 @@ table.dataTable {
   margin: 0 auto;
   clear: both;
   border-spacing: 0;
+  color: #71777f;
   /*
    * border-collapse: separate;
    *
@@ -39,8 +40,9 @@ table.dataTable thead .sorting {
 table.dataTable thead th
 {
   background-color: #f6f5f5 !important;
-  color: #999 !important;
-  font-size: 14px;
+  color: #71777f !important;
+  font-size: 12px;
+  font-weight: normal;
 }
 table.dataTable thead .sorting {
   background: url("../../../img/default/datatable/sort_both.png") no-repeat center right;
@@ -234,6 +236,8 @@ table.dataTable td {
 }
 .dataTables_wrapper .dataTables_filter input {
   margin-left: 0.5em;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
 }
 .dataTables_wrapper .dataTables_info {
   clear: both;
@@ -300,7 +304,8 @@ table.dataTable td {
 .dataTables_wrapper .dataTables_info,
 .dataTables_wrapper .dataTables_processing,
 .dataTables_wrapper .dataTables_paginate {
-  color: #333333;
+  color: #71777f;
+  font-size: 11px;
 }
 .dataTables_wrapper .dataTables_scroll {
   clear: both;

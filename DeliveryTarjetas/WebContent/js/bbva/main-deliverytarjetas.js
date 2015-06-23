@@ -1,3 +1,11 @@
+function irInicio(){
+	window.location.reload(true);		
+}
+
+function cerrarSession(){	
+	document.formlogout.submit();
+}
+
 function toTitleCase(str){
 	var strTittleCase = str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
     return strTittleCase;
@@ -106,6 +114,24 @@ function validateSinEspacios(){
 	jQuery.validator.addMethod("sinespacios", function(value, element) {
         return this.optional(element) || /^[^\s]+$/.test(value);
 	});
+}
+
+function llenarCombo(idControl,listaOpciones,emptyElement){
+	
+	var combo = $('#'+idControl); 
+	combo.empty();
+
+	if(emptyElement)
+		combo.append('<option value="">'+'Seleccionar'+'</option>');
+	
+	for(var i=0; i<listaOpciones.length; i++){
+		if(listaOpciones[i][1] != "NO DETERMINADO"){
+			var opcion = '<option value="'+listaOpciones[i][0]+'" >'+listaOpciones[i][1]+'</option>' ;
+			combo.append(opcion);
+		}
+	}
+	
+	$('#'+idControl).change();
 }
 
 function loadValidateLogin(idForm){
@@ -238,6 +264,5 @@ function loadSesionInicial(){
 	closeModalCargando();
 	
 	if(CTE_JSON_USUARIOWEB.estado==USR_STS_RENOVAR_PASSWORD)
-		$("#link-renovarcontrasena").click();
-	
+		$("#link-renovarcontrasena").click();	
 }

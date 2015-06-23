@@ -40,15 +40,22 @@
 	<div class="modal-cargando visible-md-block visible-sm-block visible-lg-block">
 		<div class="modal-content">	
 			<div class="gif_animation" style="text-align: center;">					
-				<img src="<%=request.getContextPath()%>/img/bbva/loading.gif">
+				<img src="<%=request.getContextPath()%>/img/bbva/cargando.gif">
+				<div>
+					<h3 style="margin-top:10px; margin-bottom: 20px;font-size: 18px;">Cargando...</h3>
+				</div>
 			</div>
+			
 		</div>
 	</div>		  	
 			
 	<div class="modal-cargando visible-xs-block" style="margin-top: 180px; width: 240px;">
 		<div class="modal-content">	
 			<div class="gif_animation" style="text-align: center;">					
-				<img src="<%=request.getContextPath()%>/img/bbva/loading.gif">
+				<img src="<%=request.getContextPath()%>/img/bbva/cargando.gif">
+				<div>
+					<h3 style="margin-top:10px; margin-bottom: 20px;font-size: 18px;">Cargando...</h3>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -33,7 +33,7 @@ function callCargaControlParam(ideParametro,ideControl){
 	
 	$.ajax({
 		type 		: "POST",
-		url 		: "/PORTALWEB/portalweb.do"+"?method=comboParametro",
+		url 		: "/DeliveryTarjetas/comun.do"+"?method=comboParametro",
 		cache 		: false,
 		async 		: false,
 		dataType 	: 'json',

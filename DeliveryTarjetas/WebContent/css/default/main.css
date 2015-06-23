@@ -1304,6 +1304,7 @@ h2, .h2,
 h3, .h3 {
   margin-top: 18px;
   margin-bottom: 9px;
+  color: #003f8c !important;
 }
 h1 small,
 h1 .small, .h1 small,
@@ -1344,7 +1345,7 @@ h2, .h2 {
 }
 
 h3, .h3 {
-  font-size: 23px;
+  font-size: 20px;
 }
 
 h4, .h4 {
@@ -2846,7 +2847,7 @@ label {
   display: inline-block;
   max-width: 100%;
   margin-bottom: 5px;
-  color: black;
+  color: #71777f;
 }
 
 input[type="search"] {
@@ -6735,7 +6736,7 @@ button.close {
 
 /* ini mfarfanr - bbva */
 .content-rws {
-  padding-left: 30px;
+  /*padding-left: 30px;*/
 }
 @media (max-width: 991px) {
   .content-rws {
@@ -7040,7 +7041,7 @@ button.close {
 .menu li ul a {
   	padding: 12px 0px 12px 30px;
   	background:#f6f6f6;
-  	color: #303030;
+  	color: #71777f;
 }
 
 .menu li ul a.active {
@@ -11068,10 +11069,19 @@ span.loading-animate:nth-child(5) {
 		padding-left: 15px;
 	}
 }
+
+.container-title{
+	line-height: 28px;
+  	border-bottom: 1px solid #e8e8e8;
+  	margin-bottom: 20px;
+}
+
+@media (max-width: 550px) {
+	.desktop{
+		display: none;
+	}
+}
 /* fin mfarfanr - bbva */
-
-
-
 
 .vineta-carga-entrega-tarjetas {
   border-left: 10px solid #22bb22;
