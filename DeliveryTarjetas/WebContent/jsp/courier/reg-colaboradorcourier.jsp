@@ -146,41 +146,49 @@
 
 				codbbva 			: {				required 	: true },
 				
-				rznsocial 			: {				required 	: true },
+				tipdocumento 		: {				required 	: true },
 				
-				direccion 			: {				required 	: true },
-				
-				nummovil 			: {				require_from_group: [1, ".phone-group"],
+				nrodocumento 		: {				required 	: true,
 													digits 	 	: true,
+													minlength 	: 8},
+				
+				nombres		 		: {				required 	: true },
+				
+				apepaterno	 		: {				required 	: true },
+				
+				apematerno	 		: {				required 	: true },
+				
+				nummovil 			: {				digits 	 	: true,
 													minlength 	: 9},
 													
-				numlocal 			: {				require_from_group: [1, ".phone-group"],
-													digits 	 	: true,
-													minlength 	: 6},
-													
 				email 				: {				required 	: true,
-													email		: true}
+													email		: true},
+				
+				estado 				: {				required 	: true }
 			},
 			messages : {
-				codbbva 			: {				required 	: "Debes ingresar el código BBVA del Courier" },
+				codbbva 			: {				required 	: "Debes seleccionar un código BBVA del Courier" },
 				
-				rznsocial 			: {				required 	: "Debes ingresar la razón social del Courier" },
+				tipdocumento 		: {				required 	: "Debes seleccionar un tipo de documento" },
 				
-				direccion 			: {				required 	: "Debes ingresar Dirección" },
+				nrodocumento 		: {				required 	: "Debes ingresar un nro. de documento",
+													digits 	 	: "Debes ingresar sólo números",
+													minlength 	: "Debes ingresar un mínimo de 8 dígitos"},
 				
-				nummovil 			: {
-													require_from_group : "Debe ingresar al menos un número de teléfono",
-													digits 	 	: "Sólo números",
-													minlength 	: "Ingresar un mínimo de 9 dígitos" },
-													
-				numlocal 			: {
-													require_from_group : "Debe ingresar al menos un número de teléfono",
-													digits 	 	: "Sólo números",
-													minlength 	: "Ingresar un mínimo de 6 dígitos"},
+				nombres 			: {				required 	: "Debes ingresar el nombre" },
+				
+				apepaterno 			: {				required 	: "Debes ingresar el apellido paterno" },
+				
+				apematerno 			: {				required 	: "Debes ingresar el apellido materno" },
+				
+				nummovil 			: {				digits 	 	: "Debes ingresar sólo números",
+													minlength 	: "Debes ingresar un mínimo de 9 dígitos" },
 													
 				email 				: {
-													required 	: "Ingresar Email",
-													email		: "Ingresar formato de email válido"}
+													required 	: "Debes ingresar un email",
+													email		: "Debes ingresar formato de email válido"},
+													
+				estado 				: {				required 	: "Debes seleccionar un estado para el colaborador" },
 			}
 		});	
 		
