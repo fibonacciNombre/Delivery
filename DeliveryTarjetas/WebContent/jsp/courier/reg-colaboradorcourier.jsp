@@ -158,8 +158,9 @@
 				
 				apematerno	 		: {				required 	: true },
 				
-				nummovil 			: {				digits 	 	: true,
-													minlength 	: 9},
+				nummovil 			: {				required 	: true,
+													digits 	 	: true,
+													minlength 	: 9 },
 													
 				email 				: {				required 	: true,
 													email		: true},
@@ -181,14 +182,15 @@
 				
 				apematerno 			: {				required 	: "Debes ingresar el apellido materno" },
 				
-				nummovil 			: {				digits 	 	: "Debes ingresar sólo números",
+				nummovil 			: {				required 	: "Debes ingresar un teléfono móvil",
+													digits 	 	: "Debes ingresar sólo números",
 													minlength 	: "Debes ingresar un mínimo de 9 dígitos" },
 													
 				email 				: {
 													required 	: "Debes ingresar un email",
 													email		: "Debes ingresar formato de email válido"},
 													
-				estado 				: {				required 	: "Debes seleccionar un estado para el colaborador" },
+				estado 				: {				required 	: "Debes seleccionar un estado para el colaborador" }
 			}
 		});	
 		
@@ -202,7 +204,7 @@
 
 		$inputs.each(function() {
 			if(this.id!=""){
-				if($("#form-registrocourier #"+ this.id).valid())
+				if($("#form-registrocolaboradores #"+ this.id).valid())
 					$(".result", $("#"+this.id).parent()).html("<i class='success'></i>");			
 				else
 					$(".result", $("#"+this.id).parent()).html("<i class='error'></i>");
