@@ -15,7 +15,6 @@ import bbva.delivery.tarjetas.bean.Delivery;
 import bbva.delivery.tarjetas.comun.service.ComunService;
 import bbva.delivery.tarjetas.service.DeliveryService;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
-
 import commons.framework.BaseController;
 
 @AdviceController
@@ -65,9 +64,12 @@ public class DeliveryController extends BaseController{
 			e.printStackTrace();
 		}		
 	}
+	 
 	
-	public String goCargaEntregaTarjeta(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		return "carga/carga-entrega-tarjeta";
+	public String goCargaDelivery(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		System.out.println("goCargaDelivery	-->		carga-delivery.jsp");
+		return "courier/carga-delivery";
 	}
 	
 	public void cargaExcelDelivery(HttpServletRequest request,

@@ -85,7 +85,7 @@ public class DeliveryServiceImp implements DeliveryService {
 						continue;
 					}
 					
-					existeCourier = valCourierDelivery(getCellValue(row, 0));
+					//existeCourier = valCourierDelivery(getCellValue(row, 0));
 					
 					carga.setIddelivery(null);
 					carga.setGrupocarga(idgrupoCarga);
@@ -137,43 +137,7 @@ public class DeliveryServiceImp implements DeliveryService {
 					carga.setTelmovilcli(getCellValue(row, 17));
 					carga.setOrdenentrega(getCellValue(row, 18));
 					
-					try {
-						carga.setIdcourier(new BigDecimal(getCellValue(row, 13)));
-					} catch (Exception e) {
-						carga.setIdcourier(null);
-					}
 					
-					try {
-						carga.setIdtercero(new BigDecimal(getCellValue(row, 14)));
-					} catch (Exception e) {
-						carga.setIdtercero(null);
-					}
-					
-					try {
-						carga.setIdpestado(new Integer(getCellValue(row, 14)));
-					} catch (Exception e) {
-						carga.setIdpestado(null);
-					}
-					
-					try {
-						carga.setIdarchivo(new Integer(getCellValue(row, 14)));
-					} catch (Exception e) {
-						carga.setIdarchivo(null);
-					}
-					
-					try {
-						carga.setIdpestadocarga(new Integer(getCellValue(row, 14)));
-					} catch (Exception e) {
-						carga.setIdpestadocarga(null);
-					}
-					
-					carga.setHistorial(getCellValue(row, 15));
-					
-					try {
-						carga.setGrupocarga(new BigDecimal(getCellValue(row, 14)));
-					} catch (Exception e) {
-						carga.setGrupocarga(null);
-					}
 					
 					try {
 						portalWebDao.mntDelivery(carga);
