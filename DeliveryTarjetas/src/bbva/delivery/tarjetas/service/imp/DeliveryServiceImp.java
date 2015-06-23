@@ -182,7 +182,7 @@ public class DeliveryServiceImp implements DeliveryService {
 						
 					} catch (Exception e) {
 						errorCarga = 2;
-						logCarga += "Fila N°: " + r + "\n Error : " + e.getMessage() + "\n\n"; 
+						logCarga += "Fila Nï¿½: " + r + "\n Error : " + e.getMessage() + "\n\n"; 
 					}
 					 
 				}
@@ -190,7 +190,7 @@ public class DeliveryServiceImp implements DeliveryService {
 			
 			if (errorCarga == 2){
 				resultado = errorCarga;
-				mensaje = "Hubo problemas en la carga de uno o más registros \n " + logCarga;
+				mensaje = "Hubo problemas en la carga de uno o mï¿½s registros \n " + logCarga;
 			}
 
 		} catch (Exception e) {

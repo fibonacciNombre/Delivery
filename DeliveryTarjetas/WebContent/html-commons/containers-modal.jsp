@@ -1,59 +1,19 @@
-<%-- INI MODAL REGISTRAR RECLAMO --%>
-<div class="modal fade" 
-		id="modalRegistrarReclamo" 
-		tabindex="-1" 
-		role="dialog" 
-		aria-labelledby="modallabel" 
-		aria-hidden="true">
-	<div class="modal-dialog modal-md">
-    	<div class="modal-content">
-    		<div class="modal-body"></div>
-    	</div>
-	</div>
-</div>
-<%-- FIN MODAL REGISTRAR RECLAMO --%>
-
-<%-- INI MODAL REGISTRAR DIRECCION --%>
-<a id="link-registrardireccion"
-	data-toggle="modal"
-	href="<%=request.getContextPath()%>/jsp/perfil/registro-direccion.jsp"
-	data-target="#modalRegDireccion"
-	class="btn btn-link"
-	style="display: none;">
-</a>
-
-<div class="modal fade"
-		id="modalRegDireccion"
-		tabindex="-1" 
-   		data-backdrop="static" 
-		data-keyboard="false"
-		role="dialog"
-		aria-labelledby="Direccion"
-		aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-body"></div>
-		</div>
-	</div>
-</div>
-<%-- FIN MODAL REGISTRAR DIRECCION --%>
-		
-<%-- INI MODAL PRIMER LOGIN --%>
-<a id="link-primerlogueo"
+<%-- INI MODAL RENOVAR CONTRASENA --%>
+<a id="link-renovarcontrasena"
 	data-toggle="modal" 
-	href="<%=request.getContextPath()%>/jsp/perfil/configPrimerLogin.jsp" 
-	data-target="#modalPrimerLogueo"
+	href="<%=request.getContextPath()%>/jsp/perfil/rnv-contrasena.jsp" 
+	data-target="#modalRenovarContrasena"
 	class="btn btn-link"
 	style="display: none;">
 </a>
     
 <div class="modal fade" 
-		id="modalPrimerLogueo" 
+		id="modalRenovarContrasena" 
 		tabindex="-1" 
 		data-backdrop="static" 
 		data-keyboard="false"
 		role="dialog" 
-		aria-labelledby="Direccion" 
+		aria-labelledby="Renovar Contraseña" 
 		aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -61,7 +21,7 @@
 		</div>
 	</div>		  	
 </div>
-<%-- FIN MODAL PRIMER LOGIN --%>
+<%-- FIN MODAL RENOVAR CONTRASENA --%>
 
 <%-- INI CONTENT CARGANDO --%>
 <a id="link-content-cargando"
@@ -109,7 +69,7 @@
 		aria-hidden="true">			
 	<div class="modal-mensaje">		      
 		<div class="modal-content">
-			<span  style="color: white; font-weight: bold; display: block; padding: 5px; width: auto; text-align: center; background-color: rgb(231, 40, 24);">
+			<span  style="color: white; font-weight: bold; display: block; padding: 5px; width: auto; text-align: center; background-color: #00559d;">
 				<span id="titulo-mensaje"></span>
 				<button id="btnclosemodal" type="button" class="close-white" data-dismiss="modal" aria-hidden="true">&times;</button>
 			</span>

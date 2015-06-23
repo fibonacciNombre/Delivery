@@ -33,14 +33,4 @@ public class ConstantsProperties {
 	public static final String PQ_PRODUCTO_SALUD_COMP	 	= "package.producto.saludcomp";
 	public static final String PQ_PRODUCTO_LST_TABLAS_PROD	= "package.producto.listartablas";
 	
-	//Constantes TIVOLI DIRECTORY SERVER
-	public static final String TDS_LDAP_AUTHENTICATION		= "tds.authentification";
-	public static final String TDS_LDAP_FACTORY 			= "tds.factory";
-	public static final String TDS_LDAP_HOST 				= "tds.host";
-	public static final String TDS_LDAP_PREFFIX_NAME 		= "tds.preffixname";
-	public static final String TDS_LDAP_SUFFIX_NAME 		= "tds.suffixname";
-	public static final String TDS_LDAP_ADMIN 				= "tds.admin";
-	public static final String TDS_LDAP_PASSWORD 			= "tds.password";
-	public static final String TDS_CRYPTOKEY				= "tds.cryptokey";
-	
 }

@@ -12,6 +12,10 @@
 
 	<context:component-scan base-package="bbva.delivery.tarjetas.comun.dao" />
 
-	<context:component-scan base-package="bbva.delivery.tarjetas.perfil.dao" />
+	<context:component-scan base-package="bbva.delivery.tarjetas.courier.dao" />
+
+	<context:component-scan base-package="bbva.delivery.tarjetas.tercero.dao" />
+
+	<context:component-scan base-package="bbva.delivery.tarjetas.usuario.dao" />
 
 </beans>

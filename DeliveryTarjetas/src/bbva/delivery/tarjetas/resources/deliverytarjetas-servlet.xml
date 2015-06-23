@@ -22,22 +22,32 @@
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
 			<props>
+				<prop key="/comun.do">comunController</prop>
+				<prop key="/courier.do">courierController</prop>
 				<prop key="/delivery.do">deliveryController</prop>
-				<prop key="/login.do">loginController</prop>				
-				<prop key="/perfil.do">perfilController</prop>				
+				<prop key="/tercero.do">terceroController</prop>				
+				<prop key="/usuario.do">usuarioController</prop>				
 			</props>
 		</property>
 	</bean>
-
-	<bean id="deliveryController" 	class="bbva.delivery.tarjetas.controller.DeliveryController">
+	
+	<bean id="deliveryController" 		class="bbva.delivery.tarjetas.controller.DeliveryController">
 		<property name="methodNameResolver" ref="methodNameResolver" />
 	</bean>
 	
-	<bean id="loginController" 		class="bbva.delivery.tarjetas.controller.LoginController">
+	<bean id="comunController" 			class="bbva.delivery.tarjetas.comun.controller.ComunController">
 		<property name="methodNameResolver" ref="methodNameResolver" />
 	</bean>
 	
-	<bean id="perfilController" 	class="bbva.delivery.tarjetas.perfil.controller.PerfilController">
+	<bean id="courierController" 		class="bbva.delivery.tarjetas.courier.controller.CourierController">
+		<property name="methodNameResolver" ref="methodNameResolver" />
+	</bean>
+	
+	<bean id="terceroController" 		class="bbva.delivery.tarjetas.tercero.controller.TerceroController">
+		<property name="methodNameResolver" ref="methodNameResolver" />
+	</bean>
+	
+	<bean id="usuarioController" 		class="bbva.delivery.tarjetas.usuario.controller.UsuarioController">
 		<property name="methodNameResolver" ref="methodNameResolver" />
 	</bean>
 	
