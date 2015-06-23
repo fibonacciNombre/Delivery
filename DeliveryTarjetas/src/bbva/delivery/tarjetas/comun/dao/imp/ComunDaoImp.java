@@ -1,9 +1,18 @@
 package bbva.delivery.tarjetas.comun.dao.imp;
 
 import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
 
+import oracle.jdbc.OracleTypes;
+
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
+import com.rimac.sas.utiles.comunes.JdbcHelper;
+
+import bbva.delivery.tarjetas.commons.ConstantsProperties;
 import bbva.delivery.tarjetas.comun.bean.ArchivoBlob;
 import bbva.delivery.tarjetas.comun.bean.Constante;
 import bbva.delivery.tarjetas.comun.bean.Parametro;
@@ -12,6 +21,9 @@ import bbva.delivery.tarjetas.comun.dao.ComunDao;
 @Repository("comunDao")
 public class ComunDaoImp extends JdbcDaoBase implements ComunDao {
 
+	private static final ResourceBundle resources = ResourceBundle
+			.getBundle("configuracion");
+	
 	public Constante obtenerConstante(String ideConstante) {
 		// TODO Auto-generated method stub
 		return null;
@@ -23,11 +35,31 @@ public class ComunDaoImp extends JdbcDaoBase implements ComunDao {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Parametro> listarParametro(Parametro parametro) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Parametro> lstParametro(Parametro param) {
+		  
+		List<Parametro> lista = null; 
+		MapSqlParameterSource in = null;
+
+		SimpleJdbcCall call = null;
+		Map<String, Object> out = null;
+		in = new MapSqlParameterSource();
+
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
+				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
+				resources.getString(ConstantsProperties.PQ_DEL_COURIER),
+				"sp_lst_parametro");
+ 
+		JdbcHelper.setInParameter(call, in, "a_idparametrotipo", OracleTypes.INTEGER, param.getIdparametrotipo()); 
+		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, Parametro.class);
+		 
+		out = call.execute(in);
+		lista = (List<Parametro>) out.get("a_cursor");
+		  
+		return lista;
 	}
+
 
 	@Override
 	public void obtenerListaParametros(Parametro param) {
@@ -39,4 +71,6 @@ public class ComunDaoImp extends JdbcDaoBase implements ComunDao {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
 }

@@ -1,4 +1,4 @@
-package bbva.delivery.tarjetas.bean;
+package bbva.delivery.tarjetas.comun.bean;
 
 import java.util.Map;
 

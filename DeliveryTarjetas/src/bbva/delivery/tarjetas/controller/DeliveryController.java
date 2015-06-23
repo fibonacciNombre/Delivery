@@ -11,8 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import bbva.delivery.tarjetas.anotaciones.AdviceController;
-import bbva.delivery.tarjetas.bean.Delivery;
-import bbva.delivery.tarjetas.bean.Parametro;
+import bbva.delivery.tarjetas.bean.Delivery; 
 import bbva.delivery.tarjetas.comun.service.ComunService;
 import bbva.delivery.tarjetas.service.DeliveryService;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
@@ -103,27 +102,7 @@ public class DeliveryController extends BaseController{
 		 
 	}
 	
-	public void lstParametro(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
 
-		List<Parametro> listaParametro = null;
-		String lstparametro = "";
-
-		Parametro parametro = null;
- 
-		parametro = new Parametro(request.getParameterMap());
-
-		try {
-			listaParametro = deliveryService.lstParametro(parametro);
-			lstparametro = commons.web.UtilWeb.listaToArrayJson(listaParametro, null,
-					Parametro.class.getName());
-		} catch (Error e) {
-			lstparametro = "{" + e.getMessage() + "}";
-		}
-
-		this.escribirTextoSalida(response, lstparametro);
-		 
-	}
 	
 	
 }

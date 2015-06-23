@@ -5,8 +5,7 @@ import java.util.List;
 
 import org.json.simple.JSONObject;
  
-import bbva.delivery.tarjetas.bean.Delivery; 
-import bbva.delivery.tarjetas.bean.Parametro;
+import bbva.delivery.tarjetas.bean.Delivery;  
 
 public interface DeliveryService {
 
@@ -14,8 +13,7 @@ public interface DeliveryService {
 
 	public JSONObject cargarExcelDelivery(String fileName) throws FileNotFoundException;
 	public List<Delivery> lstDelivery(Delivery param);
-	
-	public List<Parametro> lstParametro(Parametro param);
+	 
 	 
 	public Integer valCourierDelivery(String dnicourier);
 }

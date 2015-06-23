@@ -14,8 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import com.rimac.sas.utiles.comunes.JdbcHelper;
 
-import bbva.delivery.tarjetas.bean.Delivery;
-import bbva.delivery.tarjetas.bean.Parametro;
+import bbva.delivery.tarjetas.bean.Delivery; 
 import bbva.delivery.tarjetas.commons.ConstantsProperties;
 import bbva.delivery.tarjetas.comun.dao.imp.JdbcDaoBase;
 import bbva.delivery.tarjetas.dao.DeliveryDao;
@@ -136,31 +135,7 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 
 	}
 	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Parametro> lstParametro(Parametro param) {
-		  
-		List<Parametro> lista = null; 
-		MapSqlParameterSource in = null;
-
-		SimpleJdbcCall call = null;
-		Map<String, Object> out = null;
-		in = new MapSqlParameterSource();
-
-		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
-				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
-				resources.getString(ConstantsProperties.PQ_DEL_COURIER),
-				"sp_lst_parametro");
- 
-		JdbcHelper.setInParameter(call, in, "a_idparametrotipo", OracleTypes.INTEGER, param.getIdparametrotipo()); 
-		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, Parametro.class);
-		 
-		out = call.execute(in);
-		lista = (List<Parametro>) out.get("a_cursor");
-		  
-		return lista;
-	}
-
+	
 	
 	@Override
 	public Integer valCourierDelivery(String dnicourier) {
