@@ -78,23 +78,7 @@ jQuery.fn.dataTableExt.oApi.fnProcessingIndicator = function ( oSettings, onoff 
 	this.oApi._fnProcessingDisplay( oSettings, onoff );
 };
 
-function llenarCombo(idControl,listaOpciones,emptyElement){
-	
-	var combo = $('#'+idControl); 
-	combo.empty();
 
-	if(emptyElement)
-		combo.append('<option value="">'+'Seleccionar'+'</option>');
-	
-	for(var i=0; i<listaOpciones.length; i++){
-		if(listaOpciones[i][1] != "NO DETERMINADO"){
-			var opcion = '<option value="'+listaOpciones[i][0]+'" >'+listaOpciones[i][1]+'</option>' ;
-			combo.append(opcion);
-		}
-	}
-	
-	$('#'+idControl).change();
-}
 
 function cuotasVencidas(table){
 	var nroCuotasVencidas = 0;
@@ -378,23 +362,6 @@ function replaceAll(str, find, replace){
 	return str.replace(new RegExp(find, 'g'), replace);
 }
 /*FIN MFARFANR*/
-
-
-function cleanDatatable(idTabla){
-	$(idTabla).dataTable().fnClearTable();
- 	$(idTabla).dataTable().fnDestroy();
-}
-
-function mostrarDatatable(idGrupoProd, idTabla){
-	load_event_ajax(); 
-	
-	var table = $(idTabla).dataTable();
-	
-	if(table.fnGetData().length == 0){
-         table.parent().toggle(false);
-         $(idGrupoProd).toggle(false);
-	}
-}
 
 function ocultarDatatable(idGrupoProd, idTabla){
 	$(idGrupoProd).toggle(false);

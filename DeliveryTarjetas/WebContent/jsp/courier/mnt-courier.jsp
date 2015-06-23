@@ -31,22 +31,23 @@
 							<label for="estado" class="col-md-5 control-label">Estado</label>
 							<div class="col-md-7">								
 								 <select class="form-control" id="estado" name="estado"> 
-								 	<option>Todos</option>                       	
+								 	<option value="">Todos</option>                       	
                         		</select>								
 							</div>
 						</div>							
 						<div class="form-group">
-							<label for="btnRegistrar" class="col-md-7">
+							<label for="btnRegistrar" class="col-md-5 control-label">
+							</label>
+							<div class="col-md-7">
 								<button id="btnRegistrar"
 			                    		type="button" 
 			                    		class="btn btn-primary" 
+			                    		style="float:right;padding-top: 3px; padding-bottom: 3px;"
 			                    		onclick="javascript:bsqCourier();">
-			                    			<%--
-			                    				<i style="background-position: -592px -1405px;height: 25px;margin-right: 5px;transform: scale(0.5);width: 26px;"></i>			                    			
-			                    			--%>
-			                    			Buscar			                    			
+			                    			<i style="background-position: -592px -1405px; height: 25px; margin-right: 0px; width: 25px; display: inline-block; vertical-align: top; transform: scale(0.6);"></i>			                    			
+			                    			<div style="display: inline-block; margin-top: 3px; vertical-align: top;">Buscar</div>			                    			
 			                    </button>
-			                </label>							
+			                </div>							
 						</div>																
 					</div>										
 				</div>						
@@ -102,8 +103,8 @@
 	
     $().ready(function(){
     	
-    	callCargaControlParam('PWEB_USR_TIPDOC','form-bsqcourier #estado');
-    	    	
+    	callCargaControlParam('PARAM_ESTADOS','form-bsqcourier #estado');
+    	
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
 		});
@@ -188,7 +189,7 @@
 	                         	 								return linkDetalleCourier();
 	                         	 							}}										
 								],
-			"fnDrawCallback"	: function () { mostrarDatatable('#grupoSalud',nomTablaSalud);}
+			"fnDrawCallback"	: function () { mostrarDatatable("#table-lst-couriers");}
 		});
 	}
 	

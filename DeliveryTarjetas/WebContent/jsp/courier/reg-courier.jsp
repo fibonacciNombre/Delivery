@@ -8,24 +8,24 @@
         <div class="row">
             <div class="col-md-12">
 
-                <div class="form-group" id="codigobbva-div">
-                    <label for="numerodoc" class="col-sm-5 col-sm-offset-1 control-label required">Código Bbva </label>
+                <div class="form-group" id="codbbva-div">
+                    <label for="codbbva" class="col-sm-5 col-sm-offset-1 control-label required">Código Bbva </label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" id=codbbva name="codbbva" maxlength="200">
                         <div class="result"></div>
                     </div>
                 </div>
                 
-                <div class="form-group" id="razonsocial-div">
-                    <label for="direccioncompleta" class="col-sm-5 col-sm-offset-1 control-label required">Razón social </label>
+                <div class="form-group" id="rznsocial-div">
+                    <label for="rznsocial" class="col-sm-5 col-sm-offset-1 control-label required">Razón social </label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" id="rznsocial" name="rznsocial" maxlength="200">
                         <div class="result"></div>
                     </div>
                 </div>
                 
-                <div class="form-group" id="direccioncompleta-div">
-                    <label for="direccioncompleta" class="col-sm-5 col-sm-offset-1 control-label required">Dirección completa </label>
+                <div class="form-group" id="direccion-div">
+                    <label for="direccion" class="col-sm-5 col-sm-offset-1 control-label required">Dirección completa </label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" id="direccion" name="direccion" maxlength="200">
                         <div class="result"></div>
@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 
-                <div class="form-group" id="numfijo-div">
+                <div class="form-group" id="numlocal-div">
                     <label for="numlocal" class="col-sm-5 col-sm-offset-1 control-label required">Teléfono fijo </label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control phone-group" id="numlocal"  name="numlocal" maxlength="9">
@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 
-                <div class="form-group" id="correoelectronico-div">
+                <div class="form-group" id="email-div">
                     <label for="email" class="col-sm-5 col-sm-offset-1 control-label required">Correo electrónico </label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" id="email"  name="email" maxlength="200">
@@ -58,46 +58,50 @@
                 
                 
                 <div class="form-group" id="estado-div">
-                    <label for="email" class="col-sm-5 col-sm-offset-1 control-label required">Estado </label>
+                    <label for="estado" class="col-sm-5 col-sm-offset-1 control-label required">Estado </label>
                     <div class="col-sm-5">
-                        <select class="form-control" id="estado" name="estado">                        	
+                        <select class="form-control" id="estado" name="estado">     
+                        	<option value="{debe ir id del estado}">ESTADO</option>                   	
                         </select>
                         <div class="result"></div>
                     </div>
                 </div>
                 
-                <div class="form-group" style="margin-bottom: 10px; font-size: 11px; font-style: italic; font-weight: bold;">
+                <div class="form-group" style="margin-bottom: 0px; font-size: 11px; font-style: italic; font-weight: bold;">
                 	<label for="*" class="col-sm-5 col-sm-offset-1 control-label">
                 		<span>(<label class="required"></label>) Campos obligatorios</span>
-                	</label>
-                	<div class="col-sm-5">
-                	 	&nbsp;
-                	</div>
+                	</label>                	
                 </div>
                 
 			</div>
             
-        </div>
-        
+        </div>        
         <div class="row">
-            <div class="col-sm-10  col-sm-offset-1">
-                <div class="form-group pull-right">
-                    <button type="button" 
-                    		class="btn btn-default"
-                    		onclick="javascript:limpiarFormulario('form-registrocourier');">
-                    			Limpiar
-                    </button>
-                    
-                    <button id="btnRegistrar"
-                    		type="button" 
-                    		class="btn btn-primary" 
-                    		onclick="javascript:registrarCourier();">
-                    			Registrar
-                    </button>
-                </div>
-            </div>
+	        <div class="col-md-12">
+	        
+	            <div class="col-sm-10  col-sm-offset-1">
+	                <div class="form-group">
+	                	<label class="col-sm-5 col-sm-offset-1 control-label" style="padding: 0px;">
+	                	</label>
+	                	<div class="col-sm-6 pull-right" style="text-align: right; padding: 0px;">
+		                    <button type="button" 
+		                    		class="btn btn-default"
+		                    		onclick="javascript:limpiarFormulario('form-registrocourier');">
+		                    			Limpiar
+		                    </button>
+		                    
+		                    <button id="btnRegistrar"
+		                    		type="button" 
+		                    		class="btn btn-primary" 
+		                    		onclick="javascript:registrarCourier();">
+		                    			Registrar
+		                    </button>
+	                    </div>
+	                </div>
+	            </div>
+	            
+	        </div>
         </div>
-        
     </form>
     
 </div>
@@ -107,9 +111,9 @@
 <script>
 	
     $().ready(function(){
+    		
+    	callCargaControlParam('PARAM_ESTADOS','form-registrocourier #estado');
     	
-    	callCargaControlParam('PWEB_USR_TIPDOC','form-registrocourier #estado');
-    	    	
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
 		});

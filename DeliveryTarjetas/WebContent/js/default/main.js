@@ -179,25 +179,3 @@
 		);
 	};
 })(jQuery);
-
-
-
-$(function(){    
-    $('.view-pdf').on('click',function(){
-    	
-    	if($(this).attr('id')=='link-tycdatos'){
-    		DIR_PDF_TERMCOND = DIR_PDF_TERMCOND_DATOS;
-    	}
-    	
-    	if($(this).attr('id')=='tycfooter'){
-    		DIR_PDF_TERMCOND = DIR_PDF_TERMCOND_GENER;
-    	}
-    	
-        var pdf_link = $(this).attr('href')+DIR_PDF_TERMCOND;
-        var iframe = '<div class="iframe-container"><iframe src="'+pdf_link+'"></iframe></div>';
-        $.createModal({
-        	message: iframe
-        });
-        return false;        
-    });
-});
