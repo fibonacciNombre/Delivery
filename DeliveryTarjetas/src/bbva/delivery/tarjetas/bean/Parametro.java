@@ -13,7 +13,7 @@ public class Parametro {
 	private String codigoc;
 	private String abreviatura;
 	private String descripcion;
-	private String indactivo;
+	private Integer idpestado;
 	private String usucreacion;
 	private Date feccreacion;
 	private String usumodif;
@@ -76,14 +76,7 @@ public class Parametro {
 		this.descripcion = descripcion;
 	}
 
-	public String getIndactivo() {
-		return indactivo;
-	}
-
-	public void setIndactivo(String indactivo) {
-		this.indactivo = indactivo;
-	}
-
+	 
 	public String getUsucreacion() {
 		return usucreacion;
 	}
@@ -114,6 +107,14 @@ public class Parametro {
 
 	public void setFecmodif(Date fecmodif) {
 		this.fecmodif = fecmodif;
+	}
+
+	public Integer getIdpestado() {
+		return idpestado;
+	}
+
+	public void setIdpestado(Integer idpestado) {
+		this.idpestado = idpestado;
 	}
 
 }
