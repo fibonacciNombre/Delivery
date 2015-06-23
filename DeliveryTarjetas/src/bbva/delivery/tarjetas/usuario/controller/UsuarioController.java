@@ -1,5 +1,7 @@
 package bbva.delivery.tarjetas.usuario.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -173,7 +175,8 @@ public class UsuarioController extends BaseController {
 		Perfil perfil				= new Perfil();
 		Courier courier				= new Courier();
 		Tercero tercero				= new Tercero();
-		
+		List<Courier> lstcourier;
+				
 		String jsonUsuario			= "\"Usuarioweb\":[";
 		String jsonPerfil			= "\"Perfil\":[";
 		String jsonTercero			= "\"Tercero\":[";
@@ -199,7 +202,7 @@ public class UsuarioController extends BaseController {
 		
 		if(usuarioWeb.getIdtercero()!=null){
 			tercero.setIdtercero(usuarioWeb.getIdtercero());
-			tercero = terceroService.obtDetalleTercero(tercero);	
+			//tercero = terceroService.obtDetalleTercero(tercero);	
 			jsonTercero += commons.web.UtilWeb.objectToJson(tercero, null, Tercero.class.getName());
 		}
 		
@@ -207,8 +210,8 @@ public class UsuarioController extends BaseController {
 		
 		if(tercero.getIdcourier()!=null){
 			courier.setIdcourier(tercero.getIdcourier());
-			courier = courierService.obtDetalleCourier(courier);	
-			jsonCourier += commons.web.UtilWeb.objectToJson(courier, null, Courier.class.getName());
+			lstcourier = courierService.obtCourier(courier);	
+			jsonCourier += commons.web.UtilWeb.objectToJson(lstcourier.get(0), null, Courier.class.getName());
 		}
 		
 		jsonCourier += "]";

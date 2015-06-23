@@ -6,11 +6,10 @@ import bbva.delivery.tarjetas.courier.bean.Courier;
 
 public interface CourierService {
 
-	void regCourier(Courier courier);
 	
 	void mntCourier(Courier courier);
 	
-	List<Courier> lstCouriers(String estado);
+	List<Courier> lstCouriers(Courier courier);
 	
-	Courier obtDetalleCourier(Courier courier);
+	List<Courier>  obtCourier(Courier courier);
 }
