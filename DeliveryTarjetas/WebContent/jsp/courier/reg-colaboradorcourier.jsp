@@ -8,47 +8,67 @@
         <div class="row">
             <div class="col-md-12">
 
-                <div class="form-group" id="codigobbva-div">
-                    <label for="numerodoc" class="col-sm-5 col-sm-offset-1 control-label required">Código Bbva </label>
+                <div class="form-group" id="codbbva-div">
+                    <label for=codbbva" class="col-sm-5 col-sm-offset-1 control-label required">Courier </label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" id=codbbva name="codbbva" maxlength="200">
+                        <select class="form-control" id="codbbva" name="codbbva"> 
+						 	<option value="{debe ir el codbbva}">Nombre courier</option>                       	
+                   		</select>
                         <div class="result"></div>
                     </div>
                 </div>
                 
-                <div class="form-group" id="razonsocial-div">
-                    <label for="direccioncompleta" class="col-sm-5 col-sm-offset-1 control-label required">Razón social </label>
+                <div class="form-group" id="tipdocumento-div">
+                    <label for="tipdocumento" class="col-sm-5 col-sm-offset-1 control-label required">Tipo de documento </label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" id="rznsocial" name="rznsocial" maxlength="200">
+                        <select class="form-control" id="tipdocumento" name="tipdocumento"> 
+						 	<option value="{debe ir id de tipo de documento}">DNI</option>                       	
+                   		</select>
                         <div class="result"></div>
                     </div>
                 </div>
                 
-                <div class="form-group" id="direccioncompleta-div">
-                    <label for="direccioncompleta" class="col-sm-5 col-sm-offset-1 control-label required">Dirección completa </label>
+                <div class="form-group" id="nrodocumento-div">
+                    <label for="nrodocumento" class="col-sm-5 col-sm-offset-1 control-label required">Nro. documento </label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" id="direccion" name="direccion" maxlength="200">
+                        <input type="text" class="form-control" id="nrodocumento"  name="nrodocumento" maxlength="12">
                         <div class="result"></div>
                     </div>
                 </div>
                 
+                <div class="form-group" id="nombres-div">
+                    <label for="nombres" class="col-sm-5 col-sm-offset-1 control-label required">Nombres </label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="nombres" name="nombres" maxlength="200">
+                        <div class="result"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group" id="apepaterno-div">
+                    <label for="apepaterno" class="col-sm-5 col-sm-offset-1 control-label required">Apellido paterno </label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="apepaterno" name="apepaterno" maxlength="200">
+                        <div class="result"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group" id="apematerno-div">
+                    <label for="apematerno" class="col-sm-5 col-sm-offset-1 control-label required">Apellido materno </label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="apematerno" name="apematerno" maxlength="200">
+                        <div class="result"></div>
+                    </div>
+                </div>
+                                
                 <div class="form-group" id="nummovil-div">
                     <label for="nummovil" class="col-sm-5 col-sm-offset-1 control-label required">Teléfono móvil </label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control phone-group" id="nummovil" name="nummovil" maxlength="9">
+                        <input type="text" class="form-control" id="nummovil" name="nummovil" maxlength="9">
                         <div class="result"></div>
                     </div>
                 </div>
                 
-                <div class="form-group" id="numfijo-div">
-                    <label for="numlocal" class="col-sm-5 col-sm-offset-1 control-label required">Teléfono fijo </label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control phone-group" id="numlocal"  name="numlocal" maxlength="9">
-                        <div class="result"></div>
-                    </div>
-                </div>
-                
-                <div class="form-group" id="correoelectronico-div">
+                <div class="form-group" id="email-div">
                     <label for="email" class="col-sm-5 col-sm-offset-1 control-label required">Correo electrónico </label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" id="email"  name="email" maxlength="200">
@@ -56,23 +76,20 @@
                     </div>
                 </div>
                 
-                
                 <div class="form-group" id="estado-div">
-                    <label for="email" class="col-sm-5 col-sm-offset-1 control-label required">Estado </label>
+                    <label for="estado" class="col-sm-5 col-sm-offset-1 control-label required">Estado </label>
                     <div class="col-sm-5">
-                        <select class="form-control" id="estado" name="estado">                        	
+                        <select class="form-control" id="estado" name="estado">  
+                        	<option value="{debe ir id del estado}">ESTADO</option>                      	
                         </select>
                         <div class="result"></div>
                     </div>
                 </div>
                 
-                <div class="form-group" style="margin-bottom: 10px; font-size: 11px; font-style: italic; font-weight: bold;">
+              	<div class="form-group" style="margin-bottom: 0px; font-size: 11px; font-style: italic; font-weight: bold;">
                 	<label for="*" class="col-sm-5 col-sm-offset-1 control-label">
                 		<span>(<label class="required"></label>) Campos obligatorios</span>
-                	</label>
-                	<div class="col-sm-5">
-                	 	&nbsp;
-                	</div>
+                	</label>                	
                 </div>
                 
 			</div>
@@ -80,22 +97,30 @@
         </div>
         
         <div class="row">
-            <div class="col-sm-10  col-sm-offset-1">
-                <div class="form-group pull-right">
-                    <button type="button" 
-                    		class="btn btn-default"
-                    		onclick="javascript:limpiarFormulario('form-registrocolaboradores');">
-                    			Limpiar
-                    </button>
-                    
-                    <button id="btnRegistrar"
-                    		type="button" 
-                    		class="btn btn-primary" 
-                    		onclick="javascript:registrarColaboradorxCourier();">
-                    			Registrar
-                    </button>
-                </div>
-            </div>
+	        <div class="col-md-12">
+	        
+	            <div class="col-sm-10  col-sm-offset-1">
+	                <div class="form-group">
+	                	<label class="col-sm-5 col-sm-offset-1 control-label" style="padding: 0px;">
+	                	</label>
+	                	<div class="col-sm-6 pull-right" style="text-align: right; padding: 0px;">
+		                    <button type="button" 
+		                    		class="btn btn-default"
+		                    		onclick="javascript:limpiarFormulario('form-registrocolaboradores');">
+		                    			Limpiar
+		                    </button>
+		                    
+		                    <button id="btnRegistrar"
+		                    		type="button" 
+		                    		class="btn btn-primary" 
+		                    		onclick="javascript:registrarColaboradorxCourier();">
+		                    			Registrar
+		                    </button>
+	                    </div>
+	                </div>
+	            </div>
+	            
+	        </div>
         </div>
         
     </form>
@@ -108,8 +133,10 @@
 	
     $().ready(function(){
     	
-    	callCargaControlParam('PWEB_USR_TIPDOC','form-registrocolaboradores #estado');
-    	    	
+		callCargaControlParam('PARAM_TIPODOCUMENTO','form-registrocolaboradores #tipdocumento');
+    	
+    	callCargaControlParam('PARAM_ESTADOS','form-registrocolaboradores #estado');
+    	
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
 		});

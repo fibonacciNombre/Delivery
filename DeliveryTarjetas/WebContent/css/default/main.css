@@ -11076,7 +11076,7 @@ span.loading-animate:nth-child(5) {
   	margin-bottom: 20px;
 }
 
-@media (max-width: 550px) {
+@media (max-width: 700px) {
 	.desktop{
 		display: none;
 	}
