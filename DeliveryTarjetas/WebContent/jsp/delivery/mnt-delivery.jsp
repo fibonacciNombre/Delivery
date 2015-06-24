@@ -4,7 +4,7 @@
 
 	<h3 class="container-title">
 		<span class="vineta-title"></span>
-		<span>Edición de colaboradores por courier</span>
+		<span>Edición de datos de entrega</span>
 	</h3>
 	
     <form id="form-bsqcolaborador">

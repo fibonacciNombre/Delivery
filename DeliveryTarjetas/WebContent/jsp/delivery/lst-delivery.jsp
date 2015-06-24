@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 
 <div id="mantenimiento-colaboradorescourier">
-
+	
 	<h3 class="container-title">
 		<span class="vineta-title"></span>
-		<span>Edición de colaboradores por courier</span>
+		<span>Consultar entregas a realizar</span>
 	</h3>
 	
     <form id="form-bsqcolaborador">

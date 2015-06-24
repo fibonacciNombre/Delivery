@@ -2,7 +2,10 @@
 
 <div id="registro-usuariows">
 
-	<h3 class="container-title">Servicios web - Registro de usuarios</h3>
+	<h3 class="container-title">
+		<span class="vineta-title"></span>
+		<span>Servicios web - Registro de usuarios</span>
+	</h3>
 	
 	<div id="container-principal"> 
 	    <form id="form-registrousuariows">

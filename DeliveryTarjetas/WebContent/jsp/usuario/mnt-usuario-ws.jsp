@@ -2,7 +2,10 @@
 
 <div id="mantenimiento-usuariows">
 
-	<h3 class="container-title">Servicios web - Edición de usuarios</h3>
+	<h3 class="container-title">
+		<span class="vineta-title"></span>
+		<span>Servicios web - Edición de usuarios</span>
+	</h3>
 	
     <form id="form-bsqusuariows">
     	<div class="panel panel-default">

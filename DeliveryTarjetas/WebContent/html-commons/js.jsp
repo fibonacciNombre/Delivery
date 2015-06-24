@@ -54,11 +54,7 @@
 
 <!-- JS UTILITARIOS -->
 <script charset="utf-8" src="<%=request.getContextPath()%>/js/bbva/constantes-lib.js"></script>
-<script charset="utf-8" src="<%=request.getContextPath()%>/js/bbva/bloques-html-constantes-lib.js"></script>
 <script charset="utf-8" src="<%=request.getContextPath()%>/js/bbva/deliverytarjetas-lib.js"></script>
-<script charset="utf-8" src="<%=request.getContextPath()%>/js/bbva/fichatecnica-lib.js"></script>
-
-<script charset="utf-8" src="<%=request.getContextPath()%>/js/default/recaptcha_ajax.js"></script>
 <script charset="utf-8" src="<%=request.getContextPath()%>/js/default/additional-methods.min.js"></script>
 
 <!--  JS FILEUPLOAD -->

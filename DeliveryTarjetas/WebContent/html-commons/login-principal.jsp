@@ -126,7 +126,7 @@
 		<div class="modal-cargando">
 			<div class="modal-content">	
 				<div class="gif_animation">					
-					<img src="<%=request.getContextPath()%>/img/bbva/loading.gif">
+					<img src="<%=request.getContextPath()%>/img/bbva/cargando.gif">
 				</div>
 			</div>
 		</div>		  	

@@ -2,8 +2,11 @@
 
 <div id="registro-colaboradorescourier">
 
-	<h3 class="container-title">Registro de colaboradores por courier</h3>
-
+	<h3 class="container-title">
+		<span class="vineta-title"></span>
+		<span>Registro de colaboradores por courier</span>
+	</h3>
+	
     <form id="form-registrocolaboradores">
     
         <div class="row">

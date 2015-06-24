@@ -53,7 +53,7 @@
 	
 	function bloqueoCargando(){
 		$.fancybox('<div>'+
-						'<img src="<%=request.getContextPath()%>/img/bbva/loading.gif">'+						
+						'<img src="<%=request.getContextPath()%>/img/bbva/cargando.gif">'+						
 					'</div>',	
 					{	height		: 60,
 						padding		: 10,
