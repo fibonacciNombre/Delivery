@@ -59,6 +59,8 @@
 	
 			$().ready(function(){ 
 				
+				$("#header").hide();
+
 				loadModalCargando();
 				
 				obtDatosUsuarioSesion();
