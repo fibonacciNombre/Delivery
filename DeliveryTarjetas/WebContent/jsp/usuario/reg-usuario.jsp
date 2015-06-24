@@ -2,7 +2,10 @@
 
 <div id="registro-usuario">
 
-	<h3 class="container-title">Registro de usuario</h3>
+	<h3 class="container-title">
+		<span class="vineta-title"></span>
+		<span>Registro de usuario</span>
+	</h3>
 	
 	<div id="container-principal"> 
 	

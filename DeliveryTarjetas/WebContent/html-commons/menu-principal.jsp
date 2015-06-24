@@ -24,12 +24,13 @@
 			<li class="panel">
 				<a href="#" 
 				    id="panelSalud"
+				    class="view-admin"
 				    data-toggle="collapse" 
 					data-parent="#accordion" 
 					data-target="#usuario-menu"  >
 					<i class="ui-icn-usuarios"></i>Gestión de Usuarios<i class="arrow"></i>
 				</a>
-				<div id="usuario-menu" class="collapse">
+				<div id="usuario-menu" class="collapse view-admin">
 					<ul>
 
 						<li>
@@ -61,10 +62,10 @@
 				<div id="courier-menu" class="collapse">   
 					<ul>
 						<li>
-							<a href="#" id="view-reg-courier" data-url="/DeliveryTarjetas/courier.do?method=goRegCourier">Registro de courier</a>
+							<a href="#" class="view-admin" id="view-reg-courier" data-url="/DeliveryTarjetas/courier.do?method=goRegCourier">Registro de courier</a>
 						</li>
 						<li>
-							<a href="#" id="view-mnt-courier" data-url="/DeliveryTarjetas/courier.do?method=goMntCourier">Edición de couriers</a>
+							<a href="#" class="view-admin" id="view-mnt-courier" data-url="/DeliveryTarjetas/courier.do?method=goMntCourier">Edición de couriers</a>
 						</li>
 						<li>
 							<a href="#" id="view-reg-colaborador" data-url="/DeliveryTarjetas/courier.do?method=goRegColaborador">Registro de <br>Colaboradores por courier</a>
@@ -87,11 +88,14 @@
 			    <div id="delivery-menu" class="collapse">
 			        <ul>
 			            <li>
-			                <a href="#" data-url="/DeliveryTarjetas/delivery.do?method=goEditarDelivery">Editar datos <br>de una entrega</a>
+			                <a href="#" id="view-carga-entrega" data-url="/DeliveryTarjetas/delivery.do?method=goCargaDelivery">Carga entregas a realizar</a>
 			            </li>
 			            <li>
-			                <a href="#" data-url="/DeliveryTarjetas/delivery.do?method=goCargaDelivery">Carga de archivo<br>entregas a realizar</a>
-			            </li>			            
+			                <a href="#" id="view-mnt-entrega" data-url="/DeliveryTarjetas/delivery.do?method=goMntCargaDelivery">Edición de datos de entrega</a>
+			            </li>
+			            <li>
+			                <a href="#" id="view-lst-entrega" data-url="/DeliveryTarjetas/delivery.do?method=golstDelivery">Consultar entregas a realizar</a>
+			            </li>			            			            
 			        </ul>
 			    </div>
 			</li>

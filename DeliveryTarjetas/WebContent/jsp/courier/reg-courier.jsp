@@ -2,7 +2,10 @@
 
 <div id="registro-courier">
 
-	<h3 class="container-title">Registro de courier</h3>
+	<h3 class="container-title">
+		<span class="vineta-title"></span>
+		<span>Registro de courier</span>
+	</h3>
 
     <form id="form-registrocourier">
         

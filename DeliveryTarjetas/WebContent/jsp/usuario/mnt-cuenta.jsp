@@ -1,6 +1,9 @@
 <div id="mi-cuenta">
 
-	<h3 class="container-title">Mi cuenta</h3>
+	<h3 class="container-title">
+		<span class="vineta-title"></span>
+		<span>Mi cuenta</span>
+	</h3>
 	
 	<div class="row">
 		<div id="bienvenida_act_datos" class="col-md-12">

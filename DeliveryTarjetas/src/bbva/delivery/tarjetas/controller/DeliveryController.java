@@ -38,38 +38,23 @@ public class DeliveryController extends BaseController{
 
 	@Override
 	public ModelAndView save(HttpServletRequest request,HttpServletResponse response) {return null;}
-
-	public String goHomePage(HttpServletRequest request,
-			HttpServletResponse response)throws Exception {		
-		System.out.println("login	-->		inicio");
-		return "inicio"; 
-	}
-	
-	public void redireccionInicio(HttpServletRequest request,
-			HttpServletResponse response){
-		
-		String a = request.getContextPath()+"/jsp/inicio.jsp";
-		
-		this.escribirTextoSalida(response, a);
-	}
-	
-	public void redireccionInicio2(HttpServletRequest request,
-			HttpServletResponse response){
-		
-		String a = request.getContextPath()+"/jsp/inicio.jsp";
-		
-		try {
-			response.sendRedirect(a);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}		
-	}
-	 
 	
 	public String goCargaDelivery(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		System.out.println("goCargaDelivery	-->		carga-delivery.jsp");
 		return "courier/carga-delivery";
+	}
+	
+	public String goMntCargaDelivery(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		System.out.println("goCargaDelivery	-->		carga-delivery.jsp");
+		return "delivery/mnt-carga-delivery";
+	}
+	
+	public String golstDelivery(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		System.out.println("goCargaDelivery	-->		carga-delivery.jsp");
+		return "courier/lst-delivery";
 	}
 	
 	public void cargaExcelDelivery(HttpServletRequest request,

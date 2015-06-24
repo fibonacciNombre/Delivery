@@ -2,7 +2,10 @@
 
 <div id="mantenimiento-courier">
 
-	<h3 class="container-title">Edición de courier</h3>
+	<h3 class="container-title">
+		<span class="vineta-title"></span>
+		<span>Edición de courier</span>
+	</h3>
 	
     <form id="form-bsqcourier">
     	<div class="panel panel-default">
