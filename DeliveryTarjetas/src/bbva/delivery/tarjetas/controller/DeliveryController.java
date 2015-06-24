@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import bbva.delivery.tarjetas.anotaciones.AdviceController;
+import bbva.delivery.tarjetas.bean.Archivo;
 import bbva.delivery.tarjetas.bean.Delivery; 
 import bbva.delivery.tarjetas.comun.service.ComunService;
 import bbva.delivery.tarjetas.service.DeliveryService;
@@ -61,8 +62,12 @@ public class DeliveryController extends BaseController{
 			HttpServletResponse response) throws Exception {
 
 		JSONObject joRetorno = new JSONObject();
-		String fileName = request.getParameter("fileName");
-		joRetorno = deliveryService.cargarExcelDelivery(fileName);
+		
+		Archivo archivo = null;
+		 
+		archivo = new Archivo(request.getParameterMap());
+		 
+		joRetorno = deliveryService.cargarExcelDelivery(archivo);
 
 		this.escribirTextoSalida(response, joRetorno.toString());
 	}

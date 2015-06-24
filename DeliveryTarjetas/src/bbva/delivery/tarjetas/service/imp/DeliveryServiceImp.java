@@ -37,7 +37,7 @@ public class DeliveryServiceImp implements DeliveryService {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public JSONObject cargarExcelDelivery(String fileName) throws FileNotFoundException{
+	public JSONObject cargarExcelDelivery(Archivo archivo) throws FileNotFoundException{
 		
 		JSONObject joRetorno = new JSONObject();
 		Integer resultado = 0;
@@ -50,10 +50,10 @@ public class DeliveryServiceImp implements DeliveryService {
 		FileInputStream fileInput = null;
 		Workbook wb = null;
 		try {
-			fileInput = new FileInputStream(fileName);
+			fileInput = new FileInputStream(archivo.getFilename());
 
 			/** Se instancia si es xls o xlsx **/
-			if (fileName.toLowerCase().endsWith("xlsx")) {
+			if (archivo.getFilename().toLowerCase().endsWith("xlsx")) {
 				try {
 					wb = new XSSFWorkbook(fileInput);
 				} catch (Exception e) {
@@ -61,7 +61,7 @@ public class DeliveryServiceImp implements DeliveryService {
 					mensaje = "Error al levantar el archivo excel";
 				}
 
-			} else if (fileName.toLowerCase().endsWith("xls")) {
+			} else if (archivo.getFilename().toLowerCase().endsWith("xls")) {
 				try {
 					wb = new HSSFWorkbook(fileInput);
 				} catch (Exception e) { 
@@ -71,9 +71,10 @@ public class DeliveryServiceImp implements DeliveryService {
 			}
 			
 			BigDecimal idgrupoCarga = crearGrupoCargaDelivery();
-			//Integer idarchivo = mntArchivo();
+			 
+			cargarArchivoDelivery(archivo);
 			
-			Integer existeCourier;
+			//Integer existeCourier;
 			
 			/** Recorrer las hojas del excel **/
 			for (int k = 0; k < wb.getNumberOfSheets(); k++) {
@@ -93,6 +94,8 @@ public class DeliveryServiceImp implements DeliveryService {
 					
 					carga.setIddelivery(null);
 					carga.setGrupocarga(idgrupoCarga);
+					carga.setIdarchivo(archivo.getIdarchivo());
+					
 					carga.setTipodocumento(getCellValue(row, 0));
 					carga.setNrodocumentocli(getCellValue(row, 1));
 					carga.setNombrescli(getCellValue(row, 2));
@@ -132,6 +135,8 @@ public class DeliveryServiceImp implements DeliveryService {
 					carga.setTelmovilcli(getCellValue(row, 17));
 					carga.setOrdenentrega(getCellValue(row, 18));
 					
+					carga.setCodcourier(getCellValue(row, 19));
+					carga.setDnitrabajador(getCellValue(row, 20));
 					
 					try {
 						portalWebDao.cargaDelivery(carga);
@@ -204,8 +209,8 @@ public class DeliveryServiceImp implements DeliveryService {
 		portalWebDao.cargaDelivery(param);
 	}
 	
-	public void mntArchivo(Archivo param){
-		portalWebDao.mntArchivo(param);
+	public void cargarArchivoDelivery(Archivo param){
+		portalWebDao.cargarArchivoDelivery(param);
 	}
 	
 
