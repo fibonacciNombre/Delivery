@@ -31,6 +31,8 @@ public interface ComunService {
 	 */
 	List<Parametro> lstParametro(Parametro parametro);
 	
+	List<Parametro> cmbParametro(Parametro parametro);
+	
 	/**
 	 * 
 	 * @param param

@@ -48,10 +48,10 @@ public class ComunDaoImp extends JdbcDaoBase implements ComunDao {
 
 		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
 				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
-				resources.getString(ConstantsProperties.PQ_DEL_COURIER),
+				resources.getString(ConstantsProperties.PQ_DEL_COMUN),
 				"sp_lst_parametro");
  
-		JdbcHelper.setInParameter(call, in, "a_idparametrotipo", OracleTypes.INTEGER, param.getIdparametrotipo()); 
+		JdbcHelper.setInParameter(call, in, "a_idparametrotipo", OracleTypes.VARCHAR, param.getIdparametrotipo()); 
 		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, Parametro.class);
 		 
 		out = call.execute(in);
@@ -59,6 +59,32 @@ public class ComunDaoImp extends JdbcDaoBase implements ComunDao {
 		  
 		return lista;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Parametro> cmbParametro(Parametro param) {
+		  
+		List<Parametro> lista = null; 
+		MapSqlParameterSource in = null;
+
+		SimpleJdbcCall call = null;
+		Map<String, Object> out = null;
+		in = new MapSqlParameterSource();
+
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
+				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
+				resources.getString(ConstantsProperties.PQ_DEL_COMUN),
+				"sp_cmb_parametro");
+ 
+		JdbcHelper.setInParameter(call, in, "a_idparametrotipo", OracleTypes.VARCHAR, param.getIdparametrotipo()); 
+		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, Parametro.class);
+		 
+		out = call.execute(in);
+		lista = (List<Parametro>) out.get("a_cursor");
+		  
+		return lista;
+	}
+
 
 
 	@Override

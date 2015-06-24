@@ -37,11 +37,33 @@ public class ComunController extends BaseController {
 		String lstparametro = "";
 
 		Parametro parametro = null;
- 
+  
 		parametro = new Parametro(request.getParameterMap());
-
+		
 		try {
 			listaParametro = comunService.lstParametro(parametro);
+			lstparametro = commons.web.UtilWeb.listaToArrayJson(listaParametro, null,
+					Parametro.class.getName());
+		} catch (Error e) {
+			lstparametro = "{" + e.getMessage() + "}";
+		}
+
+		this.escribirTextoSalida(response, lstparametro);
+		 
+	}
+	
+	public void cmbParametro(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		List<Parametro> listaParametro = null;
+		String lstparametro = "";
+
+		Parametro parametro = null;
+  
+		parametro = new Parametro(request.getParameterMap());
+		
+		try {
+			listaParametro = comunService.cmbParametro(parametro);
 			lstparametro = commons.web.UtilWeb.listaToArrayJson(listaParametro, null,
 					Parametro.class.getName());
 		} catch (Error e) {

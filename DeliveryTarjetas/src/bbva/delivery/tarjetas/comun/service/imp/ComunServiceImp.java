@@ -41,6 +41,10 @@ public class ComunServiceImp implements ComunService {
 	public List<Parametro> lstParametro(Parametro parametro) {
 		return comunDao.lstParametro(parametro);
 	}
+	
+	public List<Parametro> cmbParametro(Parametro parametro) {
+		return comunDao.cmbParametro(parametro);
+	}
 
 	/* (non-Javadoc)
 	 * @see rimac.portalweb.comun.service.ComunService#obtenerListaParametros(rimac.portalweb.comun.bean.Parametro)
