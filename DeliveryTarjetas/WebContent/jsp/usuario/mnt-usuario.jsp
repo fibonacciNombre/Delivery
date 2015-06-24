@@ -1,36 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 
-<div id="mantenimiento-colaboradorescourier">
+<div id="mantenimiento-usuario">
 
-	<h3 class="container-title">Edición de colaboradores por courier</h3>
+	<h3 class="container-title">Edición de usuarios</h3>
 	
-    <form id="form-bsqcolaborador">
+    <form id="form-bsqusuario">
     	<div class="panel panel-default">
 	    	<div class="panel-heading">
-				Buscar colaboradores por courier
+				Buscar usuarios
 			</div>    	
 	    	<div class="panel-body">	    		
 	    		<div class="row">						
 					<div class="col-md-6">						
 						<div class="form-group">
-							<label for="codbbva" class="col-md-5 control-label">Courier</label>
+							<label for="codusuario" class="col-md-5 control-label">Código de usuario</label>
 		                    <div class="col-md-7">
-								<select class="form-control" id="codbbva" name="codbbva"> 
-							 		<option value="{debe ir el codbbva}">Nombre courier</option>                       	
-		                   		</select>
+								<input type="text" class="form-control" id="codusuario" name="codusuario" maxlength="200">
 		                    </div>
 	                	</div>	
 						<div class="form-group">
-							<label for="tipdocumento" class="col-md-5 control-label">Tipo de documento</label>
-							<div class="col-md-7">
-								<select class="form-control" id="tipdocumento" name="tipdocumento"> 
-								 	<option value="{debe ir id de tipo de documento}">DNI</option>                       	
+							<label for="idperfil" class="col-md-5 control-label">Perfil</label>
+							<div class="col-md-7">								
+		                    	<select class="form-control" id="idperfil" name="idperfil"> 
+							 		<option value="{debe ir el idperfil">Nombre perfil</option>                       	
 		                   		</select>
 							</div>
-						</div>					
+						</div>	
+						<div class="form-group">
+							<label for="idpestado" class="col-md-5 control-label">Estado</label>
+							<div class="col-md-7">								
+		                    	<select class="form-control" id="idpestado" name="idpestado">     
+		                        	<option value="{debe ir id del estado}">ESTADO</option>                   	
+		                        </select>
+							</div>
+						</div>										
 					</div>
 						
 					<div class="col-md-6">
+						<div class="form-group">
+							<label for="idptipodocumento" class="col-md-5 control-label">Tipo de documento</label>
+							<div class="col-md-7">
+								<select class="form-control" id="idptipodocumento" name="idptipodocumento"> 
+								 	<option value="{debe ir id de tipo de documento}">DNI</option>                       	
+		                   		</select>
+							</div>
+						</div>
 						<div class="form-group">
 							<label for="nrodocumento" class="col-md-5 control-label">Nro. documento</label>
 							<div class="col-md-7">								
@@ -38,46 +52,33 @@
 							</div>
 						</div>	
 						<div class="form-group">
-							<label for="estado" class="col-md-5 control-label">Estado del colaborador </label>
-							<div class="col-md-7">								
-								 <select class="form-control" id="estado" name="estado"> 
-								 	<option>Todos</option>                       	
-                        		</select>								
-							</div>
-						</div>																				
-					</div>										
-				</div>	
-				<div class="row">
-					<div class="col-md-6"></div>
-					<div class="col-md-6">
-						<div class="form-group">
-							<label for="btnBsqColaborador" class="col-md-5 control-label">
+							<label for="btnBsqUsuario" class="col-md-5 control-label">
 							</label>
 							<div class="col-md-7">
-								<button id="btnBsqColaborador"
+								<button id="btnBsqUsuario"
 			                    		type="button" 
 			                    		class="btn btn-primary" 
 			                    		style="float:right;padding-top: 3px; padding-bottom: 3px;"
-			                    		onclick="javascript:bsqColaborador();">
+			                    		onclick="javascript:bsqUsuario();">
 			                    			<i style="background-position: -592px -1405px; height: 25px; margin-right: 0px; width: 25px; display: inline-block; vertical-align: top; transform: scale(0.6);"></i>			                    			
 			                    			<div style="display: inline-block; margin-top: 3px; vertical-align: top;">Buscar</div>			                    			
 			                    </button>
 			                </div>							
-						</div>	
-					</div>
-				</div>					
+						</div>																											
+					</div>										
+				</div>	
+							
 	    	</div>
     	</div>	
 	</form>
 	
-	<div id="container-lst-colaboradores-courier" style="margin-top:20px;">
-		<table class="table table-hover table-bordered" id="table-lst-colaboradores">
+	<div id="container-lst-usuarios" style="margin-top:20px;">
+		<table class="table table-hover table-bordered" id="table-lst-usuarios">
 			<thead>
 				<tr>
-					<th class="text-center">Cod. Bbva</th>
-					<th class="text-center">Razón social</th>					
-					<th class="text-center desktop">Colaborador</th>
-					<th class="text-center desktop">Nro. Documento</th>
+					<th class="text-center desktop">Perfil</th>
+					<th class="text-center">Cod. Usuario</th>
+					<th class="text-center">Nombres</th>					
 					<th class="text-center">Estado</th>
 					<th class="text-center">Editar</th>
 				</tr>
@@ -85,25 +86,22 @@
 			<tbody>
 				<tr>
 					<td>1</td>
-					<td class="desktop">a</td>					
-					<td>d</td>
+					<td>a</td>
 					<td class="desktop">s</td>
 					<td>f</td>
 					<td>g</td>
 				</tr>
 				<tr>
 					<td>2</td>
-					<td class="desktop">q</td>					
-					<td>e</td>
-					<td class="desktop">w</td>
+					<td>q</td>
+					<td class="desktop">e</td>
 					<td>r</td>
 					<td>t</td>
 				</tr>
 				<tr>
 					<td>3</td>
-					<td class="desktop">z</td>					
-					<td>c</td>
-					<td class="desktop">x</td>
+					<td>z</td>
+					<td class="desktop">c</td>
 					<td>v</td>
 					<td>b</td>
 				</tr>
@@ -118,50 +116,20 @@
 	
     $().ready(function(){
     	
-    	var paramBsqCourier 	= new Object();
-    	
-    	$.ajax({
-			type 		: "POST",
-			url 		: "/DeliveryTarjetas/courier.do"+"?method=bsqCourier",
-			cache 		: false ,
-			dataType	: "json",
-			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-			async 		: false,
-			data 		: paramBsqCourier,
-			success 	: function(rspBsqCourier){
-			
-								var status 	= rspBsqCourier.statustx;
-								var message = rspBsqCourier.messagetx;
-
-								if(status == 0){													
-									if(rspBsqCourier.lstcouries!= undefined && rsp.lstcouries.lenght > 0){
-										var lstCouriers = rspBsqCourier.lstcouries;
-										for(var i=0; i<lstCouriers.length; i++){											
-												var opcion = '<option value="'+lstCouriers[i].codbbva+'" >'+lstCouriers[i].rznsocial+'</option>' ;
-												$("#form-bsqcolaborador #codbbva").append(opcion);										
-										}
-									}
-								}else
-									loadModalMensaje("Atención",message,null);
-			},						
-			error: function (rsp, xhr, ajaxOptions, thrownError) {
-				closeModalCargando();
-				loadModalMensaje("Error","ERROR CARGANDO COURIERS",null);								
-			}			
-		});	
-    	
     	callCargaControlParam('PARAM_TIPODOCUMENTO','form-bsqcolaborador #tipdocumento');
     	
     	callCargaControlParam('PARAM_ESTADOS','form-bsqcolaborador #estado');
+    	
+    	loadPerfiles("#form-bsqusuario","#idperfil");
     	
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
 		});
 		
-		$("#table-lst-colaboradores").DataTable({
+		$("#table-lst-usuarios").DataTable({
 			"order"				:  [[ 0, "asc" ]],
 			"searching"	 		: true,
-			"paging"	 		: true,
+			"paging"	 		: false,
           	"bInfo"		 		: true,
           	"bAutoWidth" 		: false,
           	"oLanguage"  		: {"sUrl": "/DeliveryTarjetas/recursos/idioma/es_ES.txt"}			
@@ -169,10 +137,10 @@
 				
 	});
     
-	function bsqColaborador(){
+	function bsqUsuario(){
 	
 		var param 	= new Object();
-		param 		= $("#form-bsqcolaborador").serializeArray();
+		param 		= $("#form-bsqusuario").serializeArray();
 		
 		loadModalCargando();
 
@@ -180,7 +148,7 @@
 			  		function(){
 			   			$.ajax({
 							type 		: "POST",
-							url 		: "/DeliveryTarjetas/courier.do"+"?method=bsqColaboradorxCourier",
+							url 		: "/DeliveryTarjetas/usuario.do"+"?method=bsqUsuarios",
 							cache 		: false ,
 							dataType	: "json",
 							contentType : "application/x-www-form-urlencoded; charset=UTF-8",
@@ -194,41 +162,38 @@
 												closeModalCargando();
 												
 												if(status == 0){													
-													if(rsp.lstcolaboradores!= undefined && rsp.lstcolaboradores.lenght > 0)
-														cargarDataTablesColaboradores(rsp.lstcolaboradores);
+													if(rsp.lstusuarios!= undefined && rsp.lstusuarios.lenght > 0)
+														cargarDataTablesUsuarios(rsp.lstusuarios);
 												}else
 													loadModalMensaje("Atención",message,null);
 							},						
 							error: function (rsp, xhr, ajaxOptions, thrownError) {
 								closeModalCargando();
-								loadModalMensaje("Error","ERROR BUSCANDO COLABORADORES",null);								
+								loadModalMensaje("Error","ERROR BUSCANDO USUARIOS",null);								
 							}			
 						});		    					    				
 				},1000);    				
     }
     
-	function cargarDataTablesColaboradores(lstcouries){
+	function cargarDataTablesUsuarios(lstusuarios){
 		
-		$("#table-lst-colaboradores").DataTable({
+		$("#table-lst-usuarios").DataTable({
 			"order"				:  [[ 0, "asc" ]],
 			"searching"	 		: true,
 			"paging"	 		: true,
           	"bInfo"		 		: true,
           	"bAutoWidth" 		: false,
           	"oLanguage"  		: {"sUrl": "/DeliveryTarjetas/recursos/idioma/es_ES.txt"},
-          	"data"		 		: lstcouries,
+          	"data"		 		: lstusuarios,
 			"columns"    		: [
-										{ "data"        : "codbbva",
+										{ "data"        : "dscperfil",
 											"class"		: "text-center"},
 			                           	{ "orderable"	: false,
-				                         	"data"		: "rznsocial",
-				                         	"class"		: "desktop"},
+				                         	"data"		: "codusuario"},
                            				{ "orderable"	: false,
+				                         	"class"		: "desktop",
 		                         			"mRender"  	: function (data, type, full) {
                      	 									return  data.apepaterno + " " + data.apematerno + ", " + data.nombres;}},
-	                      				{ "orderable"	: false,
-		                      				"data"      : "nrodocumento",
-		                      				"class"		: "desktop"},
 	                      				{ "orderable"	: false,
 		                      				"data"      : "dscestado",
 		                      				"class"		: "text-center"},
@@ -236,16 +201,16 @@
 		                      				"data"      : "",
 		                      				"class"		: "text-center",
                          	 				"mRender"  	: function (data, type, full) {
-	                         	 								return linkDetalleColaborador();
+	                         	 								return linkDetalleUsuario();
 	                         	 							}}										
 								],
-			"fnDrawCallback"	: function () { mostrarDatatable("#table-lst-colaboradores");}
+			"fnDrawCallback"	: function () { mostrarDatatable("#table-lst-usuarios");}
 		});
 	}
 	
-	function linkDetalleColaborador(){
+	function linkDetalleUsuario(){
 		return '<a class="method-ajax" ' +
-					'href="/DeliveryTarjetas/courier.do?method=obtColaborador" >'+
+					'href="/DeliveryTarjetas/usuario.do?method=obtUsuario" >'+
 						'<i class="i-detalle"></i>'+
 				'</a>';
 	}

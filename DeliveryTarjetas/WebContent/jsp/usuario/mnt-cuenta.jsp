@@ -1,305 +1,246 @@
-<div class="form-mi-perfil">
-	<h1>Actualiza tus datos</h1>
+<div id="mi-cuenta">
+
+	<h3 class="container-title">Mi cuenta</h3>
 	
 	<div class="row">
 		<div id="bienvenida_act_datos" class="col-md-12">
-			<p class="page-info-wc">Hola, @@@, estos son los datos que tienes actualmente registrados.</p>
-		</div>
-		<br>
-		<br>
+			<p class="page-info-wc">Hola @@@, estos son tus datos que tenemos actualmente registrados.</p>
+		</div>		
    	</div>
 	
-	<div class="panel panel-default">
-		
+	<div id="container-usuario" class="panel panel-default">
+	
 		<div class="panel-heading">
-			Información Personal
+			Datos personales
 		</div>
 		
-		<form id="frm-informacionpersonal">
-			<div id="informacionpersonal" class="panel-body">
-				<div class="row">
-					
-					<div class="col-md-6">
-						<div class="form-group">
-							<label for="tipodoc" class="col-md-5 control-label">Tipo de Documento</label>
-		                    <div class="col-md-7">
-		                        <select class="form-control" id="tipodoc" name="tipodoc" disabled></select>
-		                        <div class="result"></div>
-		                    </div>
-                         </div>
-
-						<div class="form-group">
-							<label for="nrodoc" class="col-md-5 control-label">Nro. de documento</label>
-							<div class="col-md-7">
-								<input type="text" id="nrodoc" name="nrodoc" class="form-control" data-rule-required="true" data-msg-required="El campo es obligatorio" required disabled>
-								<div class="result"></div>
-							</div>
-						</div>
-					</div>
-					
-					<div class="col-md-6">
-						<div class="form-group">
-							<label for="fechanac" class="col-md-5 control-label">Fecha de Nacimiento</label>
-							<div class="col-md-7">
-								<div class="input-group">
-									<input type="text" id="fechanac" name="fechanac" class="form-control" data-rule-required="true" data-msg-required="El campo es obligatorio" required disabled>
-									<span class="input-group-addon">
-										<a href="javascript:void(0);" class="btn-date">
-											<span class="glyphicon glyphicon-calendar"></span>
-										</a>
-									</span>
-								    <div class="result"></div>
-								</div>
-							</div>
-						</div>
-						
-						<div class="form-group">
-							<label for="idpgenero" class="col-md-5 control-label">Sexo</label>
-							<div class="col-md-7">
-								<select class="form-control" id="idpgenero" name="idpgenero" required disabled></select>
-								<div class="result"></div>
-							</div>
-						</div>						
-					</div>
-
-				</div>
-			</div>
-		</form>
+		<div id="datos-personales" class="panel-body">
 		
-	</div>
-
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			Datos de contacto
-		</div>
-		
-		<form id="frm-datos-contacto">
-		
-			<div id="datos_contacto" class="panel-body">
-				
-				<div class="row">
-					
-					<div class="col-md-6">
-						<div class="form-group">
-							<label for="departamento2" class="col-md-5 control-label">Departamento <span class="required"></span></label>
-							<div class="col-md-7">
-								<select	id="departamento2" 		name="departamento2" 		class="form-control" onchange="obtenerProvincias(this,'datos_contacto #provincia2');"></select>
-								<input 	id="idepais"			name="idepais"				type="hidden" 	value="80"/>
-								<input 	id="ptocontacto-dom"  	name="ptocontacto-dom"		type="hidden" 	value=""/>
-								<div class="result"></div>
-							</div>                               
-						</div>
-					
-						<div class="form-group">
-							<label for="provincia2" class="col-md-5 control-label">Provincia <span class="required"></span></label>
-							<div class="col-md-7">
-								<select class="form-control" id="provincia2" name="provincia2" onchange="obtenerDistritos(this,'datos_contacto #distrito2');"></select>
-								<div class="result"></div>
-							</div>
-						</div>
-					
-						<div class="form-group">
-							<label for="distrito2" class="col-md-5 control-label">Distrito <span class="required"></span></label>
-							<div class="col-md-7">
-								<select class="form-control" id="distrito2" name="distrito2"></select>
-								<div class="result"></div>
-							</div>
-						</div>
-					</div>
-                            
-					<div class="col-md-6">
-						<div class="form-group">
-							<label for="telefonocasa2" class="col-md-5 control-label">Teléfono casa <span class="required"></span></label>
-							<div class="col-md-7">
-						        <input type="text" id="telefonocasa2" name="telefonocasa2" class="form-control phone-group" disabled>
-						        <input id="mediocontactotelf"  name="depuntocontactotelf"	maxlength="10"	type="hidden" 	value=""/>
-						        <div class="result"></div>
-							</div>
-						</div>
-						
-					    <div class="form-group">
-							<label for="telefonomovil2" class="col-md-5 control-label">Teléfono móvil <span class="required"></span></label>
-							<div class="col-md-7">
-						        <input type="text" id="telefonomovil2" name="telefonomovil2" class="form-control phone-group" disabled>
-						        <input id="mediocontactomovil"  name="mediocontactomovil"	maxlength="10"	type="hidden" 	value=""/>
-						        <div class="result"></div>
-							</div>
-						</div>
-					     
-						<div class="form-group">
-							<label for="email2" class="col-md-5 control-label">Correo electrónico <span class="required"></span></label>
-							<div class="col-md-7">
-						        <input type="text" id="email2" name="email2" class="form-control"disabled>
-						        <input id="mediocontactomail"  name="mediocontactomail"	maxlength="100"	type="hidden" 	value=""/>
-						        <div class="result"></div>
-							</div>
-						</div>
-					     
-						<div class="form-group">
-							<label class="sr-only" for=""></label>
-						</div>					
-					</div>
-                            
-					<div class="col-md-12">
-						<div class="row">
-						
-							<div class="col-md-6">
-								<div class="form-group" id="idptipovia-div">
-									<label for="idptipovia" class="col-md-5 control-label">Tipo Vía <span class="required"></span></label>
-									<div class="col-md-7">
-										<select class="form-control" id="idptipovia" name="idptipovia"></select>
-										<div class="result"></div>
-									</div>
-								</div>
-							</div>
-							
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="direccion2" class="col-md-5 control-label">Dirección <span class="required"></span></label>
-									<div class="col-md-7">
-										<input type="text" id="direccion2" name="direccion2" maxlength="200" class="form-control"required>
-										<div class="result"></div>
-									</div>
-								</div>
-							</div>	
-													
-						</div>
-					</div>
-					
-				</div>
-				
-            </div>
-			
-			<div class="panel-body" style="font-size: 11px; font-style: italic; font-weight: bold; padding-bottom: 0px; padding-top: 0px;">
-           		<span>(<label class="required"></label>) Campos obligatorios</span>
-			</div>
+			<div class="col-md-6">
+				<div class="form-group" id="dscperfil-div">
+                    <label for="dscperfil" class="col-md-6 control-label">Perfil </label>
+                    <div class="col-md-12">
+                   		<input type="text" readonly class="form-control" id="dscperfil" name="dscperfil" maxlength="200">
+                    </div>
+                </div>
                 
-			<div class="row">
-				<div class="col-md-12">
-					<div class="checkbox text-center">
-						<label>
-							<input id="terminosCond" type="checkbox" value="">						  
-						</label>
-						<a href="#">
-					   		<span onclick="$('#link-tycdatos').click();">Acepto términos y condiciones de uso</span>
-						</a>
-					</div>
-				</div>
-			 	
-				<div class="col-md-12">
-					<div class="text-right">
-						<div class="col-md-12">
-							<button id="editar_dirpweb" type="button" class="btn btn-default" onclick="javascript:habilitarEdicion('#datos_contacto');">Editar</button>
-							<button id="grabar_dirpweb" type="button" class="btn btn-primary" onclick="javascript:actDatosContacto();" disabled>Grabar</button>
-						</div>
-					</div>
-				</div>
+                <div class="form-group" id="idptipodocumento-div">
+                    <label for="idptipodocumento" class="col-md-6 control-label">Tipo de documento </label>
+                    <div class="col-md-12">
+                        <input type="text" readonly class="form-control" id="idptipodocumento" name="idptipodocumento" maxlength="200">
+                    </div>
+                </div>
+                
+                <div class="form-group" id="nrodocumento-div">
+                    <label for="nrodocumento" class="col-md-6  control-label">Nro. documento </label>
+                    <div class="col-md-12">
+                        <input type="text" readonly class="form-control" id="nrodocumento"  name="nrodocumento" maxlength="12">                        
+                    </div>
+                </div>
+                
+                <div class="form-group" id="nombres-div">
+                    <label for="nombres" class="col-md-6 control-label">Nombres </label>
+                    <div class="col-md-12">
+                        <input type="text" readonly class="form-control" id="nombres" name="nombres" maxlength="200">                        
+                    </div>
+                </div>
+                
+                <div class="form-group" id="apepaterno-div">
+                    <label for="apepaterno" class="col-md-6 control-label">Apellido paterno </label>
+                    <div class="col-md-12">
+                        <input type="text" readonly class="form-control" id="apepaterno" name="apepaterno" maxlength="200">                        
+                    </div>
+                </div>
+                
+                <div class="form-group" id="apematerno-div">
+                    <label for="apematerno" class="col-md-6 control-label">Apellido materno </label>
+                    <div class="col-md-12">
+                        <input type="text" readonly class="form-control" id="apematerno" name="apematerno" maxlength="200">                        
+                    </div>
+                </div>
 			</div>
         
-		</form>
+        	<div class="col-md-6">
+        		<div class="form-group" id="rznsocial-div">
+                    <label for=rznsocial" class="col-md-6 control-label">Courier </label>
+                    <div class="col-md-12">
+                        <div style="display: inline-block; vertical-align: top; padding: 0px;">
+                        	<input type="text" readonly class="form-control" id="rznsocial" name="rznsocial" maxlength="200">
+                        </div>
+                        <div style="display: inline-block;">	
+                        	<button id="btnDetalleCourier"
+		                    		type="button" 
+		                    		class="btn btn-primary" 
+		                    		data-toggle="modal" 
+									data-target="#content-courier"
+		                    		style="padding-top: 3px; padding-bottom: 3px;">
+		                    			<i style="background-position: -592px -1405px; height: 25px; margin-right: 0px; width: 25px; display: inline-block; vertical-align: top; transform: scale(0.6);"></i>			                    						                    			
+		                    </button>
+                        	
+                        </div>                        
+                    </div>
+                </div>
+                
+        		<div class="form-group" id="codusuario-div">
+                    <label for="codusuario" class="col-md-6  control-label">Código de usuario </label>
+                    <div class="col-md-12">
+                        <input type="text" readonly class="form-control" id="codusuario" name="codusuario" maxlength="200">                        
+                    </div>
+                </div>
+                
+        		<div class="form-group" id="telfmovil-div">
+                    <label for="telfmovil" class="col-md-6 control-label">Teléfono móvil </label>
+                    <div class="col-md-12">
+                        <input type="text" readonly class="form-control" id="telfmovil" name="telfmovil" maxlength="9">                        
+                    </div>
+                </div>
+                
+                <div class="form-group" id="correo-div">
+                    <label for="correo" class="col-md-6 control-label">Correo electrónico </label>
+                    <div class="col-md-12">
+                        <input type="text" readonly class="form-control" id="correo"  name="correo" maxlength="200">                        
+                    </div>
+                </div>
+                
+                <div class="form-group" id="estado-div">
+                    <label for="idpestado" class="col-md-6 control-label">Estado </label>
+                    <div class="col-md-12">
+                    	<input type="text" readonly class="form-control" id="idpestado"  name="idpestado" maxlength="200">                        
+                    </div>
+                </div>
+                
+                <div class="form-group" id="comentarios-div">
+                    <label for="comentarios" class="col-md-6 control-label">Comentarios </label>
+                    <div class="col-md-12">
+                    	<textarea readonly class="form-control" id="comentarios" name="comentarios" maxlength="300"  wrap="hard" style="min-width: 100%; max-width: 100%; min-height: 50px; max-height: 50px;" ></textarea>
+                    </div>
+                </div>
+        	</div>	
+        			
+		</div>	
+		
 	</div>        
+	
+	<%-- INI MODAL COURIER --%>
+	<div id="content-courier" 
+			class="modal fade" 
+			tabindex="-1" 
+			role="dialog" 
+			aria-hidden="true"			
+			data-backdrop="static" 
+	  		data-keyboard="false">  		
+		<div class="modal-mensaje">
+			<div class="modal-content">	
+				
+				<span  style="color: white; font-weight: bold; display: block; padding: 5px; width: auto; text-align: center; background-color: #00559d;">
+					<span id="titulo-mensaje">Datos de courier</span>
+					<button id="btnclosemodal" type="button" class="close-white" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</span>
+				
+				<div class="row">
+					<div class="col-md-12" style="margin-top: 15px;">
+						<p class="page-info-wc">Estos son los datos actualmente registrados para tu Courier.</p>
+					</div>		
+			   	</div>
+			   	
+				<div id="container-courier" class="panel panel-default">	
+					
+					<div id="datos-courier" class="panel-body">
+					
+						<div class="col-md-6" style="padding: 0px;">
+			                <div class="form-group" id="codbbva-div">
+			                    <label for="codbbva" class="col-md-12 control-label">Código Bbva </label>
+			                    <div class="col-md-12">
+			                        <input type="text" readonly class="form-control" id=codbbva name="codbbva" maxlength="200">
+			                    </div>
+			                </div>
+			                
+			                <div class="form-group" id="tipdocumento-div">
+			                    <label for="idptipodocumento" class="col-md-12 control-label">Tipo de documento </label>
+			                    <div class="col-md-12">
+			                        <input type="text" readonly class="form-control" id=idptipodocumento name="idptipodocumento" maxlength="200">
+			                    </div>
+			                </div>
+			                
+			                <div class="form-group" id="nrodocumento-div">
+			                    <label for="nrodocumentocou" class="col-md-12 control-label">Nro. documento </label>
+			                    <div class="col-md-12">
+			                        <input type="text" readonly class="form-control" id="nrodocumentocou"  name="nrodocumentocou" maxlength="11">                        
+			                    </div>
+			                </div>
+			                
+			                <div class="form-group" id="rznsocial-div">
+			                    <label for="rznsocial" class="col-md-12 control-label">Razón social </label>
+			                    <div class="col-md-12">
+			                        <input type="text" readonly class="form-control" id="rznsocial" name="rznsocial" maxlength="200">                        
+			                    </div>
+			                </div>
+			                
+			                <div class="form-group" id="direccion-div">
+			                    <label for="direccion" class="col-md-12 control-label">Dirección completa </label>
+			                    <div class="col-md-12">
+			                        <input type="text" readonly class="form-control" id="direccion" name="direccion" maxlength="200">                        
+			                    </div>
+			                </div>
+						</div>
+						
+					  	<div class="col-md-6" style="padding: 0px;">            
+			                <div class="form-group" id="telfmovil-div">
+			                    <label for="telfmovil" class="col-md-12 control-label">Teléfono móvil </label>
+			                    <div class="col-md-12">
+			                        <input type="text" readonly class="form-control phone-group" id="telfmovil" name="telfmovil" maxlength="9">                        
+			                    </div>
+			                </div>
+			                
+			                <div class="form-group" id="telffijo-div">
+			                    <label for="telffijo" class="col-md-12 control-label">Teléfono fijo </label>
+			                    <div class="col-md-12">
+			                        <input type="text" readonly class="form-control phone-group" id="telffijo"  name="telffijo" maxlength="9">                        
+			                    </div>
+			                </div>
+			                
+			                <div class="form-group" id="correo-div">
+			                    <label for="correo" class="col-md-12 control-label">Correo electrónico </label>
+			                    <div class="col-md-12">
+			                        <input type="text" readonly class="form-control" id="correo"  name="correo" maxlength="200">                        
+			                    </div>
+			                </div>
+			                
+			                <div class="form-group" id="idpestado-div">
+			                    <label for="idpestado" class="col-md-12 control-label">Estado </label>
+			                    <div class="col-md-12">
+			                    	<input type="text" readonly class="form-control" id=idpestado name="idpestado" maxlength="200">                        
+			                    </div>
+			                </div>
+			            </div>
+			                      	         
+			        </div>			        
+				</div>
+								
+			</div>
+		</div>		  		
+	</div>
+	<%-- FIN MODAL COURIER --%>
+	
 </div>
 
-<script src="<%=request.getContextPath()%>/js/bbva/main-portal.js"></script>
+<script src="<%=request.getContextPath()%>/js/bbva/main-deliverytarjetas.js"></script>
 
 <script>
-var EV_EDITAR_DATOS   = 'dataEdit';
 
 	$().ready(function(){
-		
-		var pageUrl = '';
-		pageUrl = VP_GO_ACTUALIZAR_DATOS;
-		dataLayer.push({'event': EV_VIRTUAL_PAGE, 'pageUrl': pageUrl, 'numDocument': CTE_NUM_DOC});
-		
+		/*
 		loadModalCargando();
-		$("#frm-datos-contacto").validate({
-			rules			: {
-								departamento2	: {
-										required 		: true
-								},
-								provincia2	: {
-										required 		: true
-								},
-								distrito2	: {
-										required 		: true
-								},
-								direccion2	: {
-										required 		: true
-								},
-								telefonocasa2	: {
-										//require_from_group: [1, ".phone-group"],
-										required 		: true,
-										digits 	 		: true,
-										minlength 		: 6
-								},
-								telefonomovil2	: {
-										//require_from_group: [1, ".phone-group"],
-										required 		: true,
-										digits 	 		: true,
-										minlength 		: 9
-								},
-								email2	: {
-										required 		: true,
-										email			: true,
-								}
-							},
-						
-						
-			messages 		: {
-								departamento2: {
-									required 		: "Campo Obligatorio"
-								},
-								provincia2	: {
-									required 		: "Campo Obligatorio"
-								},
-								distrito2	: {
-									required 		: "Campo Obligatorio"
-								},
-								direccion2	: {
-									required 		: "Campo Obligatorio"
-								},
-								telefonocasa2: {
-									//require_from_group 	: "Debe ingresar al menos un número de teléfono",
-									required 			: "Campo Obligatorio",
-									digits 	 			: "Sólo números",
-									minlength 			: "Ingresar un mínimo de 6 dígitos"
-								},
-								telefonomovil2: {
-									//require_from_group 	: "Debe ingresar al menos un número de teléfono",
-									required 			: "Campo Obligatorio",
-									digits 	 			: "Sólo números",
-									minlength 			: "Ingresar un mínimo de 9 dígitos"
-								},
-								email2	: {
-									required 		: "Campo Obligatorio",
-									email			: "Ingresar formato de email válido"
-								}
-							}
-		});
 		
 		var bienvenida = replaceAll($("#bienvenida_act_datos").text(),'@@@',CTE_JSON_PERSONAPWEB.nombre);
 		$("#bienvenida_act_datos").text(bienvenida);
 
-		callCargaControlParam('PWEB_USR_TIPDOC','informacionpersonal #tipodoc');
-		callCargaControlParam('TER_GENERO','informacionpersonal #idpgenero');
-    	callCargaControlParam('PTO_TIPOVIA','datos_contacto #idptipovia');
-		
 		cargarData();
 		
 		closeModalCargando();
+		*/
 	});
 	
-	$("#link-tyc").click (function () {
-     	 $("#tyc").fancybox({
-     		 			 'width'             : '85%',
-     	                 'height'            : '400px',
-     	                 'autoScale'         : false,
-     	                 'transitionIn'      : 'none',
-     	                 'transitionOut'     : 'none',
-     	                 'type'              : 'iframe'
-     	             });
-
-   });
 	
 	function cargarData(){
 		
@@ -339,196 +280,4 @@ var EV_EDITAR_DATOS   = 'dataEdit';
 		
 	}
 		
-	function actDatosContacto(){
-		if($("#frm-datos-contacto").valid()){
-			
-			if($("#terminosCond").prop('checked')){
-				$("#datos_contacto :input").attr("disabled", true);
-				
-				var param = new Object();
-				param.idetercero				=CTE_IDETERCERO;
-				param.idepuntocontactodir		=$("#datos_contacto #ptocontacto-dom").val();
-				param.idepais					=$("#datos_contacto #idepais").val();
-				param.idedepartamento			=$("#datos_contacto #departamento2").val();
-				param.ideprovincia				=$("#datos_contacto #provincia2").val();
-				param.idedistrito				=$("#datos_contacto #distrito2").val();
-				param.direccioncompleta			=$("#datos_contacto #direccion2").val();
-				
-				param.idptipovia				=$("#datos_contacto #idptipovia").val();
-				
-				param.idepuntocontactomail		=$("#datos_contacto #mediocontactomail").val();
-				param.email						=$("#datos_contacto #email2").val();
-				
-				param.idepuntocontactotelf		=$("#datos_contacto #mediocontactomovil").val();
-				param.numlocal					=$("#datos_contacto #telefonomovil2").val();
-				
-				param.idepuntocontactotelfSec	=$("#datos_contacto #mediocontactotelf").val();
-				param.numlocalSec				=$("#datos_contacto #telefonocasa2").val();
-				
-				loadModalCargando();
-				
-				$.ajax({
-					type 		: "POST",
-					url 		: "/PORTALWEB/perfil.do"+"?method=mntDatosContacto",
-					cache 		: false ,
-					dataType	: "json",
-					contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-					async 		: false,
-					data 		: param,
-					success 	: function(rsp){
-
-									var statusTx 	= rsp.statustx;
-									var messageTx	= rsp.messagetx;
-
-									if(statusTx==0){
-										
-										$.ajax({
-											type 		: "POST",
-											url 		: "/PORTALWEB/perfil.do"+"?method=enviarMailActContacto",
-											cache 		: false ,
-											dataType	: "json",
-											contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-											async 		: true,
-											data 		: CTE_JSON_USUARIOPWEB,
-											success 	: function(rsp2){
-															closeModalCargando();
-															
-															loadModalMensaje("Atención",
-																				"Modificación de datos de contacto exitosa.",
-																				function(){
-																							obtDatosUsuarioSesion();
-																							cargarData();
-																				});
-											},
-											error 		: function(xhr, ajaxOptions, thrownError) {
-																closeModalCargando();
-																loadModalMensaje("Atención", "Error modificando datos de contacto.",null);
-											}										
-										});
-									}else{
-										closeModalCargando();
-										loadModalMensaje("Atención", messageTx,null);
-									}	
-									
-							dataLayer.push({'event': EV_ACTUALIZA_DATOS, 'numDocument': CTE_NUM_DOC});
-					},
-					error: function (rsp, xhr, ajaxOptions, thrownError) {
-								closeModalCargando();
-								loadModalMensaje("Atención","Error modificando datos de contacto.",null);
-					}
-				});
-				
-				$("#editar_dirpweb").attr("disabled", false);
-				$("#terminosCond").prop('checked',false);
-				$("#grabar_dirpweb").attr("disabled", true);
-				$("#terminosCond").attr("disabled", true);
-			
-			}else{
-				loadModalMensaje("Atención","Debe aceptar los Términos y Condiciones",null);
-			}
-		}
-	}
-	
-	function obtenerDpto(paisorigen,idCmbHijo,defaultSonValue,defaultGrandSonValue,grandSonId) {
-		
-	  	var param = new Object();
-	  	param.idepais = paisorigen;
-	  	
-	  	$.ajax({
-				type 		: "POST",
-				url 		: "/TERCERO/puntocontacto.do" + "?method=cboDepartamento",
-				cache 		: false ,
-				dataType	: "json",
-				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-				async 		: false,
-				data 		: param,
-				success 	: function(rsp){
-				
-					llenarCombo(idCmbHijo, rsp, true);
-					if(defaultSonValue!=undefined)
-						$(idCmbHijo+' option[text="'+defaultSonValue+'"]').attr('selected','selected');
-				},
-				error 		: function(xhr, ajaxOptions, thrownError) {}
-			});
-			
-			if(defaultGrandSonValue!=undefined) 
-				obtenerProvincias( $('#'+idCmbHijo), grandSonId ,defaultGrandSonValue);
-			else 
-				obtenerProvincias('');
-	}
-	  
-	function obtenerProvincias(padre,idCmbHijo,defaultSonValue,defaultGrandSonValue,grandSonId) {
-			
-	  	if(padre.value!=null && padre.value!=undefined && padre.value!=""){
-			
-			var param 				= new Object();
-	    	param.idedepartamento 	= padre.value;
-	    	
-	    	$.ajax({
-				type 		: "POST",
-				url 		: "/TERCERO/puntocontacto.do" + "?method=cboProvincia",
-				cache 		: false ,
-				dataType	: "json",
-				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-				async 		: false,
-				data 		: param,
-				success 	: function(rsp){
-				
-					llenarCombo(idCmbHijo, rsp, true);
-					if(defaultSonValue!=undefined)
-						$(idCmbHijo+' option[text="'+defaultSonValue+'"]').attr('selected','selected');
-				},
-				error 		: function(xhr, ajaxOptions, thrownError) {}
-			});
-			
-			if(defaultGrandSonValue!=undefined)
-				obtenerDistritos( $('#'+idCmbHijo), grandSonId ,defaultGrandSonValue);
-			else 
-				obtenerDistritos('');
-	  	}
-	}
-	  
-	function obtenerDistritos(padre,idCmbHijo,defaultValue) {
-			
-	  	if(padre.value!=null && padre.value!=undefined && padre.value!=""){
-	    	var param = new Object();
-	    	param.ideprovincia = padre.value;
-	    	
-	    	$.ajax({
-				type 		: "POST",
-				url 		: "/TERCERO/puntocontacto.do" + "?method=cboDistrito",
-				cache 		: false ,
-				dataType	: "json",
-				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-				async 		: false,
-				data 		: param,
-				success 	: function(rsp){
-				
-					llenarCombo(idCmbHijo, rsp, true);
-					$(idCmbHijo+' option[text="'+defaultValue+'"]').attr('selected','selected');
-				},
-				complete 	: function (){},
-				error 		: function(xhr, ajaxOptions, thrownError) {}				
-			});
-	  	}
-	}
-	
-	function cargarDireccion(div, datosDir){
-		$(div+" #departamento2").val(datosDir.idedepartamento);
-		$(div+" #departamento2").change();
-		$(div+" #provincia2").val(datosDir.ideprovincia);
-		$(div+" #provincia2").change();
-		$(div+" #distrito2").val(datosDir.idedistrito);
-		$(div+" #distrito2").change();
-	}
-		
-	function habilitarEdicion(div){
-		$(div +" :input").attr("disabled", false);
-		$("#terminosCond").attr("disabled", false);
-		$("#grabar_dirpweb").attr("disabled", false);
- 		/*GOOGLE ANALYTICS*/
- 		dataLayer.push({'event': EV_EDITAR_DATOS, 'numDocument': CTE_NUM_DOC});
-		
-	}
-
 </script>

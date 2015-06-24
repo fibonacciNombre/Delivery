@@ -10,7 +10,23 @@
 				Buscar colaboradores por courier
 			</div>    	
 	    	<div class="panel-body">	    		
-	    		<div class="row">						
+	    		<div class="row">	
+	    			<div class="col-md-6">
+						<div class="form-group">
+							<label for="tipdocumento" class="col-md-5 control-label">Tipo de documento</label>
+							<div class="col-md-7">
+								<select class="form-control" id="tipdocumento" name="tipdocumento"> 
+								 	<option value="{debe ir id de tipo de documento}">DNI</option>                       	
+		                   		</select>
+							</div>
+						</div>	
+						<div class="form-group">
+							<label for="nrodocumento" class="col-md-5 control-label">Nro. documento</label>
+							<div class="col-md-7">								
+								<input type="text" class="form-control" id="nrodocumento"  name="nrodocumento" maxlength="12">							
+							</div>
+						</div>																											
+					</div>						
 					<div class="col-md-6">						
 						<div class="form-group">
 							<label for="codbbva" class="col-md-5 control-label">Courier</label>
@@ -21,31 +37,14 @@
 		                    </div>
 	                	</div>	
 						<div class="form-group">
-							<label for="tipdocumento" class="col-md-5 control-label">Tipo de documento</label>
-							<div class="col-md-7">
-								<select class="form-control" id="tipdocumento" name="tipdocumento"> 
-								 	<option value="{debe ir id de tipo de documento}">DNI</option>                       	
-		                   		</select>
-							</div>
-						</div>					
-					</div>
-						
-					<div class="col-md-6">
-						<div class="form-group">
-							<label for="nrodocumento" class="col-md-5 control-label">Nro. documento</label>
-							<div class="col-md-7">								
-								<input type="text" class="form-control" id="nrodocumento"  name="nrodocumento" maxlength="12">							
-							</div>
-						</div>	
-						<div class="form-group">
 							<label for="estado" class="col-md-5 control-label">Estado del colaborador </label>
 							<div class="col-md-7">								
 								 <select class="form-control" id="estado" name="estado"> 
 								 	<option>Todos</option>                       	
                         		</select>								
 							</div>
-						</div>																				
-					</div>										
+						</div>				
+					</div>														
 				</div>	
 				<div class="row">
 					<div class="col-md-6"></div>

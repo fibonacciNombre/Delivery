@@ -27,7 +27,7 @@
 				    data-toggle="collapse" 
 					data-parent="#accordion" 
 					data-target="#usuario-menu"  >
-					<i class="ui-icn-usuarios"></i>Mantenimiento de Usuarios<i class="arrow"></i>
+					<i class="ui-icn-usuarios"></i>Gestión de Usuarios<i class="arrow"></i>
 				</a>
 				<div id="usuario-menu" class="collapse">
 					<ul>
@@ -56,7 +56,7 @@
 					data-toggle="collapse" 
 					data-parent="#accordion" 
 					data-target="#courier-menu">
-					<i class="ui-icn_couriers"></i>Mantenimiento de Couriers<i class="arrow"></i>
+					<i class="ui-icn_couriers"></i>Gestión de Couriers<i class="arrow"></i>
 				</a>
 				<div id="courier-menu" class="collapse">   
 					<ul>

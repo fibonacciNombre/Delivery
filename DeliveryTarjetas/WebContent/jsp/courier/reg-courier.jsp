@@ -5,20 +5,21 @@
 	<h3 class="container-title">Registro de courier</h3>
 
     <form id="form-registrocourier">
+        
         <div class="row">
-            <div class="col-md-12">
-
+        
+            <div class="col-md-6">
                 <div class="form-group" id="codbbva-div">
-                    <label for="codbbva" class="col-sm-5 col-sm-offset-1 control-label required">Código Bbva </label>
-                    <div class="col-sm-5">
+                    <label for="codbbva" class="col-md-6 control-label required">Código Bbva </label>
+                    <div class="col-md-12">
                         <input type="text" class="form-control" id=codbbva name="codbbva" maxlength="200">
                         <div class="result"></div>
                     </div>
                 </div>
                 
                 <div class="form-group" id="tipdocumento-div">
-                    <label for="idptipodocumento" class="col-sm-5 col-sm-offset-1 control-label required">Tipo de documento </label>
-                    <div class="col-sm-5">
+                    <label for="idptipodocumento" class="col-md-6 control-label required">Tipo de documento </label>
+                    <div class="col-md-12">
                         <select class="form-control" id="idptipodocumento" name="idptipodocumento"> 
 						 	<option value="{debe ir id de tipo de documento}">DNI</option>                       	
                    		</select>
@@ -27,79 +28,83 @@
                 </div>
                 
                 <div class="form-group" id="nrodocumento-div">
-                    <label for="nrodocumentocou" class="col-sm-5 col-sm-offset-1 control-label required">Nro. documento </label>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" id="nrodocumentocou"  name="nrodocumentocou" maxlength="12">
+                    <label for="nrodocumentocou" class="col-md-6 control-label required">Nro. documento </label>
+                    <div class="col-md-12">
+                        <input type="text" class="form-control" id="nrodocumentocou"  name="nrodocumentocou" maxlength="11">
                         <div class="result"></div>
                     </div>
                 </div>
                 
                 <div class="form-group" id="rznsocial-div">
-                    <label for="rznsocial" class="col-sm-5 col-sm-offset-1 control-label required">Razón social </label>
-                    <div class="col-sm-5">
+                    <label for="rznsocial" class="col-md-6 control-label required">Razón social </label>
+                    <div class="col-md-12">
                         <input type="text" class="form-control" id="rznsocial" name="rznsocial" maxlength="200">
                         <div class="result"></div>
                     </div>
                 </div>
                 
                 <div class="form-group" id="direccion-div">
-                    <label for="direccion" class="col-sm-5 col-sm-offset-1 control-label required">Dirección completa </label>
-                    <div class="col-sm-5">
+                    <label for="direccion" class="col-md-6 control-label required">Dirección completa </label>
+                    <div class="col-md-12">
                         <input type="text" class="form-control" id="direccion" name="direccion" maxlength="200">
                         <div class="result"></div>
                     </div>
                 </div>
-                
-                <div class="form-group" id="nummovil-div">
-                    <label for="telfmovil" class="col-sm-5 col-sm-offset-1 control-label required">Teléfono móvil </label>
-                    <div class="col-sm-5">
+			</div>
+			
+		  	<div class="col-md-6">            
+                <div class="form-group" id="telfmovil-div">
+                    <label for="telfmovil" class="col-md-6 control-label required">Teléfono móvil </label>
+                    <div class="col-md-12">
                         <input type="text" class="form-control phone-group" id="telfmovil" name="telfmovil" maxlength="9">
                         <div class="result"></div>
                     </div>
                 </div>
                 
-                <div class="form-group" id="numlocal-div">
-                    <label for="telffijo" class="col-sm-5 col-sm-offset-1 control-label required">Teléfono fijo </label>
-                    <div class="col-sm-5">
+                <div class="form-group" id="telffijo-div">
+                    <label for="telffijo" class="col-md-6 control-label required">Teléfono fijo </label>
+                    <div class="col-md-12">
                         <input type="text" class="form-control phone-group" id="telffijo"  name="telffijo" maxlength="9">
                         <div class="result"></div>
                     </div>
                 </div>
                 
-                <div class="form-group" id="email-div">
-                    <label for="correo" class="col-sm-5 col-sm-offset-1 control-label required">Correo electrónico </label>
-                    <div class="col-sm-5">
+                <div class="form-group" id="correo-div">
+                    <label for="correo" class="col-md-6 control-label required">Correo electrónico </label>
+                    <div class="col-md-12">
                         <input type="text" class="form-control" id="correo"  name="correo" maxlength="200">
                         <div class="result"></div>
                     </div>
                 </div>
                 
                 
-                <div class="form-group" id="estado-div">
-                    <label for="idpestado" class="col-sm-5 col-sm-offset-1 control-label required">Estado </label>
-                    <div class="col-sm-5">
+                <div class="form-group" id="idpestado-div">
+                    <label for="idpestado" class="col-md-6 control-label required">Estado </label>
+                    <div class="col-md-12">
                         <select class="form-control" id="idpestado" name="idpestado">     
                         	<option value="{debe ir id del estado}">ESTADO</option>                   	
                         </select>
                         <div class="result"></div>
                     </div>
                 </div>
-                
+            </div>
+            
+          	<div class="col-md-12">
                 <div class="form-group" style="margin-bottom: 0px; font-size: 11px; font-style: italic; font-weight: bold;">
-                	<label for="*" class="col-sm-5 col-sm-offset-1 control-label">
+                	<label for="*" class="col-md-6 control-label">
                 		<span>(<label class="required"></label>) Campos obligatorios</span>
                 	</label>                	
-                </div>
-                
+                </div>                
 			</div>
+			            
+        </div>    
             
-        </div>        
         <div class="row">
-	        <div class="col-md-12">
-	        
-	            <div class="col-sm-10  col-sm-offset-1">
+        
+	        <div class="col-md-12">	        
+	            <div class="col-md-12">
 	                <div class="form-group">
-	                	<label class="col-sm-5 col-sm-offset-1 control-label" style="padding: 0px;">
+	                	<label class="col-md-6 control-label" style="padding: 0px;">
 	                	</label>
 	                	<div class="col-sm-6 pull-right" style="text-align: right; padding: 0px;">
 		                    <button type="button" 
@@ -116,9 +121,9 @@
 		                    </button>
 	                    </div>
 	                </div>
-	            </div>
-	            
+	            </div>	            
 	        </div>
+	        
         </div>
     </form>
     
@@ -144,39 +149,51 @@
 				
 				rznsocial 			: {				required 	: true },
 				
+				idptipodocumento 	: {				required 	: true },
+				
+				nrodocumentocou		: {				required	: true,
+													digits 	 	: true,
+													minlength 	: 11 },
+													
 				direccion 			: {				required 	: true },
 				
 				telfmovil 			: {				require_from_group: [1, ".phone-group"],
 													digits 	 	: true,
-													minlength 	: 9},
+													minlength 	: 9 },
 													
 				telffijo 			: {				require_from_group: [1, ".phone-group"],
 													digits 	 	: true,
-													minlength 	: 6},
+													minlength 	: 6 },
 													
 				correo 				: {				required 	: true,
 													email		: true}
 			},
 			messages : {
-				codbbva 			: {				required 	: "Debes ingresar el código BBVA del Courier" },
+				codbbva 			: {				required 	: "Debes ingresar el código BBVA" },
 				
-				rznsocial 			: {				required 	: "Debes ingresar la razón social del Courier" },
+				rznsocial 			: {				required 	: "Debes ingresar la razón social" },
 				
-				direccion 			: {				required 	: "Debes ingresar Dirección" },
+				idptipodocumento 	: {				required 	: "Debes seleccionar el tipo de documento" },
+				
+				nrodocumentocou		: {				required	: "Debes ingresar el nro. de documento",
+													digits 	 	: "Debes ingresar sólo números",
+													minlength 	: "Dedes ingresar un mínimo de 11 dígitos"},
+													
+				direccion 			: {				required 	: "Debes ingresar la dirección completa" },
 				
 				telfmovil 			: {
 													require_from_group : "Debe ingresar al menos un número de teléfono",
-													digits 	 	: "Sólo números",
-													minlength 	: "Ingresar un mínimo de 9 dígitos" },
+													digits 	 	: "Debes ingresar sólo números",
+													minlength 	: "Debes ingresar un mínimo de 9 dígitos" },
 													
 				telffijo 			: {
 													require_from_group : "Debe ingresar al menos un número de teléfono",
-													digits 	 	: "Sólo números",
-													minlength 	: "Ingresar un mínimo de 6 dígitos"},
+													digits 	 	: "Debes ingresar sólo números",
+													minlength 	: "Debes ingresar un mínimo de 6 dígitos"},
 													
 				correo 				: {
-													required 	: "Ingresar Email",
-													email		: "Ingresar formato de email válido"}
+													required 	: "Debes ingresar correo electrónico",
+													email		: "Debes ingresar formato de correo electrónico válido"}
 			}
 		});	
 		

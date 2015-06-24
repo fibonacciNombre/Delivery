@@ -2,26 +2,38 @@
 
 <div id="registro-usuario">
 
-	<h3 class="container-title">Registro de usuarios</h3>
+	<h3 class="container-title">Registro de usuario</h3>
 	
 	<div id="container-principal"> 
+	
 	    <form id="form-registrousuario">
-	        <div class="row">
-	            <div class="col-md-12">
-					
+	        
+	        <div class="row">	 
+	               
+	        	<div class="col-md-6">
 					<div class="form-group" id="idperfil-div">
-	                    <label for="idperfil" class="col-sm-5 col-sm-offset-1 control-label required">Perfil </label>
-	                    <div class="col-sm-5">
-	                    	<select class="form-control" id="cboperfil" name="cboperfil"> 
+	                    <label for="idperfil" class="col-md-6 control-label required">Perfil </label>
+	                    <div class="col-md-12">
+	                    	<select class="form-control" id="idperfil" name="idperfil"> 
 						 		<option value="{debe ir el idperfil">Nombre perfil</option>                       	
 	                   		</select>
 	                    </div>
 	                </div>
 	                
-	                <div class="form-group" id="tipdocumento-div">
-	                    <label for="tipdocumento" class="col-sm-5 col-sm-offset-1 control-label required">Tipo de documento </label>
-	                    <div class="col-sm-5">
-	                        <select class="form-control" id="tipdocumento" name="tipdocumento"> 
+	                <div class="form-group" id="codbbva-div">
+	                    <label for=codbbva" class="col-md-6 control-label">Courier </label>
+	                    <div class="col-md-12">
+	                        <select class="form-control" id="codbbva" name="codbbva"> 
+							 	<option value="{debe ir el codbbva}">Nombre courier</option>                       	
+	                   		</select>
+	                        <div class="result"></div>
+	                    </div>
+	                </div>
+	                
+	                <div class="form-group" id="idptipodocumento-div">
+	                    <label for="idptipodocumento" class="col-md-6 control-label required">Tipo de documento </label>
+	                    <div class="col-md-12">
+	                        <select class="form-control" id="idptipodocumento" name="idptipodocumento"> 
 							 	<option value="{debe ir id de tipo de documento}">DNI</option>                       	
 	                   		</select>
 	                        <div class="result"></div>
@@ -29,72 +41,74 @@
 	                </div>
 	                
 	                <div class="form-group" id="nrodocumento-div">
-	                    <label for="nrodocumento" class="col-sm-5 col-sm-offset-1 control-label required">Nro. documento </label>
-	                    <div class="col-sm-5">
+	                    <label for="nrodocumento" class="col-md-6  control-label required">Nro. documento </label>
+	                    <div class="col-md-12">
 	                        <input type="text" class="form-control" id="nrodocumento"  name="nrodocumento" maxlength="12">
 	                        <div class="result"></div>
 	                    </div>
 	                </div>
 	                
 	                <div class="form-group" id="nombres-div">
-	                    <label for="nombres" class="col-sm-5 col-sm-offset-1 control-label required">Nombres </label>
-	                    <div class="col-sm-5">
+	                    <label for="nombres" class="col-md-6 control-label required">Nombres </label>
+	                    <div class="col-md-12">
 	                        <input type="text" class="form-control" id="nombres" name="nombres" maxlength="200">
 	                        <div class="result"></div>
 	                    </div>
 	                </div>
 	                
 	                <div class="form-group" id="apepaterno-div">
-	                    <label for="apepaterno" class="col-sm-5 col-sm-offset-1 control-label required">Apellido paterno </label>
-	                    <div class="col-sm-5">
+	                    <label for="apepaterno" class="col-md-6 control-label required">Apellido paterno </label>
+	                    <div class="col-md-12">
 	                        <input type="text" class="form-control" id="apepaterno" name="apepaterno" maxlength="200">
 	                        <div class="result"></div>
 	                    </div>
 	                </div>
 	                
 	                <div class="form-group" id="apematerno-div">
-	                    <label for="apematerno" class="col-sm-5 col-sm-offset-1 control-label required">Apellido materno </label>
-	                    <div class="col-sm-5">
+	                    <label for="apematerno" class="col-md-6 control-label required">Apellido materno </label>
+	                    <div class="col-md-12">
 	                        <input type="text" class="form-control" id="apematerno" name="apematerno" maxlength="200">
 	                        <div class="result"></div>
 	                    </div>
 	                </div>
-	                                
-	                <div class="form-group" id="nummovil-div">
-	                    <label for="nummovil" class="col-sm-5 col-sm-offset-1 control-label required">Teléfono móvil </label>
-	                    <div class="col-sm-5">
-	                        <input type="text" class="form-control" id="nummovil" name="nummovil" maxlength="9">
-	                        <div class="result"></div>
-	                    </div>
-	                </div>
-	                
-	                <div class="form-group" id="email-div">
-	                    <label for="email" class="col-sm-5 col-sm-offset-1 control-label required">Correo electrónico </label>
-	                    <div class="col-sm-5">
-	                        <input type="text" class="form-control" id="email"  name="email" maxlength="200">
-	                        <div class="result"></div>
-	                    </div>
-	                </div>
-	                
-	                <div class="form-group" id="codusuario-div">
-	                    <label for="codusuario" class="col-sm-5 col-sm-offset-1 control-label required">Código de usuario </label>
-	                    <div class="col-sm-5">
+				</div>
+	        
+	        	<div class="col-md-6">
+	        		<div class="form-group" id="codusuario-div">
+	                    <label for="codusuario" class="col-md-6  control-label required">Código de usuario </label>
+	                    <div class="col-md-12">
 	                        <input type="text" class="form-control" id="codusuario" name="codusuario" maxlength="200">
 	                        <div class="result"></div>
 	                    </div>
 	                </div>
 	                
 	                <div class="form-group" id="contrasena-div">
-	                    <label for="contrasena" class="col-sm-5 col-sm-offset-1 control-label required">Contraseña </label>
-	                    <div class="col-sm-5">
+	                    <label for="contrasena" class="col-md-6 control-label required">Contraseña </label>
+	                    <div class="col-md-12">
 	                        <input type="password" class="form-control" id="contrasena" name="contrasena" maxlength="200">
 	                        <div class="result"></div>
 	                    </div>
 	                </div>
 	                
+	        		<div class="form-group" id="telfmovil-div">
+	                    <label for="telfmovil" class="col-md-6 control-label required">Teléfono móvil </label>
+	                    <div class="col-md-12">
+	                        <input type="text" class="form-control" id="telfmovil" name="telfmovil" maxlength="9">
+	                        <div class="result"></div>
+	                    </div>
+	                </div>
+	                
+	                <div class="form-group" id="correo-div">
+	                    <label for="correo" class="col-md-6 control-label required">Correo electrónico </label>
+	                    <div class="col-md-12">
+	                        <input type="text" class="form-control" id="correo"  name="correo" maxlength="200">
+	                        <div class="result"></div>
+	                    </div>
+	                </div>
+	                
 	                <div class="form-group" id="estado-div">
-	                    <label for="idpestado" class="col-sm-5 col-sm-offset-1 control-label required">Estado </label>
-	                    <div class="col-sm-5">
+	                    <label for="idpestado" class="col-md-6 control-label required">Estado </label>
+	                    <div class="col-md-12">
 	                        <select class="form-control" id="idpestado" name="idpestado">     
 	                        	<option value="{debe ir id del estado}">ESTADO</option>                   	
 	                        </select>
@@ -103,27 +117,29 @@
 	                </div>
 	                
 	                <div class="form-group" id="comentarios-div">
-	                    <label for="comentarios" class="col-sm-5 col-sm-offset-1 control-label">Comentarios </label>
-	                    <div class="col-sm-5">
-	                    	<textarea class="form-control" id="comentarios" name="comentarios" maxlength="300"  wrap="hard" style="max-width: 100%; max-height: 50px;" ></textarea>
+	                    <label for="comentarios" class="col-md-6 control-label">Comentarios </label>
+	                    <div class="col-md-12">
+	                    	<textarea class="form-control" id="comentarios" name="comentarios" maxlength="300"  wrap="hard" style="min-width: 100%; max-width: 100%; min-height: 50px; max-height: 50px;" ></textarea>
 	                    </div>
 	                </div>
-	               
-	                <div class="form-group" style="margin-bottom: 0px; font-size: 11px; font-style: italic; font-weight: bold;">
-	                	<label for="*" class="col-sm-5 col-sm-offset-1 control-label">
+	        	</div>
+	        	
+	            <div class="col-md-12">
+					<div class="form-group" style="margin-bottom: 0px; font-size: 11px; font-style: italic; font-weight: bold;">
+	                	<label for="*" class="col-md-6  control-label">
 	                		<span>(<label class="required"></label>) Campos obligatorios</span>
 	                	</label>                	
-	                </div>
-	                
+	                </div>	                
 				</div>
-	            
-	        </div>        
+					            
+	        </div>   
+	             
 	        <div class="row">
-		        <div class="col-md-12">
-		        
-		            <div class="col-sm-10  col-sm-offset-1">
+	        
+		        <div class="col-md-12">		        
+		            <div class="col-md-12">
 		                <div class="form-group">
-		                	<label class="col-sm-5 col-sm-offset-1 control-label" style="padding: 0px;">
+		                	<label class="col-md-6  control-label" style="padding: 0px;">
 		                	</label>
 		                	<div class="col-sm-6 pull-right" style="text-align: right; padding: 0px;">
 			                    <button type="button" 
@@ -140,10 +156,11 @@
 			                    </button>
 		                    </div>
 		                </div>
-		            </div>
-		            
+		            </div>		            
 		        </div>
+		        
 	        </div>
+	        
 	    </form>
     </div>
 
@@ -157,38 +174,7 @@
     	
     	callCargaControlParam('PARAM_ESTADOS','form-registrousuario #estado');
     	
-		var paramLstPerfil	= new Object();
-    	
-    	$.ajax({
-			type 		: "POST",
-			url 		: "/DeliveryTarjetas/usuario.do"+"?method=lstPerfil",
-			cache 		: false ,
-			dataType	: "json",
-			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-			async 		: false,
-			data 		: paramLstPerfil,
-			success 	: function(rspLstPerfil){
-			
-								var status 	= rspLstPerfil.statustx;
-								var message = rspLstPerfil.messagetx;
-
-								if(status == 0){													
-									if(rspLstPerfil.lstPerfil!= undefined && rspLstPerfil.lstPerfil.lenght > 0){
-										var lstPerfil = rspLstPerfil.lstPerfil;
-										
-										for(var i=0; i<lstPerfil.length; i++){											
-												var opcion = '<option value="'+lstPerfil[i].idperfil+'" >'+lstPerfil[i].descripcion+'</option>' ;
-												$("#form-form-registrousuario #cboperfil").append(opcion);										
-										}
-										
-									}
-								}
-			},						
-			error: function (rsp, xhr, ajaxOptions, thrownError) {
-				closeModalCargando();
-				loadModalMensaje("Error","ERROR CARGANDO PERFILES DISPONIBLES PARA LOS USUARIOS",null);								
-			}			
-		});	
+    	loadPerfiles("#form-registrousuario","#cboperfil");
     	
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
@@ -197,18 +183,63 @@
 		$("#form-registrousuario").validate({
 			rules : {
 
+				idperfil 			: {				required 	: true },
+				
+				idptipodocumento 	: {				required 	: true },
+				
+				nrodocumento 		: {				required 	: true,
+													digits 	 	: true,
+													minlength 	: 8},
+				
+				nombres		 		: {				required 	: true },
+				
+				apepaterno	 		: {				required 	: true },
+				
+				apematerno	 		: {				required 	: true },
+				
 				codusuario 			: {				required 	: true,
 													minlength 	: 5 },
 				
 				contrasena 			: {				required 	: true,
-													minlength 	: 5 }
+													minlength 	: 5 },
+													
+				telfmovil 			: {				required 	: true,
+													digits 	 	: true,
+													minlength 	: 9 },
+													
+				correo 				: {				required 	: true,
+													email		: true}
 			},
 			messages : {
+				idperfil 			: {				required 	: "Debes seleccionar un perfil" },
+				
+				idptipodocumento 	: {				required 	: "Debes seleccionar un tipo de documento" },
+				
+				nrodocumento 		: {				required 	: "Debes ingresar un nro. de documento",
+													digits 	 	: "Debes ingresar sólo números",
+													minlength 	: "Debes ingresar un mínimo de 8 dígitos"},
+				
+				nombres 			: {				required 	: "Debes ingresar el nombre" },
+				
+				apepaterno 			: {				required 	: "Debes ingresar el apellido paterno" },
+				
+				apematerno 			: {				required 	: "Debes ingresar el apellido materno" },
+				
 				codusuario 			: {				required 	: "Debes ingresar el código de usuario",
-													minlength 	: "Ingresar un mínimo de 5 carácteres"},
-			
+													minlength 	: "Debes ingresar un mínimo de 5 carácteres"},
+
 				contrasena 			: {				required 	: "Debes ingresar la contraseña para el código de usuario",
-													minlength 	: "Ingresar un mínimo de 5 carácteres"},																
+													minlength 	: "Ingresar un mínimo de 5 carácteres"},
+														
+				telfmovil 			: {				required 	: "Debes ingresar un teléfono móvil",
+													digits 	 	: "Debes ingresar sólo números",
+													minlength 	: "Debes ingresar un mínimo de 9 dígitos" },
+													
+				correo 				: {
+													required 	: "Debes ingresar un correo electrónico",
+													email		: "Debes ingresar formato de correo electrónico válido"},
+													
+				estado 				: {				required 	: "Debes seleccionar un estado para el colaborador" }
 			}
 		});	
 		

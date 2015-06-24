@@ -48,7 +48,7 @@
 	                <div class="form-group" id="comentarios-div">
 	                    <label for="comentarios" class="col-sm-5 col-sm-offset-1 control-label">Comentarios </label>
 	                    <div class="col-sm-5">
-	                    	<textarea class="form-control" id="comentarios" name="comentarios" maxlength="300"  wrap="hard" style="max-width: 100%; max-height: 50px;" ></textarea>
+	                    	<textarea class="form-control" id="comentarios" name="comentarios" maxlength="300"  wrap="hard" style="min-width: 100%; max-width: 100%; min-height: 50px; max-height: 50px;" ></textarea>
 	                    </div>
 	                </div>
 	               
@@ -145,41 +145,7 @@
 		
     	callCargaControlParam('PARAM_ESTADOS','form-registrousuariows #estado');
     	
-		var paramLstPerfil	= new Object();
-    	
-    	$.ajax({
-			type 		: "POST",
-			url 		: "/DeliveryTarjetas/usuario.do"+"?method=lstPerfil",
-			cache 		: false ,
-			dataType	: "json",
-			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-			async 		: false,
-			data 		: paramLstPerfil,
-			success 	: function(rspLstPerfil){
-			
-								var status 	= rspLstPerfil.statustx;
-								var message = rspLstPerfil.messagetx;
-
-								if(status == 0){													
-									if(rspLstPerfil.lstPerfil!= undefined && rspLstPerfil.lstPerfil.lenght > 0){
-										var lstPerfil = rspLstPerfil.lstPerfil;
-										
-										for(var i=0; i<lstPerfil.length; i++){											
-												var opcion = '<option value="'+lstPerfil[i].idperfil+'" >'+lstPerfil[i].descripcion+'</option>' ;
-												$("#form-registrousuariows #cboperfil").append(opcion);										
-										}
-										
-										$("#form-registrousuariows #cboperfil").val("");
-										$("#form-registrousuariows #cboperfil").attr("disabled", true);
-										$("#form-registrousuariows #idperfil"). val($("#form-registrousuariows #idperfil"));
-									}
-								}
-			},						
-			error: function (rsp, xhr, ajaxOptions, thrownError) {
-				closeModalCargando();
-				loadModalMensaje("Error","ERROR CARGANDO PERFILES DISPONIBLES PARA LOS USUARIOS",null);								
-			}			
-		});	
+    	loadPerfiles("#form-registrousuariows","#cboperfil");
     	
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
@@ -196,10 +162,10 @@
 			},
 			messages : {
 				codusuario 			: {				required 	: "Debes ingresar el código de usuario",
-													minlength 	: "Ingresar un mínimo de 5 carácteres"},
+													minlength 	: "Debes ingresar un mínimo de 5 carácteres"},
 			
 				contrasena 			: {				required 	: "Debes ingresar la contraseña para el código de usuario",
-													minlength 	: "Ingresar un mínimo de 5 carácteres"},																
+													minlength 	: "Debes ingresar un mínimo de 5 carácteres"}																
 			}
 		});	
 		
