@@ -88,11 +88,9 @@
 			    <div id="delivery-menu" class="collapse">
 			        <ul>
 			            <li>
-<<<<<<< HEAD
-			                <a href="#" data-url="/DeliveryTarjetas/delivery.do?method=goMntCargaDelivery">Editar datos <br>de una entrega</a>
-=======
+
 			                <a href="#" id="view-carga-entrega" data-url="/DeliveryTarjetas/delivery.do?method=goCargaDelivery">Carga entregas a realizar</a>
->>>>>>> refs/remotes/origin/master
+
 			            </li>
 			            <li>
 			                <a href="#" id="view-mnt-entrega" data-url="/DeliveryTarjetas/delivery.do?method=goMntCargaDelivery">Edición de datos de entrega</a>
