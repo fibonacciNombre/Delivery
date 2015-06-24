@@ -157,15 +157,17 @@
 			idcourier_ = $("#form-cargar-entrega-tarjeta #idcourier").val(),
 			fechaentrega_ = $("#form-cargar-entrega-tarjeta #fecnac_persona").val();
 		
+	 
 		loadModalCargando();
 
 		$
 				.post(
 						'/DeliveryTarjetas/delivery.do?method=cargaExcelDelivery',
 						{
-							fileName : fileName_,
-							fecnac_persona : fechaentrega_,
-							idcourier : idcourier_
+							filename : fileName_,
+							fecentrega : fechaentrega_,
+							idcourier : idcourier_,
+							tipoarchivo: 'xls'
 						},
 						function(data, textStatus, jqXHR) {
 							var obj = $.parseJSON(data);

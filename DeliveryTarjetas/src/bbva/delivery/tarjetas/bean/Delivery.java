@@ -32,12 +32,13 @@ public class Delivery {
 	private Integer idpestado;
 	private Integer idarchivo;
 	private Integer idpestadocarga;
+	private Integer idpestadodelivery;
 	private String historial;
 	private BigDecimal grupocarga;
 	
 	
-	private String nomcourier;
-	private String nomtrabajador;
+	private String codcourier;
+	private String dnitrabajador;
 	
 	public Delivery(){
 		
@@ -266,21 +267,29 @@ public class Delivery {
 	public void setIdpestadocarga(Integer idpestadocarga) {
 		this.idpestadocarga = idpestadocarga;
 	}
-
-	public String getNomcourier() {
-		return nomcourier;
+ 
+	public String getCodcourier() {
+		return codcourier;
 	}
 
-	public void setNomcourier(String nomcourier) {
-		this.nomcourier = nomcourier;
+	public void setCodcourier(String codcourier) {
+		this.codcourier = codcourier;
 	}
 
-	public String getNomtrabajador() {
-		return nomtrabajador;
+	public String getDnitrabajador() {
+		return dnitrabajador;
 	}
 
-	public void setNomtrabajador(String nomtrabajador) {
-		this.nomtrabajador = nomtrabajador;
+	public void setDnitrabajador(String dnitrabajador) {
+		this.dnitrabajador = dnitrabajador;
+	}
+
+	public Integer getIdpestadodelivery() {
+		return idpestadodelivery;
+	}
+
+	public void setIdpestadodelivery(Integer idpestadodelivery) {
+		this.idpestadodelivery = idpestadodelivery;
 	}
 
 	 

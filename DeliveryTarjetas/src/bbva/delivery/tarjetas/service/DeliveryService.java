@@ -12,7 +12,7 @@ public interface DeliveryService {
 
 	public void test();
 
-	public JSONObject cargarExcelDelivery(String fileName) throws FileNotFoundException;
+	public JSONObject cargarExcelDelivery(Archivo archivo) throws FileNotFoundException;
 	public List<Delivery> lstDelivery(Delivery param);
 	 
 	 
@@ -20,5 +20,5 @@ public interface DeliveryService {
 	
 	public void cargaDelivery(Delivery param);
 	
-	public void mntArchivo(Archivo param);
+	public void cargarArchivoDelivery(Archivo param);
 }

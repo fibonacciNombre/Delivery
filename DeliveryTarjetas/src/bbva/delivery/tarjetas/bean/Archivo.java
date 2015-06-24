@@ -10,8 +10,12 @@ public class Archivo {
 	private Integer idarchivo;
 	private Date feccarga;
 	private Integer idtipoarchivo;
-	private Date fecentrega;
+	private String fecentrega;
 	private Integer idcourier;
+	
+	private String codcourier;
+	private String tipoarchivo;
+	private String filename;
 	
 	public Archivo(){ 
 	}
@@ -45,11 +49,11 @@ public class Archivo {
 		this.idtipoarchivo = idtipoarchivo;
 	}
 
-	public Date getFecentrega() {
+	public String getFecentrega() {
 		return fecentrega;
 	}
 
-	public void setFecentrega(Date fecentrega) {
+	public void setFecentrega(String fecentrega) {
 		this.fecentrega = fecentrega;
 	}
 
@@ -59,6 +63,30 @@ public class Archivo {
 
 	public void setIdcourier(Integer idcourier) {
 		this.idcourier = idcourier;
+	}
+
+	public String getCodcourier() {
+		return codcourier;
+	}
+
+	public void setCodcourier(String codcourier) {
+		this.codcourier = codcourier;
+	}
+
+	public String getTipoarchivo() {
+		return tipoarchivo;
+	}
+
+	public void setTipoarchivo(String tipoarchivo) {
+		this.tipoarchivo = tipoarchivo;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 	
 	
