@@ -33,16 +33,16 @@
 					<ul>
 
 						<li>
-							<a href="#" id="view-reg-usuarioweb" data-url="/DeliveryTarjetas/usuario.do?method=goRegUsuarioWeb">Registro de usuario web</a>
+							<a href="#" id="view-reg-usuarioweb" data-url="/DeliveryTarjetas/usuario.do?method=goRegUsuarioWeb">Registro de usuario</a>
 						</li>
 						<li>
-							<a href="#" id="view-mnt-usuarioweb" data-url="/DeliveryTarjetas/usuario.do?method=goMntUsuarioWeb">Edición de usuarios web</a>
+							<a href="#" id="view-mnt-usuarioweb" data-url="/DeliveryTarjetas/usuario.do?method=goMntUsuarioWeb">Edición de usuarios</a>
 						</li>
 						<li>
-							<a href="#" id="view-reg-usuariows" data-url="/DeliveryTarjetas/usuario.do?method=goRegUsuarioWS">Registro de <br>usuario servicio web</a>
+							<a href="#" id="view-reg-usuariows" data-url="/DeliveryTarjetas/usuario.do?method=goRegUsuarioWS">Servicios web <br> Registro de usuario</a>
 						</li>
 						<li>
-							<a href="#" id="view-mnt-usuariows" data-url="/DeliveryTarjetas/usuario.do?method=goMntUsuarioWS">Edición de <br>usuarios servicio web</a>
+							<a href="#" id="view-mnt-usuariows" data-url="/DeliveryTarjetas/usuario.do?method=goMntUsuarioWS">Servicios web <br> Edición de usuarios</a>
 						</li>
 						
 					</ul>

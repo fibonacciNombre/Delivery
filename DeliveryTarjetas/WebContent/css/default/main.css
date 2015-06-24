@@ -6985,7 +6985,7 @@ button.close {
 	border-color:  1px solid #00559d;
   	border-bottom: 1px solid #dadada;
 	color: white;
-  	background:linear-gradient(to bottom, #0079c1 0px, #00559d 100%);
+  	background:linear-gradient(to bottom, #0079c1 0px, #00559d 100%);  	
 }
 .menu > li a i.arrow {
   height: 6px;
@@ -6997,12 +6997,12 @@ button.close {
 }
 
 .menu > li a.active {
-  background-color: #e6281e;
+   background: linear-gradient(to bottom, #0069b1 0px, #004b8c 100%);
   color: white;
 }
 
 .menu > li a:hover {
-  background-color: #e6281e;
+   background: linear-gradient(to bottom, #0069b1 0px, #004b8c 100%);
   color: white;
 }
 .menu > li a:hover i.arrow {
