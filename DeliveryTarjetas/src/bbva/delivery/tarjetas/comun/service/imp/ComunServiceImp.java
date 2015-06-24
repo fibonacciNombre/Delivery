@@ -38,8 +38,8 @@ public class ComunServiceImp implements ComunService {
 	/* (non-Javadoc)
 	 * @see rimac.portalweb.comun.service.ComunService#listarParametro(rimac.portalweb.comun.bean.Parametro)
 	 */
-	public List<Parametro> listarParametro(Parametro parametro) {
-		return comunDao.listarParametro(parametro);
+	public List<Parametro> lstParametro(Parametro parametro) {
+		return comunDao.lstParametro(parametro);
 	}
 
 	/* (non-Javadoc)

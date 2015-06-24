@@ -17,8 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import bbva.delivery.tarjetas.bean.Delivery;
-import bbva.delivery.tarjetas.bean.Parametro;
+import bbva.delivery.tarjetas.bean.Delivery; 
 import bbva.delivery.tarjetas.dao.DeliveryDao;
 import bbva.delivery.tarjetas.service.DeliveryService;
 
@@ -236,11 +235,7 @@ public class DeliveryServiceImp implements DeliveryService {
 	public void mntDelivery(Delivery param) throws FileNotFoundException {
 		portalWebDao.mntDelivery(param);
 	}
-	
-	@Override
-	public List<Parametro> lstParametro(Parametro param){
-		return portalWebDao.lstParametro(param);
-	}
+	 
 
 	@Override
 	public Integer valCourierDelivery(String dnicourier) {

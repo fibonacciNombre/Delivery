@@ -16,6 +16,24 @@
                     </div>
                 </div>
                 
+                <div class="form-group" id="tipdocumento-div">
+                    <label for="idptipodocumento" class="col-sm-5 col-sm-offset-1 control-label required">Tipo de documento </label>
+                    <div class="col-sm-5">
+                        <select class="form-control" id="idptipodocumento" name="idptipodocumento"> 
+						 	<option value="{debe ir id de tipo de documento}">DNI</option>                       	
+                   		</select>
+                        <div class="result"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group" id="nrodocumento-div">
+                    <label for="nrodocumentocou" class="col-sm-5 col-sm-offset-1 control-label required">Nro. documento </label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="nrodocumentocou"  name="nrodocumentocou" maxlength="12">
+                        <div class="result"></div>
+                    </div>
+                </div>
+                
                 <div class="form-group" id="rznsocial-div">
                     <label for="rznsocial" class="col-sm-5 col-sm-offset-1 control-label required">Razón social </label>
                     <div class="col-sm-5">
@@ -33,34 +51,34 @@
                 </div>
                 
                 <div class="form-group" id="nummovil-div">
-                    <label for="nummovil" class="col-sm-5 col-sm-offset-1 control-label required">Teléfono móvil </label>
+                    <label for="telfmovil" class="col-sm-5 col-sm-offset-1 control-label required">Teléfono móvil </label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control phone-group" id="nummovil" name="nummovil" maxlength="9">
+                        <input type="text" class="form-control phone-group" id="telfmovil" name="telfmovil" maxlength="9">
                         <div class="result"></div>
                     </div>
                 </div>
                 
                 <div class="form-group" id="numlocal-div">
-                    <label for="numlocal" class="col-sm-5 col-sm-offset-1 control-label required">Teléfono fijo </label>
+                    <label for="telffijo" class="col-sm-5 col-sm-offset-1 control-label required">Teléfono fijo </label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control phone-group" id="numlocal"  name="numlocal" maxlength="9">
+                        <input type="text" class="form-control phone-group" id="telffijo"  name="telffijo" maxlength="9">
                         <div class="result"></div>
                     </div>
                 </div>
                 
                 <div class="form-group" id="email-div">
-                    <label for="email" class="col-sm-5 col-sm-offset-1 control-label required">Correo electrónico </label>
+                    <label for="correo" class="col-sm-5 col-sm-offset-1 control-label required">Correo electrónico </label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" id="email"  name="email" maxlength="200">
+                        <input type="text" class="form-control" id="correo"  name="correo" maxlength="200">
                         <div class="result"></div>
                     </div>
                 </div>
                 
                 
                 <div class="form-group" id="estado-div">
-                    <label for="estado" class="col-sm-5 col-sm-offset-1 control-label required">Estado </label>
+                    <label for="idpestado" class="col-sm-5 col-sm-offset-1 control-label required">Estado </label>
                     <div class="col-sm-5">
-                        <select class="form-control" id="estado" name="estado">     
+                        <select class="form-control" id="idpestado" name="idpestado">     
                         	<option value="{debe ir id del estado}">ESTADO</option>                   	
                         </select>
                         <div class="result"></div>

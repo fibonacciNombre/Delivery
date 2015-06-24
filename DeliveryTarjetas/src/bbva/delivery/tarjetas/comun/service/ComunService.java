@@ -29,7 +29,7 @@ public interface ComunService {
 	 * @param parametro los filtros para la b�squeda del parametro
 	 * @return la lista de valores del parametro buscado seg�n los filtros
 	 */
-	List<Parametro> listarParametro(Parametro parametro);
+	List<Parametro> lstParametro(Parametro parametro);
 	
 	/**
 	 * 

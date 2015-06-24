@@ -1,6 +1,8 @@
 package bbva.delivery.tarjetas.comun.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,22 +14,19 @@ public class Parametro implements Serializable{
 
 	private static final long serialVersionUID = 7026094276995793104L;
 	
-	private String idePar;
-	private String codExterno;
-	private String ideTipPar;
-	private String ideTipParPadre;
-
-	private String codigo;
-	private String codigon;
+	private BigDecimal idparametro;
+	private String idparametrotipo;
+	private Integer codigon;
 	private String codigoc;
 	private String abreviatura;
 	private String descripcion;
-	private String descripcion2;
-	private String indActivo;
-	private String masterDetail;
-	private String refmigracionrs;
+	private Integer idpestado;
+	private String usucreacion;
+	private Date feccreacion;
+	private String usumodif;
+	private Date fecmodif;
 	
-	private List<ListaParametroCursor>  cursor;
+	private List<Parametro>  cursor;
 	
 	private String indexrow;
     
@@ -36,39 +35,28 @@ public class Parametro implements Serializable{
 	public Parametro(Map<?,?> map) throws Exception {
 		ResourceManager.populateDtoFromMap(this, map);
 	}
-	
-	public Parametro(String ideTippar) {
-		this.ideTipPar = ideTippar;
-	}
-	
-//	public Parametro(String ideTippar, String abreviatura) {
-	public Parametro(String ideTippar, String codigo) {
-		this.ideTipPar = ideTippar;
-//		this.abreviatura = abreviatura;
-		this.codigo = codigo;
+
+	public BigDecimal getIdparametro() {
+		return idparametro;
 	}
 
-	public String getCodigo() {
-		return codigo;
+	public void setIdparametro(BigDecimal idparametro) {
+		this.idparametro = idparametro;
 	}
 
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	public String getIdparametrotipo() {
+		return idparametrotipo;
 	}
 
-	public String getAbreviatura() {
-		return abreviatura;
+	public void setIdparametrotipo(String idparametrotipo) {
+		this.idparametrotipo = idparametrotipo;
 	}
 
-	public void setAbreviatura(String abreviatura) {
-		this.abreviatura = abreviatura;
-	}
-
-	public String getCodigon() {
+	public Integer getCodigon() {
 		return codigon;
 	}
 
-	public void setCodigon(String codigon) {
+	public void setCodigon(Integer codigon) {
 		this.codigon = codigon;
 	}
 
@@ -80,12 +68,68 @@ public class Parametro implements Serializable{
 		this.codigoc = codigoc;
 	}
 
+	public String getAbreviatura() {
+		return abreviatura;
+	}
+
+	public void setAbreviatura(String abreviatura) {
+		this.abreviatura = abreviatura;
+	}
+
 	public String getDescripcion() {
 		return descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public Integer getIdpestado() {
+		return idpestado;
+	}
+
+	public void setIdpestado(Integer idpestado) {
+		this.idpestado = idpestado;
+	}
+
+	public String getUsucreacion() {
+		return usucreacion;
+	}
+
+	public void setUsucreacion(String usucreacion) {
+		this.usucreacion = usucreacion;
+	}
+
+	public Date getFeccreacion() {
+		return feccreacion;
+	}
+
+	public void setFeccreacion(Date feccreacion) {
+		this.feccreacion = feccreacion;
+	}
+
+	public String getUsumodif() {
+		return usumodif;
+	}
+
+	public void setUsumodif(String usumodif) {
+		this.usumodif = usumodif;
+	}
+
+	public Date getFecmodif() {
+		return fecmodif;
+	}
+
+	public void setFecmodif(Date fecmodif) {
+		this.fecmodif = fecmodif;
+	}
+
+	public List<Parametro> getCursor() {
+		return cursor;
+	}
+
+	public void setCursor(List<Parametro> cursor) {
+		this.cursor = cursor;
 	}
 
 	public String getIndexrow() {
@@ -95,77 +139,7 @@ public class Parametro implements Serializable{
 	public void setIndexrow(String indexrow) {
 		this.indexrow = indexrow;
 	}
-
-	public String getIdeTipPar() {
-		return ideTipPar;
-	}
-
-	public void setIdeTipPar(String ideTipPar) {
-		this.ideTipPar = ideTipPar;
-	}
-
-	public String getIdeTipParPadre() {
-		return ideTipParPadre;
-	}
-
-	public void setIdeTipParPadre(String ideTipParPadre) {
-		this.ideTipParPadre = ideTipParPadre;
-	}
-
-	public String getIndActivo() {
-		return indActivo;
-	}
-
-	public void setIndActivo(String indActivo) {
-		this.indActivo = indActivo;
-	}
-
-	public String getMasterDetail() {
-		return masterDetail;
-	}
-
-	public void setMasterDetail(String masterDetail) {
-		this.masterDetail = masterDetail;
-	}
-
-	public String getIdePar() {
-		return idePar;
-	}
-
-	public void setIdePar(String idePar) {
-		this.idePar = idePar;
-	}
-
-	public String getCodExterno() {
-		return codExterno;
-	}
-
-	public void setCodExterno(String codExterno) {
-		this.codExterno = codExterno;
-	}
-
-	public String getDescripcion2() {
-		return descripcion2;
-	}
-
-	public void setDescripcion2(String descripcion2) {
-		this.descripcion2 = descripcion2;
-	}
 	
-	public List<ListaParametroCursor> getCursor() {
-		return cursor;
-	}
-
-	public void setCursor(List<ListaParametroCursor> cursor) {
-		this.cursor = cursor;
-	}
-
-	public String getRefmigracionrs() {
-		return refmigracionrs;
-	}
-
-	public void setRefmigracionrs(String refmigracionrs) {
-		this.refmigracionrs = refmigracionrs;
-	}
+	 
 	
 }

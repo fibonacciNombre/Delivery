@@ -13,7 +13,7 @@ public interface DeliveryDao{
 	public List<Delivery> lstDelivery(Delivery param);
 	public BigDecimal crearGrupoCargaDelivery();
 	
-	public List<Parametro> lstParametro(Parametro param);  
+ 
 	
 	public Integer valCourierDelivery(String dnicourier);
 }
