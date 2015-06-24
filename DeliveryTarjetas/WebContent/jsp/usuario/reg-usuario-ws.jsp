@@ -235,7 +235,7 @@
  					  	function(){   			
 				   			$.ajax({
 								type 		: "POST",
-								url 		: "/DeliveryTarjetas/courier.do"+"?method=mntUsuario",
+								url 		: "/DeliveryTarjetas/usuario.do"+"?method=mntUsuario",
 								cache 		: false ,
 								dataType	: "json",
 								contentType : "application/x-www-form-urlencoded; charset=UTF-8",

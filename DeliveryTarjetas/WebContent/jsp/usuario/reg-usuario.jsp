@@ -18,6 +18,64 @@
 	                    </div>
 	                </div>
 	                
+	                <div class="form-group" id="tipdocumento-div">
+	                    <label for="tipdocumento" class="col-sm-5 col-sm-offset-1 control-label required">Tipo de documento </label>
+	                    <div class="col-sm-5">
+	                        <select class="form-control" id="tipdocumento" name="tipdocumento"> 
+							 	<option value="{debe ir id de tipo de documento}">DNI</option>                       	
+	                   		</select>
+	                        <div class="result"></div>
+	                    </div>
+	                </div>
+	                
+	                <div class="form-group" id="nrodocumento-div">
+	                    <label for="nrodocumento" class="col-sm-5 col-sm-offset-1 control-label required">Nro. documento </label>
+	                    <div class="col-sm-5">
+	                        <input type="text" class="form-control" id="nrodocumento"  name="nrodocumento" maxlength="12">
+	                        <div class="result"></div>
+	                    </div>
+	                </div>
+	                
+	                <div class="form-group" id="nombres-div">
+	                    <label for="nombres" class="col-sm-5 col-sm-offset-1 control-label required">Nombres </label>
+	                    <div class="col-sm-5">
+	                        <input type="text" class="form-control" id="nombres" name="nombres" maxlength="200">
+	                        <div class="result"></div>
+	                    </div>
+	                </div>
+	                
+	                <div class="form-group" id="apepaterno-div">
+	                    <label for="apepaterno" class="col-sm-5 col-sm-offset-1 control-label required">Apellido paterno </label>
+	                    <div class="col-sm-5">
+	                        <input type="text" class="form-control" id="apepaterno" name="apepaterno" maxlength="200">
+	                        <div class="result"></div>
+	                    </div>
+	                </div>
+	                
+	                <div class="form-group" id="apematerno-div">
+	                    <label for="apematerno" class="col-sm-5 col-sm-offset-1 control-label required">Apellido materno </label>
+	                    <div class="col-sm-5">
+	                        <input type="text" class="form-control" id="apematerno" name="apematerno" maxlength="200">
+	                        <div class="result"></div>
+	                    </div>
+	                </div>
+	                                
+	                <div class="form-group" id="nummovil-div">
+	                    <label for="nummovil" class="col-sm-5 col-sm-offset-1 control-label required">Teléfono móvil </label>
+	                    <div class="col-sm-5">
+	                        <input type="text" class="form-control" id="nummovil" name="nummovil" maxlength="9">
+	                        <div class="result"></div>
+	                    </div>
+	                </div>
+	                
+	                <div class="form-group" id="email-div">
+	                    <label for="email" class="col-sm-5 col-sm-offset-1 control-label required">Correo electrónico </label>
+	                    <div class="col-sm-5">
+	                        <input type="text" class="form-control" id="email"  name="email" maxlength="200">
+	                        <div class="result"></div>
+	                    </div>
+	                </div>
+	                
 	                <div class="form-group" id="codusuario-div">
 	                    <label for="codusuario" class="col-sm-5 col-sm-offset-1 control-label required">Código de usuario </label>
 	                    <div class="col-sm-5">
@@ -70,7 +128,7 @@
 		                	<div class="col-sm-6 pull-right" style="text-align: right; padding: 0px;">
 			                    <button type="button" 
 			                    		class="btn btn-default"
-			                    		onclick="javascript:limpiarFormulario('form-registrousuariows');">
+			                    		onclick="javascript:limpiarFormulario('form-registrousuario');">
 			                    			Limpiar
 			                    </button>
 			                    
@@ -182,7 +240,7 @@
  					  	function(){   			
 				   			$.ajax({
 								type 		: "POST",
-								url 		: "/DeliveryTarjetas/courier.do"+"?method=mntUsuario",
+								url 		: "/DeliveryTarjetas/usuario.do"+"?method=mntUsuario",
 								cache 		: false ,
 								dataType	: "json",
 								contentType : "application/x-www-form-urlencoded; charset=UTF-8",
