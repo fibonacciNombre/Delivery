@@ -35,6 +35,16 @@
 	                    </div>
 	                </div>
 	                
+	                <div class="form-group" id="estado-div">
+	                    <label for="idpestado" class="col-sm-5 col-sm-offset-1 control-label required">Estado </label>
+	                    <div class="col-sm-5">
+	                        <select class="form-control" id="idpestado" name="idpestado">     
+	                        	<option value="{debe ir id del estado}">ESTADO</option>                   	
+	                        </select>
+	                        <div class="result"></div>
+	                    </div>
+	                </div>
+	                
 	                <div class="form-group" id="comentarios-div">
 	                    <label for="comentarios" class="col-sm-5 col-sm-offset-1 control-label">Comentarios </label>
 	                    <div class="col-sm-5">
@@ -132,7 +142,9 @@
 <script>
 	
     $().ready(function(){
-    		
+		
+    	callCargaControlParam('PARAM_ESTADOS','form-registrousuariows #estado');
+    	
 		var paramLstPerfil	= new Object();
     	
     	$.ajax({
