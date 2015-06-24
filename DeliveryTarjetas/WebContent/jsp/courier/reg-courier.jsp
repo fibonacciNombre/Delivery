@@ -130,7 +130,8 @@
 	
     $().ready(function(){
     		
-    	callCargaControlParam('PARAM_ESTADOS','form-registrocourier #estado');
+    	callCargaControlParam('DELWEB_TIPODOCUMENTO','form-registrocourier #idptipodocumento');
+    	callCargaControlParam('DELWEB_ESTADO','form-registrocourier #idpestado');
     	
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
@@ -145,15 +146,15 @@
 				
 				direccion 			: {				required 	: true },
 				
-				nummovil 			: {				require_from_group: [1, ".phone-group"],
+				telfmovil 			: {				require_from_group: [1, ".phone-group"],
 													digits 	 	: true,
 													minlength 	: 9},
 													
-				numlocal 			: {				require_from_group: [1, ".phone-group"],
+				telffijo 			: {				require_from_group: [1, ".phone-group"],
 													digits 	 	: true,
 													minlength 	: 6},
 													
-				email 				: {				required 	: true,
+				correo 				: {				required 	: true,
 													email		: true}
 			},
 			messages : {
@@ -163,17 +164,17 @@
 				
 				direccion 			: {				required 	: "Debes ingresar Dirección" },
 				
-				nummovil 			: {
+				telfmovil 			: {
 													require_from_group : "Debe ingresar al menos un número de teléfono",
 													digits 	 	: "Sólo números",
 													minlength 	: "Ingresar un mínimo de 9 dígitos" },
 													
-				numlocal 			: {
+				telffijo 			: {
 													require_from_group : "Debe ingresar al menos un número de teléfono",
 													digits 	 	: "Sólo números",
 													minlength 	: "Ingresar un mínimo de 6 dígitos"},
 													
-				email 				: {
+				correo 				: {
 													required 	: "Ingresar Email",
 													email		: "Ingresar formato de email válido"}
 			}

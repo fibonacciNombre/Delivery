@@ -4,14 +4,17 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import bbva.delivery.tarjetas.anotaciones.AdviceController;
+import bbva.delivery.tarjetas.commons.Constants;
 import bbva.delivery.tarjetas.courier.bean.Courier;
 import bbva.delivery.tarjetas.courier.service.CourierService;
 import bbva.delivery.tarjetas.service.DeliveryService;
+import bbva.delivery.tarjetas.util.CommonsHelper;
 import commons.framework.BaseController;
 
 @AdviceController
@@ -81,13 +84,12 @@ public class CourierController extends BaseController {
 
 		try {
 			listaCourier = courierService.lstCouriers(courier);
-			lstcourier = commons.web.UtilWeb.listaToArrayJson(listaCourier,
-					null, Courier.class.getName());
+			lstcourier = commons.web.UtilWeb.listaToArrayJson(listaCourier, null, Courier.class.getName());
 		} catch (Error e) {
 			lstcourier = "{" + e.getMessage() + "}";
 		}
 
-		this.escribirTextoSalida(response, lstcourier);
+		this.escribirTextoSalida(response, "{\"lstcouries\":" + lstcourier + "}");
 
 	}
 
@@ -98,7 +100,8 @@ public class CourierController extends BaseController {
 		String lstcourier = "";
 
 		Courier courier = null;
-
+		
+	 
 		courier = new Courier(request.getParameterMap());
 
 		try {
@@ -120,6 +123,13 @@ public class CourierController extends BaseController {
 
 		courier = new Courier(request.getParameterMap());
 
+		String id = request.getParameter("idcourier");
+		
+		HttpSession session = request.getSession(true);
+		
+		String usuario = session.getAttribute(Constants.REQ_SESSION_USUARIO).toString();
+		courier.setUsuario("BBVA");
+		
 		try {
 			courierService.mntCourier(courier);
 		} catch (Error e) {

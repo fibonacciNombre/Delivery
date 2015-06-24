@@ -30,7 +30,7 @@
 						<div class="form-group">
 							<label for="estado" class="col-md-5 control-label">Estado</label>
 							<div class="col-md-7">								
-								 <select class="form-control" id="estado" name="estado"> 
+								 <select class="form-control" id="idpestado" name="idpestado"> 
 								 	<option value="">Todos</option>                       	
                         		</select>								
 							</div>
@@ -68,30 +68,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>1</td>
-					<td>a</td>
-					<td class="desktop">s</td>
-					<td class="desktop">d</td>
-					<td>f</td>
-					<td>g</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>q</td>
-					<td class="desktop">w</td>
-					<td class="desktop">e</td>
-					<td>r</td>
-					<td>t</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>z</td>
-					<td class="desktop">x</td>
-					<td class="desktop">c</td>
-					<td>v</td>
-					<td>b</td>
-				</tr>
+				 
 			</tbody>
 		</table>
 	</div>
@@ -103,12 +80,12 @@
 	
     $().ready(function(){
     	
-    	callCargaControlParam('PARAM_ESTADOS','form-bsqcourier #estado');
+    	callCargaControlParam('DELWEB_ESTADO','form-bsqcourier #idpestado');
     	
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
 		});
-		
+		/*
 		$("#table-lst-couriers").DataTable({
 			"order"				:  [[ 0, "asc" ]],
 			"searching"	 		: true,
@@ -117,7 +94,7 @@
           	"bAutoWidth" 		: false,
           	"oLanguage"  		: {"sUrl": "/DeliveryTarjetas/recursos/idioma/es_ES.txt"}			
 		});
-				
+		*/	
 	});
     
 	function bsqCourier(){
@@ -131,24 +108,27 @@
 			  		function(){
 			   			$.ajax({
 							type 		: "POST",
-							url 		: "/DeliveryTarjetas/courier.do"+"?method=bsqCourier",
+							url 		: "/DeliveryTarjetas/courier.do"+"?method=lstCourier",
 							cache 		: false ,
 							dataType	: "json",
 							contentType : "application/x-www-form-urlencoded; charset=UTF-8",
 							async 		: false,
 							data 		: param,
 							success 	: function(rsp){
-							
-												var status 	= rsp.statustx;
-												var message = rsp.messagetx;
-			
-												closeModalCargando();
-												
-												if(status == 0){													
-													if(rsp.lstcouries!= undefined && rsp.lstcouries.lenght > 0)
-														cargarDataTablesCouries(rsp.lstcouries);
-												}else
-													loadModalMensaje("Atención",message,null);
+								
+								console.log(rsp.lstcouries);
+								cargarDataTablesCouries(rsp.lstcouries);
+								closeModalCargando();
+								/*var status 	= rsp.statustx;
+								var message = rsp.messagetx;
+
+								closeModalCargando();
+								
+								if(status == 0){													
+									if(rsp.lstcouries!= undefined && rsp.lstcouries.lenght > 0)
+										cargarDataTablesCouries(rsp.lstcouries);
+								}else
+									loadModalMensaje("Atención",message,null);*/
 							},						
 							error: function (rsp, xhr, ajaxOptions, thrownError) {
 								closeModalCargando();
@@ -174,20 +154,17 @@
 			                           	{ "orderable"	: false,
 				                         	"data"		: "rznsocial"},
                            				{ "orderable"	: false,
-		                      				"data"      : "nummovil",
+		                      				"data"      : "telfmovil",
 		                      				"class"		: "desktop"},
 	                      				{ "orderable"	: false,
-		                      				"data"      : "email",
+		                      				"data"      : "correo",
 		                      				"class"		: "desktop"},
 	                      				{ "orderable"	: false,
-		                      				"data"      : "dscestado",
+		                      				"data"      : "idpestado",
 		                      				"class"		: "text-center"},
 	                      				{ "orderable"	: false,
-		                      				"data"      : "",
-		                      				"class"		: "text-center",
-                         	 				"mRender"  	: function (data, type, full) {
-	                         	 								return linkDetalleCourier();
-	                         	 							}}										
+		                      				"data"      : "correo",
+		                      				"class"		: "text-center"}										
 								],
 			"fnDrawCallback"	: function () { mostrarDatatable("#table-lst-couriers");}
 		});

@@ -1,4 +1,4 @@
-package bbva.delivery.tarjetas.courier.bean;
+package bbva.delivery.tarjetas.courier.bean; 
 
 import java.io.Serializable;
 import java.util.Map;
@@ -9,22 +9,19 @@ public class Courier implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private int idcourier;
+	private Integer idcourier;
 	private String codbbva;
 	private String rznsocial;
-	private String nombre;
 	private String correo;
 	private String telffijo;
 	private String telfmovil;
 	private String observacion;
-	private String idpestado;
+	private Integer idpestado;
 	private String nrodocumentocou;
-	private String idptipodocumento;
+	private Integer idptipodocumento;
 	private String direccion;
-	private String usucreacion;
-	private String usumodificacion;
-	private String feccreacion;
-	private String fecmodifcacion;
+	private String usuario; 
+ 
 	private String historial;
 	
 	@SuppressWarnings("rawtypes")
@@ -45,18 +42,13 @@ public class Courier implements Serializable {
 	public void setRznsocial(String rznsocial) {
 		this.rznsocial = rznsocial;
 	}
-	public int getIdcourier() {
+	public Integer getIdcourier() {
 		return idcourier;
 	}
-	public void setIdcourier(int idcourier) {
+	public void setIdcourier(Integer idcourier) {
 		this.idcourier = idcourier;
 	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+	
 	public String getCorreo() {
 		return correo;
 	}
@@ -66,7 +58,7 @@ public class Courier implements Serializable {
 	public String getTelffijo() {
 		return telffijo;
 	}
-	public void setTlffijo(String telffijo) {
+	public void setTelffijo(String telffijo) {
 		this.telffijo = telffijo;
 	}
 	public String getTelfmovil() {
@@ -76,40 +68,17 @@ public class Courier implements Serializable {
 		this.telfmovil = telfmovil;
 	}
 	 
-	public String getUsucreacion() {
-		return usucreacion;
-	}
-	public void setUsucreacion(String usucreacion) {
-		this.usucreacion = usucreacion;
-	}
-	public String getUsumodificacion() {
-		return usumodificacion;
-	}
-	public void setUsumodificacion(String usumodificacion) {
-		this.usumodificacion = usumodificacion;
-	}
-	public String getFeccreacion() {
-		return feccreacion;
-	}
-	public void setFeccreacion(String feccreacion) {
-		this.feccreacion = feccreacion;
-	}
-	public String getFecmodifcacion() {
-		return fecmodifcacion;
-	}
-	public void setFecmodifcacion(String fecmodifcacion) {
-		this.fecmodifcacion = fecmodifcacion;
-	}
+	 
 	public String getHistorial() {
 		return historial;
 	}
 	public void setHistorial(String historial) {
 		this.historial = historial;
 	}
-	public String getIdpestado() {
+	public Integer getIdpestado() {
 		return idpestado;
 	}
-	public void setIdpestado(String idpestado) {
+	public void setIdpestado(Integer idpestado) {
 		this.idpestado = idpestado;
 	}
 	public String getObservacion() {
@@ -124,10 +93,10 @@ public class Courier implements Serializable {
 	public void setNrodocumentocou(String nrodocumentocou) {
 		this.nrodocumentocou = nrodocumentocou;
 	}
-	public String getIdptipodocumento() {
+	public Integer getIdptipodocumento() {
 		return idptipodocumento;
 	}
-	public void setIdptipodocumento(String idptipodocumento) {
+	public void setIdptipodocumento(Integer idptipodocumento) {
 		this.idptipodocumento = idptipodocumento;
 	}
 	public String getDireccion() {
@@ -136,5 +105,26 @@ public class Courier implements Serializable {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
+	public String getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+	 
+	
+
+	@Override
+	public String toString() {
+		return "Courier [idcourier=" + idcourier + ", codbbva=" + codbbva
+				+ ", rznsocial=" + rznsocial + ", correo=" + correo
+				+ ", telffijo=" + telffijo + ", telfmovil=" + telfmovil
+				+ ", observacion=" + observacion + ", idpestado=" + idpestado
+				+ ", nrodocumentocou=" + nrodocumentocou
+				+ ", idptipodocumento=" + idptipodocumento + ", direccion="
+				+ direccion + ", usuario=" + usuario + "]";
+	}
+	
+	
 		
 }

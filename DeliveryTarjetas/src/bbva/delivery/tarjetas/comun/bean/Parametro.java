@@ -32,7 +32,8 @@ public class Parametro implements Serializable{
     
 	public Parametro() {}
 
-	public Parametro(Map<?,?> map) throws Exception {
+	@SuppressWarnings("rawtypes")
+	public Parametro(Map map) throws Exception {
 		ResourceManager.populateDtoFromMap(this, map);
 	}
 

@@ -30,6 +30,8 @@ public interface ComunDao{
 	 */
 	List<Parametro> lstParametro(Parametro parametro);
 	
+	List<Parametro> cmbParametro(Parametro parametro);
+	
 	/**
 	 * 
 	 * @param param

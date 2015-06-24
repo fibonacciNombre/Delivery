@@ -29,11 +29,11 @@ function callServiceByPOST(queryUrl, isAsync, dataToSend, callbackSuccess, callC
 function callCargaControlParam(ideParametro,ideControl){
 	
 	var param 		= new Object();
-	param.tipo 		= ideParametro;
+	param.idparametrotipo 		= ideParametro;
 	
 	$.ajax({
 		type 		: "POST",
-		url 		: "/DeliveryTarjetas/comun.do"+"?method=comboParametro",
+		url 		: "/DeliveryTarjetas/comun.do"+"?method=lstParametro",
 		cache 		: false,
 		async 		: false,
 		dataType 	: 'json',
@@ -57,11 +57,11 @@ function llenarCombo(idControl,listaOpciones,emptyElement){
 	if(emptyElement)
 		combo.append('<option value="">'+'Seleccionar'+'</option>');
 	
-	for(var i=0; i<listaOpciones.length; i++){
-		if(listaOpciones[i][1] != "NO DETERMINADO"){
-			var opcion = '<option value="'+listaOpciones[i][0]+'" >'+listaOpciones[i][1]+'</option>' ;
-			combo.append(opcion);
-		}
+	 
+	for ( var i = 0; i < listaOpciones.length; i++) {
+		$("#" + idControl).append(
+				"<option value='"+listaOpciones[i].codigon+"'>"
+						+ listaOpciones[i].abreviatura + "</option>");
 	}
 	
 	$('#'+idControl).change();
