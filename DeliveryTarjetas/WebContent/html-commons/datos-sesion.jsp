@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 
 <div id="datos-cliente" class="header-section2">
-	<form method="post" id="formlogout" name="formlogout" action="/DeliveryTarjetas/login.do?method=logout" >
+	<form method="post" id="formlogout" name="formlogout" action="/DeliveryTarjetas/usuario.do?method=logout" >
 		<div id="header-section2">
 			<i class="m-icn-locked"></i>			
 			<span id="avatar">

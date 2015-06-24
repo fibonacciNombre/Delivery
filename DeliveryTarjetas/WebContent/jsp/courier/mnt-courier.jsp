@@ -36,10 +36,10 @@
 							</div>
 						</div>							
 						<div class="form-group">
-							<label for="btnRegistrar" class="col-md-5 control-label">
+							<label for="btnBsqCourier" class="col-md-5 control-label">
 							</label>
 							<div class="col-md-7">
-								<button id="btnRegistrar"
+								<button id="btnBsqCourier"
 			                    		type="button" 
 			                    		class="btn btn-primary" 
 			                    		style="float:right;padding-top: 3px; padding-bottom: 3px;"
