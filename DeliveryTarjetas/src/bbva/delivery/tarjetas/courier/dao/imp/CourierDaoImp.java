@@ -88,8 +88,7 @@ public class CourierDaoImp extends JdbcDaoBase implements CourierDao {
 	      JdbcHelper.setInParameter(call, in, "a_observacion", 		Types.VARCHAR, courier.getObservacion()); 
 	      JdbcHelper.setInParameter(call, in, "a_nrodocumentocou", 	Types.VARCHAR, courier.getNrodocumentocou()); 
 	      JdbcHelper.setInParameter(call, in, "a_idptipodocumento", Types.INTEGER, courier.getIdptipodocumento());
-	      JdbcHelper.setInParameter(call, in, "a_direccion", 		Types.VARCHAR, courier.getIdptipodocumento()); 
-		
+	      JdbcHelper.setInParameter(call, in, "a_direccion", 		Types.VARCHAR, courier.getDireccion());  
 	      JdbcHelper.setInParameter(call, in, "a_idpestado", 		Types.INTEGER, courier.getIdpestado()); 
 	      JdbcHelper.setInParameter(call, in, "a_correo", 			Types.VARCHAR, courier.getCorreo()); 
 	      JdbcHelper.setInParameter(call, in, "a_historial", 		Types.VARCHAR, courier.getHistorial()); 
@@ -100,7 +99,6 @@ public class CourierDaoImp extends JdbcDaoBase implements CourierDao {
 		courier.setIdcourier(idcourier); 
 		
 	}
-
 
 	@Override
 	public List<Courier>  obtCourier(Courier courier) { 
@@ -117,6 +115,7 @@ public class CourierDaoImp extends JdbcDaoBase implements CourierDao {
 				resources.getString(ConstantsProperties.PQ_DEL_COURIER), 
 				"sp_obt_courier");
  
+		JdbcHelper.setInParameter(call, in, "a_idcursor", OracleTypes.INTEGER, courier.getIdcourier());
 		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, Courier.class);
 
 		out = call.execute(in);

@@ -371,7 +371,7 @@
 	        $(this).toggleClass('selected');
 	    } );
 		 
-		getListTable();
+		//getListTable();
 	});
 
 	/** Trae la lista del servidor **/
