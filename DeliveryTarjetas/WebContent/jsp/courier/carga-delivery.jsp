@@ -80,7 +80,7 @@
 	/** Se ejecuta apenas termina de renderizar **/
 	$().ready(function() {
 		
-		//cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', {form: 'form-cargar-entrega-tarjeta'});
+		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', {form: 'form-cargar-entrega-tarjeta'});
 		
 		$("#fecnac_persona").datepicker(
 				{
@@ -197,38 +197,3 @@
 	}
 	
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
