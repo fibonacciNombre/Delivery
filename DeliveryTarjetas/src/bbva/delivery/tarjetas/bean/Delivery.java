@@ -16,8 +16,8 @@ public class Delivery {
 	private String ultdigtarjeta;
 	private String nrocontrato;
 	private BigDecimal mtoasoctarjeta;
-	private Date fecentrega;
-	private Date horaentrega;
+	private String fecentrega;
+	private String horaentrega;
 	private String lugarentrega;
 	private String indverificacion;
 	private String direccioncli;
@@ -34,6 +34,10 @@ public class Delivery {
 	private Integer idpestadocarga;
 	private String historial;
 	private BigDecimal grupocarga;
+	
+	
+	private String nomcourier;
+	private String nomtrabajador;
 	
 	public Delivery(){
 		
@@ -109,19 +113,19 @@ public class Delivery {
 		this.mtoasoctarjeta = mtoasoctarjeta;
 	}
 
-	public Date getFecentrega() {
+	public String getFecentrega() {
 		return fecentrega;
 	}
 
-	public void setFecentrega(Date fecentrega) {
+	public void setFecentrega(String fecentrega) {
 		this.fecentrega = fecentrega;
 	}
 
-	public Date getHoraentrega() {
+	public String getHoraentrega() {
 		return horaentrega;
 	}
 
-	public void setHoraentrega(Date horaentrega) {
+	public void setHoraentrega(String horaentrega) {
 		this.horaentrega = horaentrega;
 	}
 
@@ -261,6 +265,22 @@ public class Delivery {
 
 	public void setIdpestadocarga(Integer idpestadocarga) {
 		this.idpestadocarga = idpestadocarga;
+	}
+
+	public String getNomcourier() {
+		return nomcourier;
+	}
+
+	public void setNomcourier(String nomcourier) {
+		this.nomcourier = nomcourier;
+	}
+
+	public String getNomtrabajador() {
+		return nomtrabajador;
+	}
+
+	public void setNomtrabajador(String nomtrabajador) {
+		this.nomtrabajador = nomtrabajador;
 	}
 
 	 

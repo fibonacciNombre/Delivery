@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import bbva.delivery.tarjetas.bean.Archivo;
 import bbva.delivery.tarjetas.bean.Delivery; 
 import bbva.delivery.tarjetas.dao.DeliveryDao;
 import bbva.delivery.tarjetas.service.DeliveryService;
@@ -70,7 +71,10 @@ public class DeliveryServiceImp implements DeliveryService {
 			}
 			
 			BigDecimal idgrupoCarga = crearGrupoCargaDelivery();
+			//Integer idarchivo = mntArchivo();
+			
 			Integer existeCourier;
+			
 			/** Recorrer las hojas del excel **/
 			for (int k = 0; k < wb.getNumberOfSheets(); k++) {
 				Sheet sheet = wb.getSheetAt(k);
@@ -102,18 +106,9 @@ public class DeliveryServiceImp implements DeliveryService {
 						carga.setMtoasoctarjeta(null);
 					}
 					
-					try {
-						carga.setFecentrega(null);
-					} catch (Exception e) {
-						carga.setFecentrega(null);
-					}
-					
-
-					try {
-						carga.setHoraentrega(null);
-					} catch (Exception e) {
-						carga.setHoraentrega(null);
-					}
+					carga.setFecentrega(getCellValue(row, 8));
+					carga.setHoraentrega(getCellValue(row, 9));
+				 
 					 
 					carga.setLugarentrega(getCellValue(row, 10));
 
@@ -138,9 +133,8 @@ public class DeliveryServiceImp implements DeliveryService {
 					carga.setOrdenentrega(getCellValue(row, 18));
 					
 					
-					
 					try {
-						portalWebDao.mntDelivery(carga);
+						portalWebDao.cargaDelivery(carga);
 						
 					} catch (Exception e) {
 						errorCarga = 2;
@@ -206,7 +200,13 @@ public class DeliveryServiceImp implements DeliveryService {
 		return portalWebDao.valCourierDelivery(dnicourier);
 	}
  
+	public void cargaDelivery(Delivery param){
+		portalWebDao.cargaDelivery(param);
+	}
 	
+	public void mntArchivo(Archivo param){
+		portalWebDao.mntArchivo(param);
+	}
 	
 
 }

@@ -11,6 +11,7 @@ public class Archivo {
 	private Date feccarga;
 	private Integer idtipoarchivo;
 	private Date fecentrega;
+	private Integer idcourier;
 	
 	public Archivo(){ 
 	}
@@ -50,6 +51,14 @@ public class Archivo {
 
 	public void setFecentrega(Date fecentrega) {
 		this.fecentrega = fecentrega;
+	}
+
+	public Integer getIdcourier() {
+		return idcourier;
+	}
+
+	public void setIdcourier(Integer idcourier) {
+		this.idcourier = idcourier;
 	}
 	
 	

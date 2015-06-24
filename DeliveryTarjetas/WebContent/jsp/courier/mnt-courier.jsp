@@ -116,7 +116,7 @@
 							data 		: param,
 							success 	: function(rsp){
 								
-								console.log(rsp.lstcouries);
+								 
 								cargarDataTablesCouries(rsp.lstcouries);
 								closeModalCargando();
 								/*var status 	= rsp.statustx;
