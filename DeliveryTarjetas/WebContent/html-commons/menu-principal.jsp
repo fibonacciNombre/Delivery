@@ -87,7 +87,7 @@
 			    <div id="delivery-menu" class="collapse">
 			        <ul>
 			            <li>
-			                <a href="#" data-url="/DeliveryTarjetas/delivery.do?method=goEditarDelivery">Editar datos <br>de una entrega</a>
+			                <a href="#" data-url="/DeliveryTarjetas/delivery.do?method=goMntCargaDelivery">Editar datos <br>de una entrega</a>
 			            </li>
 			            <li>
 			                <a href="#" data-url="/DeliveryTarjetas/delivery.do?method=goCargaDelivery">Carga de archivo<br>entregas a realizar</a>
