@@ -9,23 +9,19 @@ import bbva.delivery.tarjetas.usuario.bean.Usuario;
 
 public interface UsuarioService {
 
-	
-	void regUsuario(Usuario usuario);
-	
 	void mntUsuario(Usuario usuario) throws Exception;
 	
 	List<Usuario> lstUsuarios(Usuario usuario);
 	
 	List<Usuario> lstUsuarios(Usuario usuario, Tercero tercero);
 	
-	Usuario obtDetalleUsuario(Usuario usuario);
+	Usuario obtUsuario(Usuario usuario);
 		
 	boolean validarContrasena(Usuario usuario);
 	
-	Usuario autenticarUsuario(LoginWeb usuario);
+	Usuario autenticarUsuario(LoginWeb usuario) throws Exception;
 	
-	void actContrasena(Usuario usuario);
+	void mntContrasena(Usuario usuario);
 	 
-
 	public Usuario addUsuario(Usuario usuario) throws Exception ;
 }

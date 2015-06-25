@@ -6,11 +6,9 @@ import bbva.delivery.tarjetas.tercero.bean.Tercero;
 
 
 public interface TerceroService {
-	 
 	
 	void mntTercero(Tercero tercero);
 	
 	List<Tercero> lstTerceros(Tercero tercero);
 	
-	List<Tercero> obtTercero(Tercero tercero);
 }

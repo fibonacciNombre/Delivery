@@ -17,9 +17,9 @@ public interface UsuarioDao {
 		
 	boolean validarContrasena(Usuario usuarioWeb);
 	
-	void actContrasena(Usuario usuarioWeb);
+	void mntContrasena(Usuario usuarioWeb);
 	
-	public Usuario obtUsuario(Integer id);
+	public Usuario obtUsuario(Usuario usuario);
 
 	public Usuario addUsuario(Usuario usuario);
 

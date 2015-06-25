@@ -21,11 +21,13 @@ import bbva.delivery.tarjetas.comun.service.ComunService;
 import bbva.delivery.tarjetas.courier.bean.Courier;
 import bbva.delivery.tarjetas.courier.service.CourierService;
 import bbva.delivery.tarjetas.perfil.bean.Perfil;
+import bbva.delivery.tarjetas.perfil.service.PerfilService;
 import bbva.delivery.tarjetas.tercero.bean.Tercero;
 import bbva.delivery.tarjetas.tercero.service.TerceroService;
 import bbva.delivery.tarjetas.usuario.bean.LoginWeb;
 import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
+import bbva.delivery.tarjetas.util.AESHelper;
 import commons.framework.BaseController;
 import commons.web.UtilWeb;
 
@@ -39,6 +41,9 @@ public class UsuarioController extends BaseController {
 
 	@Autowired
 	private CourierService courierService;
+	
+	@Autowired
+	private PerfilService perfilService;
 	
 	@Autowired
 	private TerceroService terceroService;
@@ -167,7 +172,8 @@ public class UsuarioController extends BaseController {
 			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
 		}
 
-		result += "{\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) +"}";
+		result += "{\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + "," +
+					"\"usuario\":"+ UtilWeb.objectToJson(usuario, null, Usuario.class.getName()) + "}";
 		
 		this.escribirTextoSalida(response, result);
 		 
@@ -188,7 +194,7 @@ public class UsuarioController extends BaseController {
 			
 			loginWeb 				= new LoginWeb(request.getParameterMap());
 			
-			Usuario usuarioWeb 	= usuarioService.autenticarUsuario(loginWeb);
+			Usuario usuario 		= usuarioService.autenticarUsuario(loginWeb);
 			
 			escenarioLogin 			= loginWeb.getEscenario();
 			
@@ -197,7 +203,7 @@ public class UsuarioController extends BaseController {
 			System.out.println("Resultado del logueo	: " + escenarioLogin);
 			
 			session.setAttribute(Constants.REQ_SESSION_LOGINWEB, loginWeb);
-			session.setAttribute(Constants.REQ_SESSION_USUARIO, usuarioWeb);
+			session.setAttribute(Constants.REQ_SESSION_USUARIO, usuario);
 			
 			if( escenarioLogin.equals(Constants.ESCENARIO_LOGIN_ACCESOS_CORRECTOS) ){
 				loginWeb.setUrldestino("jsp/inicio.jsp");
@@ -253,7 +259,7 @@ public class UsuarioController extends BaseController {
 		HttpSession session			= request.getSession();
 		
 		String result				= "";
-		Usuario usuarioWeb		= null;
+		Usuario usuario		= null;
 		Perfil perfil				= new Perfil();
 		Courier courier				= new Courier();
 		Tercero tercero				= new Tercero();
@@ -264,27 +270,31 @@ public class UsuarioController extends BaseController {
 		String jsonTercero			= "\"Tercero\":[";
 		String jsonCourier			= "\"Courier\":[";
 		
-		usuarioWeb	= (Usuario) session.getAttribute(Constants.REQ_SESSION_USUARIO);
+		usuario	= (Usuario) session.getAttribute(Constants.REQ_SESSION_USUARIO);
 		
-//		usuarioWeb = usuarioService.obtDetalleUsuarioWeb(usuarioWeb);
+		usuario = usuarioService.obtUsuario(usuario);
 		
-		usuarioWeb.setEstado(Constants.USR_STS_ACTIVO.toString());
-		
-		jsonUsuario += commons.web.UtilWeb.objectToJson(usuarioWeb, null, Usuario.class.getName());
+		jsonUsuario += commons.web.UtilWeb.objectToJson(usuario, null, Usuario.class.getName());
 		
 		jsonUsuario += "]";
 		
-		if(usuarioWeb.getIdperfil()!=null){
-			perfil.setIdperfil(usuarioWeb.getIdperfil());
-//			perfil = perfilService.obtDetallePerfil(perfil);	
+		if(usuario.getIdperfil()!=null){
+			perfil.setIdperfil(usuario.getIdperfil());
+			perfil = perfilService.obtPerfil(perfil);	
 			jsonPerfil += commons.web.UtilWeb.objectToJson(perfil, null, Perfil.class.getName());
 		}
 		
 		jsonPerfil += "]";
 		
-		if(usuarioWeb.getIdtercero()!=null){
-			tercero.setIdtercero(usuarioWeb.getIdtercero());
-			//tercero = terceroService.obtDetalleTercero(tercero);	
+		if(usuario.getIdtercero()!=null){
+			System.out.println("*******************");
+			System.out.println(tercero.toString());
+			tercero.setIdtercero(usuario.getIdtercero());
+			System.out.println("*******************");
+			System.out.println(tercero.toString());
+			tercero = terceroService.lstTerceros(tercero).get(0);
+			System.out.println("*******************");
+			System.out.println(tercero.toString());
 			jsonTercero += commons.web.UtilWeb.objectToJson(tercero, null, Tercero.class.getName());
 		}
 		
@@ -310,7 +320,7 @@ public class UsuarioController extends BaseController {
 		logger.info("*** fin obtDatosUsuarioSesion *** ");
 	}
 	
-	public void actContrasena(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public void mntContrasena(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
 		logger.info("*** ini actContrasena *** ");
 		
@@ -318,15 +328,14 @@ public class UsuarioController extends BaseController {
 		
 		String result				= "";
 		TransaccionWeb tx			= new TransaccionWeb();
-		Usuario usuarioWeb 		= new Usuario(request.getParameterMap());
+		Usuario usuario 			= new Usuario(request.getParameterMap());
 		
-//		usuarioService.actContrasena(usuarioWeb);
+		usuario.setIndrnvcontrasena("N");
+		usuario.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, usuario.getContrasena()));
 		
-		usuarioWeb.setEstado(Constants.USR_STS_ACTIVO);
+		usuarioService.mntContrasena(usuario);
 		
-//		usuarioService.mntUsuarioWeb(usuarioWeb);
-		
-		session.setAttribute(Constants.REQ_SESSION_USUARIO, usuarioWeb);
+		session.setAttribute(Constants.REQ_SESSION_USUARIO, usuario);
 		
 		result = commons.web.UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName());
 		

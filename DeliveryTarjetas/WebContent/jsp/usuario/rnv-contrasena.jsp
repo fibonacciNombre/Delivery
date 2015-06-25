@@ -106,11 +106,13 @@
 			
 			setTimeout( function() {
 							
-							CTE_JSON_USUARIOWEB.password = $("#nuevacontrasena").val();
+							CTE_JSON_USUARIOWEB.contrasena = $("#nuevacontrasena").val();
+							
+							console.log(CTE_JSON_USUARIOWEB);
 							
 							$.ajax({
 								type 		: "POST",
-								url 		: "/DeliveryTarjetas/usuario.do"+"?method=actContrasena",
+								url 		: "/DeliveryTarjetas/usuario.do"+"?method=mntContrasena",
 								cache 		: false ,
 								dataType	: "json",
 								contentType : "application/x-www-form-urlencoded; charset=UTF-8",
@@ -128,11 +130,20 @@
 													
 													loadModalMensaje("Enhorabuena","Haz culminado satisfactoriamente el registro de tu contraseña",
 																		function(){
+																			
+																			$("#modalRenovarContrasena").modal('hide');
+																			
 																			loadModalCargando();
-		
-																			$(".content-rws").load("/DeliveryTarjetas/delivery.do?method=goHomePage",function(){});
+																			
+																			CTE_LOAD_INIT = 1;
+																			
+																			obtDatosUsuarioSesion();
+																			
+																			$("#panelDelivery").click();
+																			
+																			$("#view-lst-entrega").click();
 																					
-																	});														
+																		});														
 												}else
 													loadModalMensaje("Mensaje",messagetx,null); 							 
 								},

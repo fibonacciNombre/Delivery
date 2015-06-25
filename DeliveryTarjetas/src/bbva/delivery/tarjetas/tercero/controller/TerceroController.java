@@ -68,36 +68,7 @@ public class TerceroController extends BaseController {
 
 	}
 
-	public void obtTercero(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		
-		logger.info("Controller obtTercero");
-		
-		String result				= "";
-		String lsttercero			= "";
-		List<Tercero> listaTercero 	= null;
-		TransaccionWeb tx			= new TransaccionWeb();				
-		Tercero tercero 			= new Tercero(request.getParameterMap());
-
-		try {
-			
-			listaTercero 	= terceroService.obtTercero(tercero);
-			lsttercero 		= commons.web.UtilWeb.listaToJson(listaTercero, null, Courier.class.getName());
-			
-		} catch (Error e) {
-			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
-			lsttercero = "{" + e.getMessage() + "}";
-		}
-
-		result += "{"
-					+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
-					+ "\"lst\":" + lsttercero 
-					+ "}";
-		
-		this.escribirTextoSalida(response, result);
-	}
-
-	public void mntTercero(HttpServletRequest request,
+		public void mntTercero(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
 		logger.info("Controller mntTercero");

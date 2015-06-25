@@ -100,9 +100,9 @@
 		
     	$("#form-registrousuariows #cboperfil").val(CTE_INIT_IDROL_ADMIN_WS);
     	
-    	$("#form-registrousuariows #ideperfil").val(CTE_INIT_IDROL_ADMIN_WS);
-    	
     	$("#form-registrousuariows #cboperfil").attr("disabled","disabled");
+    	
+    	$("#form-registrousuariows #idperfil").val(CTE_INIT_IDROL_ADMIN_WS);
     	
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
@@ -178,8 +178,8 @@
 														$("#contrasena-final").val("");
 														$("#codusuario-final").val(rsp.usuario.codusuario);
 														$("#contrasena-final").val(rsp.usuario.contrasena);
-														$("#codusuario-final").attr("disabled", true);
-														$("#contrasena-final").attr("disabled", true);
+														$("#codusuario-final").attr("readonly", true);
+														$("#contrasena-final").attr("readonly", true);
 														
 														$("#container-principal").slideUp(1000,
 																							function(){ $("#container-final").slideDown(1000); });

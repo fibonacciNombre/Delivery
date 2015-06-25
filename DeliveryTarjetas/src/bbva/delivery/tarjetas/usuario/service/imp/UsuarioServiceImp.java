@@ -1,5 +1,8 @@
 package bbva.delivery.tarjetas.usuario.service.imp;
 
+import static org.apache.commons.codec.binary.Base64.decodeBase64;
+import static org.apache.commons.codec.binary.Base64.encodeBase64;
+
 import java.util.List;
 
 import javax.crypto.Cipher;
@@ -22,8 +25,6 @@ import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import bbva.delivery.tarjetas.usuario.dao.UsuarioDao;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
 import bbva.delivery.tarjetas.util.AESHelper;
-import static org.apache.commons.codec.binary.Base64.decodeBase64;
-import static org.apache.commons.codec.binary.Base64.encodeBase64;
 @Service("usuarioService")
 @Transactional(propagation = Propagation.SUPPORTS)
 public class UsuarioServiceImp implements UsuarioService {
@@ -40,86 +41,85 @@ public class UsuarioServiceImp implements UsuarioService {
 	private static Logger logger = Logger.getLogger(UsuarioServiceImp.class
 			.getName());
 
-	// Definición del tipo de algoritmo a utilizar (AES, DES, RSA)
+	// Definiciï¿½n del tipo de algoritmo a utilizar (AES, DES, RSA)
 	private final static String ALG = "AES";
 
-	// Definición del modo de cifrado a utilizar
+	// Definiciï¿½n del modo de cifrado a utilizar
 	private final static String CI = "AES/CBC/PKCS5Padding";
 
 	private final static String KEY = "92AE31A79FEEB2A3"; // llave
 
 	private final static String IV = "0123456789ABCDEF"; // vector de
-															// inicialización
+															// inicializaciï¿½n
 
-	public Usuario obtDetalleUsuario(Usuario usuarioWeb) {
+	public Usuario obtUsuario(Usuario usuario) {
 		logger.info("Service obtDetalleUsuarioWeb");
-		return usuarioDao.obtDetalleUsuario(usuarioWeb);
+		return usuarioDao.obtUsuario(usuario);
 	}
 
-	public Usuario autenticarUsuario(LoginWeb loginWeb) {
+	public Usuario autenticarUsuario(LoginWeb loginWeb) throws Exception {
 
 		logger.info("Service autenticarUsuario");
 
 		logger.debug("****ini autenticarUsuario****");
 
-		Courier courier = new Courier();
-		Tercero tercero = new Tercero();
-		Usuario usuarioWeb = new Usuario();
-		Usuario usuarioWebTmp = new Usuario();
+		Courier courier 		= new Courier();
+		Tercero tercero 		= new Tercero();
+		Usuario usuario 		= new Usuario();
+		Usuario usuarioTmp 		= new Usuario();
 
-		String idUsuario = loginWeb.getUserlogin();
-		String password = loginWeb.getPasslogin();
+		String idUsuario 	= loginWeb.getUserlogin();
+		String password 	= loginWeb.getPasslogin();
 
-		usuarioWebTmp.setCodusuario(idUsuario);
-		usuarioWebTmp.setContrasena(password);
-
+		usuarioTmp.setCodusuario(idUsuario);
+		
 		// VERIFICAR QUE EL USUARIO EXISTA EN LA BD
-		// usuarioWebTmp = obtDetalleUsuarioWeb(usuarioWebTmp);
-		//
-		// if(usuarioWebTmp.getIdtercero() != null){
+		 usuarioTmp 		= obtUsuario(usuarioTmp);
+		
+		 if(usuarioTmp.getIdtercero() != null){
 
-		// VERIFICAR CREDENCIALES (PASSWORD) EN BD
+			 // VERIFICAR CREDENCIALES (PASSWORD) EN BD
+			 usuarioTmp.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, password));
+			 
+			 if (validarContrasena(usuarioTmp)) {
 
-		if (validarContrasena(usuarioWebTmp)) {
+				 usuario = obtUsuario(usuarioTmp);
+			
+				 if(usuario.getIdpestado().equals(Constants.DELIVERY_IDPESTADO_INACTIVO))
+					 	loginWeb.setEscenario(Constants.ESCENARIO_LOGIN_USUARIO_INACTIVO);
+				 else{
 
-			// usuarioWeb = obtDetalleUsuarioWeb(usuarioWebTmp);
-			//
-			// if(usuarioWeb.getEstado().equals(Constants.USR_STS_INACTIVO))
-			// loginWeb.setEscenario(Constants.ESCENARIO_LOGIN_USUARIO_INACTIVO);
-			// else{
-
-			loginWeb.setEscenario(Constants.ESCENARIO_LOGIN_ACCESOS_CORRECTOS);
-			//
-			// tercero.setIdtercero(usuarioWeb.getIdtercero());
-			//
-			// tercero = terceroDao.obtDetalleTercero(tercero);
-			//
-			// if(tercero.getIdcourier() != null){
-			// courier.setIdcourier(tercero.getIdcourier());
-			//
-			// courier = courierDao.obtDetalleCourier(courier);
-			//
-			// if(courier.getEstado().equals(Constants.BBVA_DELIVERY_STS_INACTIVO))
-			// loginWeb.setEscenario(Constants.ESCENARIO_LOGIN_COURIER_INACTIVA);
-			// }
-			// }
-			// }else
-			// loginWeb.setEscenario(Constants.ESCENARIO_LOGIN_ACCESOS_INCORRECTOS);
-			//
+					 loginWeb.setEscenario(Constants.ESCENARIO_LOGIN_ACCESOS_CORRECTOS);
+			
+					 tercero.setIdtercero(usuario.getIdtercero());
+					 
+					 tercero = terceroDao.lstTerceros(tercero).get(0);
+			
+					 if(tercero.getIdcourier() != null){
+						 	courier.setIdcourier(tercero.getIdcourier());
+			
+						 	courier = courierDao.obtCourier(courier).get(0);
+			
+						 	if(courier.getIdpestado() == Constants.DELIVERY_IDPESTADO_INACTIVO)
+						 		loginWeb.setEscenario(Constants.ESCENARIO_LOGIN_COURIER_INACTIVA);
+					 }
+					 
+				 }
+			 }else
+				 loginWeb.setEscenario(Constants.ESCENARIO_LOGIN_ACCESOS_INCORRECTOS);
+			
+		}else{
+		 //USUARIO NO EXISTE EN LA BD
+		 loginWeb.setEscenario(Constants.ESCENARIO_LOGIN_USUARIO_NO_EXITE);
 		}
-		// else{
-		// //USUARIO NO EXISTE EN LA BD
-		// loginWeb.setEscenario(Constants.ESCENARIO_LOGIN_USUARIO_NO_EXITE);
-		// }
 
-		return usuarioWeb;
+		return usuario;
 	}
 
 	@Override
-	public boolean validarContrasena(Usuario usuarioWeb) {
+	public boolean validarContrasena(Usuario usuario) {
 		logger.info("Service validarContrasena");
-		// return perfilDao.validarContrsena(usuarioWeb);
-		return true;
+		 return usuarioDao.validarContrasena(usuario);
 	}
 
 	public String encriptar(String key, String iv, String cleartext)
@@ -151,13 +151,7 @@ public class UsuarioServiceImp implements UsuarioService {
 		usuario.setIdpestado(1);
 		usuario.setUsuario("DELIVERY_BBVA");
 
-		return usuarioDao.obtUsuario(usuarioDao.addUsuario(usuario).getIdusuario()); 
-	}
-
-	@Override
-	public void regUsuario(Usuario usuarioWeb) {
-		// TODO Auto-generated method stub
-		logger.info("Service regUsuario");
+		return usuarioDao.obtUsuario(usuarioDao.addUsuario(usuario)); 
 	}
 
 	@Override
@@ -176,10 +170,10 @@ public class UsuarioServiceImp implements UsuarioService {
 	}
 
 	@Override
-	public void actContrasena(Usuario usuarioWeb) {
+	public void mntContrasena(Usuario usuarioWeb) {
 		// TODO Auto-generated method stub
 		logger.info("Service actContrasena");
-		usuarioDao.actContrasena(usuarioWeb);
+		usuarioDao.mntContrasena(usuarioWeb);
 	}
 
 	@Override

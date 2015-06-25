@@ -17,7 +17,6 @@ public class Usuario implements Serializable {
 	private Integer idpestado;
 	private String codusuario;
 	private String contrasena;
-	private String estado;
 	private String usuario; 
 	private String comentario;
 	private String historial;
@@ -56,13 +55,6 @@ public class Usuario implements Serializable {
 	public void setCodusuario(String codusuario) {
 		this.codusuario = codusuario;
 	}
-	public String getEstado() {
-		return estado;
-	}
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-	 
 	public String getHistorial() {
 		return historial;
 	}

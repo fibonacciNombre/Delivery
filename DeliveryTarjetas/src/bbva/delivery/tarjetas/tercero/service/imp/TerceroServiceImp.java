@@ -31,18 +31,12 @@ public class TerceroServiceImp implements TerceroService {
 		tercero.setHistorial("Usuario: " + tercero.getUsuario() + ", Fecha:" + dateFormat.format(date) + ", " +  tercero.toString()); 
 		
 		logger.info("Service mntTercero");
-		terceroDao.mntTercero(tercero);
-	 
+		
+		terceroDao.mntTercero(tercero);	 
 	}
 
 	@Override
 	public List<Tercero> lstTerceros(Tercero tercero) { 
 		return terceroDao.lstTerceros(tercero);
 	}
-
-	@Override
-	public List<Tercero> obtTercero(Tercero tercero) { 
-		return terceroDao.obtTercero(tercero);
-	}
-	 
 }

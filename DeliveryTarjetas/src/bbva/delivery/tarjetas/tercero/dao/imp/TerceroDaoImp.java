@@ -94,14 +94,6 @@ public class TerceroDaoImp extends JdbcDaoBase implements TerceroDao {
 		  
 		return lista;
 
-	}
-
-	@Override
-	public List<Tercero> obtTercero(Tercero tercero) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	 
+	} 
 }
 

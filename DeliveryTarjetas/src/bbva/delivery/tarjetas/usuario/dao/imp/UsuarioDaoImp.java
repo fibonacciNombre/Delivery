@@ -44,11 +44,35 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 		return instance;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public boolean validarContrasena(Usuario usuarioWeb) {
+	public boolean validarContrasena(Usuario usuario) {
 		// TODO Auto-generated method stub
 		logger.info("Dao validarContrasena");
-		return false;
+		
+		List<Usuario> usr = null;
+		MapSqlParameterSource in = null;
+
+		SimpleJdbcCall call = null;
+		Map<String, Object> out = null;
+		in = new MapSqlParameterSource();
+
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
+				"BBVA", "pq_del_usuario", "sp_val_contrasena");
+
+		JdbcHelper.setInOutParameter(call, in, "a_codusuario", Types.VARCHAR, usuario.getCodusuario());
+		
+		JdbcHelper.setInOutParameter(call, in, "a_contrasena", Types.VARCHAR, usuario.getContrasena());
+
+		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, Usuario.class);
+
+		out = call.execute(in);
+
+		usr = (List<Usuario>) out.get("a_cursor");
+
+		System.out.println("FIN: Ejecutando metodo obtUsuario");
+
+		return usr.size()>0;
 	}
 
 	@Override
@@ -83,9 +107,10 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Usuario obtUsuario(Integer id) {
+	public Usuario obtUsuario(Usuario usuario) {
 		System.out.println("INI: Ejecutando metodo obtUsuario");
 		List<Usuario> usr = null;
+		Usuario usrRpta = null;
 		MapSqlParameterSource in = null;
 
 		SimpleJdbcCall call = null;
@@ -96,7 +121,9 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 				"BBVA", "pq_del_usuario", "sp_obt_usuario");
 
 		JdbcHelper
-				.setInOutParameter(call, in, "a_idusuario", Types.NUMERIC, id);
+				.setInOutParameter(call, in, "a_idusuario", Types.NUMERIC, usuario.getIdusuario());
+		JdbcHelper
+				.setInOutParameter(call, in, "a_codusuario", Types.VARCHAR, usuario.getCodusuario());
 
 		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR,
 				Usuario.class);
@@ -107,7 +134,12 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 
 		System.out.println("FIN: Ejecutando metodo obtUsuario");
 
-		return usr.get(0);
+		if(usr.size()>0)
+			usrRpta = usr.get(0);
+		else
+			usrRpta = new Usuario();
+		
+		return usrRpta;
 	}
 
 	public Usuario addUsuario(Usuario usuario) {
@@ -179,9 +211,21 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 	}
 
 	@Override
-	public void actContrasena(Usuario usuarioWeb) {
+	public void mntContrasena(Usuario usuario) {
 		// TODO Auto-generated method stub
 		logger.info("Dao actContrasena");
+		MapSqlParameterSource in = null;
+		SimpleJdbcCall call 	= null;
+		
+		in = new MapSqlParameterSource();
+
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
+																"BBVA", "pq_del_usuario", "sp_mnt_contrasena");
+
+		JdbcHelper.setInOutParameter(call, in, "a_codusuario", Types.VARCHAR, usuario.getCodusuario());
+		JdbcHelper.setInOutParameter(call, in, "a_contrasena", Types.VARCHAR, usuario.getContrasena());
+
+		call.execute(in);
 	}
 
 	@Override

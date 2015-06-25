@@ -11,8 +11,10 @@
 	
 	    <form id="form-registrousuario">
 	        
+	        <input type="hidden" id="indrnvcontrasena" name="indrnvcontrasena" value="S"/>
+	        
 			<%@include file="/jsp/usuario/form-usuario.jsp" %>   
-	             
+	         
 	        <div class="row">
 	        
 		        <div class="col-md-12">		        

@@ -82,8 +82,8 @@ public class PerfilController extends BaseController {
 
 		try {
 			
-			listaPerfil 	= perfilService.obtPerfil(perfil);
-			lstperfil 		= UtilWeb.listaToJson(listaPerfil, null, Perfil.class.getName());
+			perfil		 	= perfilService.obtPerfil(perfil);
+			lstperfil 		= UtilWeb.objectToJson(perfil, null, Perfil.class.getName());
 			
 		} catch (Error e) {
 			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
