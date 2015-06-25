@@ -183,35 +183,19 @@
 																							return full.nombres + " " + full.apepaterno + " " + full.apematerno; }
 																	}, {
 																		"orderable" : false,
-																		"data" 		: "idcourier",
+																		"data" 		: "dsccourier",
 																		"sWidth" 	: "20%",
 																		"class" 	: "desktop"
 																	}, {
 																		"orderable" : false,
-																		"data" 		: "idpestado",
+																		"data" 		: "dscestado",
 																		"sWidth" 	: "15%"
 																	}, {
 																		"orderable" : false,
 																		"sWidth" 	: "10%",
 																		"mRender" 	: function(data, type, full) {
 																							return linkDetalleColaborador(full); } 
-																	}, {
-																		"orderable" : false,
-																		"data" 		: "idptipodocumento",
-																		"visible"	: false
-																	}, {
-																		"orderable" : false,
-																		"data" 		: "nombres",
-																		"visible"	: false
-																	}, {
-																		"orderable" : false,
-																		"data" 		: "apepaterno",
-																		"visible"	: false
-																	}, {
-																		"orderable" : false,
-																		"data" 		: "apematerno",
-																		"visible"	: false																							
-																	} ],
+																	}],
 												"fnDrawCallback" : function() {
 																		mostrarDatatable("#table-lst-colaboradores");
 												}

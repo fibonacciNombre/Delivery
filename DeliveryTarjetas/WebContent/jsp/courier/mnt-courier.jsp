@@ -176,7 +176,7 @@
 																	"class" 	: "desktop"
 																}, {
 																	"orderable" : false,
-																	"data" 		: "dscestado",
+																	"data" 		: "idpestado",
 																	"sWidth" 	: "15%",
 																	"class" 	: "text-center"
 																}, {
@@ -212,6 +212,7 @@
 		$("#form-mntcourier #telfmovil").val(json.telfmovil); 
 		$("#form-mntcourier #direccion").val(json.direccion); 
 		$("#form-mntcourier #correo").val(json.correo); 
+		$("#form-mntcourier #idpestado").val(json.idpestado); 
 	}
 	
 	function actualizarCourier() { 

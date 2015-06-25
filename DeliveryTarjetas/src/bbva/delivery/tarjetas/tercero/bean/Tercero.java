@@ -24,6 +24,9 @@ public class Tercero implements Serializable {
  	private Integer idcourier; 
 	private Integer idptipodocumento;
  
+	
+	private String dsccourier;
+	private String dscestado; 
 	public Tercero() {
 	
 	}	
@@ -115,6 +118,22 @@ public class Tercero implements Serializable {
 
 	public void setNomcompleto(String nomcompleto) {
 		this.nomcompleto = nomcompleto;
+	}
+
+	public String getDsccourier() {
+		return dsccourier;
+	}
+
+	public void setDsccourier(String dsccourier) {
+		this.dsccourier = dsccourier;
+	}
+
+	public String getDscestado() {
+		return dscestado;
+	}
+
+	public void setDscestado(String dscestado) {
+		this.dscestado = dscestado;
 	}
 	 
 	
