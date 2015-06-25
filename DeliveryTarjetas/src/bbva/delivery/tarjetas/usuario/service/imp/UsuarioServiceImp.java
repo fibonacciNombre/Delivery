@@ -3,6 +3,9 @@ package bbva.delivery.tarjetas.usuario.service.imp;
 import static org.apache.commons.codec.binary.Base64.decodeBase64;
 import static org.apache.commons.codec.binary.Base64.encodeBase64;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.crypto.Cipher;
@@ -155,10 +158,19 @@ public class UsuarioServiceImp implements UsuarioService {
 	}
 
 	@Override
-	public void mntUsuario(Usuario usuario) throws Exception {
+	public void mntUsuario(Usuario usuario) {
 		// TODO Auto-generated method stub
 		logger.info("Service mntUsuario");
-		usuario.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, usuario.getContrasena()));
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		Date date = new Date();
+		
+		usuario.setHistorial("Usuario: " + usuario.getUsuario() + ", Fecha:" + dateFormat.format(date) + ", " +  usuario.toString()); 
+		try {
+			usuario.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, usuario.getContrasena()));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 		usuarioDao.mntUsuario(usuario);
 	}
 
@@ -175,11 +187,6 @@ public class UsuarioServiceImp implements UsuarioService {
 		logger.info("Service actContrasena");
 		usuarioDao.mntContrasena(usuarioWeb);
 	}
-
-	@Override
-	public List<Usuario> lstUsuarios(Usuario usuario, Tercero tercero) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+ 
  
 }

@@ -12,8 +12,7 @@ public interface UsuarioService {
 	void mntUsuario(Usuario usuario) throws Exception;
 	
 	List<Usuario> lstUsuarios(Usuario usuario);
-	
-	List<Usuario> lstUsuarios(Usuario usuario, Tercero tercero);
+	 
 	
 	Usuario obtUsuario(Usuario usuario);
 		

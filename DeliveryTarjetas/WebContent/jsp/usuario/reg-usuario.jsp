@@ -55,8 +55,11 @@
     	
 		loadModalCargando();
     	
-		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-registrousuario #idptipodocumento',false); 
-    	
+
+		cargarComboArray('indrnvcontrasena', [['S', 'SI'], ['N', 'No']]);
+		
+		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-registrousuario #idptipodocumento',false);  
+		
 		callCargaControlParam('DELWEB_ESTADO','form-registrousuario #idpestado',false);
     	 
 		cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','idperfil',  ['idperfil','descripcion'], {form: 'form-registrousuario'});

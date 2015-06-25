@@ -9,9 +9,8 @@ public interface UsuarioDao {
 	
 	void mntUsuario(Usuario usuarioWeb);
 	
-	List<Usuario> lstUsuarios(Usuario usuarioWeb);
-	
-	List<Usuario> lstUsuarios(Usuario usuarioWeb, Tercero tercero);
+	List<Usuario> lstUsuarios(Usuario usuario);
+	 
 	
 	Usuario obtDetalleUsuario(Usuario usuarioWeb);
 		

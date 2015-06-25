@@ -114,7 +114,13 @@ public class DeliveryController extends BaseController{
 		System.out.println("Into uploadFile method");
 		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 		JSONObject joRetorno = new JSONObject();
-		
+		Archivo archivo = new Archivo();
+		Integer idcourier = Integer.parseInt(request.getParameter("idcourier"));
+		String fecentrega=request.getParameter("fecentrega");
+		String tipoarchivo=request.getParameter("tipoarchivo");
+		archivo.setIdcourier(idcourier);
+		archivo.setTipoarchivo(tipoarchivo);
+		archivo.setFecentrega(fecentrega);
 		if (isMultipart) {
 
 			FileItemFactory factory = new DiskFileItemFactory();
@@ -130,8 +136,7 @@ public class DeliveryController extends BaseController{
 					System.out.println("nombre --> "+ item.getName());
 					System.out.println("getOriginalFilename --> "+ f.getOriginalFilename());
 					System.out.println("getOriginalFilename --> "+ f.getInputStream());
-
-						Archivo archivo = new Archivo();
+ 
 						archivo.setFilename(f.getOriginalFilename());
 						
 						joRetorno = deliveryService.cargarExcelDelivery2(f, archivo);

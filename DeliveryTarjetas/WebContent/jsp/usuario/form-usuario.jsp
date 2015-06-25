@@ -30,7 +30,7 @@
 		</div>
 		
 		<div class="form-group" id="nrodocumento-div">
-		    <label for="nrodocumento" class="col-md-6  control-label required">Nro. documento </label>
+		    <label for="nrodocumento" class="col-md-12 control-label required">Nro. documento </label>
 		    <div class="col-md-12">
 		        <input type="text" class="form-control" id="nrodocumento"  name="nrodocumento" maxlength="12">
 		        <div class="result"></div>
@@ -64,7 +64,7 @@
      
    	<div class="col-md-6">
 		<div class="form-group" id="codusuario-div">
-		    <label for="codusuario" class="col-md-6  control-label required">Código de usuario </label>
+		    <label for="codusuario" class="col-md-12  control-label required">Código de usuario </label>
 		    <div class="col-md-12">
 		        <input type="text" class="form-control" id="codusuario" name="codusuario" maxlength="200">
 		        <div class="result"></div>
@@ -95,6 +95,15 @@
 		    </div>
 		</div>
 		
+		<div class="form-group" id="indrnvcontrasena-div">
+		    <label for="indrnvcontrasena" class="col-md-12 control-label required">Renovar Contraseña </label>
+		    <div class="col-md-12">
+		        <select class="form-control" id="indrnvcontrasena" name="indrnvcontrasena">                      	
+		   		</select>
+		        <div class="result"></div>
+		    </div>
+		</div>
+		
 		<div class="form-group" id="estado-div">
 		    <label for="idpestado" class="col-md-12 control-label required">Estado </label>
 		    <div class="col-md-12">
@@ -105,9 +114,9 @@
 		</div>
 		
 		<div class="form-group" id="comentarios-div">
-		    <label for="comentarios" class="col-md-12 control-label">Comentarios </label>
+		    <label for="comentario" class="col-md-12 control-label">Comentarios </label>
 		    <div class="col-md-12">
-		    	<textarea class="form-control" id="comentarios" name="comentarios" maxlength="300"  wrap="hard" style="min-width: 100%; max-width: 100%; min-height: 50px; max-height: 50px;" ></textarea>
+		    	<textarea class="form-control" id="comentario" name="comentario" maxlength="300"  wrap="hard" style="min-width: 100%; max-width: 100%; min-height: 50px; max-height: 50px;" ></textarea>
 			</div>
 		</div>
    	</div>

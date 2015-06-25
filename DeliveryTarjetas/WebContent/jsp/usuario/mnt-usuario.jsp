@@ -89,7 +89,7 @@
 	</div>
 </div>
 
-<script src="<%=request.getContextPath()%>/js/bbva/main-deliverytarjetas.js"></script>
+<%@include file="/jsp/usuario/det-usuario.jsp" %>
 
 <script>
 	
@@ -101,7 +101,7 @@
     	
 		callCargaControlParam('DELWEB_ESTADO','form-bsqusuario #idpestado',false);
     	 
-		cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','idperfil', ['idcourier','rznsocial'], {form: 'form-bsqusuario'});
+		cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','idperfil',  ['idperfil','descripcion'], {form: 'form-bsqusuario'});
 		
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
@@ -168,14 +168,15 @@
           	"oLanguage"  		: {"sUrl": "/DeliveryTarjetas/recursos/idioma/es_ES.txt"},
           	"data"		 		: lstusuarios,
 			"columns"    		: [
-										{ "data"        : "dscperfil",
+										{ "data"        : "idperfil",
 											"class"		: "text-center"},
 			                           	{ "orderable"	: false,
 				                         	"data"		: "codusuario"},
+				                         	
                            				{ "orderable"	: false,
 				                         	"class"		: "desktop",
 		                         			"mRender"  	: function (data, type, full) {
-                     	 									return  data.nombres + " " + data.apepaterno + " " + data.apematerno;} },
+                     	 									return  full.nombres + " " + full.apepaterno + " " + full.apematerno;} },
 	                      				{ "orderable"	: false,
 		                      				"data"      : "idpestado",
 		                      				"class"		: "text-center"},
