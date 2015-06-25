@@ -139,9 +139,7 @@ public class UsuarioController extends BaseController {
 		return usuarioService.addUsuario(usuario);
 
 	}
-
-
-	
+ 
 	public void mntUsuario(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
@@ -150,14 +148,17 @@ public class UsuarioController extends BaseController {
 		String result			= "";
 		HttpSession session 	= request.getSession();
 		TransaccionWeb tx		= new TransaccionWeb();
-		 
+		Tercero tercero			= new Tercero(request.getParameterMap());
 		Usuario usuario 		= new Usuario(request.getParameterMap());
 		
 		//String usuario = session.getAttribute(Constants.REQ_SESSION_USUARIO).toString();
 		usuario.setUsuario("BBVA");
 		
 		try {
-			 
+			
+			terceroService.mntTercero(tercero);
+			usuario.setIdtercero(tercero.getIdtercero());
+			
 			usuarioService.mntUsuario(usuario);
 			
 			tx.setMessagetx("Su transaccion fue realizada con exito");
@@ -166,7 +167,7 @@ public class UsuarioController extends BaseController {
 			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
 		}
 
-		result += "{\"tx\":"+ UtilWeb.objectToJson(tx, null, Usuario.class.getName()) +"}";
+		result += "{\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) +"}";
 		
 		this.escribirTextoSalida(response, result);
 		 
