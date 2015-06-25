@@ -96,7 +96,7 @@
     	
 		callCargaControlParam('DELWEB_ESTADO','form-registrousuariows #idpestado',false);
     	 
-    	cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','cboperfil', {form: 'form-registrousuariows'});
+    	cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','cboperfil', ['idcourier','rznsocial'], {form: 'form-registrousuariows'});
 		
     	//SETEO DE PERFIL WS Y DESHABILITAR EL COMBO DE SELECCION DE PERFIL
     	$("#form-registrousuariows #cboperfil").val();

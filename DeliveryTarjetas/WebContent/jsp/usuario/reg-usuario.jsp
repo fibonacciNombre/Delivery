@@ -57,9 +57,9 @@
     	
 		callCargaControlParam('DELWEB_ESTADO','form-registrousuario #idpestado',false);
     	 
-		cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','idperfil', {form: 'form-registrousuario'});
+		cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','idperfil',  ['idperfil','descripcion'], {form: 'form-registrousuario'});
 		
-    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', {form: 'form-registrousuario'});
+    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form: 'form-registrousuario'});
     	
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);

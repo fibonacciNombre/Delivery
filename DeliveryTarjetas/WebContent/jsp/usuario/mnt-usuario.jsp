@@ -101,7 +101,7 @@
     	
 		callCargaControlParam('DELWEB_ESTADO','form-bsqusuario #idpestado',false);
     	 
-		cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','idperfil', {form: 'form-bsqusuario'});
+		cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','idperfil', ['idcourier','rznsocial'], {form: 'form-bsqusuario'});
 		
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);

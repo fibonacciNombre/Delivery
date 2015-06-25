@@ -52,7 +52,7 @@
     	
 		callCargaControlParam('DELWEB_ESTADO','form-registrocolaboradores #idpestado',false);
     	 
-    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', {form: 'form-registrocolaboradores'});
+    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form: 'form-registrocolaboradores'});
 		
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);

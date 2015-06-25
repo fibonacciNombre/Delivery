@@ -44,7 +44,7 @@ function callCargaControlParam(ideParametro,ideControl, valorEmpty){
 							var message = rsp.tx.messagetx;
 							
 							if(status==0)
-								llenarCombo(ideControl, rsp.lst, valorEmpty);
+								llenarCombo(ideControl, rsp.lst, ['codigon','abreviatura'], valorEmpty);
 		
 		},
 		error : function(xhr, ajaxOptions, thrownError) {}
@@ -52,24 +52,55 @@ function callCargaControlParam(ideParametro,ideControl, valorEmpty){
 	
 }
 
-function llenarCombo(idControl,listaOpciones,emptyElement){
-	
-	var combo = $('#'+idControl); 
+function llenarCombo(idCombo, listaOpciones, arrayFields,  emptyElement) {
+
+	var combo = $('#' + idCombo);
 	combo.empty();
 
-	if(emptyElement)
-		combo.append('<option value="">'+'Seleccionar'+'</option>');
-	
-	 
-	for ( var i = 0; i < listaOpciones.length; i++) {
-		$("#" + idControl).append(
-				"<option value='"+listaOpciones[i].codigon+"'>"
-						+ listaOpciones[i].abreviatura + "</option>");
+	if (emptyElement)
+		combo.append('<option value="">' + 'Seleccionar' + '</option>');
+
+	for ( var i = 0; i < listaOpciones.length; i++) { 
+		var opcion = '<option value="'+listaOpciones[i][arrayFields[0]]+'" >'
+				+ listaOpciones[i][arrayFields[1]] + '</option>';
+		combo.append(opcion); 
 	}
-	
-	$('#'+idControl).change();
+
+	$('#' + idCombo).change();
 }
 
+function cargarCombo(url, method, combo, arrayFields, config, comboPadre) {
+
+	var param = new Object();
+
+	for ( var key in config)
+		param[key] = config[key];
+	
+	if (config.argPadre && comboPadre)
+		param[config.argPadre] = comboPadre.value;
+
+	combo = config.form ? config.form + ' #' + combo : '#' + combo;
+
+	$.ajax({
+		type 			: "POST",
+		url 			: url + "?method=" + method,
+		cache 			: false,
+		dataType 		: "json",
+		contentType 	: "application/x-www-form-urlencoded; charset=UTF-8",
+		async 			: false,
+		data 			: param,
+		success 		: function(rsp) {
+								var status 	= rsp.tx.statustx;
+								if(status==0)
+									llenarCombo(combo, rsp.lst, arrayFields,  true);
+		},
+		error			: function(xhr, ajaxOptions, thrownError) {
+								loadModalMensaje('Lo sentimos',
+													'Hubo un error en el procesamiento de datos.',
+													function() {});
+		}
+	});
+}
 
 
 function toTitleCase(str){
@@ -197,52 +228,5 @@ function validateSinEspacios(){
 	});
 }
 
-function cargarCombo(url, method, combo, config, comboPadre) {
 
-	var param = new Object();
-
-	for ( var key in config)
-		param[key] = config[key];
-	
-	if (config.argPadre && comboPadre)
-		param[config.argPadre] = comboPadre.value;
-
-	combo = config.form ? config.form + ' #' + combo : '#' + combo;
-
-	$.ajax({
-		type 			: "POST",
-		url 			: url + "?method=" + method,
-		cache 			: false,
-		dataType 		: "json",
-		contentType 	: "application/x-www-form-urlencoded; charset=UTF-8",
-		async 			: false,
-		data 			: param,
-		success 		: function(rsp) {
-								var status 	= rsp.tx.statustx;
-								if(status==0)
-									llenarCombo2(combo, rsp.lst, true);
-		},
-		error			: function(xhr, ajaxOptions, thrownError) {
-								loadModalMensaje('Lo sentimos',
-													'Hubo un error en el procesamiento de datos.',
-													function() {});
-		}
-	});
-}
-
-function llenarCombo2(idCombo, listaOpciones, emptyElement) {
-
-	var combo = $('#' + idCombo);
-	combo.empty();
-
-	if (emptyElement)
-		combo.append('<option value="">' + 'Seleccionar' + '</option>');
-
-	for ( var i = 0; i < listaOpciones.length; i++) { 
-		var opcion = '<option value="'+listaOpciones[i].idcourier+'" >'
-				+ listaOpciones[i].rznsocial + '</option>';
-		combo.append(opcion); 
-	}
-
-	$('#' + idCombo).change();
-}
+ 

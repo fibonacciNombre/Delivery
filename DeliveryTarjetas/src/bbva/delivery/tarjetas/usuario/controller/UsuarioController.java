@@ -8,6 +8,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import bbva.delivery.tarjetas.anotaciones.AdviceController;
@@ -125,6 +129,19 @@ public class UsuarioController extends BaseController {
 
 	}
 	
+	@RequestMapping(value = "/addUsuario", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Usuario addUsuario(@RequestBody Usuario usuario,
+			HttpServletResponse response, HttpServletRequest request)
+			throws Exception {
+
+		System.out.println("header aaaaaaaaaa   --> " + request.getHeader("Authorization"));
+		return usuarioService.addUsuario(usuario);
+
+	}
+
+
+	
 	public void mntUsuario(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
@@ -133,32 +150,26 @@ public class UsuarioController extends BaseController {
 		String result			= "";
 		HttpSession session 	= request.getSession();
 		TransaccionWeb tx		= new TransaccionWeb();
-		Tercero tercero 		= new Tercero(request.getParameterMap());
+		 
 		Usuario usuario 		= new Usuario(request.getParameterMap());
 		
 		//String usuario = session.getAttribute(Constants.REQ_SESSION_USUARIO).toString();
-		usuario.setUsucreacion("BBVA");
+		usuario.setUsuario("BBVA");
 		
 		try {
-			
-			if(tercero.getNrodocumento()!=null && tercero.getNrodocumento()!=""){
-				terceroService.mntTercero(tercero);
-				usuario.setIdtercero(tercero.getIdtercero());
-			}
-			
+			 
 			usuarioService.mntUsuario(usuario);
 			
-			tx.setMessagetx("Su transacción fue realizada con éxito");
+			tx.setMessagetx("Su transaccion fue realizada con exito");
 			
 		} catch (Error e) {
 			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
 		}
 
-		result += "{\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + "," +
-					"\"usuario\":"+UtilWeb.objectToJson(usuario, null, Usuario.class.getName()) +
-					"}";
+		result += "{\"tx\":"+ UtilWeb.objectToJson(tx, null, Usuario.class.getName()) +"}";
 		
 		this.escribirTextoSalida(response, result);
+		 
 	}
 	
 	public void login(HttpServletRequest request, HttpServletResponse response) throws Exception{

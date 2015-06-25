@@ -252,9 +252,9 @@
 	$().ready(function() {
 		
 		$('#cargar').click(function(){
-			$('#subirAfiche').ajaxForm({url:"../delivery.do?method=uploadFile",type:"post", success:function(data){
+			$('#subirAfiche').ajaxForm({data:{}, url:"../delivery.do?method=uploadFile",type:"post", success:function(data){
 				
-				alert("Debe seleccionar la opción \"Mostrar Miniatura\"");
+				//alert("Debe seleccionar la opción \"Mostrar Miniatura\"");
 				//$("#errorMin").attr("style","display:block");
 			
 		}

@@ -78,7 +78,7 @@
     	
     	callCargaControlParam('DELWEB_ESTADO','form-mntusuario-ws #idpestado',false);
     	
-    	cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','cboperfil', {form: 'form-mntusuario-ws'});
+    	cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','cboperfil', ['idcourier','rznsocial'], {form: 'form-mntusuario-ws'});
     	
     	// TRAER EL ID DEL PERFIL "USUARIO SERVICIO WEB"
     	
