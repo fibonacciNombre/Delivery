@@ -141,6 +141,7 @@
     	callCargaControlParam('DELWEB_TIPODOCUMENTO','form-registrocourier #idptipodocumento');
     	callCargaControlParam('DELWEB_ESTADO','form-registrocourier #idpestado');
     	
+    	
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
 		});
@@ -238,17 +239,17 @@
 								data 		: param,
 								success 	: function(rsp){
 								
-													var status 	= rsp.statustx;
-													var message = rsp.messagetx;
-				
-													closeModalCargando();
-													
-													if(status == 0){
-														loadModalMensaje("Felicitaciones", message, function(){
-															$("#view-reg-courier").click();	
-														});																										
-													}else
-														loadModalMensaje("Atención",message,null);
+									var status 	= rsp.statustx;
+									var message = rsp.messagetx;
+
+									closeModalCargando();
+									
+									if(status == 0){
+										loadModalMensaje("Felicitaciones", message, function(){
+											$("#view-reg-courier").click();	
+										});																										
+									}else
+										loadModalMensaje("Atención",message,null);
 								},						
 								error: function (rsp, xhr, ajaxOptions, thrownError) {
 									closeModalCargando();

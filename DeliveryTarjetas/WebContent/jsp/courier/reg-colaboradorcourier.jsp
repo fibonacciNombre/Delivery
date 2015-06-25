@@ -13,9 +13,9 @@
         
             <div class="col-md-6">
 				<div class="form-group" id="tipdocumento-div">
-                    <label for="tipdocumento" class="col-md-6 control-label required">Tipo de documento </label>
+                    <label for="idptipodocumento" class="col-md-6 control-label required">Tipo de documento </label>
                     <div class="col-md-12">
-                        <select class="form-control" id="tipdocumento" name="tipdocumento"> 
+                        <select class="form-control" id="idptipodocumento" name="idptipodocumento"> 
 						 	<option value="{debe ir id de tipo de documento}">DNI</option>                       	
                    		</select>
                         <div class="result"></div>
@@ -57,10 +57,10 @@
 			
 			<div class="col-md-6">
                 <div class="form-group" id="codbbva-div">
-                    <label for=codbbva" class="col-md-6 control-label required">Courier </label>
+                    <label for=idcourier" class="col-md-6 control-label required">Courier </label>
                     <div class="col-md-12">
-                        <select class="form-control" id="codbbva" name="codbbva"> 
-						 	<option value="{debe ir el codbbva}">Nombre courier</option>                       	
+                        <select class="form-control" id="idcourier" name="idcourier"> 
+						 	<option value="{debe ir el idcourier">Nombre courier</option>                       	
                    		</select>
                         <div class="result"></div>
                     </div>
@@ -83,9 +83,9 @@
                 </div>
                 
                 <div class="form-group" id="estado-div">
-                    <label for="estado" class="col-md-6 control-label required">Estado </label>
+                    <label for="idpestado" class="col-md-6 control-label required">Estado </label>
                     <div class="col-md-12">
-                        <select class="form-control" id="estado" name="estado">  
+                        <select class="form-control" id="idpestado" name="idpestado">  
                         	<option value="{debe ir id del estado}">ESTADO</option>                      	
                         </select>
                         <div class="result"></div>
@@ -140,10 +140,11 @@
 	
     $().ready(function(){
     	
-		callCargaControlParam('PARAM_TIPODOCUMENTO','form-registrocolaboradores #tipdocumento');
-    	
-    	callCargaControlParam('PARAM_ESTADOS','form-registrocolaboradores #estado');
-    	
+		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-registrocolaboradores #idptipodocumento'); 
+    	callCargaControlParam('DELWEB_ESTADO','form-registrocolaboradores #idpestado');
+    	 
+    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', {form: 'form-registrocolaboradores'});
+		
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
 		});
@@ -200,7 +201,8 @@
 	});
     
 	
-
+   
+	
 	function registrarColaboradorxCourier(){
 
 		var $inputs = $('#form-registrocolaboradores :input');
@@ -227,7 +229,7 @@
  					  	function(){   			
 				   			$.ajax({
 								type 		: "POST",
-								url 		: "/DeliveryTarjetas/courier.do"+"?method=mntColaborador",
+								url 		: "/DeliveryTarjetas/tercero.do"+"?method=mntTercero",
 								cache 		: false ,
 								dataType	: "json",
 								contentType : "application/x-www-form-urlencoded; charset=UTF-8",
@@ -235,17 +237,17 @@
 								data 		: param,
 								success 	: function(rsp){
 								
-													var status 	= rsp.statustx;
-													var message = rsp.messagetx;
-				
-													closeModalCargando();
-													
-													if(status == 0){
-														loadModalMensaje("Felicitaciones", message, function(){
-															$("#view-reg-colaborador").click();	
-														});																										
-													}else
-														loadModalMensaje("Atención",message,null);
+									var status 	= rsp.statustx;
+									var message = rsp.messagetx;
+
+									closeModalCargando();
+									
+									if(status == 0){
+										loadModalMensaje("Felicitaciones", message, function(){
+											$("#view-reg-courier").click();	
+										});																										
+									}else
+										loadModalMensaje("Atención",message,null);
 								},						
 								error: function (rsp, xhr, ajaxOptions, thrownError) {
 									closeModalCargando();

@@ -50,23 +50,19 @@ public class TerceroDaoImp extends JdbcDaoBase implements TerceroDao {
 		
 		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), 
 				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY), 
-				resources.getString(ConstantsProperties.PQ_DEL_COURIER), 
+				resources.getString(ConstantsProperties.PQ_DEL_TERCERO), 
 				"sp_mnt_tercero");
 		
-		  JdbcHelper.setInOutParameter(call, in, "a_idcourier", 	Types.NUMERIC, tercero.getIdtercero());  
-	      JdbcHelper.setInParameter(call, in, "a_codbbva" , 		Types.VARCHAR, tercero.getNombres());  	  
-	      JdbcHelper.setInParameter(call, in, "a_rznsocial" , 		Types.VARCHAR, tercero.getNrodocumento());
-	      JdbcHelper.setInParameter(call, in, "a_nombre" , 			Types.VARCHAR, tercero.getApepaterno());
-	      JdbcHelper.setInParameter(call, in, "a_telffijo", 		Types.VARCHAR, tercero.getApematerno()); 
-	      JdbcHelper.setInParameter(call, in, "a_telfmovil", 		Types.VARCHAR, tercero.getRznsocial());  
-	      JdbcHelper.setInParameter(call, in, "a_observacion", 		Types.VARCHAR, tercero.getIdroltercero()); 
-	      JdbcHelper.setInParameter(call, in, "a_nrodocumentocou", 	Types.VARCHAR, tercero.getIdptipodocumento()); 
-	      JdbcHelper.setInParameter(call, in, "a_idptipodocumento", Types.INTEGER, tercero.getIdtercerorel());
-	      JdbcHelper.setInParameter(call, in, "a_direccion", 		Types.INTEGER, tercero.getIdarchivo());
-	      JdbcHelper.setInParameter(call, in, "a_direccion", 		Types.INTEGER, tercero.getIdcourier()); 
-	      JdbcHelper.setInParameter(call, in, "a_direccion", 		Types.INTEGER, tercero.getIdpestado());
-	      JdbcHelper.setInParameter(call, in, "a_direccion", 		Types.INTEGER, tercero.getUsuario());
-	      JdbcHelper.setInParameter(call, in, "a_direccion", 		Types.INTEGER, tercero.getHistorial());
+		  JdbcHelper.setInOutParameter(call, in, "a_idtercero", 	Types.INTEGER, tercero.getIdtercero());  
+	      JdbcHelper.setInParameter(call, in, "a_nombres" , 		Types.VARCHAR, tercero.getNombres());  	  
+	      JdbcHelper.setInParameter(call, in, "a_nrodocumento" , 	Types.VARCHAR, tercero.getNrodocumento());
+	      JdbcHelper.setInParameter(call, in, "a_apepaterno" , 		Types.VARCHAR, tercero.getApepaterno());
+	      JdbcHelper.setInParameter(call, in, "a_apematerno", 		Types.VARCHAR, tercero.getApematerno());   
+	      JdbcHelper.setInParameter(call, in, "a_idptipodocumento", Types.INTEGER, tercero.getIdptipodocumento());  
+	      JdbcHelper.setInParameter(call, in, "a_idcourier", 		Types.INTEGER, tercero.getIdcourier()); 
+	      JdbcHelper.setInParameter(call, in, "a_idpestado", 		Types.INTEGER, tercero.getIdpestado());
+	      JdbcHelper.setInParameter(call, in, "a_usuario", 			Types.VARCHAR, tercero.getUsuario());
+	      JdbcHelper.setInParameter(call, in, "a_historial", 		Types.VARCHAR, tercero.getHistorial());
 		
 		out = call.execute(in);
 		
@@ -88,9 +84,10 @@ public class TerceroDaoImp extends JdbcDaoBase implements TerceroDao {
 
 		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
 				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
-				resources.getString(ConstantsProperties.PQ_DEL_COURIER),
+				resources.getString(ConstantsProperties.PQ_DEL_TERCERO),
 				"sp_lst_tercero");
  
+		JdbcHelper.setInParameter(call, in, "a_idtercero", 		OracleTypes.INTEGER, tercero.getIdtercero());
 		JdbcHelper.setOutParameter(call, "a_cursor", 		OracleTypes.CURSOR, Tercero.class);
 		 
 		out = call.execute(in);

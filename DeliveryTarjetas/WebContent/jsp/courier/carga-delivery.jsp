@@ -108,55 +108,7 @@
 		});
 	});
 
-	function cargarCombo(url, method, combo, config, comboPadre) {
-
-		var param = new Object();
-
-		for ( var key in config) {
-			param[key] = config[key];
-		}
-
-		if (config.argPadre && comboPadre)
-			param[config.argPadre] = comboPadre.value;
-
-		combo = config.form ? config.form + ' #' + combo : '#' + combo;
-
-		$.ajax({
-			type : "POST",
-			url : url + "?method=" + method,
-			cache : false,
-			dataType : "json",
-			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-			async : false,
-			data : param,
-			success : function(rsp) {
-				llenarCombo(combo, rsp.lstcouries, true);
-			},
-			error : function(xhr, ajaxOptions, thrownError) {
-				loadModalMensaje('Lo sentimos',
-						'Hubo un error en el procesamiento de datos.',
-						function() {
-						});
-			}
-		});
-	}
 	
-	function llenarCombo(idCombo, listaOpciones, emptyElement) {
-
-		var combo = $('#' + idCombo);
-		combo.empty();
-
-		if (emptyElement)
-			combo.append('<option value="">' + 'Seleccionar' + '</option>');
-
-		for ( var i = 0; i < listaOpciones.length; i++) { 
-			var opcion = '<option value="'+listaOpciones[i].idcourier+'" >'
-					+ listaOpciones[i].rznsocial + '</option>';
-			combo.append(opcion); 
-		}
-
-		$('#' + idCombo).change();
-	}
 	
 	/** Cargar excel **/
 	function cargarEntregasTarjeta() {

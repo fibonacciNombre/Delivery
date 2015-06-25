@@ -270,7 +270,7 @@
 								data : param,
 								success : function(rsp) {
 
-									cargarDataTablesCouries(rsp.lstcouries);
+									cargarDataTablesCouries(rsp.lst);
 									closeModalCargando();
 									/*var status 	= rsp.statustx;
 									var message = rsp.messagetx;
@@ -346,7 +346,7 @@
 		$("#form-courier-edit #telffijo").val(json.telffijo);
 		$("#form-courier-edit #telfmovil").val(json.telfmovil); 
 		$("#form-courier-edit #direccion").val(json.direccion); 
-		$("#form-courier-edit #correo").val(json.correo); 
+		$("#form-courier-edit #correo").val(json.direccion); 
 		
 	}
 

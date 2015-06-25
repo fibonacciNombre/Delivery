@@ -12,13 +12,13 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
-import com.rimac.sas.utiles.comunes.JdbcHelper;
- 
 import bbva.delivery.tarjetas.commons.ConstantsProperties;
 import bbva.delivery.tarjetas.comun.dao.imp.JdbcDaoBase;
 import bbva.delivery.tarjetas.courier.bean.Courier;
 import bbva.delivery.tarjetas.courier.dao.CourierDao;
 import bbva.delivery.tarjetas.tercero.bean.Tercero;
+
+import com.rimac.sas.utiles.comunes.JdbcHelper;
              
 @Repository("courierDao")
 public class CourierDaoImp extends JdbcDaoBase implements CourierDao {

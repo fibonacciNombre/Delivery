@@ -67,6 +67,8 @@ function llenarCombo(idControl,listaOpciones,emptyElement){
 	$('#'+idControl).change();
 }
 
+
+
 function toTitleCase(str){
 	var strTittleCase = str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
     return strTittleCase;
@@ -172,4 +174,54 @@ function validateSinEspacios(){
 	jQuery.validator.addMethod("sinespacios", function(value, element) {
         return this.optional(element) || /^[^\s]+$/.test(value);
 	});
+}
+
+function cargarCombo(url, method, combo, config, comboPadre) {
+
+	var param = new Object();
+
+	for ( var key in config) {
+		param[key] = config[key];
+	}
+
+	if (config.argPadre && comboPadre)
+		param[config.argPadre] = comboPadre.value;
+
+	combo = config.form ? config.form + ' #' + combo : '#' + combo;
+
+	$.ajax({
+		type : "POST",
+		url : url + "?method=" + method,
+		cache : false,
+		dataType : "json",
+		contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+		async : false,
+		data : param,
+		success : function(rsp) {
+			llenarCombo2(combo, rsp.lst, true);
+		},
+		error : function(xhr, ajaxOptions, thrownError) {
+			loadModalMensaje('Lo sentimos',
+					'Hubo un error en el procesamiento de datos.',
+					function() {
+					});
+		}
+	});
+}
+
+function llenarCombo2(idCombo, listaOpciones, emptyElement) {
+
+	var combo = $('#' + idCombo);
+	combo.empty();
+
+	if (emptyElement)
+		combo.append('<option value="">' + 'Seleccionar' + '</option>');
+
+	for ( var i = 0; i < listaOpciones.length; i++) { 
+		var opcion = '<option value="'+listaOpciones[i].idcourier+'" >'
+				+ listaOpciones[i].rznsocial + '</option>';
+		combo.append(opcion); 
+	}
+
+	$('#' + idCombo).change();
 }

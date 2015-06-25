@@ -89,7 +89,7 @@ public class CourierController extends BaseController {
 			lstcourier = "{" + e.getMessage() + "}";
 		}
 
-		this.escribirTextoSalida(response, "{\"lstcouries\":" + lstcourier + "}");
+		this.escribirTextoSalida(response, "{\"lst\":" + lstcourier + "}");
 
 	}
 
@@ -123,11 +123,10 @@ public class CourierController extends BaseController {
 
 		courier = new Courier(request.getParameterMap());
 
-		String id = request.getParameter("idcourier");
 		
 		HttpSession session = request.getSession(true);
 		
-		String usuario = session.getAttribute(Constants.REQ_SESSION_USUARIO).toString();
+		//String usuario = session.getAttribute(Constants.REQ_SESSION_USUARIO).toString();
 		courier.setUsuario("BBVA");
 		
 		try {
@@ -135,7 +134,7 @@ public class CourierController extends BaseController {
 		} catch (Error e) {
 		}
 
-		this.escribirTextoSalida(response, "0");
+		this.escribirTextoSalida(response, "{resultado: 0}");
 
 	}
 
