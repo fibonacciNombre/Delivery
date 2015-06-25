@@ -43,21 +43,21 @@ public class DeliveryController extends BaseController{
 	public String goCargaDelivery(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		System.out.println("goCargaDelivery	-->		carga-delivery.jsp");
-		return "courier/carga-delivery";
+		return "delivery/carga-delivery";
 	}
 	
 	public String goMntCargaDelivery(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 
 		System.out.println("goCargaDelivery	-->		mnt-carga-delivery.jsp");
-		return "courier/mnt-carga-delivery";
+		return "delivery/mnt-delivery";
 
 	}
 	
 	public String golstDelivery(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		System.out.println("goCargaDelivery	-->		carga-delivery.jsp");
-		return "courier/lst-delivery";
+		return "delivery/lst-delivery";
 
 	}
 	

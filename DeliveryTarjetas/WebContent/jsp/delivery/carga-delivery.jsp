@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
+
 <div>
 	
 	<h3 class="container-title">
@@ -11,7 +13,7 @@
 		<div class="row">		
 			<div class="col-md-12">
 		        <div class="form-group" id="filename-div">
-		            <label for="filename" class="col-md-6 control-label required">UbicaciÛn archivo </label>
+		            <label for="filename" class="col-md-6 control-label required">Ubicaci√≥n archivo </label>
 		            <div class="col-md-12">
 		                <input type="text" readonly class="col-md-6 form-control" id=filename name="filename" value="D:/20150615_CargaDiariaEntregas.xlsx" >
 		                <div class="result"></div>
@@ -188,7 +190,7 @@
 							closeModalCargando();
 							loadModalMensaje(
 									"Estimado",
-									'Lo sentimos. Hubo problemas en el procesamiento. IntÈntelo m·s tarde.',
+									'Lo sentimos. Hubo problemas en el procesamiento. Int√©ntelo m√°s tarde.',
 									'');
 						});
 
