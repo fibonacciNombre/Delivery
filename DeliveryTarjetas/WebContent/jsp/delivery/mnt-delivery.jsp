@@ -1,254 +1,227 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 
-<div id="mantenimiento-colaboradorescourier">
+<div id="mantenimiento-delivery">
 
 	<h3 class="container-title">
 		<span class="vineta-title"></span>
 		<span>Edición de datos de entrega</span>
 	</h3>
 	
-    <form id="form-bsqcolaborador">
+    <form id="form-bsqdelivery">
     	<div class="panel panel-default">
 	    	<div class="panel-heading">
-				Buscar colaboradores por courier
-			</div>    	
+				Buscar entregas de tarjetas
+			</div>
+			    	
 	    	<div class="panel-body">	    		
 	    		<div class="row">	
+	    			
 	    			<div class="col-md-6">
 						<div class="form-group">
-							<label for="tipdocumento" class="col-md-5 control-label">Tipo de documento</label>
-							<div class="col-md-7">
-								<select class="form-control" id="tipdocumento" name="tipdocumento"> 
-								 	<option value="{debe ir id de tipo de documento}">DNI</option>                       	
-		                   		</select>
-							</div>
-						</div>	
-						<div class="form-group">
-							<label for="nrodocumento" class="col-md-5 control-label">Nro. documento</label>
-							<div class="col-md-7">								
-								<input type="text" class="form-control" id="nrodocumento"  name="nrodocumento" maxlength="12">							
-							</div>
-						</div>																											
-					</div>						
-					<div class="col-md-6">						
-						<div class="form-group">
-							<label for="codbbva" class="col-md-5 control-label">Courier</label>
+							<label for="idcourier" class="col-md-5 control-label">Courier</label>
 		                    <div class="col-md-7">
-								<select class="form-control" id="codbbva" name="codbbva"> 
-							 		<option value="{debe ir el codbbva}">Nombre courier</option>                       	
+								<select class="form-control" id="idcourier" name="idcourier">                        	
 		                   		</select>
 		                    </div>
 	                	</div>	
+						
+						<div class="form-group" id="fecentrega-div">
+				            <label for="fecentrega" class="col-md-5 control-label">Fecha de entrega </label>
+				            <div class="col-md-7">
+				                <div id="div-fecentrega" class="input-group">
+									<input type="text" readonly id="fecentrega" name="fecentrega" class="form-control calendario"> 
+									<span class="input-group-addon">
+										<a id="btnfecentrega" href="javascript:void(0)" class="btn-date calendario"> 
+											<span class="glyphicon glyphicon-calendar"></span>
+										</a>
+									</span>
+								</div>
+				            </div>
+		        		</div>																											
+					</div>
+											
+					<div class="col-md-6">						
 						<div class="form-group">
-							<label for="estado" class="col-md-5 control-label">Estado del colaborador </label>
+							<label for="nrodocumento" class="col-md-5 control-label">DNI del cliente</label>
 							<div class="col-md-7">								
-								 <select class="form-control" id="estado" name="estado"> 
-								 	<option>Todos</option>                       	
-                        		</select>								
+								<input type="text" class="form-control" id="dnicliente"  name="dnicliente" maxlength="8">							
 							</div>
-						</div>				
-					</div>														
-				</div>	
-				<div class="row">
-					<div class="col-md-6"></div>
-					<div class="col-md-6">
+						</div>
+						
 						<div class="form-group">
-							<label for="btnBsqColaborador" class="col-md-5 control-label">
+							<label for="btnBsqDelivery" class="col-md-5 control-label">
 							</label>
 							<div class="col-md-7">
-								<button id="btnBsqColaborador"
+								<button id="btnBsqDelivery"
 			                    		type="button" 
 			                    		class="btn btn-primary" 
 			                    		style="float:right;padding-top: 3px; padding-bottom: 3px;"
-			                    		onclick="javascript:bsqColaborador();">
+			                    		onclick="javascript:bsqDelivery();">
 			                    			<i style="background-position: -592px -1405px; height: 25px; margin-right: 0px; width: 25px; display: inline-block; vertical-align: top; transform: scale(0.6);"></i>			                    			
 			                    			<div style="display: inline-block; margin-top: 3px; vertical-align: top;">Buscar</div>			                    			
 			                    </button>
 			                </div>							
-						</div>	
-					</div>
-				</div>					
+						</div>			
+					</div>														
+				</div>									
 	    	</div>
     	</div>	
 	</form>
 	
-	<div id="container-lst-colaboradores-courier" style="margin-top:20px;">
-		<table class="table table-hover table-bordered" id="table-lst-colaboradores">
-			<thead>
-				<tr>
-					<th class="text-center">Cod. Bbva</th>
-					<th class="text-center">Razón social</th>					
-					<th class="text-center desktop">Colaborador</th>
-					<th class="text-center desktop">Nro. Documento</th>
-					<th class="text-center">Estado</th>
-					<th class="text-center">Editar</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>1</td>
-					<td class="desktop">a</td>					
-					<td>d</td>
-					<td class="desktop">s</td>
-					<td>f</td>
-					<td>g</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td class="desktop">q</td>					
-					<td>e</td>
-					<td class="desktop">w</td>
-					<td>r</td>
-					<td>t</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td class="desktop">z</td>					
-					<td>c</td>
-					<td class="desktop">x</td>
-					<td>v</td>
-					<td>b</td>
-				</tr>
-			</tbody>
-		</table>
+	<div id="container-lst-delivery" style="margin-top:20px;">		
+		<div id="div-container-lst-delivery"></div>		
 	</div>
+	
+	<%@include file="/jsp/delivery/det-delivery.jsp" %>
+	
 </div>
-
-<script src="<%=request.getContextPath()%>/js/bbva/main-deliverytarjetas.js"></script>
 
 <script>
 	
-    $().ready(function(){
+    $().ready(function(){    	
+    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', {form: 'form-bsqdelivery'});
     	
-    	var paramBsqCourier 	= new Object();
-    	
-    	$.ajax({
-			type 		: "POST",
-			url 		: "/DeliveryTarjetas/courier.do"+"?method=bsqCourier",
-			cache 		: false ,
-			dataType	: "json",
-			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-			async 		: false,
-			data 		: paramBsqCourier,
-			success 	: function(rspBsqCourier){
-			
-								var status 	= rspBsqCourier.statustx;
-								var message = rspBsqCourier.messagetx;
-
-								if(status == 0){													
-									if(rspBsqCourier.lstcouries!= undefined && rsp.lstcouries.lenght > 0){
-										var lstCouriers = rspBsqCourier.lstcouries;
-										for(var i=0; i<lstCouriers.length; i++){											
-												var opcion = '<option value="'+lstCouriers[i].codbbva+'" >'+lstCouriers[i].rznsocial+'</option>' ;
-												$("#form-bsqcolaborador #codbbva").append(opcion);										
-										}
+    	$("#fecentrega").datepicker(
+									{ beforeShow 	: function() {
+														setTimeout(function() {
+															$('.ui-datepicker').css({
+																'z-index' : 9999,
+																'border' : '1px solid #ccc'
+															});
+														}, 0);
+									},
+									onSelect 		: function(dateText, inst) {
+														$("#fecnac_persona").removeClass("error");
 									}
-								}else
-									loadModalMensaje("Atención",message,null);
-			},						
-			error: function (rsp, xhr, ajaxOptions, thrownError) {
-				closeModalCargando();
-				loadModalMensaje("Error","ERROR CARGANDO COURIERS",null);								
-			}			
-		});	
-    	
-    	callCargaControlParam('PARAM_TIPODOCUMENTO','form-bsqcolaborador #tipdocumento');
-    	
-    	callCargaControlParam('PARAM_ESTADOS','form-bsqcolaborador #estado');
-    	
-		jQuery.validator.addMethod("alphanumeric", function(value, element) {
-	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
 		});
 		
-		$("#table-lst-colaboradores").DataTable({
-			"order"				:  [[ 0, "asc" ]],
-			"searching"	 		: true,
-			"paging"	 		: true,
-          	"bInfo"		 		: true,
-          	"bAutoWidth" 		: false,
-          	"oLanguage"  		: {"sUrl": "/DeliveryTarjetas/recursos/idioma/es_ES.txt"}			
+		$(".calendario").click(function() {
+			$("#fecentrega").datepicker("show");
 		});
-				
 	});
-    
-	function bsqColaborador(){
-	
-		var param 	= new Object();
-		param 		= $("#form-bsqcolaborador").serializeArray();
-		
+      
+	function bsqDelivery() {
+
 		loadModalCargando();
 
-		setTimeout(
-			  		function(){
-			   			$.ajax({
-							type 		: "POST",
-							url 		: "/DeliveryTarjetas/courier.do"+"?method=bsqColaboradorxCourier",
-							cache 		: false ,
-							dataType	: "json",
-							contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-							async 		: false,
-							data 		: param,
-							success 	: function(rsp){
-							
-												var status 	= rsp.statustx;
-												var message = rsp.messagetx;
-			
-												closeModalCargando();
-												
-												if(status == 0){													
-													if(rsp.lstcolaboradores!= undefined && rsp.lstcolaboradores.lenght > 0)
-														cargarDataTablesColaboradores(rsp.lstcolaboradores);
-												}else
-													loadModalMensaje("Atención",message,null);
-							},						
-							error: function (rsp, xhr, ajaxOptions, thrownError) {
-								closeModalCargando();
-								loadModalMensaje("Error","ERROR BUSCANDO COLABORADORES",null);								
-							}			
-						});		    					    				
-				},1000);    				
-    }
-    
-	function cargarDataTablesColaboradores(lstcouries){
-		
-		$("#table-lst-colaboradores").DataTable({
-			"order"				:  [[ 0, "asc" ]],
-			"searching"	 		: true,
-			"paging"	 		: true,
-          	"bInfo"		 		: true,
-          	"bAutoWidth" 		: false,
-          	"oLanguage"  		: {"sUrl": "/DeliveryTarjetas/recursos/idioma/es_ES.txt"},
-          	"data"		 		: lstcouries,
-			"columns"    		: [
-										{ "data"        : "codbbva",
-											"class"		: "text-center"},
-			                           	{ "orderable"	: false,
-				                         	"data"		: "rznsocial",
-				                         	"class"		: "desktop"},
-                           				{ "orderable"	: false,
-		                         			"mRender"  	: function (data, type, full) {
-                     	 									return  data.apepaterno + " " + data.apematerno + ", " + data.nombres;}},
-	                      				{ "orderable"	: false,
-		                      				"data"      : "nrodocumento",
-		                      				"class"		: "desktop"},
-	                      				{ "orderable"	: false,
-		                      				"data"      : "dscestado",
-		                      				"class"		: "text-center"},
-	                      				{ "orderable"	: false,
-		                      				"data"      : "",
-		                      				"class"		: "text-center",
-                         	 				"mRender"  	: function (data, type, full) {
-	                         	 								return linkDetalleColaborador();
-	                         	 							}}										
-								],
-			"fnDrawCallback"	: function () { mostrarDatatable("#table-lst-colaboradores");}
+		var param = new Object();
+		 
+		param.dnicliente 		= $("#form-bsqdelivery #dnicliente").val(); 
+		param.idcourier 		= $("#form-bsqdelivery #idcourier").val();
+		param.fecentrega 		= $("#form-bsqdelivery #fecentrega").val();
+
+		$.ajax({
+			type 			: "POST",
+			url 			: "/DeliveryTarjetas/delivery.do?method=lstDelivery",
+			cache 			: false,
+			async 			: false,
+			dataType 		: 'json',
+			contentType 	: "application/x-www-form-urlencoded; charset=UTF-8",
+			data 			: param,
+			success 		: function(data) {
+									var jsonDelivery = eval(data);
+									
+									createHtmlTable(jsonDelivery, "table-lst-delivery");	
+									
+									closeModalCargando(); 
+			},
+			error 			: function(xhr, ajaxOptions, thrownError) {
+									closeModalCargando();
+									loadModalMensaje('Lo Sentimos','<center>Hubo problemas en el procesamiento de datos.</center>',function(){}); 
+			}
 		});
 	}
 	
-	function linkDetalleColaborador(){
-		return '<a class="method-ajax" ' +
-					'href="/DeliveryTarjetas/courier.do?method=obtColaborador" >'+
-						'<i class="i-detalle"></i>'+
-				'</a>';
+	function createHtmlTable(dataList, table) {
+
+		$("#divdestroy *").remove();
+
+		var html = 
+			 '<div id="divdestroy" class="row visible-md-block visible-sm-block visible-lg-block">' + 
+				 '<div class="table-responsive col-md-12">' + 
+					 '<table id="' + table + '" class="table table-hover table-bordered table-inter text-center">' +
+					 	'<thead>' +
+					 		'<tr>' + 
+								 '<th class="text-center">N° Tarjeta</th>' +
+								 '<th class="text-center">DNI Cliente</th>' +
+								 '<th class="text-center">Nombre Cliente</th>' +
+								 '<th class="text-center">Monto Crédito</th>' +
+								 '<th class="text-center">Fecha Entrega</th>' +  
+								 '<th class="text-center">Detalle</th>' +
+					 		'</tr>' +
+					 	'</thead>' +
+					 	'<tbody class="vcenter">' +
+					 	'</tbody>' +
+					 '</table>' +
+				 '</div>' +
+			
+				 '<div class="row">' +
+				 	'<div class="col-md-12"></div>' +
+				 '</div>'+
+			 '</div>';
+
+		$("#div-container-lst-delivery").append(html);
+
+		var idDataTable = '#' + table;
+
+		$(idDataTable).DataTable({ "data" 			: dataList,
+									"ordering" 		: true,
+									"searching" 	: true,
+									"paging" 		: true,
+									"bInfo" 		: true,
+									"bAutoWidth" 	: true,
+									"oLanguage"  	: {"sUrl": "/DeliveryTarjetas/recursos/idioma/es_ES.txt"},
+									"columns" 		: [ 
+														{ "data" 		: "ultdigtarjeta",
+															"orderable"	: false,
+															"sWidth" 	: "10%" },
+														{ "data" 		: "nrodocumentocli",
+															"orderable"	: false,
+															"sWidth" 	: "10%" },
+														{ "data" 		: "nombrescli",
+															"orderable"	: false,
+															"sWidth" 	: "20%" },
+														{ "data" 		: "mtoasoctarjeta",
+															"sWidth" 	: "15%",
+															"orderable"	: false,
+															"mRender" 	: function(data, type, full) {
+																				var a = '<div style="text-align: right;">'
+																						+ formatNumber(data)
+																						+ '</div>';
+																				return a; } }, 
+														{ "data" 		: "fecentrega",
+															"orderable"	: false,
+															"sWidth" 	: "10%" }, 
+														{ "data"    	: "",
+															"sWidth"	: "5%",
+															"orderable"	: false,
+											                "mRender"	: function (data, type, full) {
+								        										return linkDetalleEntrega(data, 
+																	         		 						full, 
+																	         		 						idDataTable,
+																	         		 						"idDetalleEntrega"); }
+														}
+													],
+									"fnDrawCallback" : function() {
+														var table = $(idDataTable).dataTable();
+														
+														if (table.fnGetData().length == 0)
+															table.parent().toggle(true);
+														}
+								});		
 	}
+
+	function linkDetalleEntrega(data, full, idDataTable, nomVariable){
+		
+		var enlace = null;
+			
+		enlace = "<a data-toggle='modal' " + 
+					" data-target='#modalDetalleEntrega' "  +
+					" onclick='return rowSelected(\""+idDataTable+"\",\""+nomVariable+"\");'>"+
+						"<i class='i-detalle'></i>" +
+				 "</a>";
+
+		return enlace;
+	}
+		
 </script>

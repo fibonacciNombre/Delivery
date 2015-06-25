@@ -7212,19 +7212,16 @@ i.next-mobile {
   background-position: 0 -80px;
 }
 
-.i-cobertura,
 .i-detalle,
-.i-digital,
-.i-cronograma,
-.i-calendar,
-.i-cuota {
-  background-image: url(../../img/default/sprite-rimac-wc.png) !important;
+.i-calendar {
+  background-image: url(../../img/bbva/spritebvva-mnt-iconos.png) !important;
   background-repeat: no-repeat;
   display: inline-block;
   text-indent: -99999px;
   overflow: hidden;
   margin: 0 auto;
   display: block;
+  cursor: pointer;
 }
 
 .i-calendar {
@@ -7233,40 +7230,10 @@ i.next-mobile {
   background-position: 0 0;
 }
 
-.i-digital {
-  height: 20px;
-  width: 20px;
-  background-position: -20px 0;
-}
-
 .i-detalle {
   height: 20px;
   width: 20px;
-  background-position: -40px 0;
-}
-
-.i-cronograma {
-  height: 20px;
-  width: 20px;
-  background-position: -40px 0;
-}
-
-.i-cobertura {
-  height: 20px;
-  width: 20px;
   background-position: -60px 0;
-}
-
-.i-cuota {
-  height: 20px;
-  width: 20px;
-  background-position: -80px 0;
-}
-
-.i-ver {
-  height: 16px;
-  width: 20px;
-  background-position: -40px 0;
 }
 
 .repeatX {
@@ -7275,10 +7242,7 @@ i.next-mobile {
 }
 
 i.error,
-i.success,
-i.i-clinicas-arrow-default,
-i.i-clinicas-info-default,
-i.i-clinicas-danger-default {
+i.success {
   background-image: url(../../img/default/sprite-rimac-directo.png) !important;
   background-repeat: no-repeat;
   display: inline-block;

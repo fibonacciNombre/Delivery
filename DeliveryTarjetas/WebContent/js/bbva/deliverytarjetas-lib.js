@@ -164,6 +164,24 @@ function mostrarDatatable(idTabla){
          table.parent().toggle(false);
 }
 
+function rowSelected(idTabla, nomvar){
+	 
+	if(!window[nomvar])
+		window[nomvar] = null;
+	
+	var table = $(idTabla).DataTable(),
+		tbody = idTabla+ " tbody";
+	
+	$(tbody).on( 'click', 'tr', function () {	
+		var data 		= table.column( 0 ).data();
+		var r 			= table.row( this ).data();
+		var idx 		= table.row( this ).index();
+		window[nomvar] 	= {fila : r ,indice : idx};
+	});
+	
+	return false;
+}
+
 function validateAlfanumerico(){
 	jQuery.validator.addMethod("alfanumerico", function(value, element) {
         return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
