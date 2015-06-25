@@ -192,41 +192,41 @@
 			</div>		
 		</div>
 		
-<!-- 		<div class="row">		 -->
-<!-- 			<div class="col-md-6"> -->
-<!-- 		        <div class="form-group" id="filename-div"> -->
-<!-- 		            <label for="filename" class="col-md-6 control-label required">Fecha de entrega </label> -->
-<!-- 		            <div class="col-md-12"> -->
-<!-- 		                <div id="divfechnacim" class="input-group"> -->
-<!-- 							<input type="text" id="fecnac_persona" name="fecnac_persona" -->
-<!-- 								class="form-control" readonly="readonly" -->
-<!-- 								data-rule-required="true" -->
-<!-- 								data-msg-required="La fecha es obligatoria" required> <span -->
-<!-- 								class="input-group-addon"> <a id="btnFecnac_persona" -->
-<!-- 								href="javascript:void(0)" class="btn-date"> <span -->
-<!-- 									class="glyphicon glyphicon-calendar"></span> -->
-<!-- 							</a> -->
-<!-- 							</span> -->
-<!-- 							<div class="result"></div> -->
-<!-- 						</div> -->
-<!-- 		            </div> -->
-<!-- 		        </div> -->
-<!-- 			</div> -->
-<!-- 			<div class="col-md-6"> -->
-<!-- 		        <div class="form-group" id="filename-div"> -->
-<!-- 		            <label for="filename" class="col-md-6 control-label required">Courier </label> -->
-<!-- 		            <div class="col-md-12"> -->
-<!-- 		                <select id="idcourier"  -->
-<!-- 		                		name="idcourier" -->
-<!-- 		                		class="form-control" -->
-<!-- 								data-rule-required="true" -->
-<!-- 								data-msg-required="Seleccione un courier responsable" required> -->
-<!-- 						</select> -->
-<!-- 		                <div class="result"></div> -->
-<!-- 		            </div> -->
-<!-- 		        </div> -->
-<!-- 			</div>		 -->
-<!-- 		</div> -->
+		<div class="row">		
+			<div class="col-md-6">
+		        <div class="form-group" id="filename-div">
+		            <label for="fecnac_persona" class="col-md-6 control-label required">Fecha de entrega </label>
+		            <div class="col-md-12">
+		                <div id="divfechnacim" class="input-group">
+							<input type="text" id="fecnac_persona" name="fecnac_persona"
+								class="form-control" readonly="readonly"
+								data-rule-required="true"
+								data-msg-required="La fecha es obligatoria" required> <span
+								class="input-group-addon"> <a id="btnFecnac_persona"
+								href="javascript:void(0)" class="btn-date"> <span
+									class="glyphicon glyphicon-calendar"></span>
+							</a>
+							</span>
+							<div class="result"></div>
+						</div>
+		            </div>
+		        </div>
+			</div>
+			<div class="col-md-6">
+		        <div class="idcourier" id="filename-div">
+		            <label for="filename" class="col-md-6 control-label required">Courier </label>
+		            <div class="col-md-12">
+		                <select id="idcourier" 
+		                		name="idcourier"
+		                		class="form-control"
+								data-rule-required="true"
+								data-msg-required="Seleccione un courier responsable" required>
+						</select>
+		                <div class="result"></div>
+		            </div>
+		        </div>
+			</div>		
+		</div>
 		
 		<div class="row">
 			<div class="col-md-12">
@@ -252,12 +252,19 @@
 	$().ready(function() {
 		
 		$('#cargar').click(function(){
-			$('#subirAfiche').ajaxForm({data:{}, url:"../delivery.do?method=uploadFile",type:"post", success:function(data){
+			
+			var idcourier_ = $("#subirAfiche #idcourier").val(),
+			fechaentrega_ = $("#subirAfiche #fecnac_persona").val();
+			$('#subirAfiche').ajaxForm({
+			 
+				url:"../delivery.do?method=uploadFile&idcourier="+ idcourier_ + "&fecentrega="+ fechaentrega_ +"&tipoarchivo=xlsx",
+				type:"post", 
+				success:function(data){
 				
 				//alert("Debe seleccionar la opción \"Mostrar Miniatura\"");
 				//$("#errorMin").attr("style","display:block");
 			
-		}
+			}
 	
 	});
 			
@@ -267,32 +274,32 @@
 		
 		
 		
-// 		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', {form: 'form-cargar-entrega-tarjeta'});
+		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier', 'rznsocial'], {form: 'subirAfiche'});
 		
-// 		$("#fecnac_persona").datepicker(
-// 				{
-// 					maxDate : 'today',
-// 					beforeShow : function() {
-// 						setTimeout(function() {
-// 							$('.ui-datepicker').css({
-// 								'z-index' : 9999,
-// 								'border' : '1px solid #ccc'
-// 							});
-// 						}, 0);
-// 					},
-// 					onSelect : function(dateText, inst) {
-// 						$(".result", $("#fec_nacim").parent()).html(
-// 								"<i class='success'></i>");
-// 						$("label", $("#divfechnacim").parent())
-// 								.removeClass("error");
-// 						$("label", $("#divfechnacim").parent()).html("");
-// 						$("#fecnac_persona").removeClass("error");
-// 					}
-// 				});
+		$("#fecnac_persona").datepicker(
+				{
+					maxDate : 'today',
+					beforeShow : function() {
+						setTimeout(function() {
+							$('.ui-datepicker').css({
+								'z-index' : 9999,
+								'border' : '1px solid #ccc'
+							});
+						}, 0);
+					},
+					onSelect : function(dateText, inst) {
+						$(".result", $("#fec_nacim").parent()).html(
+								"<i class='success'></i>");
+						$("label", $("#divfechnacim").parent())
+								.removeClass("error");
+						$("label", $("#divfechnacim").parent()).html("");
+						$("#fecnac_persona").removeClass("error");
+					}
+				});
 		
-// 		$("#btnFecnac_persona").click(function() {
-// 			$("#fecnac_persona").datepicker("show");
-// 		});
+		$("#btnFecnac_persona").click(function() {
+			$("#fecnac_persona").datepicker("show");
+		});
 	});
 	
 	function cargadita(){
@@ -306,61 +313,13 @@
 		});
 	}
 
-	function cargarCombo(url, method, combo, config, comboPadre) {
-
-		var param = new Object();
-
-		for ( var key in config) {
-			param[key] = config[key];
-		}
-
-		if (config.argPadre && comboPadre)
-			param[config.argPadre] = comboPadre.value;
-
-		combo = config.form ? config.form + ' #' + combo : '#' + combo;
-
-		$.ajax({
-			type : "POST",
-			url : url + "?method=" + method,
-			cache : false,
-			dataType : "json",
-			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-			async : false,
-			data : param,
-			success : function(rsp) {
-				llenarCombo(combo, rsp.lstcouries, true);
-			},
-			error : function(xhr, ajaxOptions, thrownError) {
-				loadModalMensaje('Lo sentimos',
-						'Hubo un error en el procesamiento de datos.',
-						function() {
-						});
-			}
-		});
-	}
-	
-	function llenarCombo(idCombo, listaOpciones, emptyElement) {
-
-		var combo = $('#' + idCombo);
-		combo.empty();
-
-		if (emptyElement)
-			combo.append('<option value="">' + 'Seleccionar' + '</option>');
-
-		for ( var i = 0; i < listaOpciones.length; i++) { 
-			var opcion = '<option value="'+listaOpciones[i].idcourier+'" >'
-					+ listaOpciones[i].rznsocial + '</option>';
-			combo.append(opcion); 
-		}
-
-		$('#' + idCombo).change();
-	}
+	 
 	
 	/** Cargar excel **/
 	function cargarEntregasTarjeta() {
-		var fileName_ = $("#form-cargar-entrega-tarjeta #filename").val(),
-			idcourier_ = $("#form-cargar-entrega-tarjeta #idcourier").val(),
-			fechaentrega_ = $("#form-cargar-entrega-tarjeta #fecnac_persona").val();
+		var fileName_ = $("#subirAfiche").val(),
+			idcourier_ = $("#fsubirAfiche").val(),
+			fechaentrega_ = $("#subirAfiche #fecnac_persona").val();
 		
 	 
 		loadModalCargando();

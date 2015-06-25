@@ -217,7 +217,7 @@ public class DeliveryServiceImp implements DeliveryService {
 	
 	
 	@SuppressWarnings("unchecked")
-	public JSONObject cargarExcelDelivery2(MultipartFile multipartFile,Archivo archivo) throws FileNotFoundException{
+	public JSONObject cargarExcelDelivery2(MultipartFile multipartFile, Archivo archivo) throws FileNotFoundException{
 		
 		JSONObject joRetorno = new JSONObject();
 		Integer resultado = 0;
@@ -253,7 +253,7 @@ public class DeliveryServiceImp implements DeliveryService {
 			
 			BigDecimal idgrupoCarga = crearGrupoCargaDelivery();
 			 
-			//cargarArchivoDelivery(archivo);
+			cargarArchivoDelivery(archivo);
 			
 			//Integer existeCourier;
 			

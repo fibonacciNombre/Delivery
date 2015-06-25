@@ -69,6 +69,14 @@ function llenarCombo(idCombo, listaOpciones, arrayFields,  emptyElement) {
 	$('#' + idCombo).change();
 }
 
+function cargarComboArray(idCombo, arrayItems) {
+	for ( var i = 0; i < arrayItems.length; i++) {
+		$("#" + idCombo).append(
+				'<option value="'+ arrayItems[i][0] +'">'
+						+ arrayItems[i][1] + '</option>');
+	}
+}
+
 function cargarCombo(url, method, combo, arrayFields, config, comboPadre) {
 
 	var param = new Object();

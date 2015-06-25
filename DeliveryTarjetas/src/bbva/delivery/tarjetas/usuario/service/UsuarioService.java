@@ -12,11 +12,10 @@ public interface UsuarioService {
 	
 	void regUsuario(Usuario usuario);
 	
-	void mntUsuario(Usuario usuario) throws Exception;
+	void mntUsuario(Usuario usuario);
 	
 	List<Usuario> lstUsuarios(Usuario usuario);
-	
-	List<Usuario> lstUsuarios(Usuario usuario, Tercero tercero);
+	 
 	
 	Usuario obtDetalleUsuario(Usuario usuario);
 		

@@ -13,7 +13,6 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer idusuario;
-	private String idptipodocumento;
 	private Integer idpestado;
 	private String codusuario;
 	private String contrasena;
@@ -23,8 +22,15 @@ public class Usuario implements Serializable {
 	private String historial;
 	private String indrnvcontrasena;
 	private Integer idtercero;
-	private Integer idperfil;
-	private Integer idcourier;
+
+	private String idptipodocumento;
+	private String nrodocumento;
+	private String nombres; 
+	private String apepaterno;
+	private String apematerno;
+ 
+ 	private Integer idcourier; 
+	private Integer idperfil; 
 	
 	private Tercero tercero;
 	private Perfil perfil;
@@ -138,6 +144,49 @@ public class Usuario implements Serializable {
 
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
+	}
+
+	@Override
+	public String toString() {
+		return "Usuario [idusuario=" + idusuario + ", idptipodocumento="
+				+ idptipodocumento + ", idpestado=" + idpestado
+				+ ", codusuario=" + codusuario + ", estado=" + estado
+				+ ", usuario=" + usuario + ", comentario=" + comentario
+				+ ", indrnvcontrasena=" + indrnvcontrasena + ", idtercero="
+				+ idtercero + ", idperfil=" + idperfil + ", idcourier="
+				+ idcourier + "]";
+	}
+
+	public String getNrodocumento() {
+		return nrodocumento;
+	}
+
+	public void setNrodocumento(String nrodocumento) {
+		this.nrodocumento = nrodocumento;
+	}
+
+	public String getNombres() {
+		return nombres;
+	}
+
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+
+	public String getApepaterno() {
+		return apepaterno;
+	}
+
+	public void setApepaterno(String apepaterno) {
+		this.apepaterno = apepaterno;
+	}
+
+	public String getApematerno() {
+		return apematerno;
+	}
+
+	public void setApematerno(String apematerno) {
+		this.apematerno = apematerno;
 	}	
 	
 }

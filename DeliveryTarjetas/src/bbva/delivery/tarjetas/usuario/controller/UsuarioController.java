@@ -97,7 +97,7 @@ public class UsuarioController extends BaseController {
 		return "usuario/act-contrasena"; 
 	}
 	
-	public void lstUsuario(HttpServletRequest request,
+	public void lstUsuarios(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
 		logger.info("Controller lstCourier");
@@ -106,26 +106,28 @@ public class UsuarioController extends BaseController {
 		String lstusuario 			= "";
 		List<Usuario> listaUsuario 	= null;
 		TransaccionWeb tx			= new TransaccionWeb();				
-		Usuario usuario 			= new Usuario(request.getParameterMap());
-		Tercero tercero 			= new Tercero(request.getParameterMap());
-
-		try {
+		Usuario usuario 			= new Usuario(request.getParameterMap()); 
+ 
 			
-			listaUsuario 	= usuarioService.lstUsuarios(usuario, tercero);
+					
+			try {
+				
+				listaUsuario 	= usuarioService.lstUsuarios(usuario);
+				
+				lstusuario 		= UtilWeb.listaToArrayJson(listaUsuario, null, Usuario.class.getName());			
+						
+				
+			} catch (Error e) {
+				tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+				lstusuario = "{" + e.getMessage() + "}";
+			}
 			
-			lstusuario 		= UtilWeb.listaToArrayJson(listaUsuario, null, Courier.class.getName());			
+			result += "{"
+						+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+						+ "\"lst\":" + lstusuario 
+						+ "}";
 			
-		} catch (Error e) {
-			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
-			lstusuario = "{" + e.getMessage() + "}";
-		}
-		
-		result += "{"
-					+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
-					+ "\"lst\":" + lstusuario 
-					+ "}";
-		
-		this.escribirTextoSalida(response, result);
+			this.escribirTextoSalida(response, result);
 
 	}
 	
@@ -157,6 +159,7 @@ public class UsuarioController extends BaseController {
 		try {
 			
 			terceroService.mntTercero(tercero);
+			
 			usuario.setIdtercero(tercero.getIdtercero());
 			
 			usuarioService.mntUsuario(usuario);

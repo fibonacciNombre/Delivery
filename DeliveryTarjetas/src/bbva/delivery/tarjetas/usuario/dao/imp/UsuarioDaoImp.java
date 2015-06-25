@@ -17,7 +17,6 @@ import com.rimac.sas.utiles.comunes.JdbcHelper;
 
 import bbva.delivery.tarjetas.commons.ConstantsProperties;
 import bbva.delivery.tarjetas.comun.dao.imp.JdbcDaoBase;
-import bbva.delivery.tarjetas.perfil.bean.Perfil;
 import bbva.delivery.tarjetas.tercero.bean.Tercero;
 import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import bbva.delivery.tarjetas.usuario.dao.UsuarioDao;
@@ -144,7 +143,7 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Usuario> lstUsuarios(Usuario usuarioWeb) {
+	public List<Usuario> lstUsuarios(Usuario usuario) {
 		// TODO Auto-generated method stub
 		logger.info("Dao lstUsuariosWeb");
 		List<Usuario> lista = null;
@@ -162,8 +161,11 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 						resources.getString(ConstantsProperties.PQ_DEL_USUARIO),
 						"sp_lst_usuario");
 
-		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR,
-				Usuario.class);
+		JdbcHelper.setInParameter(call, in, "a_idperfil", OracleTypes.INTEGER, usuario.getIdperfil());
+		JdbcHelper.setInParameter(call, in, "a_codusuario", OracleTypes.VARCHAR, usuario.getCodusuario());
+		JdbcHelper.setInParameter(call, in, "a_idpestado", OracleTypes.INTEGER, usuario.getIdpestado());
+		JdbcHelper.setInParameter(call, in, "a_nrodocumento", OracleTypes.VARCHAR, usuario.getNrodocumento());
+		JdbcHelper.setOutParameter(call,  "a_cursor", OracleTypes.CURSOR, Usuario.class);
 
 		out = call.execute(in);
 		lista = (List<Usuario>) out.get("a_cursor");
@@ -184,9 +186,5 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 		logger.info("Dao actContrasena");
 	}
 
-	@Override
-	public List<Usuario> lstUsuarios(Usuario usuarioWeb, Tercero tercero) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	 
 }
