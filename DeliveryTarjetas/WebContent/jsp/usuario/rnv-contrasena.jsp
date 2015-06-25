@@ -16,20 +16,19 @@
 				</div>
 			
 				<div class="col-md-7">
-			  		<div class="form-group">
-				   			
-				   			<label for="inputNuevacontrasena" class="col-sm-5 control-label">Nueva contraseña:</label>
-				   			<div class="col-sm-7">
-				   				<input type="password" name="nuevacontrasena" id="nuevacontrasena" class="form-control">
-				   				<div class="resutl"></div>
-				   			</div>
+			  		<div class="form-group">				   			
+			   			<label for="inputNuevacontrasena" class="col-sm-5 control-label">Nueva contraseña:</label>
+			   			<div class="col-sm-7">
+			   				<input type="password" name="nuevacontrasena" id="nuevacontrasena" class="form-control">
+			   				<div class="resutl"></div>
+			   			</div>
 				   	</div>
 				   	<div class="form-group">
-				   			<label for="inputConfirmarcontrasena" class="col-sm-5 control-label">Confirmar contraseña:</label>
-				   			<div class="col-sm-7">
-				   				<input type="password" name="confirmarcontrasena" id="confirmarcontrasena" class="form-control">
-				   				<div class="resutl"></div>
-				   			</div>
+			   			<label for="inputConfirmarcontrasena" class="col-sm-5 control-label">Confirmar contraseña:</label>
+			   			<div class="col-sm-7">
+			   				<input type="password" name="confirmarcontrasena" id="confirmarcontrasena" class="form-control">
+			   				<div class="resutl"></div>
+			   			</div>
 				   	</div>
 				</div>
 				
@@ -147,5 +146,4 @@
 					  }, 1000);			
 		}
 	}
-
 </script>
