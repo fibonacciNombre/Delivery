@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 
+<script src="<%=request.getContextPath()%>/js/default/jquery.form.js"></script>
+
 <div>
 	
 	<h3 class="container-title">
@@ -8,55 +10,55 @@
 	</h3>
 
 	<!--  Botones de filtro de la grilla -->
-	<form id="form-cargar-entrega-tarjeta" rol="form">
+	<form id="subirAfiche" method="post" enctype="multipart/form-data">
 	
 		<div class="row">		
 			<div class="col-md-12">
 		        <div class="form-group" id="filename-div">
 		            <label for="filename" class="col-md-6 control-label required">Ubicación archivo </label>
 		            <div class="col-md-12">
-		                <input type="text" readonly class="col-md-6 form-control" id=filename name="filename" value="D:/20150615_CargaDiariaEntregas.xlsx" >
+		                <input type="file" class="col-md-6 form-control" id="filename" name="filename" >
 		                <div class="result"></div>
 		            </div>
 		        </div>
 			</div>		
 		</div>
 		
-		<div class="row">		
-			<div class="col-md-6">
-		        <div class="form-group" id="filename-div">
-		            <label for="filename" class="col-md-6 control-label required">Fecha de entrega </label>
-		            <div class="col-md-12">
-		                <div id="divfechnacim" class="input-group">
-							<input type="text" id="fecnac_persona" name="fecnac_persona"
-								class="form-control" readonly="readonly"
-								data-rule-required="true"
-								data-msg-required="La fecha es obligatoria" required> <span
-								class="input-group-addon"> <a id="btnFecnac_persona"
-								href="javascript:void(0)" class="btn-date"> <span
-									class="glyphicon glyphicon-calendar"></span>
-							</a>
-							</span>
-							<div class="result"></div>
-						</div>
-		            </div>
-		        </div>
-			</div>
-			<div class="col-md-6">
-		        <div class="form-group" id="filename-div">
-		            <label for="filename" class="col-md-6 control-label required">Courier </label>
-		            <div class="col-md-12">
-		                <select id="idcourier" 
-		                		name="idcourier"
-		                		class="form-control"
-								data-rule-required="true"
-								data-msg-required="Seleccione un courier responsable" required>
-						</select>
-		                <div class="result"></div>
-		            </div>
-		        </div>
-			</div>		
-		</div>
+<!-- 		<div class="row">		 -->
+<!-- 			<div class="col-md-6"> -->
+<!-- 		        <div class="form-group" id="filename-div"> -->
+<!-- 		            <label for="filename" class="col-md-6 control-label required">Fecha de entrega </label> -->
+<!-- 		            <div class="col-md-12"> -->
+<!-- 		                <div id="divfechnacim" class="input-group"> -->
+<!-- 							<input type="text" id="fecnac_persona" name="fecnac_persona" -->
+<!-- 								class="form-control" readonly="readonly" -->
+<!-- 								data-rule-required="true" -->
+<!-- 								data-msg-required="La fecha es obligatoria" required> <span -->
+<!-- 								class="input-group-addon"> <a id="btnFecnac_persona" -->
+<!-- 								href="javascript:void(0)" class="btn-date"> <span -->
+<!-- 									class="glyphicon glyphicon-calendar"></span> -->
+<!-- 							</a> -->
+<!-- 							</span> -->
+<!-- 							<div class="result"></div> -->
+<!-- 						</div> -->
+<!-- 		            </div> -->
+<!-- 		        </div> -->
+<!-- 			</div> -->
+<!-- 			<div class="col-md-6"> -->
+<!-- 		        <div class="form-group" id="filename-div"> -->
+<!-- 		            <label for="filename" class="col-md-6 control-label required">Courier </label> -->
+<!-- 		            <div class="col-md-12"> -->
+<!-- 		                <select id="idcourier"  -->
+<!-- 		                		name="idcourier" -->
+<!-- 		                		class="form-control" -->
+<!-- 								data-rule-required="true" -->
+<!-- 								data-msg-required="Seleccione un courier responsable" required> -->
+<!-- 						</select> -->
+<!-- 		                <div class="result"></div> -->
+<!-- 		            </div> -->
+<!-- 		        </div> -->
+<!-- 			</div>		 -->
+<!-- 		</div> -->
 		
 		<div class="row">
 			<div class="col-md-12">
@@ -64,10 +66,9 @@
 	                <div class="form-group">
 	                	<label class="col-md-6 control-label" style="padding: 0px;">
 	                	</label>
-	                	<div class="col-sm-6 pull-right" style="text-align: right; padding: 0px;">
-		                    <button type="button" 
-									class="btn btn-primary pull-right"
-									onclick="cargarEntregasTarjeta();">
+	                	<div class="col-sm-6 pull-right " style="text-align: right; padding: 0px;">
+		                    <button type="submit" id="cargar"
+									class="btn btn-primary pull-right start">
 								Cargar
 							</button>
 	                    </div>
@@ -82,33 +83,60 @@
 	/** Se ejecuta apenas termina de renderizar **/
 	$().ready(function() {
 		
-		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', {form: 'form-cargar-entrega-tarjeta'});
-		
-		$("#fecnac_persona").datepicker(
-				{
-					maxDate : 'today',
-					beforeShow : function() {
-						setTimeout(function() {
-							$('.ui-datepicker').css({
-								'z-index' : 9999,
-								'border' : '1px solid #ccc'
-							});
-						}, 0);
-					},
-					onSelect : function(dateText, inst) {
-						$(".result", $("#fec_nacim").parent()).html(
-								"<i class='success'></i>");
-						$("label", $("#divfechnacim").parent())
-								.removeClass("error");
-						$("label", $("#divfechnacim").parent()).html("");
-						$("#fecnac_persona").removeClass("error");
-					}
-				});
-		
-		$("#btnFecnac_persona").click(function() {
-			$("#fecnac_persona").datepicker("show");
-		});
+		$('#cargar').click(function(){
+			$('#subirAfiche').ajaxForm({url:"../delivery.do?method=uploadFile",type:"post", success:function(data){
+				
+				alert("Debe seleccionar la opción \"Mostrar Miniatura\"");
+				//$("#errorMin").attr("style","display:block");
+			
+		}
+	
 	});
+			
+			
+		});
+
+		
+		
+		
+// 		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', {form: 'form-cargar-entrega-tarjeta'});
+		
+// 		$("#fecnac_persona").datepicker(
+// 				{
+// 					maxDate : 'today',
+// 					beforeShow : function() {
+// 						setTimeout(function() {
+// 							$('.ui-datepicker').css({
+// 								'z-index' : 9999,
+// 								'border' : '1px solid #ccc'
+// 							});
+// 						}, 0);
+// 					},
+// 					onSelect : function(dateText, inst) {
+// 						$(".result", $("#fec_nacim").parent()).html(
+// 								"<i class='success'></i>");
+// 						$("label", $("#divfechnacim").parent())
+// 								.removeClass("error");
+// 						$("label", $("#divfechnacim").parent()).html("");
+// 						$("#fecnac_persona").removeClass("error");
+// 					}
+// 				});
+		
+// 		$("#btnFecnac_persona").click(function() {
+// 			$("#fecnac_persona").datepicker("show");
+// 		});
+	});
+	
+	function cargadita(){
+		$('#subirAfiche').ajaxForm({url:"../delivery.do?method=uploadFile",type:"post", success:function(data){
+			
+					alert("Debe seleccionar la opción \"Mostrar Miniatura\"");
+					//$("#errorMin").attr("style","display:block");
+				
+			}
+		
+		});
+	}
 
 	function cargarCombo(url, method, combo, config, comboPadre) {
 
