@@ -19,7 +19,7 @@
 			var contextPath = '<%=request.getContextPath()%>';
 	
 			$().ready(function() {
-	
+				$(".logo-login").hide();
 				validateAlfanumerico();
 	
 				validateSinEspacios();
