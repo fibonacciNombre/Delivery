@@ -64,21 +64,22 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
 				"BBVA", "pq_del_usuario", "sp_mnt_usuario");
 
-		JdbcHelper.setInOutParameter(call, in, "a_idusuario", 	Types.NUMERIC, usuario.getIdusuario());
+		JdbcHelper.setInOutParameter(call, in, "a_idusuario", 	Types.INTEGER, usuario.getIdusuario());
 		JdbcHelper.setInParameter(call, in, "a_contrasena", 	OracleTypes.VARCHAR, usuario.getContrasena());
-		JdbcHelper.setInParameter(call, in, "a_idtercero", 		OracleTypes.NUMERIC, usuario.getIdtercero());
-		JdbcHelper.setInParameter(call, in, "a_idperfil",		OracleTypes.NUMERIC, usuario.getIdperfil());
-		JdbcHelper.setInParameter(call, in, "a_idpestado", 		OracleTypes.NUMERIC, usuario.getIdpestado());
+		JdbcHelper.setInParameter(call, in, "a_idtercero", 		OracleTypes.INTEGER, usuario.getIdtercero());
+		JdbcHelper.setInParameter(call, in, "a_idperfil",		OracleTypes.INTEGER, usuario.getIdperfil());
+		JdbcHelper.setInParameter(call, in, "a_idpestado", 		OracleTypes.INTEGER, usuario.getIdpestado());
 		JdbcHelper.setInParameter(call, in, "a_codusuario", 	OracleTypes.VARCHAR, usuario.getCodusuario());
 		JdbcHelper.setInParameter(call, in, "a_historial", 		OracleTypes.VARCHAR, usuario.getHistorial());
 		JdbcHelper.setInParameter(call, in, "a_comentario", 	OracleTypes.VARCHAR, usuario.getComentario());
+		JdbcHelper.setInParameter(call, in, "a_indrnvcontrasena", 	OracleTypes.VARCHAR, usuario.getIndrnvcontrasena());
 		JdbcHelper.setInParameter(call, in, "a_usuario", 		OracleTypes.VARCHAR, usuario.getUsuario());
 		// JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR,
 		// Usuario.class);
 
 		out = call.execute(in);
 
-		usuario.setIdusuario(Integer.parseInt(((BigDecimal) out.get("a_idusuario")).toString())); 
+		usuario.setIdusuario( (Integer)out.get("a_idusuario") ); 
 	}
 
 	@SuppressWarnings("unchecked")

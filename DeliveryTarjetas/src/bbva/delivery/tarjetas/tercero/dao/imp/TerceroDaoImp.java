@@ -67,8 +67,7 @@ public class TerceroDaoImp extends JdbcDaoBase implements TerceroDao {
 		out = call.execute(in);
 		
 		idtercero = JdbcHelper.getOutResult(out, "a_idtercero", Integer.class);
-		tercero.setIdcourier(idtercero); 
-		
+		tercero.setIdtercero(idtercero);  
 		
 	}
 
