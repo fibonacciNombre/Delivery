@@ -82,7 +82,7 @@
     	
     	loadModalCargando();
     	
-    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', {form: 'form-bsqdelivery'});
+    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form: 'form-bsqdelivery'});
     	
     	$("#fecentrega").datepicker({ 
     								beforeShow 	: function() {

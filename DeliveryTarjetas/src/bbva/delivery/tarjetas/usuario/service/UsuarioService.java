@@ -25,4 +25,7 @@ public interface UsuarioService {
 	Usuario autenticarUsuario(LoginWeb usuario);
 	
 	void actContrasena(Usuario usuario);
+	 
+
+	public Usuario addUsuario(Usuario usuario) throws Exception ;
 }

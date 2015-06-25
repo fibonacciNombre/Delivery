@@ -100,13 +100,13 @@
 		
 		callCargaControlParam('DELWEB_ESTADO','form-bsqcolaborador #idpestado',true);
 
-		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', {form : 'form-bsqcolaborador'});
+		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form : 'form-bsqcolaborador'});
 		
 		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-mntcolaborador #idptipodocumento',false);
 		
 		callCargaControlParam('DELWEB_ESTADO','form-mntcolaborador #idpestado',true);
 		
-		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', {form : 'form-mntcolaborador'});
+		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form : 'form-mntcolaborador'});
 
 		jQuery.validator.addMethod("alphanumeric", function(value,element) {
 			return this.optional(element)|| /^[a-zA-Z0-9]+$/.test(value);

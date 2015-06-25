@@ -10722,7 +10722,7 @@ span.loading-animate:nth-child(5) {
 .logo-login {
   width: 356px;
   height: 90px;
-  background: url(../../img/bbva/logobbva-full.png) no-repeat;
+  /*background: url(../../img/bbva/logobbva-full.png) no-repeat;*/
   margin: auto;
   transform: scale(0.8);
 }

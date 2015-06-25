@@ -11,6 +11,8 @@ public class Perfil implements Serializable {
 	
 	private Integer idperfil;
 	private String descripcion;
+
+	private Integer idpestado;
 	private String usucreacion;
 	private String feccreacion;
 	private String usumodificacion;
@@ -69,6 +71,12 @@ public class Perfil implements Serializable {
 	public String toString() {
 		return "Perfil [idperfil=" + idperfil + 
 						", descripcion=" + descripcion + "]";
+	}
+	public Integer getIdpestado() {
+		return idpestado;
+	}
+	public void setIdpestado(Integer idpestado) {
+		this.idpestado = idpestado;
 	}
 	
 	

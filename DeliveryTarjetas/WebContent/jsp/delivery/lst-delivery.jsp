@@ -91,7 +91,7 @@
     	else
     		CTE_LOAD_INIT = 0;
     	
-		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', {form: 'form-lstdelivery'});
+		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form: 'form-lstdelivery'});
     	
 		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-lstdelivery #idptipodocumento', true);
 		

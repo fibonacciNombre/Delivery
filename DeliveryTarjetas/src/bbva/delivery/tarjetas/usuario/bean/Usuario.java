@@ -14,14 +14,12 @@ public class Usuario implements Serializable {
 	
 	private Integer idusuario;
 	private String idptipodocumento;
-	private String idpestado;
+	private Integer idpestado;
 	private String codusuario;
 	private String contrasena;
 	private String estado;
-	private String usucreacion;
-	private String usumodificacion;
-	private String feccreacion;
-	private String fecmodifcacion;
+	private String usuario; 
+	private String comentario;
 	private String historial;
 	private String indrnvcontrasena;
 	private Integer idtercero;
@@ -64,30 +62,7 @@ public class Usuario implements Serializable {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	public String getUsucreacion() {
-		return usucreacion;
-	}
-	public void setUsucreacion(String usucreacion) {
-		this.usucreacion = usucreacion;
-	}
-	public String getUsumodificacion() {
-		return usumodificacion;
-	}
-	public void setUsumodificacion(String usumodificacion) {
-		this.usumodificacion = usumodificacion;
-	}
-	public String getFeccreacion() {
-		return feccreacion;
-	}
-	public void setFeccreacion(String feccreacion) {
-		this.feccreacion = feccreacion;
-	}
-	public String getFecmodifcacion() {
-		return fecmodifcacion;
-	}
-	public void setFecmodifcacion(String fecmodifcacion) {
-		this.fecmodifcacion = fecmodifcacion;
-	}
+	 
 	public String getHistorial() {
 		return historial;
 	}
@@ -124,10 +99,10 @@ public class Usuario implements Serializable {
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
-	public String getIdpestado() {
+	public Integer getIdpestado() {
 		return idpestado;
 	}
-	public void setIdpestado(String idpestado) {
+	public void setIdpestado(Integer idpestado) {
 		this.idpestado = idpestado;
 	}
 	public Integer getIdcourier() {
@@ -147,6 +122,22 @@ public class Usuario implements Serializable {
 	}
 	public void setIndrnvcontrasena(String indrnvcontrasena) {
 		this.indrnvcontrasena = indrnvcontrasena;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getComentario() {
+		return comentario;
+	}
+
+	public void setComentario(String comentario) {
+		this.comentario = comentario;
 	}	
 	
 }
