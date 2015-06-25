@@ -1,7 +1,7 @@
 <%-- INI MODAL RENOVAR CONTRASENA --%>
 <a id="link-renovarcontrasena"
 	data-toggle="modal" 
-	href="<%=request.getContextPath()%>/jsp/perfil/rnv-contrasena.jsp" 
+	href="<%=request.getContextPath()%>/jsp/usuario/rnv-contrasena.jsp" 
 	data-target="#modalRenovarContrasena"
 	class="btn btn-link"
 	style="display: none;">

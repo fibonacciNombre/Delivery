@@ -27,18 +27,15 @@
 		        <div class="form-group" id="filename-div">
 		            <label for="filename" class="col-md-6 control-label required">Fecha de entrega </label>
 		            <div class="col-md-12">
-		                <div id="divfechnacim" class="input-group">
-							<input type="text" id="fecnac_persona" name="fecnac_persona"
-								class="form-control" readonly="readonly"
-								data-rule-required="true"
-								data-msg-required="La fecha es obligatoria" required> <span
-								class="input-group-addon"> <a id="btnFecnac_persona"
-								href="javascript:void(0)" class="btn-date"> <span
-									class="glyphicon glyphicon-calendar"></span>
-							</a>
+		            	<div id="div-fecentrega" class="input-group">
+							<input type="text" readonly id="fecentrega" name="fecentrega" class="form-control calendario"> 
+							<span class="input-group-addon">
+								<a id="btnfecentrega" href="javascript:void(0)" class="btn-date calendario"> 
+									<span class="glyphicon glyphicon-calendar"></span>
+								</a>
 							</span>
 							<div class="result"></div>
-						</div>
+						</div>		          
 		            </div>
 		        </div>
 			</div>
@@ -82,120 +79,90 @@
 	/** Se ejecuta apenas termina de renderizar **/
 	$().ready(function() {
 		
+		loadModalCargando();
+		
 		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', {form: 'form-cargar-entrega-tarjeta'});
 		
-		$("#fecnac_persona").datepicker(
-				{
-					maxDate : 'today',
-					beforeShow : function() {
-						setTimeout(function() {
-							$('.ui-datepicker').css({
-								'z-index' : 9999,
-								'border' : '1px solid #ccc'
-							});
-						}, 0);
-					},
-					onSelect : function(dateText, inst) {
-						$(".result", $("#fec_nacim").parent()).html(
-								"<i class='success'></i>");
-						$("label", $("#divfechnacim").parent())
-								.removeClass("error");
-						$("label", $("#divfechnacim").parent()).html("");
-						$("#fecnac_persona").removeClass("error");
-					}
-				});
-		
-		$("#btnFecnac_persona").click(function() {
-			$("#fecnac_persona").datepicker("show");
-		});
-	});
-
-	function cargarCombo(url, method, combo, config, comboPadre) {
-
-		var param = new Object();
-
-		for ( var key in config) {
-			param[key] = config[key];
-		}
-
-		if (config.argPadre && comboPadre)
-			param[config.argPadre] = comboPadre.value;
-
-		combo = config.form ? config.form + ' #' + combo : '#' + combo;
-
-		$.ajax({
-			type : "POST",
-			url : url + "?method=" + method,
-			cache : false,
-			dataType : "json",
-			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-			async : false,
-			data : param,
-			success : function(rsp) {
-				llenarCombo(combo, rsp.lstcouries, true);
-			},
-			error : function(xhr, ajaxOptions, thrownError) {
-				loadModalMensaje('Lo sentimos',
-						'Hubo un error en el procesamiento de datos.',
-						function() {
+		$("#fecentrega").datepicker({ 
+									beforeShow 	: function() {
+														setTimeout(function() {
+															$('.ui-datepicker').css({
+																'z-index' : 9999,
+																'border' : '1px solid #ccc'
+															});
+														}, 0);
+									},
+									onSelect 		: function(dateText, inst) {
+														$("#fecentrega").removeClass("error");
+									}
 						});
+		
+		$(".calendario").click(function() {
+									$("#fecentrega").datepicker("show");
+		})
+		
+		$("#form-cargar-entrega-tarjeta").validate({
+			rules : {
+
+				idcourier 			: {				required 	: true },
+				
+				fecentrega 			: {				required 	: true },
+				
+				filename 			: {				required 	: true }
+				
+			},
+			messages : {
+				idcourier 			: {				required 	: "Debes seleccionar un Courier" },
+			
+				fecentrega 			: {				required 	: "Debes ingresar la fecha de entrega" },
+				
+				filename 			: {				required 	: "Debes seleccionar el archivo a cargar" }					
 			}
-		});
-	}
-	
-	function llenarCombo(idCombo, listaOpciones, emptyElement) {
-
-		var combo = $('#' + idCombo);
-		combo.empty();
-
-		if (emptyElement)
-			combo.append('<option value="">' + 'Seleccionar' + '</option>');
-
-		for ( var i = 0; i < listaOpciones.length; i++) { 
-			var opcion = '<option value="'+listaOpciones[i].idcourier+'" >'
-					+ listaOpciones[i].rznsocial + '</option>';
-			combo.append(opcion); 
-		}
-
-		$('#' + idCombo).change();
-	}
+		});	
+		
+		closeModalCargando(); 
+	});
 	
 	/** Cargar excel **/
 	function cargarEntregasTarjeta() {
-		var fileName_ = $("#form-cargar-entrega-tarjeta #filename").val(),
-			idcourier_ = $("#form-cargar-entrega-tarjeta #idcourier").val(),
-			fechaentrega_ = $("#form-cargar-entrega-tarjeta #fecnac_persona").val();
 		
-	 
-		loadModalCargando();
-
-		$
-				.post(
-						'/DeliveryTarjetas/delivery.do?method=cargaExcelDelivery',
-						{
-							filename : fileName_,
-							fecentrega : fechaentrega_,
-							idcourier : idcourier_,
-							tipoarchivo: 'xls'
-						},
-						function(data, textStatus, jqXHR) {
-							var obj = $.parseJSON(data);
-							if (obj.resultado != 0) {
-								loadModalMensaje("Mensaje",
-										"Hubo un problema en la carga de datos, intentelo de nuevo en unos momentos.");
-							}
-						})
-				.fail(
-						function(jqXHR, textStatus, errorThrown) {
-							closeModalCargando();
-							loadModalMensaje(
-									"Estimado",
-									'Lo sentimos. Hubo problemas en el procesamiento. Inténtelo más tarde.',
-									'');
-						});
-
-		closeModalCargando();
-		$("#modalCargaEntregaTarjeta").modal('hide');
+		if($("#form-cargar-entrega-tarjeta").valid()){
+			
+			var fileName_ 	= $("#form-cargar-entrega-tarjeta #filename").val(),
+			idcourier_ 		= $("#form-cargar-entrega-tarjeta #idcourier").val(),
+			fechaentrega_ 	= $("#form-cargar-entrega-tarjeta #fecnac_persona").val();
+		
+			loadModalCargando();
+	
+			$
+					.post(
+							'/DeliveryTarjetas/delivery.do?method=cargaExcelDelivery',
+							{
+								filename : fileName_,
+								fecentrega : fechaentrega_,
+								idcourier : idcourier_,
+								tipoarchivo: 'xls'
+							},
+							function(data, textStatus, jqXHR) {
+								var obj = $.parseJSON(data);
+								if (obj.resultado != 0) {
+									loadModalMensaje("Mensaje",
+											"Hubo un problema en la carga de datos, intentelo de nuevo en unos momentos.");
+								}
+							})
+					.fail(
+							function(jqXHR, textStatus, errorThrown) {
+								closeModalCargando();
+								loadModalMensaje(
+										"Estimado",
+										'Lo sentimos. Hubo problemas en el procesamiento. Inténtelo más tarde.',
+										'');
+							});
+	
+			closeModalCargando();			
+		}
+				
+		//$("#modalCargaEntregaTarjeta").modal('hide');
 	}
 	
 </script>

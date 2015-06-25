@@ -52,6 +52,8 @@ public class Constants {
 	//Constantes REQ ATTRIBUTE SESSION
 	public static final String REQ_SESSION_LOGINWEB						= "LOGINWEB";
 	public static final String REQ_SESSION_USUARIO						= "USUARIOWEB";
+	public static final String REQ_SESSION_PERFIL						= "PERFIL";
+	public static final String REQ_SESSION_COURIER						= "COURIER";
 	public static final String REQ_SESSION_PERSONA						= "PERSONAWEB";
 	
 }

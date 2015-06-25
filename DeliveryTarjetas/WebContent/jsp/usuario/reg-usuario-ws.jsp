@@ -9,61 +9,9 @@
 	
 	<div id="container-principal"> 
 	    <form id="form-registrousuariows">
-	        <div class="row">
-	            <div class="col-md-12">
-					
-					<div class="form-group" id="idperfil-div">
-	                    <label for="idperfil" class="col-sm-5 col-sm-offset-1 control-label required">Perfil </label>
-	                    <div class="col-sm-5">
-	                    	<select class="form-control" id="cboperfil" name="cboperfil"> 
-						 		<option value="{debe ir el idperfil">Nombre perfil</option>                       	
-	                   		</select>
-	                   		<input type="hidden" class="form-control" id="idperfil" name="idperfil" >
-	                    </div>
-	                </div>
-	                
-	                <div class="form-group" id="codusuario-div">
-	                    <label for="codusuario" class="col-sm-5 col-sm-offset-1 control-label required">Código de usuario </label>
-	                    <div class="col-sm-5">
-	                        <input type="text" class="form-control" id="codusuario" name="codusuario" maxlength="200">
-	                        <div class="result"></div>
-	                    </div>
-	                </div>
-	                
-	                <div class="form-group" id="contrasena-div">
-	                    <label for="contrasena" class="col-sm-5 col-sm-offset-1 control-label required">Contraseña </label>
-	                    <div class="col-sm-5">
-	                        <input type="password" class="form-control" id="contrasena" name="contrasena" maxlength="200">
-	                        <div class="result"></div>
-	                    </div>
-	                </div>
-	                
-	                <div class="form-group" id="estado-div">
-	                    <label for="idpestado" class="col-sm-5 col-sm-offset-1 control-label required">Estado </label>
-	                    <div class="col-sm-5">
-	                        <select class="form-control" id="idpestado" name="idpestado">     
-	                        	<option value="{debe ir id del estado}">ESTADO</option>                   	
-	                        </select>
-	                        <div class="result"></div>
-	                    </div>
-	                </div>
-	                
-	                <div class="form-group" id="comentarios-div">
-	                    <label for="comentarios" class="col-sm-5 col-sm-offset-1 control-label">Comentarios </label>
-	                    <div class="col-sm-5">
-	                    	<textarea class="form-control" id="comentarios" name="comentarios" maxlength="300"  wrap="hard" style="min-width: 100%; max-width: 100%; min-height: 50px; max-height: 50px;" ></textarea>
-	                    </div>
-	                </div>
+	        
+	        <%@include file="/jsp/usuario/form-usuario-ws.jsp" %>
 	               
-	                <div class="form-group" style="margin-bottom: 0px; font-size: 11px; font-style: italic; font-weight: bold;">
-	                	<label for="*" class="col-sm-5 col-sm-offset-1 control-label">
-	                		<span>(<label class="required"></label>) Campos obligatorios</span>
-	                	</label>                	
-	                </div>
-	                
-				</div>
-	            
-	        </div>        
 	        <div class="row">
 		        <div class="col-md-12">
 		        
@@ -111,7 +59,7 @@
                 <div class="form-group" id="contrasena-final-div">
                     <label for="contrasena-final" class="col-sm-5 col-sm-offset-1 control-label">Contraseña </label>
                     <div class="col-sm-5">
-                        <input type="password" class="form-control" id="contrasena-final" name="contrasena-final" maxlength="200">
+                        <input type="text" class="form-control" id="contrasena-final" name="contrasena-final" maxlength="200">
                     </div>
                 </div>                
             </div>
@@ -140,15 +88,22 @@
     </div>
 </div>
 
-<script src="<%=request.getContextPath()%>/js/bbva/main-deliverytarjetas.js"></script>
-
 <script>
 	
     $().ready(function(){
 		
-    	callCargaControlParam('PARAM_ESTADOS','form-registrousuariows #estado');
+		loadModalCargando();
     	
-    	loadPerfiles("#form-registrousuariows","#cboperfil");
+		callCargaControlParam('DELWEB_ESTADO','form-registrousuariows #idpestado',false);
+    	 
+    	cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','cboperfil', {form: 'form-registrousuariows'});
+		
+    	//SETEO DE PERFIL WS Y DESHABILITAR EL COMBO DE SELECCION DE PERFIL
+    	$("#form-registrousuariows #cboperfil").val();
+    	
+    	$("#form-registrousuariows #ideperfil").val($("#form-registrousuariows #cboperfil").val());
+    	
+    	$("#form-registrousuariows #cboperfil").attr("disabled","disabled");
     	
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
@@ -171,6 +126,8 @@
 													minlength 	: "Debes ingresar un mínimo de 5 carácteres"}																
 			}
 		});	
+		
+		closeModalCargando();
 		
 	});
     
@@ -212,16 +169,16 @@
 								data 		: param,
 								success 	: function(rsp){
 								
-													var status 	= rsp.statustx;
-													var message = rsp.messagetx;
+													var status 	= rsp.tx.statustx;
+													var message = rsp.tx.messagetx;
 				
 													closeModalCargando();
 													
 													if(status == 0){														
 														$("#codusuario-final").val("");
 														$("#contrasena-final").val("");
-														$("#codusuario-final").val(rsp.codusuario);
-														$("#contrasena-final").val(rsp.contrasena);
+														$("#codusuario-final").val(rsp.usuario.codusuario);
+														$("#contrasena-final").val(rsp.usuario.contrasena);
 														$("#codusuario-final").attr("disabled", true);
 														$("#contrasena-final").attr("disabled", true);
 														
@@ -233,7 +190,7 @@
 								},						
 								error: function (rsp, xhr, ajaxOptions, thrownError) {
 									closeModalCargando();
-									loadModalMensaje("Error","ERROR REGISTRANDO COURIER",null);								
+									loadModalMensaje("Error","ERROR REGISTRANDO USUARIO DE SERVICIOS WEB",null);								
 								}			
 							});		    					    				
 	  				},1000);    			    		

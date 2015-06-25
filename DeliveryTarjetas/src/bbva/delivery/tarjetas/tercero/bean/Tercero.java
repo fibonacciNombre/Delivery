@@ -23,8 +23,6 @@ public class Tercero implements Serializable {
  	private Integer idcourier; 
 	private Integer idptipodocumento;
  
-	
-	
 	public Tercero() {
 	
 	}	

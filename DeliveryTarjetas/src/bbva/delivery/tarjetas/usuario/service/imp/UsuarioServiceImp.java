@@ -14,9 +14,10 @@ import bbva.delivery.tarjetas.courier.dao.CourierDao;
 import bbva.delivery.tarjetas.tercero.bean.Tercero;
 import bbva.delivery.tarjetas.tercero.dao.TerceroDao;
 import bbva.delivery.tarjetas.usuario.bean.LoginWeb;
-import bbva.delivery.tarjetas.usuario.bean.UsuarioWeb;
+import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import bbva.delivery.tarjetas.usuario.dao.UsuarioDao;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
+import bbva.delivery.tarjetas.util.AESHelper;
 
 @Service("usuarioService")
 @Transactional(propagation=Propagation.SUPPORTS)
@@ -33,12 +34,12 @@ public class UsuarioServiceImp implements UsuarioService {
 	
 	private static Logger logger 			= Logger.getLogger(UsuarioServiceImp.class.getName());
 	
-	public UsuarioWeb obtDetalleUsuarioWeb(UsuarioWeb usuarioWeb) {
+	public Usuario obtDetalleUsuario(Usuario usuarioWeb) {
 		logger.info("Service obtDetalleUsuarioWeb");		
-		return usuarioDao.obtDetalleUsuarioWeb(usuarioWeb);
+		return usuarioDao.obtDetalleUsuario(usuarioWeb);
 	}
 		
-	public UsuarioWeb autenticarUsuario(LoginWeb loginWeb){
+	public Usuario autenticarUsuario(LoginWeb loginWeb){
 		
 		logger.info("Service autenticarUsuario");
 		
@@ -46,14 +47,14 @@ public class UsuarioServiceImp implements UsuarioService {
 		
 		Courier courier				= new Courier();
 		Tercero tercero				= new Tercero();
-		UsuarioWeb usuarioWeb		= new UsuarioWeb();
-		UsuarioWeb usuarioWebTmp	= new UsuarioWeb();
+		Usuario usuarioWeb		= new Usuario();
+		Usuario usuarioWebTmp	= new Usuario();
 
 		String idUsuario 		= loginWeb.getUserlogin();
 		String password 		= loginWeb.getPasslogin();
 				
-		usuarioWebTmp.setNumerodoc(idUsuario);
-		usuarioWebTmp.setPassword(password);
+		usuarioWebTmp.setCodusuario(idUsuario);
+		usuarioWebTmp.setContrasena(password);
 		
 		//VERIFICAR QUE EL USUARIO EXISTA EN LA BD
 //		usuarioWebTmp = obtDetalleUsuarioWeb(usuarioWebTmp);	
@@ -98,36 +99,43 @@ public class UsuarioServiceImp implements UsuarioService {
 	}
 
 	@Override
-	public boolean validarContrasena(UsuarioWeb usuarioWeb) {
+	public boolean validarContrasena(Usuario usuarioWeb) {
 		logger.info("Service validarContrasena");
 //		return perfilDao.validarContrsena(usuarioWeb);
 		return true;
 	}
 
 	@Override
-	public void regUsuarioWeb(UsuarioWeb usuarioWeb) {
+	public void regUsuario(Usuario usuarioWeb) {
 		// TODO Auto-generated method stub
-		logger.info("Service regUsuarioWeb");
+		logger.info("Service regUsuario");
 	}
 
 	@Override
-	public void mntUsuarioWeb(UsuarioWeb usuarioWeb) {
+	public void mntUsuario(Usuario usuario) throws Exception {
 		// TODO Auto-generated method stub
-		logger.info("Service mntUsuarioWeb");
-		
+		logger.info("Service mntUsuario");		
+		usuario.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, usuario.getContrasena()));		
+		usuarioDao.mntUsuario(usuario);
 	}
 
 	@Override
-	public List<Courier> lstUsuariosWeb(String estado) {
+	public List<Usuario> lstUsuarios(Usuario usuario) {
 		// TODO Auto-generated method stub
-		logger.info("Service lstUsuariosWeb");
-		return null;
+		logger.info("Service lstUsuarios");
+		return usuarioDao.lstUsuarios(usuario);
 	}
 
 	@Override
-	public void actContrasena(UsuarioWeb usuarioWeb) {
+	public void actContrasena(Usuario usuarioWeb) {
 		// TODO Auto-generated method stub
 		logger.info("Service actContrasena");
 		usuarioDao.actContrasena(usuarioWeb);
+	}
+
+	@Override
+	public List<Usuario> lstUsuarios(Usuario usuario, Tercero tercero) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

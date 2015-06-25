@@ -29,13 +29,13 @@ function loadValidateLogin(idForm){
 		rules			: {
 							userlogin	: {
 									required 		: true,
-									minlength 		: 7,
+									minlength 		: 5,
 									maxlength 		: 15,
 									alfanumerico	: true
 							},
 							passlogin	: {
 									required 		: true,
-									minlength 		: 8,
+									minlength 		: 5,
 									maxlength 		: 12,
 									sinespacios		: true
 							}
@@ -43,13 +43,13 @@ function loadValidateLogin(idForm){
 		messages 		: {
 							userlogin 	: {
 									required		: "Campo obligatorio",
-									minlength 		: "Ingrese mínimo 7 caracteres",
+									minlength 		: "Ingrese mínimo 5 caracteres",
 									maxlength 		: "Ingrese máximo 15 caracteres",
 									alfanumerico	: "En este campo sólo se permiten números y letras"
 							},
 							passlogin 	: {
 									required		: "Campo obligatorio",
-									minlength 		: "Ingrese mínimo 8 caracteres",
+									minlength 		: "Ingrese mínimo 5 caracteres",
 									maxlength 		: "Ingrese máximo 12 caracteres",
 									sinespacios		: "No se permiten espacios en blanco"
 							}
@@ -151,45 +151,14 @@ function loadSesionInicial(){
 	)
 		cerrarSession();					
 	*/
-	closeModalCargando();
 	
-	if(CTE_JSON_USUARIOWEB.estado==USR_STS_RENOVAR_PASSWORD)
+	if(CTE_JSON_USUARIOWEB.indrnvcontrasena=="S"){
+		closeModalCargando();
 		$("#link-renovarcontrasena").click();	
-}
-
-function loadPerfiles(idform, idcontrol){
-	
-	var paramLstPerfil	= new Object();
-	
-	$.ajax({
-		type 		: "POST",
-		url 		: "/DeliveryTarjetas/usuario.do"+"?method=lstPerfil",
-		cache 		: false ,
-		dataType	: "json",
-		contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-		async 		: false,
-		data 		: paramLstPerfil,
-		success 	: function(rspLstPerfil){
+	}else{	
+		CTE_LOAD_INIT = 1;
 		
-							var status 	= rspLstPerfil.statustx;
-							var message = rspLstPerfil.messagetx;
-
-							if(status == 0){													
-								if(rspLstPerfil.lstPerfil!= undefined && rspLstPerfil.lstPerfil.lenght > 0){
-									var lstPerfil = rspLstPerfil.lstPerfil;
-									
-									for(var i=0; i<lstPerfil.length; i++){											
-											var opcion = '<option value="'+lstPerfil[i].idperfil+'" >'+lstPerfil[i].descripcion+'</option>' ;
-											$(idform +" "+ idcontrol).append(opcion);										
-									}
-									
-								}
-							}
-		},						
-		error: function (rsp, xhr, ajaxOptions, thrownError) {
-			closeModalCargando();
-			loadModalMensaje("Error","ERROR CARGANDO PERFILES DISPONIBLES PARA LOS USUARIOS",null);								
-		}			
-	});	
-	
+		$("#panelDelivery").click();
+		$("#view-lst-entrega").click();
+	}
 }

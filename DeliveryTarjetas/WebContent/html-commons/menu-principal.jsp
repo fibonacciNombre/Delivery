@@ -12,7 +12,7 @@
 			
 			<li class="panel" >
 				<a 	href="#" 
-					id="panelSeguros"
+					id="panelMiCuenta"
 					data-url="/DeliveryTarjetas/usuario.do?method=goMiCuenta" 
 					data-toggle="collapse" 
 					data-parent="#accordion" 
@@ -23,7 +23,7 @@
 			
 			<li class="panel">
 				<a href="#" 
-				    id="panelSalud"
+				    id="panelGestionUsuarios"
 				    class="view-admin"
 				    data-toggle="collapse" 
 					data-parent="#accordion" 
@@ -52,8 +52,7 @@
 			
 			<li class="panel">
 				<a href="#" 
-					id="panelVehicular"
-					<%--data-url="pages/servicios-vehiculos/emergencias"--%> 
+					id="panelGestionCouriers"
 					data-toggle="collapse" 
 					data-parent="#accordion" 
 					data-target="#courier-menu">
@@ -79,7 +78,7 @@
 			
 			<li class="panel">
 			    <a href="#" 
-			    	id="panelPerfil"
+			    	id="panelDelivery"
 			    	data-toggle="collapse" 
 			    	data-parent="#accordion" 
 			    	data-target="#delivery-menu">

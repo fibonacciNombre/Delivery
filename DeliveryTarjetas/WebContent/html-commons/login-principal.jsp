@@ -45,7 +45,7 @@
 																		class="col-md-12 i-group form-control"
 																		maxlength="15"
 																		style="margin-bottom: 5px;"
-																		placeholder="Nro. de documento">																
+																		placeholder="Cod. usuario">																
 													  			<div class="result"></div>
 													  		</div>													    	
 													    	<div class="col-md-12 i-group" style="padding: 0px;">

@@ -11,131 +11,7 @@
 	
 	    <form id="form-registrousuario">
 	        
-	        <div class="row">	 
-	               
-	        	<div class="col-md-6">
-					<div class="form-group" id="idperfil-div">
-	                    <label for="idperfil" class="col-md-6 control-label required">Perfil </label>
-	                    <div class="col-md-12">
-	                    	<select class="form-control" id="idperfil" name="idperfil"> 
-						 		<option value="{debe ir el idperfil">Nombre perfil</option>                       	
-	                   		</select>
-	                    </div>
-	                </div>
-	                
-	                <div class="form-group" id="codbbva-div">
-	                    <label for=codbbva" class="col-md-6 control-label">Courier </label>
-	                    <div class="col-md-12">
-	                        <select class="form-control" id="codbbva" name="codbbva"> 
-							 	<option value="{debe ir el codbbva}">Nombre courier</option>                       	
-	                   		</select>
-	                        <div class="result"></div>
-	                    </div>
-	                </div>
-	                
-	                <div class="form-group" id="idptipodocumento-div">
-	                    <label for="idptipodocumento" class="col-md-6 control-label required">Tipo de documento </label>
-	                    <div class="col-md-12">
-	                        <select class="form-control" id="idptipodocumento" name="idptipodocumento"> 
-							 	<option value="{debe ir id de tipo de documento}">DNI</option>                       	
-	                   		</select>
-	                        <div class="result"></div>
-	                    </div>
-	                </div>
-	                
-	                <div class="form-group" id="nrodocumento-div">
-	                    <label for="nrodocumento" class="col-md-6  control-label required">Nro. documento </label>
-	                    <div class="col-md-12">
-	                        <input type="text" class="form-control" id="nrodocumento"  name="nrodocumento" maxlength="12">
-	                        <div class="result"></div>
-	                    </div>
-	                </div>
-	                
-	                <div class="form-group" id="nombres-div">
-	                    <label for="nombres" class="col-md-6 control-label required">Nombres </label>
-	                    <div class="col-md-12">
-	                        <input type="text" class="form-control" id="nombres" name="nombres" maxlength="200">
-	                        <div class="result"></div>
-	                    </div>
-	                </div>
-	                
-	                <div class="form-group" id="apepaterno-div">
-	                    <label for="apepaterno" class="col-md-6 control-label required">Apellido paterno </label>
-	                    <div class="col-md-12">
-	                        <input type="text" class="form-control" id="apepaterno" name="apepaterno" maxlength="200">
-	                        <div class="result"></div>
-	                    </div>
-	                </div>
-	                
-	                <div class="form-group" id="apematerno-div">
-	                    <label for="apematerno" class="col-md-6 control-label required">Apellido materno </label>
-	                    <div class="col-md-12">
-	                        <input type="text" class="form-control" id="apematerno" name="apematerno" maxlength="200">
-	                        <div class="result"></div>
-	                    </div>
-	                </div>
-				</div>
-	        
-	        	<div class="col-md-6">
-	        		<div class="form-group" id="codusuario-div">
-	                    <label for="codusuario" class="col-md-6  control-label required">Código de usuario </label>
-	                    <div class="col-md-12">
-	                        <input type="text" class="form-control" id="codusuario" name="codusuario" maxlength="200">
-	                        <div class="result"></div>
-	                    </div>
-	                </div>
-	                
-	                <div class="form-group" id="contrasena-div">
-	                    <label for="contrasena" class="col-md-6 control-label required">Contraseña </label>
-	                    <div class="col-md-12">
-	                        <input type="password" class="form-control" id="contrasena" name="contrasena" maxlength="200">
-	                        <div class="result"></div>
-	                    </div>
-	                </div>
-	                
-	        		<div class="form-group" id="telfmovil-div">
-	                    <label for="telfmovil" class="col-md-6 control-label required">Teléfono móvil </label>
-	                    <div class="col-md-12">
-	                        <input type="text" class="form-control" id="telfmovil" name="telfmovil" maxlength="9">
-	                        <div class="result"></div>
-	                    </div>
-	                </div>
-	                
-	                <div class="form-group" id="correo-div">
-	                    <label for="correo" class="col-md-6 control-label required">Correo electrónico </label>
-	                    <div class="col-md-12">
-	                        <input type="text" class="form-control" id="correo"  name="correo" maxlength="200">
-	                        <div class="result"></div>
-	                    </div>
-	                </div>
-	                
-	                <div class="form-group" id="estado-div">
-	                    <label for="idpestado" class="col-md-6 control-label required">Estado </label>
-	                    <div class="col-md-12">
-	                        <select class="form-control" id="idpestado" name="idpestado">     
-	                        	<option value="{debe ir id del estado}">ESTADO</option>                   	
-	                        </select>
-	                        <div class="result"></div>
-	                    </div>
-	                </div>
-	                
-	                <div class="form-group" id="comentarios-div">
-	                    <label for="comentarios" class="col-md-6 control-label">Comentarios </label>
-	                    <div class="col-md-12">
-	                    	<textarea class="form-control" id="comentarios" name="comentarios" maxlength="300"  wrap="hard" style="min-width: 100%; max-width: 100%; min-height: 50px; max-height: 50px;" ></textarea>
-	                    </div>
-	                </div>
-	        	</div>
-	        	
-	            <div class="col-md-12">
-					<div class="form-group" style="margin-bottom: 0px; font-size: 11px; font-style: italic; font-weight: bold;">
-	                	<label for="*" class="col-md-6  control-label">
-	                		<span>(<label class="required"></label>) Campos obligatorios</span>
-	                	</label>                	
-	                </div>	                
-				</div>
-					            
-	        </div>   
+			<%@include file="/jsp/usuario/form-usuario.jsp" %>   
 	             
 	        <div class="row">
 	        
@@ -175,9 +51,15 @@
 	
     $().ready(function(){
     	
-    	callCargaControlParam('PARAM_ESTADOS','form-registrousuario #estado');
+		loadModalCargando();
     	
-    	loadPerfiles("#form-registrousuario","#cboperfil");
+		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-registrousuario #idptipodocumento',false); 
+    	
+		callCargaControlParam('DELWEB_ESTADO','form-registrousuario #idpestado',false);
+    	 
+		cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','idperfil', {form: 'form-registrousuario'});
+		
+    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', {form: 'form-registrousuario'});
     	
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
@@ -246,6 +128,8 @@
 			}
 		});	
 		
+		closeModalCargando();
+		
 	});
     
 	function registrarUsuario(){
@@ -282,19 +166,21 @@
 								data 		: param,
 								success 	: function(rsp){
 								
-													var status 	= rsp.statustx;
-													var message = rsp.messagetx;
+													var status 	= rsp.tx.statustx;
+													var message = rsp.tx.messagetx;
 				
 													closeModalCargando();
 													
-													if(status == 0){														
-														
+													if(status == 0){
+														loadModalMensaje("Enhorabuena", message, function(){
+															$("#view-reg-usuarioweb").click();	
+														});																										
 													}else
-														loadModalMensaje("Atención",message,null);
+														loadModalMensaje("Atención",message,null);													
 								},						
 								error: function (rsp, xhr, ajaxOptions, thrownError) {
 									closeModalCargando();
-									loadModalMensaje("Error","ERROR REGISTRANDO COURIER",null);								
+									loadModalMensaje("Error","ERROR REGISTRANDO USUARIO WEB",null);								
 								}			
 							});		    					    				
 	  				},1000);    			    		

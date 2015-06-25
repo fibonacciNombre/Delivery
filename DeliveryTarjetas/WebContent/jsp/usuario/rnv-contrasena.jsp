@@ -35,7 +35,7 @@
 				
 			    <div class="col-md-5">
 			   		<p>
-			   			Una contraseña segura está compuesta de 8 a 12 caracteres.
+			   			Una contraseña segura está compuesta de 5 a 12 caracteres.
 			   		</p>
 			   		<p>
 			   			Diferencia entre mayúsculas y minúsculas.
@@ -74,7 +74,7 @@
 			rules			: {
 								nuevacontrasena	: {
 										required 		: true,
-										minlength 		: 8,
+										minlength 		: 5,
 										maxlength 		: 12,
 										sinespacios		: true
 								},
@@ -85,7 +85,7 @@
 			messages 		: {
 								nuevacontrasena 	: {
 										required		: "Campo obligatorio",
-										minlength 		: "Ingrese minimo 8 caracteres",
+										minlength 		: "Ingrese minimo 5 caracteres",
 										maxlength 		: "Ingrese máximo 12 caracteres",
 										sinespacios		: "No se permiten espacios en blanco"
 								},
@@ -127,7 +127,7 @@
 												if(statustx == 0){
 													$("#modalPrimerLogueo").modal('hide');
 													
-													loadModalMensaje("Felicitaciones","Haz culminado satisfactoriamente el registro de tu contraseña",
+													loadModalMensaje("Enhorabuena","Haz culminado satisfactoriamente el registro de tu contraseña",
 																		function(){
 																			loadModalCargando();
 		

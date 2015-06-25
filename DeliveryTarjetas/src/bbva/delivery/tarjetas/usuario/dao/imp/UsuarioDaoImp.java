@@ -6,8 +6,8 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import bbva.delivery.tarjetas.comun.dao.imp.JdbcDaoBase;
-import bbva.delivery.tarjetas.courier.bean.Courier;
-import bbva.delivery.tarjetas.usuario.bean.UsuarioWeb;
+import bbva.delivery.tarjetas.tercero.bean.Tercero;
+import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import bbva.delivery.tarjetas.usuario.dao.UsuarioDao;
 
 @Repository("usuarioDao")
@@ -31,42 +31,42 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 	}
 	
 	@Override
-	public boolean validarContrasena(UsuarioWeb usuarioWeb) {
+	public boolean validarContrasena(Usuario usuarioWeb) {
 		// TODO Auto-generated method stub
 		logger.info("Dao validarContrasena");
 		return false;
 	}
 
 	@Override
-	public void regUsuarioWeb(UsuarioWeb usuarioWeb) {
-		// TODO Auto-generated method stub
-		logger.info("Dao regUsuarioWeb");
-	}
-
-	@Override
-	public void mntUsuarioWeb(UsuarioWeb usuarioWeb) {
+	public void mntUsuario(Usuario usuarioWeb) {
 		// TODO Auto-generated method stub
 		logger.info("Dao mntUsuarioWeb");
 	}
 
 	@Override
-	public List<Courier> lstUsuariosWeb(String estado) {
+	public List<Usuario> lstUsuarios(Usuario usuarioWeb) {
 		// TODO Auto-generated method stub
 		logger.info("Dao lstUsuariosWeb");
 		return null;
 	}
 
 	@Override
-	public UsuarioWeb obtDetalleUsuarioWeb(UsuarioWeb usuarioWeb) {
+	public Usuario obtDetalleUsuario(Usuario usuarioWeb) {
 		// TODO Auto-generated method stub
 		logger.info("Dao obtDetalleUsuarioWeb");
 		return null;
 	}
 
 	@Override
-	public void actContrasena(UsuarioWeb usuarioWeb) {
+	public void actContrasena(Usuario usuarioWeb) {
 		// TODO Auto-generated method stub
 		logger.info("Dao actContrasena");
+	}
+
+	@Override
+	public List<Usuario> lstUsuarios(Usuario usuarioWeb, Tercero tercero) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
 

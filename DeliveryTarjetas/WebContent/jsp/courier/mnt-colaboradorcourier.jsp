@@ -7,130 +7,6 @@
 			colaboradores por courier</span>
 	</h3>
 
-	<div id="modalEditarColaborador">
-		<div class="modal fade" id="modalColaboradorEdit" tabindex="-1"
-			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-
-						<h3 class="modal-title">Editar datos del colaborador Courier</h3>
-					</div>
-
-
-					<form id="form-colaborador-edit">
-
-						<input type="hidden" id="idtercero" name="idtercero" value="" />
-
-						<div class="column-formulario-carga">
-
-							<div class="form-group form-group-carga">
-								<label for="nombres"
-									class="col-md-5 control-label carga-content-maxim">Nombres</label>
-								<div class="col-md-7 carga-content-maxim">
-									<input type="text" id="nombres" name="nombres"
-										class="form-control">
-									<div class="result"></div>
-								</div>
-							</div>
-
-							<div class="form-group form-group-carga">
-								<label for="apepaterno"
-									class="col-md-5 control-label carga-content-maxim">Apellido
-									Paterno</label>
-								<div class="col-md-7 carga-content-maxim">
-									<input type="text" id="apepaterno" name="apepaterno"
-										class="form-control">
-									<div class="result"></div>
-								</div>
-							</div>
-
-
-<div class="form-group form-group-carga">
-								<label for="apematerno"
-									class="col-md-5 control-label carga-content-maxim">Apellido
-									Materno</label>
-								<div class="col-md-7 carga-content-maxim">
-									<input type="text" id="apematerno" name="apematerno"
-										class="form-control">
-									<div class="result"></div>
-								</div>
-							</div>
-						</div>
-
-
-						<div class="column-formulario-carga">
-
-							<div class="form-group form-group-carga">
-								<label for=""
-									class="col-md-5 control-label carga-content-maxim required">Tipo
-									de documento de identidad: </label>
-								<div class="col-md-7 carga-content-maxim">
-									<select class="form-control" id="idptipodocumento"
-										name="idptipodocumento"></select>
-									<div class="result"></div>
-								</div>
-							</div>
-
-							<div class="form-group form-group-carga">
-								<label for="nrodocumento"
-									class="col-md-5 control-label carga-content-maxim">Nro
-									Documento</label>
-								<div class="col-md-7 carga-content-maxim">
-									<input type="text" id="nrodocumento" name="nrodocumento"
-										class="form-control">
-									<div class="result"></div>
-								</div>
-							</div>
-
-<div class="form-group form-group-carga">
-								<label for=""
-									class="col-md-5 control-label carga-content-maxim required">Courier </label>
-								<div class="col-md-7 carga-content-maxim">
-									<select class="form-control" id="idcourier" name="idcourier">
-										<option value="{debe ir el codbbva}">Nombre courier</option>
-									</select>
-									<div class="result"></div>
-								</div>
-							</div>
-						</div>
-
-						 
-
-						<div class="row">
-
-							<div class="col-md-12">
-								<div class="col-md-12">
-									<div class="form-group">
-										<label class="col-md-6 control-label" style="padding: 0px;">
-										</label>
-										<div class="col-sm-6 pull-right"
-											style="text-align: right; padding: 0px;">
-											<button type="button" class="btn btn-default"
-												onclick="javascript:salir();">Salir</button>
-
-											<button id="btnRegistrar" type="button"
-												class="btn btn-primary"
-												onclick="javascript:actualizarCourier();">Modificar</button>
-										</div>
-									</div>
-								</div>
-							</div>
-
-						</div>
-
-
-					</form>
-				</div>
-
-
-			</div>
-		</div>
-
-	</div>
-
 	<form id="form-bsqcolaborador">
 		<div class="panel panel-default">
 			<div class="panel-heading">Buscar colaboradores por courier</div>
@@ -141,9 +17,7 @@
 							<label for="idptipodocumento" class="col-md-5 control-label">Tipo
 								de documento</label>
 							<div class="col-md-7">
-								<select class="form-control" id="idptipodocumento"
-									name="idptipodocumento">
-									<option value="{debe ir id de tipo de documento}">DNI</option>
+								<select class="form-control" id="idptipodocumento" name="idptipodocumento">
 								</select>
 							</div>
 						</div>
@@ -151,8 +25,7 @@
 							<label for="nrodocumento" class="col-md-5 control-label">Nro.
 								documento</label>
 							<div class="col-md-7">
-								<input type="text" class="form-control" id="nrodocumento"
-									name="nrodocumento" maxlength="12">
+								<input type="text" class="form-control" id="nrodocumento" name="nrodocumento" maxlength="12">
 							</div>
 						</div>
 					</div>
@@ -161,7 +34,6 @@
 							<label for="idcourier" class="col-md-5 control-label">Courier</label>
 							<div class="col-md-7">
 								<select class="form-control" id="idcourier" name="idcourier">
-									<option value="{debe ir el codbbva}">Nombre courier</option>
 								</select>
 							</div>
 						</div>
@@ -170,7 +42,6 @@
 								del colaborador </label>
 							<div class="col-md-7">
 								<select class="form-control" id="idpestado" name="idpestado">
-									<option>Todos</option>
 								</select>
 							</div>
 						</div>
@@ -200,7 +71,7 @@
 		</div>
 	</form>
 
-	<div id="container-lst-colaboradores-courier" style="margin-top: 20px;">
+	<div id="container-lst-colaboradores-courier" style="margin-top: 20px; display: none;">
 		<table class="table table-hover table-bordered"
 			id="table-lst-colaboradores">
 			<thead>
@@ -208,6 +79,7 @@
 					<th class="text-center">Nro Documento</th>
 					<th class="text-center">Nombre</th>
 					<th class="text-center">Courier</th>
+					<th class="text-center">Estado</th>
 					<th class="text-center">Editar</th>
 				</tr>
 			</thead>
@@ -215,80 +87,75 @@
 			</tbody>
 		</table>
 	</div>
+	
+	<%@include file="/jsp/courier/det-colaboradorcourier.jsp" %>
 </div>
 
-<script
-	src="<%=request.getContextPath()%>/js/bbva/main-deliverytarjetas.js"></script>
-
 <script>
-	$().ready(
-			function() {
+	$().ready(function() {
+		
+		loadModalCargando();
+		
+		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-bsqcolaborador #idptipodocumento',true);
+		
+		callCargaControlParam('DELWEB_ESTADO','form-bsqcolaborador #idpestado',true);
 
-				var paramBsqCourier = new Object();
+		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', {form : 'form-bsqcolaborador'});
+		
+		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-mntcolaborador #idptipodocumento',false);
+		
+		callCargaControlParam('DELWEB_ESTADO','form-mntcolaborador #idpestado',true);
+		
+		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', {form : 'form-mntcolaborador'});
 
-				callCargaControlParam('DELWEB_TIPODOCUMENTO',
-						'form-colaborador-edit #idptipodocumento');
-				callCargaControlParam('DELWEB_TIPODOCUMENTO',
-						'form-bsqcolaborador #idptipodocumento');
-				callCargaControlParam('DELWEB_ESTADO',
-						'form-bsqcolaborador #idpestado');
+		jQuery.validator.addMethod("alphanumeric", function(value,element) {
+			return this.optional(element)|| /^[a-zA-Z0-9]+$/.test(value);
+		});
+		
+		closeModalCargando();
 
-				cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier',
-						'idcourier', {
-							form : 'form-bsqcolaborador'
-						});
-				cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier',
-						'idcourier', {
-							form : 'form-colaborador-edit'
-						});
-
-				jQuery.validator.addMethod("alphanumeric", function(value,
-						element) {
-					return this.optional(element)
-							|| /^[a-zA-Z0-9]+$/.test(value);
-				});
-
-			});
+	});
 
 	function bsqColaborador() {
-
-		var param = new Object();
-		param = $("#form-bsqcolaborador").serializeArray();
+		
+		$("#container-lst-colaboradores-courier").hide();
+		
+		$('#table-lst-colaboradores').dataTable().fnClearTable();
+		$('#table-lst-colaboradores').dataTable().fnDestroy();
+		
+		var param 	= new Object();
+		param 		= $("#form-bsqcolaborador").serializeArray();
 
 		loadModalCargando();
 
 		setTimeout(
 				function() {
-					$
-							.ajax({
-								type : "POST",
-								url : "/DeliveryTarjetas/tercero.do"
-										+ "?method=lstTerceros",
-								cache : false,
-								dataType : "json",
+						$.ajax({
+								type 		: "POST",
+								url 		: "/DeliveryTarjetas/tercero.do?method=lstTerceros",
+								cache 		: false,
+								dataType 	: "json",
 								contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-								async : false,
-								data : param,
-								success : function(rsp) {
+								async 		: false,
+								data 		: param,
+								success 	: function(rsp) {
 
-									var status = rsp.statustx;
-									var message = rsp.messagetx;
-
-									cargarDataTablesColaboradores(rsp.lst);
-									closeModalCargando();
-
-									/*if(status == 0){													
-										if(rsp.lstcolaboradores!= undefined && rsp.lstcolaboradores.lenght > 0)
-											cargarDataTablesColaboradores(rsp.lstcolaboradores);
-									}else
-										loadModalMensaje("Atención",message,null);*/
+													var status = rsp.tx.statustx;
+													var message = rsp.messagetx;
+													
+													closeModalCargando();
+													
+													if(status == 0){													
+														if(rsp.lst!= undefined && rsp.lst.length > 0){
+															$("#container-lst-colaboradores-courier").slideDown(1000);
+															cargarDataTablesColaboradores(rsp.lst);
+														}
+													}else
+														loadModalMensaje("Atención","No se encontraron resultados por la búsqueda realizada",null);
 								},
-								error : function(rsp, xhr, ajaxOptions,
-										thrownError) {
-									closeModalCargando();
-									loadModalMensaje("Error",
-											"ERROR BUSCANDO COLABORADORES",
-											null);
+								error 		: function(rsp, xhr, ajaxOptions, thrownError) {
+													closeModalCargando();
+													loadModalMensaje("Error","ERROR BUSCANDO COLABORADORES",null);
 								}
 							});
 				}, 1000);
@@ -296,68 +163,124 @@
 
 	function cargarDataTablesColaboradores(lstTerceros) {
 
-		$("#table-lst-colaboradores").DataTable(
-				{
-					"order" : [ [ 0, "asc" ] ],
-					"searching" : true,
-					"paging" : true,
-					"bInfo" : true,
-					"bAutoWidth" : false,
-					"oLanguage" : {
-						"sUrl" : "/DeliveryTarjetas/recursos/idioma/es_ES.txt"
-					},
-					"data" : lstTerceros,
-					"columns" : [
-							{
-								"data" : "nrodocumento",
-								"class" : "text-center"
-							},
-							{
-								"orderable" : false,
-								"data" : "nombres",
-								"mRender" : function(data, type, full) {
-									return full.apepaterno + " "
-											+ full.apematerno + ", "
-											+ full.nombres;
-								}
-							}, {
-								"orderable" : false,
-								"data" : "idcourier",
-								"class" : "desktop"
-							}, {
-								"orderable" : false,
-								"sWidth" : "5%",
-								"mRender" : function(data, type, full) {
-									return linkDetalleColaborador(full);
-								}
-							} ],
-					"fnDrawCallback" : function() {
-						mostrarDatatable("#table-lst-colaboradores");
-					}
-				});
+		$("#table-lst-colaboradores").DataTable({
+												"order" 		: [ [ 0, "asc" ] ],
+												"searching" 	: true,
+												"paging" 		: true,
+												"bInfo" 		: true,
+												"bAutoWidth" 	: false,
+												"oLanguage" 	: {"sUrl" : "/DeliveryTarjetas/recursos/idioma/es_ES.txt"},
+												"data" 			: lstTerceros,
+												"columns" 		: [ {
+																		"data"		: "nrodocumento",
+																		"sWidth" 	: "15%",
+																		"class"		: "text-center"
+																	},{
+																		"orderable" : false,
+																		"data" 		: "nombres",
+																		"sWidth" 	: "40%",
+																		"mRender" 	: function(data, type, full) {
+																							return full.nombres + " " + full.apepaterno + " " + full.apematerno; }
+																	}, {
+																		"orderable" : false,
+																		"data" 		: "idcourier",
+																		"sWidth" 	: "20%",
+																		"class" 	: "desktop"
+																	}, {
+																		"orderable" : false,
+																		"data" 		: "idpestado",
+																		"sWidth" 	: "15%"
+																	}, {
+																		"orderable" : false,
+																		"sWidth" 	: "10%",
+																		"mRender" 	: function(data, type, full) {
+																							return linkDetalleColaborador(full); } 
+																	}, {
+																		"orderable" : false,
+																		"data" 		: "idptipodocumento",
+																		"visible"	: false
+																	}, {
+																		"orderable" : false,
+																		"data" 		: "nombres",
+																		"visible"	: false
+																	}, {
+																		"orderable" : false,
+																		"data" 		: "apepaterno",
+																		"visible"	: false
+																	}, {
+																		"orderable" : false,
+																		"data" 		: "apematerno",
+																		"visible"	: false																							
+																	} ],
+												"fnDrawCallback" : function() {
+																		mostrarDatatable("#table-lst-colaboradores");
+												}
+		});
 	}
 
 	function linkDetalleColaborador(full) {
 
 		enlace = "<a data-toggle='modal' "
-				+ "data-target='#modalColaboradorEdit' "
-				+ "onclick='return rowSelected("
-				+ JSON.stringify(JSON.stringify(full)) + ");'>"
-				+ "<i class='i-cobertura'></i>" + "</a>";
+					+ "data-target='#modalEditarColaborador' "
+					+ "onclick='return rowSelected("+ JSON.stringify(JSON.stringify(full)) +");'>"
+					+ "<i class='i-detalle'></i>" 
+				+ "</a>";
 
 		return enlace;
 	}
 
 	function rowSelected(json) {
 		json = JSON.parse(json);
-		$("#form-colaborador-edit #idtercero").val(json.idtercero);
-		$("#form-colaborador-edit #nombres").val(json.nombres);
-		$("#form-colaborador-edit #apepaterno").val(json.apepaterno);
-		$("#form-colaborador-edit #idptipodocumento")
-				.val(json.idptipodocumento);
-		$("#form-colaborador-edit #nrodocumento").val(json.nrodocumento);
-		$("#form-colaborador-edit #apematerno").val(json.apematerno);
-		$("#form-colaborador-edit #idcourier").val(json.idcourier);
+		$("#form-mntcolaborador #idtercero").val(json.idtercero);
+		$("#form-mntcolaborador #nombres").val(json.nombres);
+		$("#form-mntcolaborador #apepaterno").val(json.apepaterno);
+		$("#form-mntcolaborador #idptipodocumento").val(json.idptipodocumento);
+		$("#form-mntcolaborador #nrodocumento").val(json.nrodocumento);
+		$("#form-mntcolaborador #apematerno").val(json.apematerno);
+		$("#form-mntcolaborador #idcourier").val(json.idcourier);
+	}
+	
+	function actualizarColaborador() { 
+		if ($("#form-mntcolaborador").valid()){
+		 
+     		loadModalCargando();
+     		
+     		$.ajax({
+				type 		: "POST",
+				url 		: "/DeliveryTarjetas/tercero.do?method=mntTercero",
+				cache 		: false,
+				dataType 	: "json",
+				contentType	: "application/x-www-form-urlencoded; charset=UTF-8",
+				async 		: false,
+				data 		: $("#form-mntcolaborador").serializeArray(),
+				success 	: function(rsp) {
+					
+									var status 	= rsp.tx.statustx;
+									var message = rsp.tx.messagetx;
 
+									closeModalCargando();
+									
+									if(status == 0)
+										loadModalMensaje("Enhorabuena",
+															message,
+															function(){
+																$("#modalEditarColaborador").modal('hide');
+																bsqColaborador();
+															});										
+
+									else
+										loadModalMensaje("Atención",message,null);
+				},
+				error 		: function(rsp, xhr, ajaxOptions, thrownError) {
+									closeModalCargando();
+									loadModalMensaje("Lo sentimos","Se presentaron problemas al registrar sus cambios. <br> Por favor intentelo en unos minutos.", null);
+				}
+			});
+     						 
+		} else {
+			$.each($('input[type=text], select ,textarea', '#form-mntcourier'),function(k){
+			   validateItems("form-mntcourier", this);
+			});
+		} 
 	}
 </script>

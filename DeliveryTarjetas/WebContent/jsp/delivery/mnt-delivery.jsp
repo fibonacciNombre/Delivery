@@ -78,11 +78,14 @@
 
 <script>
 	
-    $().ready(function(){    	
+    $().ready(function(){    
+    	
+    	loadModalCargando();
+    	
     	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', {form: 'form-bsqdelivery'});
     	
-    	$("#fecentrega").datepicker(
-									{ beforeShow 	: function() {
+    	$("#fecentrega").datepicker({ 
+    								beforeShow 	: function() {
 														setTimeout(function() {
 															$('.ui-datepicker').css({
 																'z-index' : 9999,
@@ -91,13 +94,15 @@
 														}, 0);
 									},
 									onSelect 		: function(dateText, inst) {
-														$("#fecnac_persona").removeClass("error");
+														$("#fecentrega").removeClass("error");
 									}
-		});
-		
+					});
+					
 		$(".calendario").click(function() {
-			$("#fecentrega").datepicker("show");
+									$("#fecentrega").datepicker("show");
 		});
+					
+		closeModalCargando();
 	});
       
 	function bsqDelivery() {

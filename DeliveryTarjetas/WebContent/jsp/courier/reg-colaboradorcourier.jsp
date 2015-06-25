@@ -9,99 +9,7 @@
 	
     <form id="form-registrocolaboradores">
     
-        <div class="row">
-        
-            <div class="col-md-6">
-				<div class="form-group" id="tipdocumento-div">
-                    <label for="idptipodocumento" class="col-md-6 control-label required">Tipo de documento </label>
-                    <div class="col-md-12">
-                        <select class="form-control" id="idptipodocumento" name="idptipodocumento"> 
-						 	<option value="{debe ir id de tipo de documento}">DNI</option>                       	
-                   		</select>
-                        <div class="result"></div>
-                    </div>
-                </div>
-                
-                <div class="form-group" id="nrodocumento-div">
-                    <label for="nrodocumento" class="col-md-6 control-label required">Nro. documento </label>
-                    <div class="col-md-12">
-                        <input type="text" class="form-control" id="nrodocumento"  name="nrodocumento" maxlength="12">
-                        <div class="result"></div>
-                    </div>
-                </div>
-                
-                <div class="form-group" id="nombres-div">
-                    <label for="nombres" class="col-md-6 control-label required">Nombres </label>
-                    <div class="col-md-12">
-                        <input type="text" class="form-control" id="nombres" name="nombres" maxlength="200">
-                        <div class="result"></div>
-                    </div>
-                </div>
-                
-                <div class="form-group" id="apepaterno-div">
-                    <label for="apepaterno" class="col-md-6 control-label required">Apellido paterno </label>
-                    <div class="col-md-12">
-                        <input type="text" class="form-control" id="apepaterno" name="apepaterno" maxlength="200">
-                        <div class="result"></div>
-                    </div>
-                </div>	
-                
-                <div class="form-group" id="apematerno-div">
-                    <label for="apematerno" class="col-md-6 control-label required">Apellido materno </label>
-                    <div class="col-md-12">
-                        <input type="text" class="form-control" id="apematerno" name="apematerno" maxlength="200">
-                        <div class="result"></div>
-                    </div>
-                </div>		
-			</div>
-			
-			<div class="col-md-6">
-                <div class="form-group" id="codbbva-div">
-                    <label for=idcourier" class="col-md-6 control-label required">Courier </label>
-                    <div class="col-md-12">
-                        <select class="form-control" id="idcourier" name="idcourier"> 
-						 	<option value="{debe ir el idcourier">Nombre courier</option>                       	
-                   		</select>
-                        <div class="result"></div>
-                    </div>
-                </div>
-                                
-                <div class="form-group" id="nummovil-div">
-                    <label for="nummovil" class="col-md-6 control-label required">Teléfono móvil </label>
-                    <div class="col-md-12">
-                        <input type="text" class="form-control" id="nummovil" name="nummovil" maxlength="9">
-                        <div class="result"></div>
-                    </div>
-                </div>
-                
-                <div class="form-group" id="email-div">
-                    <label for="email" class="col-md-6 control-label required">Correo electrónico </label>
-                    <div class="col-md-12">
-                        <input type="text" class="form-control" id="email"  name="email" maxlength="200">
-                        <div class="result"></div>
-                    </div>
-                </div>
-                
-                <div class="form-group" id="estado-div">
-                    <label for="idpestado" class="col-md-6 control-label required">Estado </label>
-                    <div class="col-md-12">
-                        <select class="form-control" id="idpestado" name="idpestado">  
-                        	<option value="{debe ir id del estado}">ESTADO</option>                      	
-                        </select>
-                        <div class="result"></div>
-                    </div>
-                </div>
-			</div>
-			
-            <div class="col-md-12">
-           		<div class="form-group" style="margin-bottom: 0px; font-size: 11px; font-style: italic; font-weight: bold;">
-	             	<label for="*" class="col-md-6 control-label">
-	             		<span>(<label class="required"></label>) Campos obligatorios</span>
-	             	</label>                	
-            	</div>
-            </div>
-                        
-        </div>
+        <%@include file="/jsp/courier/form-colaboradorcourier.jsp" %>
         
         <div class="row">
         
@@ -134,14 +42,15 @@
     
 </div>
 
-<script src="<%=request.getContextPath()%>/js/bbva/main-deliverytarjetas.js"></script>
-
 <script>
 	
     $().ready(function(){
     	
-		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-registrocolaboradores #idptipodocumento'); 
-    	callCargaControlParam('DELWEB_ESTADO','form-registrocolaboradores #idpestado');
+    	loadModalCargando();
+    	
+		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-registrocolaboradores #idptipodocumento',false); 
+    	
+		callCargaControlParam('DELWEB_ESTADO','form-registrocolaboradores #idpestado',false);
     	 
     	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', {form: 'form-registrocolaboradores'});
 		
@@ -152,9 +61,9 @@
 		$("#form-registrocolaboradores").validate({
 			rules : {
 
-				codbbva 			: {				required 	: true },
+				idcourier 			: {				required 	: true },
 				
-				tipdocumento 		: {				required 	: true },
+				idptipodocumento 	: {				required 	: true },
 				
 				nrodocumento 		: {				required 	: true,
 													digits 	 	: true,
@@ -166,17 +75,19 @@
 				
 				apematerno	 		: {				required 	: true },
 				
-				nummovil 			: {				required 	: true,
+				telfmovil 			: {				required 	: true,
 													digits 	 	: true,
 													minlength 	: 9 },
 													
-				email 				: {				required 	: true,
-													email		: true}				
+				correo 				: {				required 	: true,
+													email		: true },
+													
+				idpestado 			: {				required 	: true }
 			},
 			messages : {
-				codbbva 			: {				required 	: "Debes seleccionar un código BBVA del Courier" },
+				idcourier 			: {				required 	: "Debes seleccionar un courier" },
 				
-				tipdocumento 		: {				required 	: "Debes seleccionar un tipo de documento" },
+				idptipodocumento 	: {				required 	: "Debes seleccionar un tipo de documento" },
 				
 				nrodocumento 		: {				required 	: "Debes ingresar un nro. de documento",
 													digits 	 	: "Debes ingresar sólo números",
@@ -188,21 +99,21 @@
 				
 				apematerno 			: {				required 	: "Debes ingresar el apellido materno" },
 				
-				nummovil 			: {				required 	: "Debes ingresar un teléfono móvil",
+				telfmovil 			: {				required 	: "Debes ingresar un teléfono móvil",
 													digits 	 	: "Debes ingresar sólo números",
 													minlength 	: "Debes ingresar un mínimo de 9 dígitos" },
 													
-				email 				: {
+				correo 				: {
 													required 	: "Debes ingresar un email",
-													email		: "Debes ingresar formato de email válido"}
+													email		: "Debes ingresar formato de email válido"},
+				
+				idpestado 			: {				required 	: "Debes seleccionar un estado" }													
 			}
 		});	
 		
+		closeModalCargando();
 	});
     
-	
-   
-	
 	function registrarColaboradorxCourier(){
 
 		var $inputs = $('#form-registrocolaboradores :input');
@@ -237,21 +148,21 @@
 								data 		: param,
 								success 	: function(rsp){
 								
-									var status 	= rsp.statustx;
-									var message = rsp.messagetx;
-
-									closeModalCargando();
-									
-									if(status == 0){
-										loadModalMensaje("Felicitaciones", message, function(){
-											$("#view-reg-courier").click();	
-										});																										
-									}else
-										loadModalMensaje("Atención",message,null);
+													var status 	= rsp.tx.statustx;
+													var message = rsp.tx.messagetx;
+				
+													closeModalCargando();
+													
+													if(status == 0){
+														loadModalMensaje("Enhorabuena", message, function(){
+															$("#view-reg-colaborador").click();	
+														});																										
+													}else
+														loadModalMensaje("Atención",message,null);
 								},						
 								error: function (rsp, xhr, ajaxOptions, thrownError) {
 									closeModalCargando();
-									loadModalMensaje("Error","ERROR REGISTRANDO AL COLABORADOR DEL COURIER",null);								
+									loadModalMensaje("Error","Se presentaron problemas al registrar al colaborador. <br> Por favor intentelo en unos minutos.",null);								
 								}			
 							});		    					    				
 	  				},1000);    			    		

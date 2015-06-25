@@ -42,9 +42,9 @@
 											
 					<div class="col-md-6">						
 						<div class="form-group">
-							<label for="tipdocumento" class="col-md-6 control-label">Tipo documento del responsable</label>
+							<label for="idptipodocumento" class="col-md-6 control-label">Tipo documento del responsable</label>
 							<div class="col-md-6">
-								<select class="form-control" id="tipdocumento" name="tipdocumento"> 
+								<select class="form-control" id="idptipodocumento" name="idptipodocumento"> 
 								 	<option value="{debe ir id de tipo de documento}">DNI</option>                       	
 		                   		</select>
 							</div>
@@ -86,10 +86,17 @@
 	
     $().ready(function(){
     	
+    	if(CTE_LOAD_INIT == 0)
+    		loadModalCargando();
+    	else
+    		CTE_LOAD_INIT = 0;
+    	
 		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', {form: 'form-lstdelivery'});
     	
-    	$("#fecentrega").datepicker(
-									{ beforeShow 	: function() {
+		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-lstdelivery #idptipodocumento', true);
+		
+    	$("#fecentrega").datepicker({ 
+    								beforeShow 	: function() {
 														setTimeout(function() {
 															$('.ui-datepicker').css({
 																'z-index' : 9999,
@@ -98,13 +105,15 @@
 														}, 0);
 									},
 									onSelect 		: function(dateText, inst) {
-														$("#fecnac_persona").removeClass("error");
+														$("#fecentrega").removeClass("error");
 									}
 		});
 		
 		$(".calendario").click(function() {
-			$("#fecentrega").datepicker("show");
+									$("#fecentrega").datepicker("show");
 		});
+		
+		closeModalCargando();
     });	
     
 </script>

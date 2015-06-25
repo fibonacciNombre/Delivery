@@ -1,4 +1,4 @@
-package bbva.delivery.tarjetas.tercero.controller;
+package bbva.delivery.tarjetas.perfil.controller;
 
 import java.util.List;
 
@@ -13,20 +13,20 @@ import org.springframework.web.servlet.ModelAndView;
 import bbva.delivery.tarjetas.anotaciones.AdviceController;
 import bbva.delivery.tarjetas.commons.Constants;
 import bbva.delivery.tarjetas.comun.bean.TransaccionWeb;
-import bbva.delivery.tarjetas.courier.bean.Courier;
-import bbva.delivery.tarjetas.tercero.bean.Tercero;
-import bbva.delivery.tarjetas.tercero.service.TerceroService;
+import bbva.delivery.tarjetas.comun.service.ComunService;
+import bbva.delivery.tarjetas.perfil.bean.Perfil;
+import bbva.delivery.tarjetas.perfil.service.PerfilService;
 
 import commons.framework.BaseController;
 import commons.web.UtilWeb;
 
 @AdviceController
-public class TerceroController extends BaseController {
+public class PerfilController extends BaseController {
 	
-	private static Logger logger = Logger.getLogger(TerceroController.class.getName());
+	private static Logger logger = Logger.getLogger(PerfilController.class.getName());
 	
 	@Autowired
-	private TerceroService terceroService;
+	private PerfilService perfilService;
 	
 	@Override 
 	public ModelAndView buscar(HttpServletRequest request,HttpServletResponse response) {return null;}
@@ -37,84 +37,86 @@ public class TerceroController extends BaseController {
 	@Override
 	public ModelAndView save(HttpServletRequest request,HttpServletResponse response) {return null;}
 	
-	
-	public void lstTerceros(HttpServletRequest request,
+	public void lstPerfil(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		logger.info("Controller lstTerceros");
+		logger.info("Controller lstPerfil");
 		
 		String result				= "";
-		String lsttercero			= "";
-		List<Tercero> listaTercero 	= null;
+		String lstperfiles 			= "\"\"";
+		List<Perfil> listaPerfiles 	= null;
 		TransaccionWeb tx			= new TransaccionWeb();				
-		Tercero tercero 			=  new Tercero(request.getParameterMap());
+		Perfil perfil 				= new Perfil(request.getParameterMap());
 
 		try {
-		
-			listaTercero = terceroService.lstTerceros(tercero);
-			lsttercero = commons.web.UtilWeb.listaToArrayJson(listaTercero, null, Tercero.class.getName());
+			
+			listaPerfiles 	= perfilService.lstPerfiles(perfil);
+			
+			if(listaPerfiles != null && listaPerfiles.size() > 0)
+				lstperfiles 	= UtilWeb.listaToArrayJson(listaPerfiles, null, Perfil.class.getName());			
 			
 		} catch (Error e) {
 			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
-			lsttercero = "{" + e.getMessage() + "}";
+			lstperfiles = "{" + e.getMessage() + "}";
 		}
-
+		
 		result += "{"
 					+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
-					+ "\"lst\":" + lsttercero 
+					+ "\"lst\":" + lstperfiles 
 					+ "}";
 		
 		this.escribirTextoSalida(response, result);
 
 	}
 
-	public void obtTercero(HttpServletRequest request,
+	public void obtPerfil(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		logger.info("Controller obtTercero");
+		logger.info("Controller obtPerfil");
 		
 		String result				= "";
-		String lsttercero			= "";
-		List<Tercero> listaTercero 	= null;
-		TransaccionWeb tx			= new TransaccionWeb();				
-		Tercero tercero 			= new Tercero(request.getParameterMap());
+		String lstperfil 			= "";
+		List<Perfil> listaPerfil 	= null;
+		TransaccionWeb tx			= new TransaccionWeb();						
+		Perfil perfil 				= new Perfil(request.getParameterMap());
 
 		try {
 			
-			listaTercero 	= terceroService.obtTercero(tercero);
-			lsttercero 		= commons.web.UtilWeb.listaToJson(listaTercero, null, Courier.class.getName());
+			listaPerfil 	= perfilService.obtPerfil(perfil);
+			lstperfil 		= UtilWeb.listaToJson(listaPerfil, null, Perfil.class.getName());
 			
 		} catch (Error e) {
 			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
-			lsttercero = "{" + e.getMessage() + "}";
+			lstperfil = "{" + e.getMessage() + "}";
 		}
 
 		result += "{"
-					+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
-					+ "\"lst\":" + lsttercero 
-					+ "}";
+				+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+				+ "\"lst\":" + lstperfil 
+				+ "}";
 		
 		this.escribirTextoSalida(response, result);
+
 	}
 
-	public void mntTercero(HttpServletRequest request,
+	public void mntPerfil(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-
-		logger.info("Controller mntTercero");
+		
+		logger.info("Controller mntCourier");
 		
 		String result			= "";
 		HttpSession session 	= request.getSession();
-		TransaccionWeb tx		= new TransaccionWeb();			
+		TransaccionWeb tx		= new TransaccionWeb();				
+		Perfil perfil 			= new Perfil(request.getParameterMap());
 		
-		Tercero tercero 		=  new Tercero(request.getParameterMap());
-		
-//		Usuario usuario = (Usuario) session.getAttribute(Constants.REQ_SESSION_USUARIO);
-//		Courier courier = (Courier) session.getAttribute(Constants.REQ_SESSION_COURIER);
-		tercero.setUsuario("BBVA");
+		//String usuario = session.getAttribute(Constants.REQ_SESSION_USUARIO).toString();
+		perfil.setUsucreacion("BBVA");
 		
 		try {
-			terceroService.mntTercero(tercero);
+			
+			perfilService.mntPerfil(perfil);			
 			tx.setMessagetx("Su transacción fue realizada con éxito");
+			
 		} catch (Error e) {
 			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
 		}

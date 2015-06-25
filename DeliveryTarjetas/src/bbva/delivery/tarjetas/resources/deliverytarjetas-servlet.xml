@@ -25,6 +25,7 @@
 				<prop key="/comun.do">comunController</prop>
 				<prop key="/courier.do">courierController</prop>
 				<prop key="/delivery.do">deliveryController</prop>
+				<prop key="/perfil.do">perfilController</prop>
 				<prop key="/tercero.do">terceroController</prop>				
 				<prop key="/usuario.do">usuarioController</prop>				
 			</props>
@@ -40,6 +41,10 @@
 	</bean>
 	
 	<bean id="courierController" 		class="bbva.delivery.tarjetas.courier.controller.CourierController">
+		<property name="methodNameResolver" ref="methodNameResolver" />
+	</bean>
+	
+	<bean id="perfilController" 		class="bbva.delivery.tarjetas.perfil.controller.PerfilController">
 		<property name="methodNameResolver" ref="methodNameResolver" />
 	</bean>
 	

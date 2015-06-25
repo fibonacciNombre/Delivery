@@ -26,7 +26,7 @@ function callServiceByPOST(queryUrl, isAsync, dataToSend, callbackSuccess, callC
 	callService("POST", queryUrl, isAsync, dataToSend, callbackSuccess,callComplete, callError);
 }
 
-function callCargaControlParam(ideParametro,ideControl){
+function callCargaControlParam(ideParametro,ideControl, valorEmpty){
 	
 	var param 		= new Object();
 	param.idparametrotipo 		= ideParametro;
@@ -40,8 +40,11 @@ function callCargaControlParam(ideParametro,ideControl){
 		contentType : "application/x-www-form-urlencoded;charset=utf-8",
 		data		: param,
 		success 	: function(rsp) {
-		
-			llenarCombo(ideControl, rsp, true);
+							var status 	= rsp.tx.statustx;
+							var message = rsp.tx.messagetx;
+							
+							if(status==0)
+								llenarCombo(ideControl, rsp.lst, valorEmpty);
 		
 		},
 		error : function(xhr, ajaxOptions, thrownError) {}
@@ -198,31 +201,31 @@ function cargarCombo(url, method, combo, config, comboPadre) {
 
 	var param = new Object();
 
-	for ( var key in config) {
+	for ( var key in config)
 		param[key] = config[key];
-	}
-
+	
 	if (config.argPadre && comboPadre)
 		param[config.argPadre] = comboPadre.value;
 
 	combo = config.form ? config.form + ' #' + combo : '#' + combo;
 
 	$.ajax({
-		type : "POST",
-		url : url + "?method=" + method,
-		cache : false,
-		dataType : "json",
-		contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-		async : false,
-		data : param,
-		success : function(rsp) {
-			llenarCombo2(combo, rsp.lst, true);
+		type 			: "POST",
+		url 			: url + "?method=" + method,
+		cache 			: false,
+		dataType 		: "json",
+		contentType 	: "application/x-www-form-urlencoded; charset=UTF-8",
+		async 			: false,
+		data 			: param,
+		success 		: function(rsp) {
+								var status 	= rsp.tx.statustx;
+								if(status==0)
+									llenarCombo2(combo, rsp.lst, true);
 		},
-		error : function(xhr, ajaxOptions, thrownError) {
-			loadModalMensaje('Lo sentimos',
-					'Hubo un error en el procesamiento de datos.',
-					function() {
-					});
+		error			: function(xhr, ajaxOptions, thrownError) {
+								loadModalMensaje('Lo sentimos',
+													'Hubo un error en el procesamiento de datos.',
+													function() {});
 		}
 	});
 }
