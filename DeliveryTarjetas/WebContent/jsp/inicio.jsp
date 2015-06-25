@@ -59,7 +59,7 @@
 	
 			$().ready(function(){ 
 				
-				//$("#header").hide();
+				$("#header").hide();
 
 				loadModalCargando();
 				
