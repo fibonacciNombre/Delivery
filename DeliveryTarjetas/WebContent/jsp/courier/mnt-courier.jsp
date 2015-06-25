@@ -176,7 +176,7 @@
 																	"class" 	: "desktop"
 																}, {
 																	"orderable" : false,
-																	"data" 		: "idpestado",
+																	"data" 		: "dscestado",
 																	"sWidth" 	: "15%",
 																	"class" 	: "text-center"
 																}, {
@@ -192,9 +192,7 @@
 	}
 	
 	function linkDetalleCourier(data,full) {
-		console.log(data);
-		console.log(full);
-		enlace = "<a data-toggle='modal' " 
+	 	enlace = "<a data-toggle='modal' " 
 					+ "data-target='#modalEditarCourier' "
 					+ "onclick='return rowSelected("+JSON.stringify(JSON.stringify(full))+");'>" 
 					+ "<i class='i-detalle'></i>" + 

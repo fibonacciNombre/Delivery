@@ -24,6 +24,8 @@ public class Courier implements Serializable {
  
 	private String historial;
 	
+	private String dscestado;
+	
 	@SuppressWarnings("rawtypes")
 	public Courier(Map map) throws Exception {
 	    ResourceManager.populateDtoFromMap(this, map);
@@ -123,6 +125,12 @@ public class Courier implements Serializable {
 				+ ", nrodocumentocou=" + nrodocumentocou
 				+ ", idptipodocumento=" + idptipodocumento + ", direccion="
 				+ direccion + ", usuario=" + usuario + "]";
+	}
+	public String getDscestado() {
+		return dscestado;
+	}
+	public void setDscestado(String dscestado) {
+		this.dscestado = dscestado;
 	}
 	
 	
