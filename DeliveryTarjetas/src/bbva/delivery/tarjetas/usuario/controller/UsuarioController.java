@@ -24,7 +24,7 @@ import bbva.delivery.tarjetas.perfil.bean.Perfil;
 import bbva.delivery.tarjetas.perfil.service.PerfilService;
 import bbva.delivery.tarjetas.tercero.bean.Tercero;
 import bbva.delivery.tarjetas.tercero.service.TerceroService;
-import bbva.delivery.tarjetas.usuario.bean.Loginweb;
+import bbva.delivery.tarjetas.usuario.bean.LoginWeb;
 import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
 import bbva.delivery.tarjetas.util.AESHelper;
@@ -171,6 +171,9 @@ public class UsuarioController extends BaseController {
 			usuarioService.mntUsuario(usuario);
 			
 			tx.setMessagetx("Su transaccion fue realizada con exito");
+
+
+			
 			
 		} catch (Error e) {
 			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
