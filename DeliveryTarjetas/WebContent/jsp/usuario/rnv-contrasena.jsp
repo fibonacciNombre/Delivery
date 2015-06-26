@@ -16,26 +16,25 @@
 				</div>
 			
 				<div class="col-md-7">
-			  		<div class="form-group">
-				   			
-				   			<label for="inputNuevacontrasena" class="col-sm-5 control-label">Nueva contraseña:</label>
-				   			<div class="col-sm-7">
-				   				<input type="password" name="nuevacontrasena" id="nuevacontrasena" class="form-control">
-				   				<div class="resutl"></div>
-				   			</div>
+			  		<div class="form-group">				   			
+			   			<label for="inputNuevacontrasena" class="col-sm-5 control-label">Nueva contraseña:</label>
+			   			<div class="col-sm-7">
+			   				<input type="password" name="nuevacontrasena" id="nuevacontrasena" class="form-control">
+			   				<div class="resutl"></div>
+			   			</div>
 				   	</div>
 				   	<div class="form-group">
-				   			<label for="inputConfirmarcontrasena" class="col-sm-5 control-label">Confirmar contraseña:</label>
-				   			<div class="col-sm-7">
-				   				<input type="password" name="confirmarcontrasena" id="confirmarcontrasena" class="form-control">
-				   				<div class="resutl"></div>
-				   			</div>
+			   			<label for="inputConfirmarcontrasena" class="col-sm-5 control-label">Confirmar contraseña:</label>
+			   			<div class="col-sm-7">
+			   				<input type="password" name="confirmarcontrasena" id="confirmarcontrasena" class="form-control">
+			   				<div class="resutl"></div>
+			   			</div>
 				   	</div>
 				</div>
 				
 			    <div class="col-md-5">
 			   		<p>
-			   			Una contraseña segura está compuesta de 8 a 12 caracteres.
+			   			Una contraseña segura está compuesta de 5 a 12 caracteres.
 			   		</p>
 			   		<p>
 			   			Diferencia entre mayúsculas y minúsculas.
@@ -74,7 +73,7 @@
 			rules			: {
 								nuevacontrasena	: {
 										required 		: true,
-										minlength 		: 8,
+										minlength 		: 5,
 										maxlength 		: 12,
 										sinespacios		: true
 								},
@@ -85,7 +84,7 @@
 			messages 		: {
 								nuevacontrasena 	: {
 										required		: "Campo obligatorio",
-										minlength 		: "Ingrese minimo 8 caracteres",
+										minlength 		: "Ingrese minimo 5 caracteres",
 										maxlength 		: "Ingrese máximo 12 caracteres",
 										sinespacios		: "No se permiten espacios en blanco"
 								},
@@ -107,11 +106,13 @@
 			
 			setTimeout( function() {
 							
-							CTE_JSON_USUARIOWEB.password = $("#nuevacontrasena").val();
+							CTE_JSON_USUARIOWEB.contrasena = $("#nuevacontrasena").val();
+							
+							console.log(CTE_JSON_USUARIOWEB);
 							
 							$.ajax({
 								type 		: "POST",
-								url 		: "/DeliveryTarjetas/usuario.do"+"?method=actContrasena",
+								url 		: "/DeliveryTarjetas/usuario.do"+"?method=mntContrasena",
 								cache 		: false ,
 								dataType	: "json",
 								contentType : "application/x-www-form-urlencoded; charset=UTF-8",
@@ -127,13 +128,22 @@
 												if(statustx == 0){
 													$("#modalPrimerLogueo").modal('hide');
 													
-													loadModalMensaje("Felicitaciones","Haz culminado satisfactoriamente el registro de tu contraseña",
+													loadModalMensaje("Enhorabuena","Haz culminado satisfactoriamente el registro de tu contraseña",
 																		function(){
+																			
+																			$("#modalRenovarContrasena").modal('hide');
+																			
 																			loadModalCargando();
-		
-																			$(".content-rws").load("/DeliveryTarjetas/delivery.do?method=goHomePage",function(){});
+																			
+																			CTE_LOAD_INIT = 1;
+																			
+																			obtDatosUsuarioSesion();
+																			
+																			$("#panelDelivery").click();
+																			
+																			$("#view-lst-entrega").click();
 																					
-																	});														
+																		});														
 												}else
 													loadModalMensaje("Mensaje",messagetx,null); 							 
 								},
@@ -147,5 +157,4 @@
 					  }, 1000);			
 		}
 	}
-
 </script>

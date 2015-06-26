@@ -23,8 +23,7 @@ public class CourierServiceImp implements CourierService {
 	
 	@Autowired 
 	private CourierDao courierDao;
-	
-	
+
 	@Override
 	public void mntCourier(Courier courier) {
 		 

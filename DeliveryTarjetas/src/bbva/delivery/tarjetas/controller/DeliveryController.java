@@ -1,22 +1,37 @@
 package bbva.delivery.tarjetas.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import bbva.delivery.tarjetas.anotaciones.AdviceController;
 import bbva.delivery.tarjetas.bean.Archivo;
-import bbva.delivery.tarjetas.bean.Delivery; 
+import bbva.delivery.tarjetas.bean.Delivery;
+import bbva.delivery.tarjetas.commons.Constants;
+import bbva.delivery.tarjetas.comun.bean.TransaccionWeb;
 import bbva.delivery.tarjetas.comun.service.ComunService;
+import bbva.delivery.tarjetas.courier.bean.Courier;
 import bbva.delivery.tarjetas.service.DeliveryService;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
 import commons.framework.BaseController;
+import commons.web.UtilWeb;
 
 @AdviceController
 public class DeliveryController extends BaseController{
@@ -43,21 +58,21 @@ public class DeliveryController extends BaseController{
 	public String goCargaDelivery(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		System.out.println("goCargaDelivery	-->		carga-delivery.jsp");
-		return "courier/carga-delivery";
+		return "delivery/carga-delivery";
 	}
 	
 	public String goMntCargaDelivery(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 
 		System.out.println("goCargaDelivery	-->		mnt-carga-delivery.jsp");
-		return "courier/mnt-carga-delivery";
+		return "delivery/mnt-delivery";
 
 	}
 	
 	public String golstDelivery(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		System.out.println("goCargaDelivery	-->		carga-delivery.jsp");
-		return "courier/lst-delivery";
+		return "delivery/lst-delivery";
 
 	}
 	
@@ -75,6 +90,31 @@ public class DeliveryController extends BaseController{
 		this.escribirTextoSalida(response, joRetorno.toString());
 	}
 
+	public void mntDelivery(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+	 
+		String result			= "";
+		HttpSession session 	= request.getSession();
+		TransaccionWeb tx		= new TransaccionWeb();				
+		Delivery delivery = new Delivery(request.getParameterMap());
+		
+		//String usuario = session.getAttribute(Constants.REQ_SESSION_USUARIO).toString();
+	 	
+		try {
+			
+			deliveryService.mntDelivery(delivery);			
+			tx.setMessagetx("Su transacción fue realizada con éxito");
+			
+		} catch (Error e) {
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+		}
+
+		result += "{\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) +"}";
+		
+		this.escribirTextoSalida(response, result);
+	}
+	
 	public void lstDelivery(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
@@ -96,6 +136,54 @@ public class DeliveryController extends BaseController{
 		this.escribirTextoSalida(response, lstcarga);
 		 
 	} 
+	
+	@SuppressWarnings("rawtypes")
+	public void uploadFile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		System.out.println("Into uploadFile method");
+		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+		JSONObject joRetorno = new JSONObject();
+		Archivo archivo = new Archivo();
+		Integer idcourier = Integer.parseInt(request.getParameter("idcourier"));
+		String fecentrega=request.getParameter("fecentrega");
+		String tipoarchivo=request.getParameter("tipoarchivo");
+		archivo.setIdcourier(idcourier);
+		archivo.setTipoarchivo(tipoarchivo);
+		archivo.setFecentrega(fecentrega);
+		if (isMultipart) {
+
+			FileItemFactory factory = new DiskFileItemFactory();
+			ServletFileUpload upload = new ServletFileUpload(factory);
+
+			try {
+				List items = upload.parseRequest(request);
+				Iterator iterator = items.iterator();
+				while (iterator.hasNext()) {
+					FileItem item = (FileItem) iterator.next();
+					MultipartFile f = new CommonsMultipartFile(item);
+					
+					System.out.println("nombre --> "+ item.getName());
+					System.out.println("getOriginalFilename --> "+ f.getOriginalFilename());
+					System.out.println("getOriginalFilename --> "+ f.getInputStream());
+ 
+						archivo.setFilename(f.getOriginalFilename());
+						
+						joRetorno = deliveryService.cargarExcelDelivery2(f, archivo);
+						
+				//	}
+				}
+				
+				
+
+				this.escribirTextoSalida(response, joRetorno.toString());
+				
+			} catch (FileUploadException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}			
+		}
+	}
 	
 
 	

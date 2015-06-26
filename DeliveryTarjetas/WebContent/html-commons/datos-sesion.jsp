@@ -3,9 +3,11 @@
 <div id="datos-cliente" class="header-section2">
 	<form method="post" id="formlogout" name="formlogout" action="/DeliveryTarjetas/usuario.do?method=logout" >
 		<div id="header-section2">
-			<i class="m-icn-locked"></i>			
+			<%-- 
+			<i class="m-icn-locked"></i>
+			--%>			
 			<span id="avatar">
-				<span id="nombreUsuarioHeader"></span>
+				<span id="nombreUsuarioHeader" class="vineta-avatar"></span>
 			</span>
 			<input id="logout" 		name="logout" 		type="button" 	value="" onclick="javascript:cerrarSession();"/>
 		</div>

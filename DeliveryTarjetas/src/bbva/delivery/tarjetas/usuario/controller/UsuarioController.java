@@ -8,6 +8,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import bbva.delivery.tarjetas.anotaciones.AdviceController;
@@ -16,13 +20,17 @@ import bbva.delivery.tarjetas.comun.bean.TransaccionWeb;
 import bbva.delivery.tarjetas.comun.service.ComunService;
 import bbva.delivery.tarjetas.courier.bean.Courier;
 import bbva.delivery.tarjetas.courier.service.CourierService;
+import bbva.delivery.tarjetas.perfil.bean.Perfil;
+import bbva.delivery.tarjetas.perfil.service.PerfilService;
 import bbva.delivery.tarjetas.tercero.bean.Tercero;
 import bbva.delivery.tarjetas.tercero.service.TerceroService;
 import bbva.delivery.tarjetas.usuario.bean.LoginWeb;
-import bbva.delivery.tarjetas.usuario.bean.Perfil;
-import bbva.delivery.tarjetas.usuario.bean.UsuarioWeb;
+import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
+import bbva.delivery.tarjetas.util.AESHelper;
+
 import commons.framework.BaseController;
+import commons.web.UtilWeb;
 
 @AdviceController
 public class UsuarioController extends BaseController {
@@ -34,6 +42,9 @@ public class UsuarioController extends BaseController {
 
 	@Autowired
 	private CourierService courierService;
+	
+	@Autowired
+	private PerfilService perfilService;
 	
 	@Autowired
 	private TerceroService terceroService;
@@ -91,6 +102,87 @@ public class UsuarioController extends BaseController {
 		System.out.println("goActContrasena	-->		act-contrasena.jsp");
 		return "usuario/act-contrasena"; 
 	}
+	
+	public void lstUsuarios(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+		logger.info("Controller lstCourier");
+		
+		String result				= "";
+		String lstusuario 			= "";
+		List<Usuario> listaUsuario 	= null;
+		TransaccionWeb tx			= new TransaccionWeb();				
+		Usuario usuario 			= new Usuario(request.getParameterMap()); 
+ 
+			
+					
+			try {
+				
+				listaUsuario 	= usuarioService.lstUsuarios(usuario);
+				
+				lstusuario 		= UtilWeb.listaToArrayJson(listaUsuario, null, Usuario.class.getName());			
+						
+				
+			} catch (Error e) {
+				tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+				lstusuario = "{" + e.getMessage() + "}";
+			}
+			
+			result += "{"
+						+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+						+ "\"lst\":" + lstusuario 
+						+ "}";
+			
+			this.escribirTextoSalida(response, result);
+
+	}
+	
+	@RequestMapping(value = "/addUsuario", method = RequestMethod.POST, produces = "application/json")
+	@ResponseBody
+	public Usuario addUsuario(@RequestBody Usuario usuario,
+			HttpServletResponse response, HttpServletRequest request)
+			throws Exception {
+
+		System.out.println("header aaaaaaaaaa   --> " + request.getHeader("Authorization"));
+		return usuarioService.addUsuario(usuario);
+
+	}
+ 
+	public void mntUsuario(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+		logger.info("Controller mntUsario");
+		
+		String result			= "";
+		HttpSession session 	= request.getSession();
+		TransaccionWeb tx		= new TransaccionWeb();
+		Tercero tercero			= new Tercero(request.getParameterMap());
+		Usuario usuario 		= new Usuario(request.getParameterMap());
+		
+		//String usuario = session.getAttribute(Constants.REQ_SESSION_USUARIO).toString();
+		usuario.setUsuario("BBVA");
+		
+		try {
+			
+			terceroService.mntTercero(tercero);
+			
+			usuario.setIdtercero(tercero.getIdtercero());
+			
+			usuarioService.mntUsuario(usuario);
+			
+			tx.setMessagetx("Su transaccion fue realizada con exito");
+			
+		} catch (Error e) {
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+		}
+
+		result += "{\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + "," +
+					"\"usuario\":"+ UtilWeb.objectToJson(usuario, null, Usuario.class.getName()) + "}";
+		
+		this.escribirTextoSalida(response, result);
+		 
+	}
+	
 	public void login(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
 		String escenarioLogin 			= "";
@@ -106,7 +198,7 @@ public class UsuarioController extends BaseController {
 			
 			loginWeb 				= new LoginWeb(request.getParameterMap());
 			
-			UsuarioWeb usuarioWeb 	= usuarioService.autenticarUsuario(loginWeb);
+			Usuario usuario 		= usuarioService.autenticarUsuario(loginWeb);
 			
 			escenarioLogin 			= loginWeb.getEscenario();
 			
@@ -115,7 +207,7 @@ public class UsuarioController extends BaseController {
 			System.out.println("Resultado del logueo	: " + escenarioLogin);
 			
 			session.setAttribute(Constants.REQ_SESSION_LOGINWEB, loginWeb);
-			session.setAttribute(Constants.REQ_SESSION_USUARIO, usuarioWeb);
+			session.setAttribute(Constants.REQ_SESSION_USUARIO, usuario);
 			
 			if( escenarioLogin.equals(Constants.ESCENARIO_LOGIN_ACCESOS_CORRECTOS) ){
 				loginWeb.setUrldestino("jsp/inicio.jsp");
@@ -171,7 +263,7 @@ public class UsuarioController extends BaseController {
 		HttpSession session			= request.getSession();
 		
 		String result				= "";
-		UsuarioWeb usuarioWeb		= null;
+		Usuario usuario		= null;
 		Perfil perfil				= new Perfil();
 		Courier courier				= new Courier();
 		Tercero tercero				= new Tercero();
@@ -182,27 +274,31 @@ public class UsuarioController extends BaseController {
 		String jsonTercero			= "\"Tercero\":[";
 		String jsonCourier			= "\"Courier\":[";
 		
-		usuarioWeb	= (UsuarioWeb) session.getAttribute(Constants.REQ_SESSION_USUARIO);
+		usuario	= (Usuario) session.getAttribute(Constants.REQ_SESSION_USUARIO);
 		
-//		usuarioWeb = usuarioService.obtDetalleUsuarioWeb(usuarioWeb);
+		usuario = usuarioService.obtUsuario(usuario);
 		
-		usuarioWeb.setEstado(Constants.USR_STS_ACTIVO.toString());
-		
-		jsonUsuario += commons.web.UtilWeb.objectToJson(usuarioWeb, null, UsuarioWeb.class.getName());
+		jsonUsuario += commons.web.UtilWeb.objectToJson(usuario, null, Usuario.class.getName());
 		
 		jsonUsuario += "]";
 		
-		if(usuarioWeb.getIdperfil()!=null){
-			perfil.setIdperfil(usuarioWeb.getIdperfil());
-//			perfil = perfilService.obtDetallePerfil(perfil);	
+		if(usuario.getIdperfil()!=null){
+			perfil.setIdperfil(usuario.getIdperfil());
+			perfil = perfilService.obtPerfil(perfil);	
 			jsonPerfil += commons.web.UtilWeb.objectToJson(perfil, null, Perfil.class.getName());
 		}
 		
 		jsonPerfil += "]";
 		
-		if(usuarioWeb.getIdtercero()!=null){
-			tercero.setIdtercero(usuarioWeb.getIdtercero());
-			//tercero = terceroService.obtDetalleTercero(tercero);	
+		if(usuario.getIdtercero()!=null){
+			System.out.println("*******************");
+			System.out.println(tercero.toString());
+			tercero.setIdtercero(usuario.getIdtercero());
+			System.out.println("*******************");
+			System.out.println(tercero.toString());
+			tercero = terceroService.lstTerceros(tercero).get(0);
+			System.out.println("*******************");
+			System.out.println(tercero.toString());
 			jsonTercero += commons.web.UtilWeb.objectToJson(tercero, null, Tercero.class.getName());
 		}
 		
@@ -228,7 +324,7 @@ public class UsuarioController extends BaseController {
 		logger.info("*** fin obtDatosUsuarioSesion *** ");
 	}
 	
-	public void actContrasena(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public void mntContrasena(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
 		logger.info("*** ini actContrasena *** ");
 		
@@ -236,17 +332,21 @@ public class UsuarioController extends BaseController {
 		
 		String result				= "";
 		TransaccionWeb tx			= new TransaccionWeb();
-		UsuarioWeb usuarioWeb 		= new UsuarioWeb(request.getParameterMap());
+		Usuario usuario 			= new Usuario(request.getParameterMap());
 		
-//		usuarioService.actContrasena(usuarioWeb);
+		if(usuario.getContrasena()!=null && usuario.getContrasena()!=""){
+			usuario.setIndrnvcontrasena("N");
+			usuario.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, usuario.getContrasena()));
+		}else{
+			usuario.setIndrnvcontrasena("S");
+			usuario.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, Constants.CONTRASENA_DEFAULT));
+		}
 		
-		usuarioWeb.setEstado(Constants.USR_STS_ACTIVO);
+		usuarioService.mntContrasena(usuario);
 		
-//		usuarioService.mntUsuarioWeb(usuarioWeb);
+		session.setAttribute(Constants.REQ_SESSION_USUARIO, usuario);
 		
-		session.setAttribute(Constants.REQ_SESSION_USUARIO, usuarioWeb);
-		
-		result = commons.web.UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName());
+		result += "{\"tx\":"+commons.web.UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName())+"}";
 		
 		this.escribirTextoSalida(response, result);
 		

@@ -1,7 +1,7 @@
 <%-- INI MODAL RENOVAR CONTRASENA --%>
 <a id="link-renovarcontrasena"
 	data-toggle="modal" 
-	href="<%=request.getContextPath()%>/jsp/perfil/rnv-contrasena.jsp" 
+	href="<%=request.getContextPath()%>/jsp/usuario/rnv-contrasena.jsp" 
 	data-target="#modalRenovarContrasena"
 	class="btn btn-link"
 	style="display: none;">
@@ -42,7 +42,7 @@
 			<div class="gif_animation" style="text-align: center;">					
 				<img src="<%=request.getContextPath()%>/img/bbva/cargando.gif">
 				<div>
-					<h3 style="margin-top:10px; margin-bottom: 20px;font-size: 18px;">Cargando...</h3>
+					<h3 style="margin-top:10px; margin-bottom: 20px;font-size: 14px;">Cargando...</h3>
 				</div>
 			</div>
 			
@@ -54,7 +54,7 @@
 			<div class="gif_animation" style="text-align: center;">					
 				<img src="<%=request.getContextPath()%>/img/bbva/cargando.gif">
 				<div>
-					<h3 style="margin-top:10px; margin-bottom: 10px;font-size: 18px;">Cargando...</h3>
+					<h3 style="margin-top:10px; margin-bottom: 10px;font-size: 14px;">Cargando...</h3>
 				</div>
 			</div>
 		</div>

@@ -24,16 +24,14 @@
 						<div class="form-group">
 							<label for="idperfil" class="col-md-5 control-label">Perfil</label>
 							<div class="col-md-7">								
-		                    	<select class="form-control" id="idperfil" name="idperfil"> 
-							 		<option value="{debe ir el idperfil">Nombre perfil</option>                       	
+		                    	<select class="form-control" id="idperfil" name="idperfil" onchange="javascript:validarExtra();">                        	
 		                   		</select>
 							</div>
 						</div>	
 						<div class="form-group">
 							<label for="idpestado" class="col-md-5 control-label">Estado</label>
 							<div class="col-md-7">								
-		                    	<select class="form-control" id="idpestado" name="idpestado">     
-		                        	<option value="{debe ir id del estado}">ESTADO</option>                   	
+		                    	<select class="form-control" id="idpestado" name="idpestado">                        	
 		                        </select>
 							</div>
 						</div>										
@@ -43,8 +41,7 @@
 						<div class="form-group">
 							<label for="idptipodocumento" class="col-md-5 control-label">Tipo de documento</label>
 							<div class="col-md-7">
-								<select class="form-control" id="idptipodocumento" name="idptipodocumento"> 
-								 	<option value="{debe ir id de tipo de documento}">DNI</option>                       	
+								<select class="form-control" id="idptipodocumento" name="idptipodocumento">                    	
 		                   		</select>
 							</div>
 						</div>
@@ -75,7 +72,7 @@
     	</div>	
 	</form>
 	
-	<div id="container-lst-usuarios" style="margin-top:20px;">
+	<div id="container-lst-usuarios" style="margin-top:20px;display: none;">
 		<table class="table table-hover table-bordered" id="table-lst-usuarios">
 			<thead>
 				<tr>
@@ -86,62 +83,42 @@
 					<th class="text-center">Editar</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr>
-					<td>1</td>
-					<td>a</td>
-					<td class="desktop">s</td>
-					<td>f</td>
-					<td>g</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>q</td>
-					<td class="desktop">e</td>
-					<td>r</td>
-					<td>t</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>z</td>
-					<td class="desktop">c</td>
-					<td>v</td>
-					<td>b</td>
-				</tr>
+			<tbody>				
 			</tbody>
 		</table>
 	</div>
 </div>
 
-<script src="<%=request.getContextPath()%>/js/bbva/main-deliverytarjetas.js"></script>
+<%@include file="/jsp/usuario/det-usuario.jsp" %>
 
 <script>
 	
     $().ready(function(){
     	
-    	callCargaControlParam('PARAM_TIPODOCUMENTO','form-bsqcolaborador #tipdocumento');
+		loadModalCargando();
     	
-    	callCargaControlParam('PARAM_ESTADOS','form-bsqcolaborador #estado');
+		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-bsqusuario #idptipodocumento',false); 
     	
-    	loadPerfiles("#form-bsqusuario","#idperfil");
-    	
+		callCargaControlParam('DELWEB_ESTADO','form-bsqusuario #idpestado',false);
+    	 
+		cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','idperfil',  ['idperfil','descripcion'], {form: 'form-bsqusuario'});
+		
+		$("#form-bsqusuario #idperfil option[value='"+CTE_INIT_IDROL_ADMIN_WS+"']").remove();
+		
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
 		});
 		
-		$("#table-lst-usuarios").DataTable({
-			"order"				:  [[ 0, "asc" ]],
-			"searching"	 		: true,
-			"paging"	 		: false,
-          	"bInfo"		 		: true,
-          	"bAutoWidth" 		: false,
-          	"oLanguage"  		: {"sUrl": "/DeliveryTarjetas/recursos/idioma/es_ES.txt"}			
-		});
-				
+		closeModalCargando();
 	});
     
 	function bsqUsuario(){
-	
+		
+		$("#container-lst-usuarios").hide();
+		
+		$('#table-lst-usuarios').dataTable().fnClearTable();
+		$('#table-lst-usuarios').dataTable().fnDestroy();
+		
 		var param 	= new Object();
 		param 		= $("#form-bsqusuario").serializeArray();
 		
@@ -151,7 +128,7 @@
 			  		function(){
 			   			$.ajax({
 							type 		: "POST",
-							url 		: "/DeliveryTarjetas/usuario.do"+"?method=bsqUsuarios",
+							url 		: "/DeliveryTarjetas/usuario.do"+"?method=lstUsuarios",
 							cache 		: false ,
 							dataType	: "json",
 							contentType : "application/x-www-form-urlencoded; charset=UTF-8",
@@ -159,20 +136,24 @@
 							data 		: param,
 							success 	: function(rsp){
 							
-												var status 	= rsp.statustx;
-												var message = rsp.messagetx;
+												var status 	= rsp.tx.statustx;
+												var message = rsp.tx.messagetx;
 			
 												closeModalCargando();
 												
 												if(status == 0){													
-													if(rsp.lstusuarios!= undefined && rsp.lstusuarios.lenght > 0)
-														cargarDataTablesUsuarios(rsp.lstusuarios);
+													if(rsp.lst!= undefined && rsp.lst.length > 0){
+														$("#container-lst-usuarios").slideDown(1000);
+														cargarDataTablesUsuarios(rsp.lst);
+													}else
+														loadModalMensaje("Atención","No se encontraron resultados por la búsqueda realizada",null);
+													
 												}else
 													loadModalMensaje("Atención",message,null);
 							},						
-							error: function (rsp, xhr, ajaxOptions, thrownError) {
-								closeModalCargando();
-								loadModalMensaje("Error","ERROR BUSCANDO USUARIOS",null);								
+							error		: function (rsp, xhr, ajaxOptions, thrownError) {
+												closeModalCargando();
+												loadModalMensaje("Error","ERROR BUSCANDO USUARIOS",null);								
 							}			
 						});		    					    				
 				},1000);    				
@@ -189,32 +170,78 @@
           	"oLanguage"  		: {"sUrl": "/DeliveryTarjetas/recursos/idioma/es_ES.txt"},
           	"data"		 		: lstusuarios,
 			"columns"    		: [
-										{ "data"        : "dscperfil",
+										{ "data"        : "idperfil",
 											"class"		: "text-center"},
 			                           	{ "orderable"	: false,
 				                         	"data"		: "codusuario"},
+				                         	
                            				{ "orderable"	: false,
 				                         	"class"		: "desktop",
 		                         			"mRender"  	: function (data, type, full) {
-                     	 									return  data.apepaterno + " " + data.apematerno + ", " + data.nombres;}},
+                     	 									return  full.nombres + " " + full.apepaterno + " " + full.apematerno;} },
 	                      				{ "orderable"	: false,
-		                      				"data"      : "dscestado",
+		                      				"data"      : "idpestado",
 		                      				"class"		: "text-center"},
 	                      				{ "orderable"	: false,
 		                      				"data"      : "",
 		                      				"class"		: "text-center",
                          	 				"mRender"  	: function (data, type, full) {
-	                         	 								return linkDetalleUsuario();
-	                         	 							}}										
+	                         	 								return linkDetalleUsuario(full); } },
+       	 								{ "orderable" 	: false,
+  											"data" 		: "idusuario",
+  											"visible"	: false},
+       	 								{ "orderable" 	: false,
+  											"data" 		: "idtercero",
+  											"visible"	: false},  											
+             	 						{ "orderable" 	: false,
+  											"data" 		: "idperfil",
+  											"visible"	: false},
+										{ "orderable" 	: false,
+											"data" 		: "idcourier",
+											"visible"	: false},
+                    	 				{ "orderable" 	: false,
+											"data" 		: "idptipodocumento",
+											"visible"	: false},
+										{  "orderable"  : false,
+											"data" 		: "nombres",
+											"visible"	: false}, 
+										{ "orderable" 	: false,
+											"data" 		: "apepaterno",
+											"visible"	: false}, 
+										{ "orderable" 	: false,
+											"data" 		: "apematerno",
+											"visible"	: false} 
 								],
 			"fnDrawCallback"	: function () { mostrarDatatable("#table-lst-usuarios");}
 		});
 	}
 	
-	function linkDetalleUsuario(){
-		return '<a class="method-ajax" ' +
-					'href="/DeliveryTarjetas/usuario.do?method=obtUsuario" >'+
-						'<i class="i-detalle"></i>'+
-				'</a>';
+	function linkDetalleUsuario(full) {
+		enlace = "<a data-toggle='modal' "
+					+ "data-target='#modalEditarUsuario' "
+					+ "onclick='return rowSelected("+ JSON.stringify(JSON.stringify(full)) +");'>"
+					+ "<i class='i-detalle'></i>" 
+				+ "</a>";
+
+		return enlace;
+	}
+
+	function rowSelected(json) {
+		json = JSON.parse(json);
+		
+		$("#form-mntusuario #idusuario").val(json.idusuario);
+		$("#form-mntusuario #idtercero").val(json.idtercero);
+		$("#form-mntusuario #idperfil").val(json.idperfil);
+		$("#form-mntusuario #idcourier").val(json.idcourier);
+		$("#form-mntusuario #nombres").val(json.nombres);
+		$("#form-mntusuario #apepaterno").val(json.apepaterno);
+		$("#form-mntusuario #apematerno").val(json.apematerno);
+		$("#form-mntusuario #idptipodocumento").val(json.idptipodocumento);
+		$("#form-mntusuario #nrodocumento").val(json.nrodocumento);
+		$("#form-mntusuario #correo").val(json.correo);
+		$("#form-mntusuario #telfmovil").val(json.telfmovil);
+		$("#form-mntusuario #idpestado").val(json.idpestado);
+		$("#form-mntusuario #codusuario").val(json.codusuario);
+		$("#form-mntusuario #contrasena").val(json.contrasena);
 	}
 </script>

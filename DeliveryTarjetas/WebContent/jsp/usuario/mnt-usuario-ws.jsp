@@ -28,8 +28,7 @@
 						<div class="form-group">
 							<label for="estado" class="col-md-5 control-label">Estado</label>
 							<div class="col-md-7">								
-								 <select class="form-control" id="estado" name="estado"> 
-								 	<option value="">Todos</option>                       	
+								 <select class="form-control" id="idpestado" name="idpestado">                        	
                         		</select>								
 							</div>
 						</div>							
@@ -53,68 +52,53 @@
     	</div>	
 	</form>
 	
-	<div id="container-lst-usuariosws" style="margin-top:20px;">
+	<div id="container-lst-usuariosws" style="margin-top:20px; display: none;">
 		<table class="table table-hover table-bordered" id="table-lst-usuariosws">
 			<thead>
 				<tr>
 					<th class="text-center">Cod. Usuario</th>
-					<th class="text-center desktop">Password</th>
+					<th class="text-center desktop">Comentarios</th>
 					<th class="text-center">Estado</th>
 					<th class="text-center">Editar</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr>
-					<td>1</td>
-					<td class="desktop">a</td>
-					<td>f</td>
-					<td>g</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td class="desktop">q</td>
-					<td>r</td>
-					<td>t</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td class="desktop">z</td>
-					<td>v</td>
-					<td>b</td>
-				</tr>
+			<tbody>				
 			</tbody>
 		</table>
 	</div>
+	
+	<%@include file="/jsp/usuario/det-usuario-ws.jsp" %>
 </div>
-
-<script src="<%=request.getContextPath()%>/js/bbva/main-deliverytarjetas.js"></script>
 
 <script>
 	
     $().ready(function(){
     	
-    	callCargaControlParam('PARAM_ESTADOS','form-bsqusuariows #estado');
+    	loadModalCargando();
     	
+    	$("#form-bsqusuariows #idperfil").val(CTE_INIT_IDROL_ADMIN_WS);
     	
-    	// TRAER EL ID DEL PERFIL "USUARIO SERVICIO WEB"
+    	callCargaControlParam('DELWEB_ESTADO','form-bsqusuariows #idpestado',true);
+    	
+    	callCargaControlParam('DELWEB_ESTADO','form-mntusuario-ws #idpestado',false);
+    	
+    	cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','cboperfil', ['idperfil','descripcion'], {form: 'form-mntusuario-ws'});
     	
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
 		});
 		
-		$("#table-lst-usuariosws").DataTable({
-			"order"				:  [[ 0, "asc" ]],
-			"searching"	 		: true,
-			"paging"	 		: false,
-          	"bInfo"		 		: true,
-          	"bAutoWidth" 		: false,
-          	"oLanguage"  		: {"sUrl": "/DeliveryTarjetas/recursos/idioma/es_ES.txt"}			
-		});
+		closeModalCargando();
 				
 	});
     
 	function bsqUsuarioWS(){
-	
+		
+		$("#container-lst-usuariosws").hide();
+		
+		$('#table-lst-usuariosws').dataTable().fnClearTable();
+		$('#table-lst-usuariosws').dataTable().fnDestroy();
+		
 		var param 	= new Object();
 		param 		= $("#form-bsqusuariows").serializeArray();
 		
@@ -124,7 +108,7 @@
 			  		function(){
 			   			$.ajax({
 							type 		: "POST",
-							url 		: "/DeliveryTarjetas/usuario.do"+"?method=bsqUsuario",
+							url 		: "/DeliveryTarjetas/usuario.do"+"?method=lstUsuarios",
 							cache 		: false ,
 							dataType	: "json",
 							contentType : "application/x-www-form-urlencoded; charset=UTF-8",
@@ -132,14 +116,18 @@
 							data 		: param,
 							success 	: function(rsp){
 							
-												var status 	= rsp.statustx;
-												var message = rsp.messagetx;
+												var status 	= rsp.tx.statustx;
+												var message = rsp.tx.messagetx;
 			
 												closeModalCargando();
 												
 												if(status == 0){													
-													if(rsp.lstusuarios!= undefined && rsp.lstusuarios.lenght > 0)
-														cargarDataTablesUsuariosWS(rsp.lstusuarios);
+													if(rsp.lst!= undefined && rsp.lst.length > 0){
+														$("#container-lst-usuariosws").slideDown(1000);
+														cargarDataTablesUsuariosWS(rsp.lst);
+													}else
+														loadModalMensaje("Atención","No se encontraron resultados por la búsqueda realizada",null);
+													
 												}else
 													loadModalMensaje("Atención",message,null);
 							},						
@@ -165,25 +153,46 @@
 										{ "data"        : "codusuario",
 											"class"		: "text-center"},
 			                           	{ "orderable"	: false,
-				                         	"data"		: "password"},                           				
+				                         	"data"		: "comentario"},                           				
 	                      				{ "orderable"	: false,
-		                      				"data"      : "dscestado",
+		                      				"data"      : "idpestado",
 		                      				"class"		: "text-center"},
 	                      				{ "orderable"	: false,
 		                      				"data"      : "",
 		                      				"class"		: "text-center",
                          	 				"mRender"  	: function (data, type, full) {
-	                         	 								return linkDetalleUsuarioWS();
-	                         	 							}}										
+	                         	 								return linkDetalleUsuarioWS(full); } },
+	                      				{ "orderable" 	: false,
+  											"data" 		: "contrasena",
+  											"visible"	: false},  											
+             	 						{ "orderable" 	: false,
+  											"data" 		: "idperfil",
+  											"visible"	: false},		                      				
 								],
-			"fnDrawCallback"	: function () { mostrarDatatable("#table-lst-couriers");}
+			"fnDrawCallback"	: function () { mostrarDatatable("#table-lst-usuariosws");}
 		});
 	}
 	
-	function linkDetalleUsuarioWS(){
-		return '<a class="method-ajax" ' +
-					'href="/DeliveryTarjetas/usuario.do?method=obtUsuario" >'+
-						'<i class="i-detalle"></i>'+
-				'</a>';
+	function linkDetalleUsuarioWS(full) {
+		enlace = "<a data-toggle='modal' "
+					+ "data-target='#modalEditarUsuarioWS' "
+					+ "onclick='return rowSelected("+ JSON.stringify(JSON.stringify(full)) +");'>"
+					+ "<i class='i-detalle'></i>" 
+				+ "</a>";
+
+		return enlace;
+	}
+
+	function rowSelected(json) {
+		json = JSON.parse(json);
+		
+		$("#form-mntusuario-ws #idusuario").val(json.idusuario);
+		$("#form-mntusuario-ws #cboperfil").val(json.idperfil);
+		$("#form-mntusuario-ws #idperfil").val(json.idperfil);
+		$("#form-mntusuario-ws #idpestado").val(json.idpestado);
+		$("#form-mntusuario-ws #codusuario").val(json.codusuario);
+		$("#form-mntusuario-ws #contrasena").val(json.contrasena);
+		
+		$("#form-mntusuario-ws #cboperfil").attr("disabled","disabled");
 	}
 </script>

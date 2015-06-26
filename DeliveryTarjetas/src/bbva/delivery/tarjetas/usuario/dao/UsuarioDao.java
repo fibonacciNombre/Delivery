@@ -2,20 +2,24 @@ package bbva.delivery.tarjetas.usuario.dao;
 
 import java.util.List;
 
-import bbva.delivery.tarjetas.courier.bean.Courier;
-import bbva.delivery.tarjetas.usuario.bean.UsuarioWeb;
+import bbva.delivery.tarjetas.tercero.bean.Tercero;
+import bbva.delivery.tarjetas.usuario.bean.Usuario;
 
 public interface UsuarioDao {
 	
-	void regUsuarioWeb(UsuarioWeb usuarioWeb);
+	void mntUsuario(Usuario usuarioWeb);
 	
-	void mntUsuarioWeb(UsuarioWeb usuarioWeb);
+	List<Usuario> lstUsuarios(Usuario usuario);
+	 
 	
-	List<Courier> lstUsuariosWeb(String estado);
-	
-	UsuarioWeb obtDetalleUsuarioWeb(UsuarioWeb usuarioWeb);
+	Usuario obtDetalleUsuario(Usuario usuarioWeb);
 		
-	boolean validarContrasena(UsuarioWeb usuarioWeb);
+	boolean validarContrasena(Usuario usuarioWeb);
 	
-	void actContrasena(UsuarioWeb usuarioWeb);
+	void mntContrasena(Usuario usuarioWeb);
+	
+	public Usuario obtUsuario(Usuario usuario);
+
+	public Usuario addUsuario(Usuario usuario);
+
 }

@@ -19,16 +19,14 @@
 			var contextPath = '<%=request.getContextPath()%>';
 	
 			$().ready(function() {
-	
+				
 				validateAlfanumerico();
 	
 				validateSinEspacios();
 	
 				loadValidateLogin("#formlogin");
 	
-			});
-	
-			
+			});		
 		</script>
 	</body>
 </html>

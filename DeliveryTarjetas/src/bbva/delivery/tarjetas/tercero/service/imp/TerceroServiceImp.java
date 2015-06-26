@@ -1,8 +1,12 @@
 package bbva.delivery.tarjetas.tercero.service.imp;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,30 +20,23 @@ import bbva.delivery.tarjetas.tercero.service.TerceroService;
 public class TerceroServiceImp implements TerceroService {
 	
 	private static Logger logger = Logger.getLogger(TerceroServiceImp.class.getName());
-	
+	@Autowired
 	private TerceroDao terceroDao;
-	/*
-	@Override
-	public void regTercero(Tercero tercero) {
-		logger.info("Service regCourier");
-		terceroDao.regTercero(tercero);
-	}
 
 	@Override
 	public void mntTercero(Tercero tercero) {
-		logger.info("Service regCourier");
-		terceroDao.mntTercero(tercero);
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		Date date = new Date();
+		
+		tercero.setHistorial("Usuario: " + tercero.getUsuario() + ", Fecha:" + dateFormat.format(date) + ", " +  tercero.toString()); 
+		
+		logger.info("Service mntTercero");
+		
+		terceroDao.mntTercero(tercero);	 
 	}
 
 	@Override
-	public List<Tercero> lstTerceros(String estado) {
-		logger.info("Service regCourier");
-		return terceroDao.lstTerceros(estado);
+	public List<Tercero> lstTerceros(Tercero tercero) { 
+		return terceroDao.lstTerceros(tercero);
 	}
-
-	@Override
-	public Tercero obtDetalleTercero(Tercero tercero) {
-		logger.info("Service regCourier");
-		return terceroDao.obtDetalleTercero(tercero);
-	}*/
 }

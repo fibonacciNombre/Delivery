@@ -40,7 +40,11 @@ body {
     min-height: 100%;
 	width: 960px;
 }
-
+@media only screen and (max-width: 959px) {
+  body {
+    width: 95%;
+  }
+}
 @media (max-width: 767px) {
   body {
      width: 100%;
@@ -6883,9 +6887,8 @@ button.close {
 }
 
 #avatar {
-  position: absolute;
-  top: 30px;
-  right: 120px;
+    display: inline-block;
+    margin-top: 3px;
 }
 @media (max-width: 991px) {
   #avatar {
@@ -7212,19 +7215,16 @@ i.next-mobile {
   background-position: 0 -80px;
 }
 
-.i-cobertura,
 .i-detalle,
-.i-digital,
-.i-cronograma,
-.i-calendar,
-.i-cuota {
-  background-image: url(../../img/default/sprite-rimac-wc.png) !important;
+.i-calendar {
+  background-image: url(../../img/bbva/spritebvva-mnt-iconos.png) !important;
   background-repeat: no-repeat;
   display: inline-block;
   text-indent: -99999px;
   overflow: hidden;
   margin: 0 auto;
   display: block;
+  cursor: pointer;
 }
 
 .i-calendar {
@@ -7233,40 +7233,10 @@ i.next-mobile {
   background-position: 0 0;
 }
 
-.i-digital {
-  height: 20px;
-  width: 20px;
-  background-position: -20px 0;
-}
-
 .i-detalle {
   height: 20px;
   width: 20px;
-  background-position: -40px 0;
-}
-
-.i-cronograma {
-  height: 20px;
-  width: 20px;
-  background-position: -40px 0;
-}
-
-.i-cobertura {
-  height: 20px;
-  width: 20px;
   background-position: -60px 0;
-}
-
-.i-cuota {
-  height: 20px;
-  width: 20px;
-  background-position: -80px 0;
-}
-
-.i-ver {
-  height: 16px;
-  width: 20px;
-  background-position: -40px 0;
 }
 
 .repeatX {
@@ -7275,10 +7245,7 @@ i.next-mobile {
 }
 
 i.error,
-i.success,
-i.i-clinicas-arrow-default,
-i.i-clinicas-info-default,
-i.i-clinicas-danger-default {
+i.success {
   background-image: url(../../img/default/sprite-rimac-directo.png) !important;
   background-repeat: no-repeat;
   display: inline-block;
@@ -7539,7 +7506,7 @@ h3.modal-title {
 }
 @media(min-width: 600px) and (max-width: 20000px) {
   .panel-container {
-    margin-top: 90px;
+    margin-top: 100px;
   }
 }
 .panel-login {
@@ -10769,7 +10736,11 @@ span.loading-animate:nth-child(5) {
 }
 @media (max-width: 991px) {
   .logo-login {
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+	position: absolute;
+	left: 0px;
+	right: 0px;
   }
 }
 /* fin mfarfanr bbva */
@@ -11087,6 +11058,12 @@ span.loading-animate:nth-child(5) {
   border-left: 10px solid #22bb22;
   padding-left: 10px;
 }
+
+.vineta-avatar {
+ 	border-left: 10px solid rgb(245, 0, 95);
+ 	padding-left: 20px;
+}
+
 
 .column-formulario-carga{
 	width: 49%; 

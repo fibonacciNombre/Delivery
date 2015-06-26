@@ -58,8 +58,8 @@
 <script charset="utf-8" src="<%=request.getContextPath()%>/js/default/additional-methods.min.js"></script>
 
 <!--  JS FILEUPLOAD -->
-<script src="<%=request.getContextPath()%>/js/default/tmpl.min.js"></script>
-<script src="<%=request.getContextPath()%>/js/default/load-image.all.min.js"></script>
+<%-- <script src="<%=request.getContextPath()%>/js/default/tmpl.min.js"></script> --%>
+<%-- <script src="<%=request.getContextPath()%>/js/default/load-image.all.min.js"></script> --%>
 <script src="<%=request.getContextPath()%>/js/default/jquery.fileupload.js"></script>
 <script src="<%=request.getContextPath()%>/js/default/jquery.fileupload-process.js"></script>
 <script src="<%=request.getContextPath()%>/js/default/jquery.fileupload-image.js"></script>

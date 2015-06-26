@@ -21,6 +21,8 @@
 
 	<context:component-scan base-package="bbva.delivery.tarjetas.courier.service" />
 
+	<context:component-scan base-package="bbva.delivery.tarjetas.perfil.service" />
+
 	<context:component-scan base-package="bbva.delivery.tarjetas.tercero.service" />
 
 	<context:component-scan base-package="bbva.delivery.tarjetas.usuario.service" />

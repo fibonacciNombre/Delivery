@@ -16,21 +16,21 @@
 		<div class="panel-heading">
 			Datos personales
 		</div>
-		
+		<form id="form-micuenta">
 		<div id="datos-personales" class="panel-body">
 		
 			<div class="col-md-6">
 				<div class="form-group" id="dscperfil-div">
                     <label for="dscperfil" class="col-md-6 control-label">Perfil </label>
                     <div class="col-md-12">
-                   		<input type="text" readonly class="form-control" id="dscperfil" name="dscperfil" maxlength="200">
+                   		<select class="form-control" id="idperfil" name="idperfil"></select>
                     </div>
                 </div>
                 
                 <div class="form-group" id="idptipodocumento-div">
                     <label for="idptipodocumento" class="col-md-6 control-label">Tipo de documento </label>
                     <div class="col-md-12">
-                        <input type="text" readonly class="form-control" id="idptipodocumento" name="idptipodocumento" maxlength="200">
+                    	<select class="form-control" id="idptipodocumento" name="idptipodocumento"></select>
                     </div>
                 </div>
                 
@@ -64,7 +64,7 @@
 			</div>
         
         	<div class="col-md-6">
-        		<div class="form-group" id="rznsocial-div">
+        		<div class="form-group" id="rznsocial-div" style="display: none;">
                     <label for=rznsocial" class="col-md-6 control-label">Courier </label>
                     <div class="col-md-12">
                         <div style="display: inline-block; vertical-align: top; padding: 0px;">
@@ -108,7 +108,7 @@
                 <div class="form-group" id="estado-div">
                     <label for="idpestado" class="col-md-6 control-label">Estado </label>
                     <div class="col-md-12">
-                    	<input type="text" readonly class="form-control" id="idpestado"  name="idpestado" maxlength="200">                        
+                    	<select class="form-control" id="idpestado" name="idpestado"></select>                        
                     </div>
                 </div>
                 
@@ -121,6 +121,7 @@
         	</div>	
         			
 		</div>	
+		</form>
 		
 	</div>        
 	
@@ -232,55 +233,44 @@
 <script>
 
 	$().ready(function(){
-		/*
+		
 		loadModalCargando();
 		
-		var bienvenida = replaceAll($("#bienvenida_act_datos").text(),'@@@',CTE_JSON_PERSONAPWEB.nombre);
+		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-micuenta #idptipodocumento',false);  
+		
+		callCargaControlParam('DELWEB_ESTADO','form-micuenta #idpestado',false);
+    	 
+		cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','idperfil',  ['idperfil','descripcion'], {form: 'form-micuenta'});
+		
+		var bienvenida = replaceAll($("#bienvenida_act_datos").text(),'@@@',CTE_JSON_TERCERO.nombres);
+		
 		$("#bienvenida_act_datos").text(bienvenida);
 
 		cargarData();
 		
 		closeModalCargando();
-		*/
+		
 	});
-	
 	
 	function cargarData(){
 		
 		/*Informacion personal*/
-		$("#informacionpersonal #nrodoc").val(CTE_JSON_USUARIOPWEB.numerodoc);
-		$("#informacionpersonal #fechanac").val(CTE_JSON_PERSONAPWEB.fecnacimiento);
-		$("#informacionpersonal #tipodoc").val(CTE_JSON_PERSONAPWEB.idptipodocumento);
-		$("#informacionpersonal #idpgenero").val(CTE_JSON_PERSONAPWEB.idpgenero);
+		$("#form-micuenta #idperfil").val(CTE_JSON_PERFIL.idperfil);
+		$("#form-micuenta #nrodocumento").val(CTE_JSON_TERCERO.nrodocumento);
+		$("#form-micuenta #idptipodocumento").val(CTE_JSON_TERCERO.idptipodocumento);
+		$("#form-micuenta #idpestado").val(CTE_JSON_USUARIOWEB.idpestado);
+		$("#form-micuenta #nombres").val(CTE_JSON_TERCERO.nombres);
+		$("#form-micuenta #apepaterno").val(CTE_JSON_TERCERO.apepaterno);
+		$("#form-micuenta #apematerno").val(CTE_JSON_TERCERO.apematerno);
+		$("#form-micuenta #codusuario").val(CTE_JSON_USUARIOWEB.codusuario);
+		$("#form-micuenta #telfmovil").val(CTE_JSON_TERCERO.telfmovil);
+		$("#form-micuenta #correo").val(CTE_JSON_TERCERO.correo);
+		$("#form-micuenta #comentarios").val(CTE_JSON_USUARIOWEB.comentarios);
 		
-		/*Datos Direccion Portal web*/
-		$("#datos_contacto :input").attr("disabled", true);
-		obtenerDpto($("#datos_contacto #idepais").val(),'datos_contacto #departamento2');
-
-		cargarDireccion("#datos_contacto",CTE_JSON_DIRPWEB);
+		if(CTE_JSON_PERFIL.idperfil ==CTE_INIT_IDROL_COLAB_COURIER)
+			$("#rznsocial-div").show();
 		
-		$("#datos_contacto #idptipovia").val(CTE_JSON_DIRPWEB.idptipovia);
-		$("#datos_contacto #direccion2").val(CTE_JSON_DIRPWEB.nomvia);
-		$("#ptocontacto-dom").val(CTE_JSON_DIRPWEB.idepuntocontacto);
-		
-		/*Datos de telefono pweb secundario (fijo)*/
-		if(CTE_JSON_TELFSECPWEB!=undefined){
-			$("#telefonocasa2").val(CTE_JSON_TELFSECPWEB.numlocal);
-			$("#mediocontactotelf").val(CTE_JSON_TELFSECPWEB.idepuntocontacto);
-		}
-		
-		/*Datos de telefono pweb principal (movil) */
-		$("#telefonomovil2").val(CTE_JSON_TELFPWEB.numlocal);
-		$("#mediocontactomovil").val(CTE_JSON_TELFPWEB.idepuntocontacto);
-		
-		/*Datos de email*/
-		$("#email2").val(CTE_JSON_CORREOPWEB.email);
-		$("#mediocontactomail").val(CTE_JSON_CORREOPWEB.idepuntocontacto);
-		
-		$("#editar_dirpweb").attr("disabled", false);
-		//$("#editar_corresp").attr("disabled", false);
-		$("#terminosCond").attr("disabled", true);
-		
+		$("#form-micuenta *").attr("disabled","disabled");
 	}
 		
 </script>

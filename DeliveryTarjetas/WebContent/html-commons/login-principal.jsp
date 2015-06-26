@@ -45,7 +45,7 @@
 																		class="col-md-12 i-group form-control"
 																		maxlength="15"
 																		style="margin-bottom: 5px;"
-																		placeholder="Nro. de documento">																
+																		placeholder="Cod. usuario">																
 													  			<div class="result"></div>
 													  		</div>													    	
 													    	<div class="col-md-12 i-group" style="padding: 0px;">
@@ -123,10 +123,25 @@
 			aria-hidden="true"			
 			data-backdrop="static" 
 	  		data-keyboard="false">
-		<div class="modal-cargando">
+		<div class="modal-cargando visible-md-block visible-sm-block visible-lg-block">
 			<div class="modal-content">	
-				<div class="gif_animation">					
+				<div class="gif_animation" style="text-align: center;">					
 					<img src="<%=request.getContextPath()%>/img/bbva/cargando.gif">
+					<div>
+						<h8 style="margin-top:10px; margin-bottom: 20px;font-size: 14px;">Validando <br> credenciales ...</h8>
+					</div>
+				</div>
+				
+			</div>
+		</div>		  	
+				
+		<div class="modal-cargando visible-xs-block" style="margin-top: 180px; width: 240px;">
+			<div class="modal-content">	
+				<div class="gif_animation" style="text-align: center;">					
+					<img src="<%=request.getContextPath()%>/img/bbva/cargando.gif">
+					<div>
+						<h8 style="margin-top:10px; margin-bottom: 20px;font-size: 14px;">Validando <br> credenciales ...</h8>
+					</div>
 				</div>
 			</div>
 		</div>		  	

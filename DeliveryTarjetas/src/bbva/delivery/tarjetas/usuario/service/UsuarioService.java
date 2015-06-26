@@ -3,23 +3,24 @@ package bbva.delivery.tarjetas.usuario.service;
 import java.util.List;
 
 import bbva.delivery.tarjetas.courier.bean.Courier;
+import bbva.delivery.tarjetas.tercero.bean.Tercero;
 import bbva.delivery.tarjetas.usuario.bean.LoginWeb;
-import bbva.delivery.tarjetas.usuario.bean.UsuarioWeb;
+import bbva.delivery.tarjetas.usuario.bean.Usuario;
 
 public interface UsuarioService {
 
+	void mntUsuario(Usuario usuario) throws Exception;
 	
-	void regUsuarioWeb(UsuarioWeb usuarioWeb);
+	List<Usuario> lstUsuarios(Usuario usuario);
+	 
 	
-	void mntUsuarioWeb(UsuarioWeb usuarioWeb);
-	
-	List<Courier> lstUsuariosWeb(String estado);
-	
-	UsuarioWeb obtDetalleUsuarioWeb(UsuarioWeb usuarioWeb);
+	Usuario obtUsuario(Usuario usuario);
 		
-	boolean validarContrasena(UsuarioWeb usuarioWeb);
+	boolean validarContrasena(Usuario usuario);
 	
-	UsuarioWeb autenticarUsuario(LoginWeb loginWeb);
+	Usuario autenticarUsuario(LoginWeb usuario) throws Exception;
 	
-	void actContrasena(UsuarioWeb usuarioWeb);
+	void mntContrasena(Usuario usuario);
+	 
+	public Usuario addUsuario(Usuario usuario) throws Exception ;
 }
