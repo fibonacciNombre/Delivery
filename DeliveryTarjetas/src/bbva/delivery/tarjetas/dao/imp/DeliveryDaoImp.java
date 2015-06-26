@@ -46,6 +46,7 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 				resources.getString(ConstantsProperties.PQ_DEL_COURIER), 
 				"sp_mnt_delivery");
 		
+		
 		  JdbcHelper.setInOutParameter(call, in, "a_iddelivery"      , 	Types.NUMERIC, param.getIddelivery());  
 	      JdbcHelper.setInParameter(call, in, "a_tipodocumento" , 	Types.VARCHAR, param.getTipodocumento());  	  
 	      JdbcHelper.setInParameter(call, in, "a_nrodocumentocli" , 	Types.VARCHAR, param.getNrodocumentocli()); 	  
