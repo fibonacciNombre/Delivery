@@ -69,5 +69,4 @@ public class LoginWeb implements Serializable {
 	public void setUseragent(String usragent) {
 		this.useragent = usragent;
 	}
-	
 }
