@@ -24,7 +24,7 @@
 						<div class="form-group">
 							<label for="idperfil" class="col-md-5 control-label">Perfil</label>
 							<div class="col-md-7">								
-		                    	<select class="form-control" id="idperfil" name="idperfil">                        	
+		                    	<select class="form-control" id="idperfil" name="idperfil" onchange="javascript:validarExtra();">                        	
 		                   		</select>
 							</div>
 						</div>	
@@ -102,6 +102,8 @@
 		callCargaControlParam('DELWEB_ESTADO','form-bsqusuario #idpestado',false);
     	 
 		cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','idperfil',  ['idperfil','descripcion'], {form: 'form-bsqusuario'});
+		
+		$("#form-bsqusuario #idperfil option[value='"+CTE_INIT_IDROL_ADMIN_WS+"']").remove();
 		
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);

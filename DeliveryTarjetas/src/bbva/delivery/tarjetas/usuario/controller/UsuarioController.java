@@ -24,10 +24,11 @@ import bbva.delivery.tarjetas.perfil.bean.Perfil;
 import bbva.delivery.tarjetas.perfil.service.PerfilService;
 import bbva.delivery.tarjetas.tercero.bean.Tercero;
 import bbva.delivery.tarjetas.tercero.service.TerceroService;
-import bbva.delivery.tarjetas.usuario.bean.LoginWeb;
+import bbva.delivery.tarjetas.usuario.bean.Loginweb;
 import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
 import bbva.delivery.tarjetas.util.AESHelper;
+
 import commons.framework.BaseController;
 import commons.web.UtilWeb;
 
@@ -186,7 +187,7 @@ public class UsuarioController extends BaseController {
 		
 		String escenarioLogin 			= "";
 		String result					= "";
-		LoginWeb loginWeb 				= null;
+		Loginweb loginWeb 				= null;
 		HttpSession session				= request.getSession(true);
 		String userlogin				= request.getParameter("userlogin");
 		
@@ -195,7 +196,7 @@ public class UsuarioController extends BaseController {
 			logger.info("*** ini login *** ");
 			logger.debug("Logueando al usuario	: " + userlogin);
 			
-			loginWeb 				= new LoginWeb(request.getParameterMap());
+			loginWeb 				= new Loginweb(request.getParameterMap());
 			
 			Usuario usuario 		= usuarioService.autenticarUsuario(loginWeb);
 			
@@ -236,7 +237,7 @@ public class UsuarioController extends BaseController {
 			logger.error(e);
 		}
 		
-		result = commons.web.UtilWeb.objectToJson(loginWeb, null, LoginWeb.class.getName());
+		result = commons.web.UtilWeb.objectToJson(loginWeb, null, Loginweb.class.getName());
 		
 		logger.info("*** fin login *** ");
 		
@@ -333,14 +334,19 @@ public class UsuarioController extends BaseController {
 		TransaccionWeb tx			= new TransaccionWeb();
 		Usuario usuario 			= new Usuario(request.getParameterMap());
 		
-		usuario.setIndrnvcontrasena("N");
-		usuario.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, usuario.getContrasena()));
+		if(usuario.getContrasena()!=null && usuario.getContrasena()!=""){
+			usuario.setIndrnvcontrasena("N");
+			usuario.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, usuario.getContrasena()));
+		}else{
+			usuario.setIndrnvcontrasena("S");
+			usuario.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, Constants.CONTRASENA_DEFAULT));
+		}
 		
 		usuarioService.mntContrasena(usuario);
 		
 		session.setAttribute(Constants.REQ_SESSION_USUARIO, usuario);
 		
-		result = commons.web.UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName());
+		result += "{\"tx\":"+commons.web.UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName())+"}";
 		
 		this.escribirTextoSalida(response, result);
 		

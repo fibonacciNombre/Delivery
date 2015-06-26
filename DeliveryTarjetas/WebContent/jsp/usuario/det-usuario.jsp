@@ -20,32 +20,42 @@
 				
 				<%@include file="/jsp/usuario/form-usuario.jsp" %>
 				
+				<script>
+					function validarExtra(){
+						if($("#idperfil").val() == CTE_INIT_IDROL_COLAB_COURIER){
+							$("#idcourier-div").show();
+						}else{
+							$("#idcourier-div").hide();
+						}
+					}
+				</script>
+			
 				<div class="row">
 	        
-		        <div class="col-md-12">		        
-		            <div class="col-md-12">
-		                <div class="form-group">
-		                	<label class="col-md-6  control-label" style="padding: 0px;">
-		                	</label>
-		                	<div class="col-sm-6 pull-right" style="text-align: right; padding: 0px;">
-			                    <button type="button" 
-			                    		class="btn btn-default"
-			                    		onclick="javascript:limpiarFormulario('form-registrousuario');">
-			                    			Salir
-			                    </button>
-			                    
-			                    <button id="btnRegistrar"
-			                    		type="button" 
-			                    		class="btn btn-primary" 
-			                    		onclick="javascript:actualizarUsuario();">
-			                    			Modificar
-			                    </button>
-		                    </div>
-		                </div>
-		            </div>		            
+			        <div class="col-md-12">		        
+			            <div class="col-md-12">
+			                <div class="form-group">
+			                	<label class="col-md-6  control-label" style="padding: 0px;">
+			                	</label>
+			                	<div class="col-sm-6 pull-right" style="text-align: right; padding: 0px;">
+				                    <button type="button" 
+				                    		class="btn btn-default"
+				                    		onclick="javascript:renovarContrasena();">
+				                    			Renovar contraseña
+				                    </button>
+				                    
+				                    <button id="btnRegistrar"
+				                    		type="button" 
+				                    		class="btn btn-primary" 
+				                    		onclick="javascript:actualizarUsuario();">
+				                    			Modificar
+				                    </button>
+			                    </div>
+			                </div>
+			            </div>		            
+			        </div>
+			        
 		        </div>
-		        
-	        </div>
 	        
 			</form>
 		</div>
@@ -68,6 +78,10 @@
     	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form: 'form-mntusuario'});
     	
     	cargarCombo('/DeliveryTarjetas/tercero.do', 'lstTerceros','idtercero', ['idtercero','nomcompleto'], {form: 'form-mntusuario'});
+    	
+    	$("#form-mntusuario #idperfil option[value='"+CTE_INIT_IDROL_ADMIN_WS+"']").remove();
+    	
+    	$("#form-mntusuario #contrasena").remove();
     	
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
@@ -138,7 +152,7 @@
 		
 	});
     
-	function registrarUsuario(){
+	function actualizarUsuario(){
 
 		var $inputs = $('#form-mntusuario :input');
 
@@ -179,7 +193,7 @@
 													
 													if(status == 0){
 														loadModalMensaje("Enhorabuena", message, function(){
-															$("#view-reg-usuarioweb").click();	
+															bsqUsuario();
 														});																										
 													}else
 														loadModalMensaje("Atención",message,null);													
@@ -192,6 +206,47 @@
 	  				},1000);    			    		
     	}    	
     }
+	
+	function renovarContrasena(){
+		
+		loadModalCargando();
+			
+			var param			= new Object();
+			param.codusuario	= $("#form-mntusuario #codusuario").val();
+				
+			setTimeout(
+					  	function(){   			
+			   			$.ajax({
+							type 		: "POST",
+							url 		: "/DeliveryTarjetas/usuario.do"+"?method=mntContrasena",
+							cache 		: false ,
+							dataType	: "json",
+							contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+							async 		: false,
+							data 		: param,
+							success 	: function(rsp){
+							
+												var status 	= rsp.tx.statustx;
+												var message = rsp.tx.messagetx;
+			
+												closeModalCargando();
+												
+												if(status == 0){
+													loadModalMensaje("Enhorabuena", message, function(){
+														bsqUsuario();
+													});																										
+												}else
+													loadModalMensaje("Atención",message,null);													
+							},						
+							error: function (rsp, xhr, ajaxOptions, thrownError) {
+								closeModalCargando();
+								loadModalMensaje("Error","ERROR RENOVANDO LA CONTRASEÑA",null);								
+							}			
+						});		    					    				
+  				},1000);    
+		
+		
+	}
     
 </script>
  
