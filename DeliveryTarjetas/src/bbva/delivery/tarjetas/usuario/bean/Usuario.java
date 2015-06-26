@@ -33,6 +33,7 @@ public class Usuario implements Serializable {
  	private Integer idcourier; 
 	private Integer idperfil; 
 	
+	private Integer noidperfil;
 	private Tercero tercero;
 	private Perfil perfil;
 	private Courier courier;
@@ -197,6 +198,14 @@ public class Usuario implements Serializable {
 
 	public void setDscestado(String dscestado) {
 		this.dscestado = dscestado;
+	}
+
+	public Integer getNoidperfil() {
+		return noidperfil;
+	}
+
+	public void setNoidperfil(Integer noidperfil) {
+		this.noidperfil = noidperfil;
 	}	
 	
 }
