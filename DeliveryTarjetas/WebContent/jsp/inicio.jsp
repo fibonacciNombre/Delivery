@@ -59,11 +59,11 @@
 	
 			$().ready(function(){ 
 				
-				loadModalCargando();
+				//loadModalCargando();
 				
-				obtDatosUsuarioSesion();
+				//obtDatosUsuarioSesion();
 
-				loadSesionInicial();
+				//loadSesionInicial();
 							
 			});
 			

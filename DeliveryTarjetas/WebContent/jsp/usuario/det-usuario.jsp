@@ -21,13 +21,13 @@
 				<%@include file="/jsp/usuario/form-usuario.jsp" %>
 				
 				<script>
-					function validarExtra(){
+					/*function validarExtra(){
 						if($("#idperfil").val() == CTE_INIT_IDROL_COLAB_COURIER){
 							$("#idcourier-div").show();
 						}else{
 							$("#idcourier-div").hide();
 						}
-					}
+					}*/
 				</script>
 			
 				<div class="row">

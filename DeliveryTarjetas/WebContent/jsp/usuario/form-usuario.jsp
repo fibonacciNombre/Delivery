@@ -6,7 +6,7 @@
 		<div class="form-group" id="idperfil-div">
 	        <label for="idperfil" class="col-md-12 control-label required">Perfil </label>
 	        <div class="col-md-12">
-	        	<select class="form-control" id="idperfil" name="idperfil" onchange="javascript:validarExtra();">                       	
+	        	<select class="form-control" id="idperfil" name="idperfil" >                       	
 	       		</select>
 	        </div>
 	    </div>

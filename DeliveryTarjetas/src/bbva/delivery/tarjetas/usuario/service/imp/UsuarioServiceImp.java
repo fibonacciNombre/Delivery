@@ -74,47 +74,47 @@ public class UsuarioServiceImp implements UsuarioService {
 		String idUsuario 	= loginWeb.getUserlogin();
 		String password 	= loginWeb.getPasslogin();
 
-		usuarioTmp.setCodusuario(idUsuario);
-		
-		// VERIFICAR QUE EL USUARIO EXISTA EN LA BD
-		 usuarioTmp 		= obtUsuario(usuarioTmp);
-		
-		 if(usuarioTmp.getIdtercero() != null){
-
-			 // VERIFICAR CREDENCIALES (PASSWORD) EN BD
-			 usuarioTmp.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, password));
-			 
-			 if (validarContrasena(usuarioTmp)) {
-
-				 usuario = obtUsuario(usuarioTmp);
-			
-				 if(usuario.getIdpestado().equals(Constants.DELIVERY_IDPESTADO_INACTIVO))
-					 	loginWeb.setEscenario(Constants.ESCENARIO_LOGIN_USUARIO_INACTIVO);
-				 else{
+//		usuarioTmp.setCodusuario(idUsuario);
+//		
+//		// VERIFICAR QUE EL USUARIO EXISTA EN LA BD
+//		 usuarioTmp 		= obtUsuario(usuarioTmp);
+//		
+//		 if(usuarioTmp.getIdtercero() != null){
+//
+//			 // VERIFICAR CREDENCIALES (PASSWORD) EN BD
+//			 usuarioTmp.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, password));
+//			 
+//			 if (validarContrasena(usuarioTmp)) {
+//
+//				 usuario = obtUsuario(usuarioTmp);
+//			
+//				 if(usuario.getIdpestado().equals(Constants.DELIVERY_IDPESTADO_INACTIVO))
+//					 	loginWeb.setEscenario(Constants.ESCENARIO_LOGIN_USUARIO_INACTIVO);
+//				 else{
 
 					 loginWeb.setEscenario(Constants.ESCENARIO_LOGIN_ACCESOS_CORRECTOS);
 			
-					 tercero.setIdtercero(usuario.getIdtercero());
-					 
-					 tercero = terceroDao.lstTerceros(tercero).get(0);
-			
-					 if(tercero.getIdcourier() != null){
-						 	courier.setIdcourier(tercero.getIdcourier());
-			
-						 	courier = courierDao.obtCourier(courier).get(0);
-			
-						 	if(courier.getIdpestado() == Constants.DELIVERY_IDPESTADO_INACTIVO)
-						 		loginWeb.setEscenario(Constants.ESCENARIO_LOGIN_COURIER_INACTIVA);
-					 }
-					 
-				 }
-			 }else
-				 loginWeb.setEscenario(Constants.ESCENARIO_LOGIN_ACCESOS_INCORRECTOS);
-			
-		}else{
-		 //USUARIO NO EXISTE EN LA BD
-		 loginWeb.setEscenario(Constants.ESCENARIO_LOGIN_USUARIO_NO_EXITE);
-		}
+//					 tercero.setIdtercero(usuario.getIdtercero());
+//					 
+//					 tercero = terceroDao.lstTerceros(tercero).get(0);
+//			
+//					 if(tercero.getIdcourier() != null){
+//						 	courier.setIdcourier(tercero.getIdcourier());
+//			
+//						 	courier = courierDao.obtCourier(courier).get(0);
+//			
+//						 	if(courier.getIdpestado() == Constants.DELIVERY_IDPESTADO_INACTIVO)
+//						 		loginWeb.setEscenario(Constants.ESCENARIO_LOGIN_COURIER_INACTIVA);
+//					 }
+//					 
+//				 }
+//			 }else
+//				 loginWeb.setEscenario(Constants.ESCENARIO_LOGIN_ACCESOS_INCORRECTOS);
+//			
+//		}else{
+//		 //USUARIO NO EXISTE EN LA BD
+//		 loginWeb.setEscenario(Constants.ESCENARIO_LOGIN_USUARIO_NO_EXITE);
+//		}
 
 		return usuario;
 	}
