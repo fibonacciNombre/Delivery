@@ -23,14 +23,14 @@
 				<div class="form-group" id="dscperfil-div">
                     <label for="dscperfil" class="col-md-6 control-label">Perfil </label>
                     <div class="col-md-12">
-                   		<input type="text" readonly class="form-control" id="dscperfil" name="dscperfil" maxlength="200">
+                   		<select class="form-control" id="idperfil" name="idperfil"></select>
                     </div>
                 </div>
                 
                 <div class="form-group" id="idptipodocumento-div">
                     <label for="idptipodocumento" class="col-md-6 control-label">Tipo de documento </label>
                     <div class="col-md-12">
-                        <input type="text" readonly class="form-control" id="idptipodocumento" name="idptipodocumento" maxlength="200">
+                    	<select class="form-control" id="idptipodocumento" name="idptipodocumento"></select>
                     </div>
                 </div>
                 
@@ -64,7 +64,7 @@
 			</div>
         
         	<div class="col-md-6">
-        		<div class="form-group" id="rznsocial-div">
+        		<div class="form-group" id="rznsocial-div" style="display: none;">
                     <label for=rznsocial" class="col-md-6 control-label">Courier </label>
                     <div class="col-md-12">
                         <div style="display: inline-block; vertical-align: top; padding: 0px;">
@@ -108,7 +108,7 @@
                 <div class="form-group" id="estado-div">
                     <label for="idpestado" class="col-md-6 control-label">Estado </label>
                     <div class="col-md-12">
-                    	<input type="text" readonly class="form-control" id="idpestado"  name="idpestado" maxlength="200">                        
+                    	<select class="form-control" id="idpestado" name="idpestado"></select>                        
                     </div>
                 </div>
                 
@@ -255,17 +255,22 @@
 	function cargarData(){
 		
 		/*Informacion personal*/
-		$("#form-micuenta #nrodoc").val(CTE_JSON_TERCERO.numerodoc);
-		$("#form-micuenta #tipodoc").val(CTE_JSON_TERCERO.idptipodocumento);
+		$("#form-micuenta #idperfil").val(CTE_JSON_PERFIL.idperfil);
+		$("#form-micuenta #nrodocumento").val(CTE_JSON_TERCERO.nrodocumento);
+		$("#form-micuenta #idptipodocumento").val(CTE_JSON_TERCERO.idptipodocumento);
 		$("#form-micuenta #idpestado").val(CTE_JSON_USUARIOWEB.idpestado);
-		$("#form-micuenta #nombres").val(CTE_JSON_USUARIOWEB.nombres);
-		$("#form-micuenta #apepaterno").val(CTE_JSON_USUARIOWEB.apepaterno);
-		$("#form-micuenta #apematerno").val(CTE_JSON_USUARIOWEB.apematerno);
-		$("#form-micuenta #codusuario").val(CTE_JSON_USUARIOWEB.nombres);
-		$("#form-micuenta #telfmovil").val(CTE_JSON_USUARIOWEB.apepaterno);
-		$("#form-micuenta #correo").val(CTE_JSON_USUARIOWEB.apematerno);
-		$("#form-micuenta #comentarios").val(CTE_JSON_USUARIOWEB.apematerno);
+		$("#form-micuenta #nombres").val(CTE_JSON_TERCERO.nombres);
+		$("#form-micuenta #apepaterno").val(CTE_JSON_TERCERO.apepaterno);
+		$("#form-micuenta #apematerno").val(CTE_JSON_TERCERO.apematerno);
+		$("#form-micuenta #codusuario").val(CTE_JSON_USUARIOWEB.codusuario);
+		$("#form-micuenta #telfmovil").val(CTE_JSON_TERCERO.telfmovil);
+		$("#form-micuenta #correo").val(CTE_JSON_TERCERO.correo);
+		$("#form-micuenta #comentarios").val(CTE_JSON_USUARIOWEB.comentarios);
 		
+		if(CTE_JSON_PERFIL.idperfil ==CTE_INIT_IDROL_COLAB_COURIER)
+			$("#rznsocial-div").show();
+		
+		$("#form-micuenta *").attr("disabled","disabled");
 	}
 		
 </script>

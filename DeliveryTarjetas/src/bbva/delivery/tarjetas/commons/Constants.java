@@ -29,6 +29,7 @@ public class Constants {
 	
 	//Usuario para campos de auditoria
 	public static final String USUARIO_WEB_BBVA							= "BBVA_WEB";
+	public static final String CONTRASENA_DEFAULT						= "123456";
 
 	//Constantes INDICADORES DE ESTADOS
 	public static final Integer DELIVERY_IDPESTADO_ACTIVO				=  1;

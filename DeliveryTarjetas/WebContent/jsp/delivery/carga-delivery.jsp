@@ -17,7 +17,7 @@
 		        <div class="form-group" id="filename-div">
 		            <label for="filename" class="col-md-6 control-label required">Ubicación archivo </label>
 		            <div class="col-md-12">
-		                <input type="file" class="col-md-6 form-control" id="filename" name="filename" >
+		                <input type="file" class="col-md-6 form-control" id="filename" name="filename" style="height: auto;" >
 		                <div class="result"></div>
 		            </div>
 		        </div>

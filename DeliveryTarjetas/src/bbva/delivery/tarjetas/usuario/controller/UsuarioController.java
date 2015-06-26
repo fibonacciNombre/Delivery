@@ -334,14 +334,19 @@ public class UsuarioController extends BaseController {
 		TransaccionWeb tx			= new TransaccionWeb();
 		Usuario usuario 			= new Usuario(request.getParameterMap());
 		
-		usuario.setIndrnvcontrasena("N");
-		usuario.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, usuario.getContrasena()));
+		if(usuario.getContrasena()!=null && usuario.getContrasena()!=""){
+			usuario.setIndrnvcontrasena("N");
+			usuario.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, usuario.getContrasena()));
+		}else{
+			usuario.setIndrnvcontrasena("S");
+			usuario.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, Constants.CONTRASENA_DEFAULT));
+		}
 		
 		usuarioService.mntContrasena(usuario);
 		
 		session.setAttribute(Constants.REQ_SESSION_USUARIO, usuario);
 		
-		result = commons.web.UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName());
+		result += "{\"tx\":"+commons.web.UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName())+"}";
 		
 		this.escribirTextoSalida(response, result);
 		

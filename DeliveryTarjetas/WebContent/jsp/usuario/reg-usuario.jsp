@@ -77,6 +77,8 @@
     	
     	cargarCombo('/DeliveryTarjetas/tercero.do', 'lstTerceros','idtercero', ['idtercero','nomcompleto'], {form: 'form-registrousuario'});
     	
+    	$("#form-registrousuario #idperfil option[value='"+CTE_INIT_IDROL_ADMIN_WS+"']").remove();
+    	
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
 		});
