@@ -28,6 +28,8 @@ public class Usuario implements Serializable {
 	private String nombres; 
 	private String apepaterno;
 	private String apematerno;
+	private String dscperfil;
+	private String dscestado;
  
  	private Integer idcourier; 
 	private Integer idperfil; 
@@ -187,6 +189,22 @@ public class Usuario implements Serializable {
 
 	public void setApematerno(String apematerno) {
 		this.apematerno = apematerno;
+	}
+
+	public String getDscperfil() {
+		return dscperfil;
+	}
+
+	public void setDscperfil(String dscperfil) {
+		this.dscperfil = dscperfil;
+	}
+
+	public String getDscestado() {
+		return dscestado;
+	}
+
+	public void setDscestado(String dscestado) {
+		this.dscestado = dscestado;
 	}	
 	
 }
