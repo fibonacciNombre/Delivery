@@ -134,7 +134,11 @@
 																						"tipoarchivo=xlsx",
 												type	:"post", 
 												success	:function(data){ 
-																closeModalCargando(); 
+																closeModalCargando();
+																loadModalMensaje("Enhorabuena","Se ha completado la carga de entregas.",null);
+												},
+												error	:function(){
+																
 												}
 											});			
 		}
