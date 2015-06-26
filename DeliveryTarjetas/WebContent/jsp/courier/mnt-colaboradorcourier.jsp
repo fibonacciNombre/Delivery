@@ -222,6 +222,10 @@
 		$("#form-mntcolaborador #nrodocumento").val(json.nrodocumento);
 		$("#form-mntcolaborador #apematerno").val(json.apematerno);
 		$("#form-mntcolaborador #idcourier").val(json.idcourier);
+		
+		$("#form-mntcolaborador #idpestado").val(json.idpestado);
+		$("#form-mntcolaborador #telfmovil").val(json.telfmovil);
+		$("#form-mntcolaborador #telffijo").val(json.telffijo);
 	}
 	
 	function actualizarColaborador() { 

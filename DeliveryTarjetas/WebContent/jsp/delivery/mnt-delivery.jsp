@@ -42,9 +42,9 @@
 											
 					<div class="col-md-6">						
 						<div class="form-group">
-							<label for="nrodocumento" class="col-md-5 control-label">DNI del cliente</label>
+							<label for="nrodocumentocli" class="col-md-5 control-label">DNI del cliente</label>
 							<div class="col-md-7">								
-								<input type="text" class="form-control" id="dnicliente"  name="dnicliente" maxlength="8">							
+								<input type="text" class="form-control" id="nrodocumentocli"  name="nrodocumentocli" maxlength="8">							
 							</div>
 						</div>
 						
@@ -83,7 +83,9 @@
     	loadModalCargando();
     	
     	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form: 'form-bsqdelivery'});
-    	
+		callCargaControlParam('DELWEB_ESTADO','form-cargar-entrega-tarjeta-edit #idpestado',false);
+
+		
     	$("#fecentrega").datepicker({ 
     								beforeShow 	: function() {
 														setTimeout(function() {
@@ -197,15 +199,13 @@
 														{ "data" 		: "fecentrega",
 															"orderable"	: false,
 															"sWidth" 	: "10%" }, 
-														{ "data"    	: "",
-															"sWidth"	: "5%",
-															"orderable"	: false,
-											                "mRender"	: function (data, type, full) {
-								        										return linkDetalleEntrega(data, 
-																	         		 						full, 
-																	         		 						idDataTable,
-																	         		 						"idDetalleEntrega"); }
-														}
+															
+						                      				{ "orderable"	: false,
+							                      				"data"      : "",
+							                      				"class"		: "text-center",
+					                         	 				"mRender"  	: function (data, type, full) {
+						                         	 								return linkDetalleDelivery(full);  }}
+														
 													],
 									"fnDrawCallback" : function() {
 														var table = $(idDataTable).dataTable();
@@ -216,17 +216,90 @@
 								});		
 	}
 
-	function linkDetalleEntrega(data, full, idDataTable, nomVariable){
-		
-		var enlace = null;
-			
-		enlace = "<a data-toggle='modal' " + 
-					" data-target='#modalDetalleEntrega' "  +
-					" onclick='return rowSelected(\""+idDataTable+"\",\""+nomVariable+"\");'>"+
-						"<i class='i-detalle'></i>" +
-				 "</a>";
+	function linkDetalleDelivery(full) {
+		enlace = "<a data-toggle='modal' "
+					+ "data-target='#modalDetalleEntrega' "
+					+ "onclick='return rowSelected("+ JSON.stringify(JSON.stringify(full)) +");'>"
+					+ "<i class='i-detalle'></i>" 
+				+ "</a>";
 
 		return enlace;
+	}
+
+	function rowSelected(json) {
+		json = JSON.parse(json);
+
+		$("#form-cargar-entrega-tarjeta-edit #iddelivery").val(json.iddelivery);
+        $("#form-cargar-entrega-tarjeta-edit #tipodocumento").val(json.tipodocumento);
+        $("#form-cargar-entrega-tarjeta-edit #nrodocumentocli").val(json.nrodocumentocli);
+        $("#form-cargar-entrega-tarjeta-edit #nombrescli").val(json.nombrescli);
+        $("#form-cargar-entrega-tarjeta-edit #tipotarjeta").val(json.tipotarjeta);
+        $("#form-cargar-entrega-tarjeta-edit #pridigtarjeta").val(json.pridigtarjeta);
+        $("#form-cargar-entrega-tarjeta-edit #ultdigtarjeta").val(json.ultdigtarjeta);
+        $("#form-cargar-entrega-tarjeta-edit #nrocontrato").val(json.nrocontrato);
+        $("#form-cargar-entrega-tarjeta-edit #mtoasoctarjeta").val(json.mtoasoctarjeta);
+        $("#form-cargar-entrega-tarjeta-edit #fecentrega").val(json.fecentrega);
+        $("#form-cargar-entrega-tarjeta-edit #horaentrega").val(json.horaentrega);
+        $("#form-cargar-entrega-tarjeta-edit #lugarentrega").val(json.lugarentrega);
+        $("#form-cargar-entrega-tarjeta-edit #indverificacion").val(json.indverificacion);
+        $("#form-cargar-entrega-tarjeta-edit #direccioncli").val(json.direccioncli);
+        $("#form-cargar-entrega-tarjeta-edit #distritocli").val(json.distritocli);
+        $("#form-cargar-entrega-tarjeta-edit #latitudofi").val(json.latitudofi);
+        $("#form-cargar-entrega-tarjeta-edit #longitudofi").val(json.longitudofi);
+        $("#form-cargar-entrega-tarjeta-edit #correocli").val(json.correocli);
+        $("#form-cargar-entrega-tarjeta-edit #telmovilcli").val(json.telmovilcli);
+        $("#form-cargar-entrega-tarjeta-edit #ordenentrega").val(json.ordenentrega);
+        $("#form-cargar-entrega-tarjeta-edit #idcourier").val(json.idcourier);
+        $("#form-cargar-entrega-tarjeta-edit #idtercero").val(json.idtercero);
+        $("#form-cargar-entrega-tarjeta-edit #idpestado").val(json.idpestado);
+        $("#form-cargar-entrega-tarjeta-edit #idarchivo").val(json.idarchivo);
+        $("#form-cargar-entrega-tarjeta-edit #idpestadocarga").val(json.idpestadocarga);
+        $("#form-cargar-entrega-tarjeta-edit #historial").val(json.historial);
+        $("#form-cargar-entrega-tarjeta-edit #grupocarga").val(json.grupocarga);
+	}
+	
+	function guardarDatosEditados() { 
+		if ($("#form-cargar-entrega-tarjeta-edit").valid()){
+		 
+     		loadModalCargando();
+     		
+     		$.ajax({
+				type 		: "POST",
+				url 		: "/DeliveryTarjetas/delivery.do?method=mntDelivery",
+				cache 		: false,
+				dataType 	: "json",
+				contentType	: "application/x-www-form-urlencoded; charset=UTF-8",
+				async 		: false,
+				data 		: $("#form-cargar-entrega-tarjeta-edit").serializeArray(),
+				success 	: function(rsp) {
+					
+									var status 	= rsp.tx.statustx;
+									var message = rsp.tx.messagetx;
+
+									closeModalCargando();
+									
+									if(status == 0)
+										loadModalMensaje("Enhorabuena",
+															message,
+															function(){
+																$("#modalDetalleEntrega").modal('hide');
+																bsqDelivery();
+															});										
+
+									else
+										loadModalMensaje("Atención",message,null);
+				},
+				error 		: function(rsp, xhr, ajaxOptions, thrownError) {
+									closeModalCargando();
+									loadModalMensaje("Lo sentimos","Se presentaron problemas al registrar sus cambios. <br> Por favor intentelo en unos minutos.", null);
+				}
+			});
+     						 
+		} else {
+			$.each($('input[type=text], select ,textarea', '#form-cargar-entrega-tarjeta-edit'),function(k){
+			   validateItems("form-cargar-entrega-tarjeta-edit", this);
+			});
+		} 
 	}
 		
 </script>

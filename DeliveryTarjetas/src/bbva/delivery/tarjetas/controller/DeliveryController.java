@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
@@ -23,11 +24,14 @@ import org.springframework.web.servlet.ModelAndView;
 import bbva.delivery.tarjetas.anotaciones.AdviceController;
 import bbva.delivery.tarjetas.bean.Archivo;
 import bbva.delivery.tarjetas.bean.Delivery;
+import bbva.delivery.tarjetas.commons.Constants;
+import bbva.delivery.tarjetas.comun.bean.TransaccionWeb;
 import bbva.delivery.tarjetas.comun.service.ComunService;
+import bbva.delivery.tarjetas.courier.bean.Courier;
 import bbva.delivery.tarjetas.service.DeliveryService;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
-
 import commons.framework.BaseController;
+import commons.web.UtilWeb;
 
 @AdviceController
 public class DeliveryController extends BaseController{
@@ -86,6 +90,31 @@ public class DeliveryController extends BaseController{
 		this.escribirTextoSalida(response, joRetorno.toString());
 	}
 
+	public void mntDelivery(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+	 
+		String result			= "";
+		HttpSession session 	= request.getSession();
+		TransaccionWeb tx		= new TransaccionWeb();				
+		Delivery delivery = new Delivery(request.getParameterMap());
+		
+		//String usuario = session.getAttribute(Constants.REQ_SESSION_USUARIO).toString();
+	 	
+		try {
+			
+			deliveryService.mntDelivery(delivery);			
+			tx.setMessagetx("Su transacción fue realizada con éxito");
+			
+		} catch (Error e) {
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+		}
+
+		result += "{\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) +"}";
+		
+		this.escribirTextoSalida(response, result);
+	}
+	
 	public void lstDelivery(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
