@@ -16,6 +16,7 @@ public class LoginWeb implements Serializable {
 	private String urldestino;
 	private String useragent;
 
+	
 	@SuppressWarnings("rawtypes")
 	public LoginWeb(Map map) throws Exception {
 		ResourceManager.populateDtoFromMap(this, map);
@@ -68,4 +69,5 @@ public class LoginWeb implements Serializable {
 	public void setUseragent(String usragent) {
 		this.useragent = usragent;
 	}
+	
 }
