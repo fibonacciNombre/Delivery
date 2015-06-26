@@ -4,7 +4,7 @@ import java.util.List;
 
 import bbva.delivery.tarjetas.courier.bean.Courier;
 import bbva.delivery.tarjetas.tercero.bean.Tercero;
-import bbva.delivery.tarjetas.usuario.bean.LoginWeb;
+import bbva.delivery.tarjetas.usuario.bean.Loginweb;
 import bbva.delivery.tarjetas.usuario.bean.Usuario;
 
 public interface UsuarioService {
@@ -18,7 +18,7 @@ public interface UsuarioService {
 		
 	boolean validarContrasena(Usuario usuario);
 	
-	Usuario autenticarUsuario(LoginWeb usuario) throws Exception;
+	Usuario autenticarUsuario(Loginweb usuario) throws Exception;
 	
 	void mntContrasena(Usuario usuario);
 	 

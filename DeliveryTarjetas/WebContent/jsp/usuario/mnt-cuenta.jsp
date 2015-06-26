@@ -16,7 +16,7 @@
 		<div class="panel-heading">
 			Datos personales
 		</div>
-		
+		<form id="form-micuenta">
 		<div id="datos-personales" class="panel-body">
 		
 			<div class="col-md-6">
@@ -121,6 +121,7 @@
         	</div>	
         			
 		</div>	
+		</form>
 		
 	</div>        
 	
@@ -232,54 +233,38 @@
 <script>
 
 	$().ready(function(){
-		/*
+		
 		loadModalCargando();
 		
-		var bienvenida = replaceAll($("#bienvenida_act_datos").text(),'@@@',CTE_JSON_PERSONAPWEB.nombre);
+		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-micuenta #idptipodocumento',false);  
+		
+		callCargaControlParam('DELWEB_ESTADO','form-micuenta #idpestado',false);
+    	 
+		cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','idperfil',  ['idperfil','descripcion'], {form: 'form-micuenta'});
+		
+		var bienvenida = replaceAll($("#bienvenida_act_datos").text(),'@@@',CTE_JSON_TERCERO.nombres);
+		
 		$("#bienvenida_act_datos").text(bienvenida);
 
 		cargarData();
 		
 		closeModalCargando();
-		*/
+		
 	});
-	
 	
 	function cargarData(){
 		
 		/*Informacion personal*/
-		$("#informacionpersonal #nrodoc").val(CTE_JSON_USUARIOPWEB.numerodoc);
-		$("#informacionpersonal #fechanac").val(CTE_JSON_PERSONAPWEB.fecnacimiento);
-		$("#informacionpersonal #tipodoc").val(CTE_JSON_PERSONAPWEB.idptipodocumento);
-		$("#informacionpersonal #idpgenero").val(CTE_JSON_PERSONAPWEB.idpgenero);
-		
-		/*Datos Direccion Portal web*/
-		$("#datos_contacto :input").attr("disabled", true);
-		obtenerDpto($("#datos_contacto #idepais").val(),'datos_contacto #departamento2');
-
-		cargarDireccion("#datos_contacto",CTE_JSON_DIRPWEB);
-		
-		$("#datos_contacto #idptipovia").val(CTE_JSON_DIRPWEB.idptipovia);
-		$("#datos_contacto #direccion2").val(CTE_JSON_DIRPWEB.nomvia);
-		$("#ptocontacto-dom").val(CTE_JSON_DIRPWEB.idepuntocontacto);
-		
-		/*Datos de telefono pweb secundario (fijo)*/
-		if(CTE_JSON_TELFSECPWEB!=undefined){
-			$("#telefonocasa2").val(CTE_JSON_TELFSECPWEB.numlocal);
-			$("#mediocontactotelf").val(CTE_JSON_TELFSECPWEB.idepuntocontacto);
-		}
-		
-		/*Datos de telefono pweb principal (movil) */
-		$("#telefonomovil2").val(CTE_JSON_TELFPWEB.numlocal);
-		$("#mediocontactomovil").val(CTE_JSON_TELFPWEB.idepuntocontacto);
-		
-		/*Datos de email*/
-		$("#email2").val(CTE_JSON_CORREOPWEB.email);
-		$("#mediocontactomail").val(CTE_JSON_CORREOPWEB.idepuntocontacto);
-		
-		$("#editar_dirpweb").attr("disabled", false);
-		//$("#editar_corresp").attr("disabled", false);
-		$("#terminosCond").attr("disabled", true);
+		$("#form-micuenta #nrodoc").val(CTE_JSON_TERCERO.numerodoc);
+		$("#form-micuenta #tipodoc").val(CTE_JSON_TERCERO.idptipodocumento);
+		$("#form-micuenta #idpestado").val(CTE_JSON_USUARIOWEB.idpestado);
+		$("#form-micuenta #nombres").val(CTE_JSON_USUARIOWEB.nombres);
+		$("#form-micuenta #apepaterno").val(CTE_JSON_USUARIOWEB.apepaterno);
+		$("#form-micuenta #apematerno").val(CTE_JSON_USUARIOWEB.apematerno);
+		$("#form-micuenta #codusuario").val(CTE_JSON_USUARIOWEB.nombres);
+		$("#form-micuenta #telfmovil").val(CTE_JSON_USUARIOWEB.apepaterno);
+		$("#form-micuenta #correo").val(CTE_JSON_USUARIOWEB.apematerno);
+		$("#form-micuenta #comentarios").val(CTE_JSON_USUARIOWEB.apematerno);
 		
 	}
 		

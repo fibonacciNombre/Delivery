@@ -5,7 +5,7 @@ import java.util.Map;
 
 import commons.mapper.ResourceManager;
 
-public class LoginWeb implements Serializable {
+public class Loginweb implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -18,7 +18,7 @@ public class LoginWeb implements Serializable {
 
 	
 	@SuppressWarnings("rawtypes")
-	public LoginWeb(Map map) throws Exception {
+	public Loginweb(Map map) throws Exception {
 		ResourceManager.populateDtoFromMap(this, map);
 	}
 
