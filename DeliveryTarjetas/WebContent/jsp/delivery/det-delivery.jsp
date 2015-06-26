@@ -17,32 +17,28 @@
 
 			<form id="form-cargar-entrega-tarjeta-edit">
 				
-				<div id="container-data-delivery">
-					<div class="column-formulario-carga"
-						style="width: 100%; margin-top: 10px; margin-bottom: 10px; padding-left: 15px; padding-right: 15px;">
-						<h4 style="margin: 0px;">Datos de Entrega</h4>
-						<hr style="margin: 0px; border-color: #dddddd;">
-					</div>
+			<input type="hidden" id="iddelivery" name="iddelivery" value=""/>			
+					 
 	
 					<div class="column-formulario-carga">
 	
 						<div class="form-group form-group-persona">
-							<label for="fecentregaprog"
+							<label for="fecentrega"
 								class="col-md-5 control-label carga-content-maxim">Fecha
 								de entrega:</label>
 							<div class="col-md-7 carga-content-maxim">
-								<input type="text" id="fecentregaprog" name="fecentregaprog"
+								<input type="text" id="fecentrega" name="fecentrega"
 									class="form-control">
 								<div class="result"></div>
 							</div>
 						</div>
 	
 						<div class="form-group form-group-persona">
-							<label for="horentregaprog"
+							<label for="horaentrega"
 								class="col-md-5 control-label carga-content-maxim">Hora
 								de entrega:</label>
 							<div class="col-md-7 carga-content-maxim">
-								<input type="text" id="horentregaprog" name="horentregaprog"
+								<input type="text" id="horaentrega" name="horaentrega"
 									class="form-control">
 								<div class="result"></div>
 							</div> 
@@ -50,11 +46,10 @@
 						</div>
 	
 						<div class="form-group form-group-persona">
-							<label for="ubientrega"
-								class="col-md-5 control-label carga-content-maxim">Ubicación
-								del Entrega</label>
+							<label for="tipodocumento"
+								class="col-md-5 control-label carga-content-maxim">Tipo de documento</label>
 							<div class="col-md-7 carga-content-maxim">
-								<input type="text" id="ubientrega" name="ubientrega"
+								<input type="text" id="tipodocumento" name="tipodocumento"
 									class="form-control">
 								<div class="result"></div>
 							</div>
@@ -64,33 +59,30 @@
 	
 					<div class="column-formulario-carga">
 						<div class="form-group form-group-carga">
-							<label for="depentrega"
-								class="col-md-5 control-label carga-content-maxim">Departamento
-								de Entrega:</label>
+							<label for="nrodocumentocli"
+								class="col-md-5 control-label carga-content-maxim">Número de Documento</label>
 							<div class="col-md-7 carga-content-maxim">
-								<input type="text" id="depentrega" name="depentrega"
+								<input type="text" id="nrodocumentocli" name="nrodocumentocli"
 									class="form-control">
 								<div class="result"></div>
 							</div>
 						</div>
 	
 						<div class="form-group form-group-carga">
-							<label for="proventrega"
-								class="col-md-5 control-label carga-content-maxim">Provincia
-								de Entrega:</label>
+							<label for="nombrescli"
+								class="col-md-5 control-label carga-content-maxim">Nombres</label>
 							<div class="col-md-7 carga-content-maxim">
-								<input type="text" id="proventrega" name="proventrega"
+								<input type="text" id="nombrescli" name="nombrescli"
 									class="form-control">
 								<div class="result"></div>
 							</div>
 						</div>
 	
 						<div class="form-group form-group-persona">
-							<label for="distentrega"
-								class="col-md-5 control-label carga-content-maxim">Distrito
-								de entrega:</label>
+							<label for="tipotarjeta"
+								class="col-md-5 control-label carga-content-maxim">Tipo de Tarjeta</label>
 							<div class="col-md-7 persona-content-maxim">
-								<input type="text" id="distentrega" name="distentrega"
+								<input type="text" id="tipotarjeta" name="tipotarjeta"
 									class="form-control">
 								<div class="result"></div>
 							</div>
@@ -99,42 +91,36 @@
 					</div>
 	
 					<div class="form-group form-group-persona">
-						<label for="direntrega"
-							class="col-md-5 control-label carga-content-maxim">Dirección
+						<label for="pridigtarjeta"
+							class="col-md-5 control-label carga-content-maxim">Primeros Digitos
 							de entrega</label>
 						<div class="col-md-7 carga-content-maxim">
-							<input type="text" id="direntrega" name="direntrega"
+							<input type="text" id="pridigtarjeta" name="pridigtarjeta"
 								class="form-control">
 							<div class="result"></div>
 						</div>
 					</div>
-				</div>
+				 
 				
-				<div id="container-data-cliente">
-					<div class="column-formulario-carga" style="width: 100%; margin-top: 10px; margin-bottom: 10px; padding-left: 15px; padding-right: 15px;">
-						<h4 style="margin: 0px;">Datos del Cliente</h4>
-						<hr style="margin: 0px; border-color: #dddddd;">
-					</div>
-	
+		 
+ 	
 					<div class="column-formulario-carga">
 	
 						<div class="form-group form-group-persona">
-							<label for="dnicliente"
-								class="col-md-5 control-label carga-content-maxim">DNI
-								del Cliente:</label>
+							<label for="ultdigtarjeta"
+								class="col-md-5 control-label carga-content-maxim">Ultimos Digitos</label>
 							<div class="col-md-7 carga-content-maxim">
-								<input type="text" id="dnicliente" name="dnicliente"
+								<input type="text" id="ultdigtarjeta" name="ultdigtarjeta"
 									class="form-control">
 								<div class="result"></div>
 							</div>
 						</div>
 	
 						<div class="form-group form-group-persona">
-							<label for="nomcliente"
-								class="col-md-5 control-label carga-content-maxim">Nombre
-								del Cliente</label>
+							<label for="nrocontrato,"
+								class="col-md-5 control-label carga-content-maxim">Nro Contrato</label>
 							<div class="col-md-7 carga-content-maxim">
-								<input type="text" id="nomcliente" name="nomcliente"
+								<input type="text" id="nrocontrato," name="nrocontrato,"
 									class="form-control">
 								<div class="result"></div>
 							</div>
@@ -146,22 +132,20 @@
 	
 	
 						<div class="form-group form-group-carga">
-							<label for="distcliente"
-								class="col-md-5 control-label carga-content-maxim">Distrito
-								Cliente:</label>
+							<label for="mtoasoctarjeta"
+								class="col-md-5 control-label carga-content-maxim">Monto:</label>
 							<div class="col-md-7 carga-content-maxim">
-								<input type="text" id="distcliente" name="distcliente"
+								<input type="text" id="mtoasoctarjeta" name="mtoasoctarjeta"
 									class="form-control">
 								<div class="result"></div>
 							</div>
 						</div>
 	
 						<div class="form-group form-group-carga">
-							<label for="distcliente"
-								class="col-md-5 control-label carga-content-maxim">Dirección
-								del Cliente:</label>
+							<label for="lugarentrega"
+								class="col-md-5 control-label carga-content-maxim">Lugar de Entrega</label>
 							<div class="col-md-7 carga-content-maxim">
-								<input type="text" id="dircliente" name="distcliente"
+								<input type="text" id="lugarentrega" name="lugarentrega"
 									class="form-control">
 								<div class="result"></div>
 							</div>
@@ -170,53 +154,47 @@
 					</div>
 	
 					<div class="form-group form-group-carga">
-						<label for="loccliente"
-							class="col-md-5 control-label carga-content-maxim">Localización
-							Cliente:</label>
+							<label for="direccioncli"
+								class="col-md-5 control-label carga-content-maxim">Dirección del cliente</label>
+							<div class="col-md-7 carga-content-maxim">
+								<input type="text" id="direccioncli" name="direccioncli"
+									class="form-control">
+								<div class="result"></div>
+							</div>
+						</div>
+	
+	
+					
+	
+					<div class="column-formulario-carga">
+	
+					<div class="form-group form-group-carga">
+						<label for="indverificacion"
+							class="col-md-5 control-label carga-content-maxim">Indica verificación</label>
 						<div class="col-md-7 carga-content-maxim">
-							<input type="text" id="loccliente" name="loccliente"
+							<input type="text" id="indverificacion" name="indverificacion"
 								class="form-control">
 							<div class="result"></div>
 						</div>
 					</div>
-				</div>
 				
-				<div id="container-data-producto">
-					<div class="column-formulario-carga" style="width: 100%; margin-top: 10px; margin-bottom: 10px; padding-left: 15px; padding-right: 15px;">
-						<h4 style="margin: 0px;">Datos del Producto</h4>
-						<hr style="margin: 0px; border-color: #dddddd;">
-					</div>
-	
-					<div class="column-formulario-carga">
-	
+		 
+		 
 						<div class="form-group form-group-carga">
-							<label for="numerotarjeta"
-								class="col-md-5 control-label carga-content-maxim">Número
-								Tarjeta:</label>
+							<label for="distritocli"
+								class="col-md-5 control-label carga-content-maxim">Distrito</label>
 							<div class="col-md-7 carga-content-maxim">
-								<input type="text" id="numerotarjeta" name="numerotarjeta"
+								<input type="text" id="distritocli" name="distritocli"
 									class="form-control">
 								<div class="result"></div>
 							</div>
 						</div>
 	
 						<div class="form-group form-group-carga">
-							<label for="ultimosdigitos"
-								class="col-md-5 control-label carga-content-maxim">Últimos
-								4 digitos:</label>
+							<label for="latitudofi"
+								class="col-md-5 control-label carga-content-maxim">Latitud</label>
 							<div class="col-md-7 carga-content-maxim">
-								<input type="text" id="ultimosdigitos" name="ultimosdigitos"
-									class="form-control">
-								<div class="result"></div>
-							</div>
-						</div>
-	
-						<div class="form-group form-group-carga">
-							<label for="tipoprod"
-								class="col-md-5 control-label carga-content-maxim">Tipo
-								de Producto:</label>
-							<div class="col-md-7 carga-content-maxim">
-								<input type="text" id="tipoprod" name="tipoprod"
+								<input type="text" id="latitudofi" name="latitudofi"
 									class="form-control">
 								<div class="result"></div>
 							</div>
@@ -226,39 +204,58 @@
 					<div class="column-formulario-carga">
 	
 						<div class="form-group form-group-carga">
-							<label for="subtipoprod"
-								class="col-md-5 control-label carga-content-maxim">SubTipo
-								de Producto:</label>
+							<label for="longitudofi"
+								class="col-md-5 control-label carga-content-maxim">Longitud</label>
 							<div class="col-md-7 carga-content-maxim">
-								<input type="text" id="subtipoprod" name="subtipoprod"
+								<input type="text" id="longitudofi" name="longitudofi"
 									class="form-control">
 								<div class="result"></div>
 							</div>
 						</div>
 	
 						<div class="form-group form-group-carga">
-							<label for="courierasoc"
-								class="col-md-5 control-label carga-content-maxim">Courier
-								Asociado:</label>
+							<label for="correocli"
+								class="col-md-5 control-label carga-content-maxim">Correo Cliente</label>
 							<div class="col-md-7 carga-content-maxim">
-								<input type="text" id="courierasoc" name="courierasoc"
+								<input type="text" id="correocli" name="correocli"
 									class="form-control">
 								<div class="result"></div>
 							</div>
 						</div>
 	
 						<div class="form-group form-group-carga">
-							<label for="dnicourier"
-								class="col-md-5 control-label carga-content-maxim">DNI
-								Courier :</label>
+							<label for="correocli"
+								class="col-md-5 control-label carga-content-maxim">Correo Cliente</label>
 							<div class="col-md-7 carga-content-maxim">
-								<input type="text" id="dnicourier" name="dnicourier"
+								<input type="text" id="correocli" name="correocli"
 									class="form-control">
 								<div class="result"></div>
 							</div>
 						</div>
-					</div>					
-				</div>
+						
+							
+						<div class="form-group form-group-carga">
+							<label for="telmovilcli"
+								class="col-md-5 control-label carga-content-maxim">Orden de Entrega</label>
+							<div class="col-md-7 carga-content-maxim">
+								<input type="text" id="telmovilcli" name="ordenentrega"
+									class="form-control">
+								<div class="result"></div>
+							</div>
+						</div>
+
+
+					<div class="form-group" id="estado-div">
+						<label for="idpestado" class="col-md-12 control-label required">Estado
+						</label>
+						<div class="col-md-12">
+							<select class="form-control" id="idpestado" name="idpestado">
+							</select>
+							<div class="result"></div>
+						</div>
+					</div>
+				</div>					
+				 
 
 			</form>
 

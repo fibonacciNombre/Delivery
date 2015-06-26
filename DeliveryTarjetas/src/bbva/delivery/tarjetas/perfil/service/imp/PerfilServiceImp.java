@@ -36,7 +36,7 @@ public class PerfilServiceImp implements PerfilService {
 	}
 
 	@Override
-	public List<Perfil> obtPerfil(Perfil perfil) {
+	public Perfil obtPerfil(Perfil perfil) {
 		// TODO Auto-generated method stub
 		logger.info("Service obtPerfil");
 		return perfilDao.obtPerfil(perfil);

@@ -135,6 +135,10 @@ function slug(str) {
 	return str;
 };
 
+function replaceAll(str, find, replace){
+	return str.replace(new RegExp(find, 'g'), replace);
+}
+
 function bindBreadcrumb(){
     $("#accordion li a").each(function(index){
     	 

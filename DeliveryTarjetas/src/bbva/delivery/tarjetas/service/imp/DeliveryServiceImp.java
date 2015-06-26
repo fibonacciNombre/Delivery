@@ -197,7 +197,7 @@ public class DeliveryServiceImp implements DeliveryService {
 		return portalWebDao.crearGrupoCargaDelivery();
 	}
  
-	public void mntDelivery(Delivery param) throws FileNotFoundException {
+	public void mntDelivery(Delivery param) {
 		portalWebDao.mntDelivery(param);
 	}
 	 

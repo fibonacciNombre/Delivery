@@ -40,7 +40,11 @@ body {
     min-height: 100%;
 	width: 960px;
 }
-
+@media only screen and (max-width: 959px) {
+  body {
+    width: 95%;
+  }
+}
 @media (max-width: 767px) {
   body {
      width: 100%;
@@ -6883,9 +6887,8 @@ button.close {
 }
 
 #avatar {
-  position: absolute;
-  top: 30px;
-  right: 120px;
+    display: inline-block;
+    margin-top: 3px;
 }
 @media (max-width: 991px) {
   #avatar {
@@ -7503,7 +7506,7 @@ h3.modal-title {
 }
 @media(min-width: 600px) and (max-width: 20000px) {
   .panel-container {
-    margin-top: 90px;
+    margin-top: 100px;
   }
 }
 .panel-login {
@@ -10722,7 +10725,7 @@ span.loading-animate:nth-child(5) {
 .logo-login {
   width: 356px;
   height: 90px;
-  /*background: url(../../img/bbva/logobbva-full.png) no-repeat;*/
+  background: url(../../img/bbva/logobbva-full.png) no-repeat;
   margin: auto;
   transform: scale(0.8);
 }
@@ -10733,7 +10736,11 @@ span.loading-animate:nth-child(5) {
 }
 @media (max-width: 991px) {
   .logo-login {
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+	position: absolute;
+	left: 0px;
+	right: 0px;
   }
 }
 /* fin mfarfanr bbva */
@@ -11051,6 +11058,12 @@ span.loading-animate:nth-child(5) {
   border-left: 10px solid #22bb22;
   padding-left: 10px;
 }
+
+.vineta-avatar {
+ 	border-left: 10px solid rgb(245, 0, 95);
+ 	padding-left: 20px;
+}
+
 
 .column-formulario-carga{
 	width: 49%; 

@@ -19,6 +19,9 @@ public interface DeliveryService {
 	 
 	public Integer valCourierDelivery(String dnicourier);
 	
+	public void mntDelivery(Delivery delivery);
+	
+	
 	public void cargaDelivery(Delivery param);
 	
 	public void cargarArchivoDelivery(Archivo param);

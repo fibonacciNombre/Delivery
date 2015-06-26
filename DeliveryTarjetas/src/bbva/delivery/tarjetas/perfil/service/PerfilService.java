@@ -10,6 +10,6 @@ public interface PerfilService {
 	
 	List<Perfil> lstPerfiles(Perfil perfil);
 	
-	List<Perfil>  obtPerfil(Perfil perfil); 
+	Perfil  obtPerfil(Perfil perfil); 
 	 
 }

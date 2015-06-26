@@ -21,6 +21,36 @@
 				
 				<%@include file="/jsp/usuario/form-usuario-ws.jsp" %>
 				
+				<script>
+					$("#contrasena").attr("readonly","readonly");
+				</script>
+				
+				<div class="row">
+	        
+			        <div class="col-md-12">		        
+			            <div class="col-md-12">
+			                <div class="form-group">
+			                	<label class="col-md-6  control-label" style="padding: 0px;">
+			                	</label>
+			                	<div class="col-sm-6 pull-right" style="text-align: right; padding: 0px;">
+				                    <button type="button" 
+				                    		class="btn btn-default"
+				                    		onclick="javascript:renovarContrasena();">
+				                    			Renovar contraseña
+				                    </button>
+				                    
+				                    <button id="btnRegistrar"
+				                    		type="button" 
+				                    		class="btn btn-primary" 
+				                    		onclick="javascript:actualizarUsuario();">
+				                    			Modificar
+				                    </button>
+			                    </div>
+			                </div>
+			            </div>		            
+			        </div>
+			        
+		        </div>
 			</form>
 		</div>
 

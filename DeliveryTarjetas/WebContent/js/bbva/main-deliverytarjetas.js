@@ -63,6 +63,8 @@ function loginForm(){
 
 		$("#mensajes-login").slideUp(1000);
 		
+		loadModalCargando();
+		
 		var param 			= new Object();
 		param.mobile 		= $("#formlogin #mobile").val();
 		param.useragent	 	= navigator.userAgent+" -*- "+navigator.platform;		
@@ -79,8 +81,8 @@ function loginForm(){
 			data		: param,
 			success 	: function(rsp) {
 							
-							console.log(rsp);
-				
+							closeModalCargando();
+							
 							var indlogin 	= rsp.escenario;	
 							
 					  	    if (indlogin == 1){
@@ -133,11 +135,10 @@ function obtDatosUsuarioSesion(){
 							CTE_JSON_COURIER    = rsp.Courier[0];
 							$("#form-datos-usuario #idcourier").val(CTE_JSON_COURIER.idcourier);
 						}
-						/*
+						
 						if($.trim(CTE_JSON_TERCERO.nombres))
-							$("#nombreUsuarioHeader").text(toTitleCase(CTE_JSON_TERCERO.nombres));
-						*/							
-				
+							$("#nombreUsuarioHeader").text("Bienvenido "+ toTitleCase(CTE_JSON_TERCERO.nombres));
+						
 		},
 		error : function(xhr, ajaxOptions, thrownError) {}
 	});			
@@ -145,12 +146,11 @@ function obtDatosUsuarioSesion(){
 
 function loadSesionInicial(){
 	
-	/*
-	if((CTE_JSON_USUARIOWEB==undefined || CTE_JSON_USUARIOWEB==null)||
-	     (CTE_JSON_TERCERO==undefined || CTE_JSON_TERCERO==null)) 
-	)
+	if((CTE_JSON_USUARIOWEB==undefined || CTE_JSON_USUARIOWEB==null) || (CTE_JSON_TERCERO==undefined || CTE_JSON_TERCERO==null))
 		cerrarSession();					
-	*/
+	
+	if (CTE_JSON_PERFIL.idperfil != CTE_INIT_IDROL_ADMIN_WEB)
+		$(".view-admin").remove();
 	
 	if(CTE_JSON_USUARIOWEB.indrnvcontrasena=="S"){
 		closeModalCargando();

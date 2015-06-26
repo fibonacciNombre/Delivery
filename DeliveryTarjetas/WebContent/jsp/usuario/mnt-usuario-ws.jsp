@@ -28,7 +28,7 @@
 						<div class="form-group">
 							<label for="estado" class="col-md-5 control-label">Estado</label>
 							<div class="col-md-7">								
-								 <select class="form-control" id="estado" name="estado">                        	
+								 <select class="form-control" id="idpestado" name="idpestado">                        	
                         		</select>								
 							</div>
 						</div>							
@@ -52,12 +52,12 @@
     	</div>	
 	</form>
 	
-	<div id="container-lst-usuariosws" style="margin-top:20px;">
+	<div id="container-lst-usuariosws" style="margin-top:20px; display: none;">
 		<table class="table table-hover table-bordered" id="table-lst-usuariosws">
 			<thead>
 				<tr>
 					<th class="text-center">Cod. Usuario</th>
-					<th class="text-center desktop">Password</th>
+					<th class="text-center desktop">Comentarios</th>
 					<th class="text-center">Estado</th>
 					<th class="text-center">Editar</th>
 				</tr>
@@ -66,6 +66,8 @@
 			</tbody>
 		</table>
 	</div>
+	
+	<%@include file="/jsp/usuario/det-usuario-ws.jsp" %>
 </div>
 
 <script>
@@ -74,13 +76,13 @@
     	
     	loadModalCargando();
     	
+    	$("#form-bsqusuariows #idperfil").val(CTE_INIT_IDROL_ADMIN_WS);
+    	
     	callCargaControlParam('DELWEB_ESTADO','form-bsqusuariows #idpestado',true);
     	
     	callCargaControlParam('DELWEB_ESTADO','form-mntusuario-ws #idpestado',false);
     	
-    	cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','cboperfil', ['idcourier','rznsocial'], {form: 'form-mntusuario-ws'});
-    	
-    	// TRAER EL ID DEL PERFIL "USUARIO SERVICIO WEB"
+    	cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','cboperfil', ['idperfil','descripcion'], {form: 'form-mntusuario-ws'});
     	
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
@@ -94,8 +96,8 @@
 		
 		$("#container-lst-usuariosws").hide();
 		
-		$('#table-lst-usuarios').dataTable().fnClearTable();
-		$('#table-lst-usuarios').dataTable().fnDestroy();
+		$('#table-lst-usuariosws').dataTable().fnClearTable();
+		$('#table-lst-usuariosws').dataTable().fnDestroy();
 		
 		var param 	= new Object();
 		param 		= $("#form-bsqusuariows").serializeArray();
@@ -151,7 +153,7 @@
 										{ "data"        : "codusuario",
 											"class"		: "text-center"},
 			                           	{ "orderable"	: false,
-				                         	"data"		: "contrasena"},                           				
+				                         	"data"		: "comentario"},                           				
 	                      				{ "orderable"	: false,
 		                      				"data"      : "idpestado",
 		                      				"class"		: "text-center"},
@@ -161,7 +163,7 @@
                          	 				"mRender"  	: function (data, type, full) {
 	                         	 								return linkDetalleUsuarioWS(full); } },
 	                      				{ "orderable" 	: false,
-  											"data" 		: "idusuario",
+  											"data" 		: "contrasena",
   											"visible"	: false},  											
              	 						{ "orderable" 	: false,
   											"data" 		: "idperfil",

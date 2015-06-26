@@ -192,9 +192,7 @@
 	}
 	
 	function linkDetalleCourier(data,full) {
-		console.log(data);
-		console.log(full);
-		enlace = "<a data-toggle='modal' " 
+	 	enlace = "<a data-toggle='modal' " 
 					+ "data-target='#modalEditarCourier' "
 					+ "onclick='return rowSelected("+JSON.stringify(JSON.stringify(full))+");'>" 
 					+ "<i class='i-detalle'></i>" + 
@@ -214,6 +212,7 @@
 		$("#form-mntcourier #telfmovil").val(json.telfmovil); 
 		$("#form-mntcourier #direccion").val(json.direccion); 
 		$("#form-mntcourier #correo").val(json.correo); 
+		$("#form-mntcourier #idpestado").val(json.idpestado); 
 	}
 	
 	function actualizarCourier() { 
