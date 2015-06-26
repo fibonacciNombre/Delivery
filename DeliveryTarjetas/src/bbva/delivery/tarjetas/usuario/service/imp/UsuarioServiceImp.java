@@ -23,7 +23,7 @@ import bbva.delivery.tarjetas.courier.bean.Courier;
 import bbva.delivery.tarjetas.courier.dao.CourierDao;
 import bbva.delivery.tarjetas.tercero.bean.Tercero;
 import bbva.delivery.tarjetas.tercero.dao.TerceroDao;
-import bbva.delivery.tarjetas.usuario.bean.Loginweb;
+import bbva.delivery.tarjetas.usuario.bean.LoginWeb;
 import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import bbva.delivery.tarjetas.usuario.dao.UsuarioDao;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
@@ -60,7 +60,7 @@ public class UsuarioServiceImp implements UsuarioService {
 		return usuarioDao.obtUsuario(usuario);
 	}
 
-	public Usuario autenticarUsuario(Loginweb loginWeb) throws Exception {
+	public Usuario autenticarUsuario(LoginWeb loginWeb) throws Exception {
 
 		logger.info("Service autenticarUsuario");
 

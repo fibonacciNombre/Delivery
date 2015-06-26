@@ -24,7 +24,7 @@ import bbva.delivery.tarjetas.perfil.bean.Perfil;
 import bbva.delivery.tarjetas.perfil.service.PerfilService;
 import bbva.delivery.tarjetas.tercero.bean.Tercero;
 import bbva.delivery.tarjetas.tercero.service.TerceroService;
-import bbva.delivery.tarjetas.usuario.bean.Loginweb;
+import bbva.delivery.tarjetas.usuario.bean.LoginWeb;
 import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
 import bbva.delivery.tarjetas.util.AESHelper;
@@ -187,7 +187,7 @@ public class UsuarioController extends BaseController {
 		
 		String escenarioLogin 			= "";
 		String result					= "";
-		Loginweb loginWeb 				= null;
+		LoginWeb loginWeb 				= null;
 		HttpSession session				= request.getSession(true);
 		String userlogin				= request.getParameter("userlogin");
 		
@@ -196,7 +196,7 @@ public class UsuarioController extends BaseController {
 			logger.info("*** ini login *** ");
 			logger.debug("Logueando al usuario	: " + userlogin);
 			
-			loginWeb 				= new Loginweb(request.getParameterMap());
+			loginWeb 				= new LoginWeb(request.getParameterMap());
 			
 			Usuario usuario 		= usuarioService.autenticarUsuario(loginWeb);
 			
@@ -237,7 +237,7 @@ public class UsuarioController extends BaseController {
 			logger.error(e);
 		}
 		
-		result = commons.web.UtilWeb.objectToJson(loginWeb, null, Loginweb.class.getName());
+		result = commons.web.UtilWeb.objectToJson(loginWeb, null, LoginWeb.class.getName());
 		
 		logger.info("*** fin login *** ");
 		
