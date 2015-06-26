@@ -74,8 +74,7 @@
 		<div class="form-group" id="idpestado-div">
 		    <label for="idpestado" class="col-md-12 control-label required">Estado </label>
 		    <div class="col-md-12">
-		        <select class="form-control" id="idpestado" name="idpestado">     
-		        	<option value="{debe ir id del estado}">ESTADO</option>                   	
+		        <select class="form-control" id="idpestado" name="idpestado">                        	
 		        </select>
 		        <div class="result"></div>
 		    </div>

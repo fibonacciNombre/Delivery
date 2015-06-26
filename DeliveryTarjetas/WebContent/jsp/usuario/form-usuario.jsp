@@ -75,7 +75,7 @@
 		    <label for="contrasena" class="col-md-12 control-label required">Contraseña </label>
 		    <div class="col-md-12">
 		        <input type="password" class="form-control" id="contrasena" name="contrasena" maxlength="200">
-		        <input type="text" class="form-control" id="indrnvcontrasena" name="indrnvcontrasena" val="S">
+		        <input type="text" class="form-control" id="indrnvcontrasena" name="indrnvcontrasena" value="S" style="display: none;">
 		        
 		        <div class="result"></div>
 		    </div>

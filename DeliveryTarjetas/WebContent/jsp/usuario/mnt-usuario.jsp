@@ -111,6 +111,7 @@
 		$("#form-bsqusuario #noidperfil").val(CTE_INIT_IDROL_ADMIN_WS);
 		
 		$("#contrasena-div").remove();
+		
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
 		});

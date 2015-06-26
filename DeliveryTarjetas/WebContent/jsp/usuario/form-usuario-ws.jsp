@@ -12,14 +12,6 @@
 		    </div>
 		</div>
 		
-		<div class="form-group" id="contrasena-div">
-		    <label for="contrasena" class="col-sm-5 col-sm-offset-1 control-label required">Contraseña </label>
-		    <div class="col-sm-5">
-		        <input type="password" class="form-control" id="contrasena" name="contrasena" maxlength="200">
-		        <div class="result"></div>
-		    </div>
-		</div>
-		
 		<div class="form-group" id="codusuario-div">
 		    <label for="codusuario" class="col-sm-5 col-sm-offset-1 control-label required">Código de usuario </label>
 		    <div class="col-sm-5">
@@ -28,6 +20,14 @@
 		    </div>
 		</div>
         
+        <div class="form-group" id="contrasena-div">
+		    <label for="contrasena" class="col-sm-5 col-sm-offset-1 control-label required">Contraseña </label>
+		    <div class="col-sm-5">
+		        <input type="password" class="form-control" id="contrasena" name="contrasena" maxlength="200">
+		        <div class="result"></div>
+		    </div>
+		</div>
+		
 		<div class="form-group" id="estado-div">
 		    <label for="idpestado" class="col-sm-5 col-sm-offset-1 control-label required">Estado </label>
 		    <div class="col-sm-5">
