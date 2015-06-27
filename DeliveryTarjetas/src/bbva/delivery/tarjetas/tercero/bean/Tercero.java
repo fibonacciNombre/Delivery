@@ -5,8 +5,6 @@ import java.util.Map;
 
 import commons.mapper.ResourceManager;
 
-import bbva.delivery.tarjetas.courier.bean.Courier;
-
 public class Tercero implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -17,7 +15,8 @@ public class Tercero implements Serializable {
 	private String nomcompleto;
 	private String apepaterno;
 	private String apematerno;
-	 
+	private String telfmovil;
+	private String correo;
 	private String idpestado;
 	private String usuario; 
  	private String historial;
@@ -120,6 +119,22 @@ public class Tercero implements Serializable {
 		this.nomcompleto = nomcompleto;
 	}
 
+	public String getTelfmovil() {
+		return telfmovil;
+	}
+
+	public void setTelfmovil(String telfmovil) {
+		this.telfmovil = telfmovil;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
 	public String getDsccourier() {
 		return dsccourier;
 	}
@@ -135,7 +150,5 @@ public class Tercero implements Serializable {
 	public void setDscestado(String dscestado) {
 		this.dscestado = dscestado;
 	}
-	 
-	
 	 
 }

@@ -27,6 +27,8 @@ public class Usuario implements Serializable {
 	private String nombres; 
 	private String apepaterno;
 	private String apematerno;
+	private String telfmovil;
+	private String correo;
  
  	private Integer idcourier; 
 	private Integer idperfil; 
@@ -179,6 +181,24 @@ public class Usuario implements Serializable {
 
 	public void setApematerno(String apematerno) {
 		this.apematerno = apematerno;
+	}
+
+	public String getTelfmovil() {
+		return telfmovil;
+	}
+
+	public void setTelfmovil(String telfmovil) {
+		this.telfmovil = telfmovil;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}	
+	
+	
 	
 }

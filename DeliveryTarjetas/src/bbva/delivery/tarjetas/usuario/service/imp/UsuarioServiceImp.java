@@ -166,7 +166,8 @@ public class UsuarioServiceImp implements UsuarioService {
 		
 		usuario.setHistorial("Usuario: " + usuario.getUsuario() + ", Fecha:" + dateFormat.format(date) + ", " +  usuario.toString()); 
 		try {
-			usuario.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, usuario.getContrasena()));
+			if(usuario.getContrasena()!=null && usuario.getContrasena()!="")
+				usuario.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, usuario.getContrasena()));
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

@@ -13,13 +13,12 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
-import com.rimac.sas.utiles.comunes.JdbcHelper;
-
 import bbva.delivery.tarjetas.commons.ConstantsProperties;
 import bbva.delivery.tarjetas.comun.dao.imp.JdbcDaoBase;
-import bbva.delivery.tarjetas.tercero.bean.Tercero;
 import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import bbva.delivery.tarjetas.usuario.dao.UsuarioDao;
+
+import com.rimac.sas.utiles.comunes.JdbcHelper;
 
 @Repository("usuarioDao")
 public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
@@ -92,6 +91,8 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 		JdbcHelper.setInParameter(call, in, "a_idtercero", 		OracleTypes.INTEGER, usuario.getIdtercero());
 		JdbcHelper.setInParameter(call, in, "a_idperfil",		OracleTypes.INTEGER, usuario.getIdperfil());
 		JdbcHelper.setInParameter(call, in, "a_idpestado", 		OracleTypes.INTEGER, usuario.getIdpestado());
+		JdbcHelper.setInParameter(call, in, "a_telfmovil", 		OracleTypes.VARCHAR, usuario.getTelfmovil());
+		JdbcHelper.setInParameter(call, in, "a_correo", 		OracleTypes.VARCHAR, usuario.getCorreo());
 		JdbcHelper.setInParameter(call, in, "a_codusuario", 	OracleTypes.VARCHAR, usuario.getCodusuario());
 		JdbcHelper.setInParameter(call, in, "a_historial", 		OracleTypes.VARCHAR, usuario.getHistorial());
 		JdbcHelper.setInParameter(call, in, "a_comentario", 	OracleTypes.VARCHAR, usuario.getComentario());
