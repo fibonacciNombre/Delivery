@@ -98,7 +98,7 @@
 		
 		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-bsqcolaborador #idptipodocumento',true);
 		
-		callCargaControlParam('DELWEB_ESTADO','form-bsqcolaborador #idpestado',true);
+		callCargaControlParam('DELWEB_ESTADO','form-bsqcolaborador #idpestado', false);
 
 		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form : 'form-bsqcolaborador'});
 		

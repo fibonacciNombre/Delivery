@@ -17,6 +17,7 @@
 			 
 			<form id="form-mntusuario">
 			
+				<input type="hidden" id="idusuario" name="idusuario"/>
 				
 				<%@include file="/jsp/usuario/form-usuario.jsp" %>
 				
@@ -194,6 +195,7 @@
 													if(status == 0){
 														loadModalMensaje("Enhorabuena", message, function(){
 															bsqUsuario();
+															$("#modalEditarUsuario").modal('hide');
 														});																										
 													}else
 														loadModalMensaje("Atención",message,null);													
@@ -234,6 +236,7 @@
 												if(status == 0){
 													loadModalMensaje("Enhorabuena", message, function(){
 														bsqUsuario();
+														$("#modalEditarUsuario").modal('hide');
 													});																										
 												}else
 													loadModalMensaje("Atención",message,null);													

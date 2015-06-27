@@ -135,13 +135,9 @@
 																			
 																			loadModalCargando();
 																			
-																			CTE_LOAD_INIT = 1;
-																			
 																			obtDatosUsuarioSesion();
 																			
-																			$("#panelDelivery").click();
-																			
-																			$("#view-lst-entrega").click();
+																			loadSesionInicial();
 																					
 																		});														
 												}else

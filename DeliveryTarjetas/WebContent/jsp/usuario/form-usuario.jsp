@@ -75,6 +75,8 @@
 		    <label for="contrasena" class="col-md-12 control-label required">Contraseña </label>
 		    <div class="col-md-12">
 		        <input type="password" class="form-control" id="contrasena" name="contrasena" maxlength="200">
+		        <input type="text" class="form-control" id="indrnvcontrasena" name="indrnvcontrasena" value="S" style="display: none;">
+		        
 		        <div class="result"></div>
 		    </div>
 		</div>
@@ -91,15 +93,6 @@
 		    <label for="correo" class="col-md-12 control-label required">Correo electrónico </label>
 		    <div class="col-md-12">
 		        <input type="text" class="form-control" id="correo"  name="correo" maxlength="200">
-		        <div class="result"></div>
-		    </div>
-		</div>
-		
-		<div class="form-group" id="indrnvcontrasena-div">
-		    <label for="indrnvcontrasena" class="col-md-12 control-label required">Renovar Contraseña </label>
-		    <div class="col-md-12">
-		        <select class="form-control" id="indrnvcontrasena" name="indrnvcontrasena">                      	
-		   		</select>
 		        <div class="result"></div>
 		    </div>
 		</div>

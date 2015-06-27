@@ -27,12 +27,17 @@ public class Usuario implements Serializable {
 	private String nombres; 
 	private String apepaterno;
 	private String apematerno;
+
 	private String telfmovil;
 	private String correo;
+
+	private String dscperfil;
+	private String dscestado;
  
  	private Integer idcourier; 
 	private Integer idperfil; 
 	
+	private Integer noidperfil;
 	private Tercero tercero;
 	private Perfil perfil;
 	private Courier courier;
@@ -197,6 +202,30 @@ public class Usuario implements Serializable {
 
 	public void setCorreo(String correo) {
 		this.correo = correo;
+	}
+	
+	public String getDscperfil() {
+		return dscperfil;
+	}
+
+	public void setDscperfil(String dscperfil) {
+		this.dscperfil = dscperfil;
+	}
+
+	public String getDscestado() {
+		return dscestado;
+	}
+
+	public void setDscestado(String dscestado) {
+		this.dscestado = dscestado;
+	}
+
+	public Integer getNoidperfil() {
+		return noidperfil;
+	}
+
+	public void setNoidperfil(Integer noidperfil) {
+		this.noidperfil = noidperfil;
 	}	
 	
 	

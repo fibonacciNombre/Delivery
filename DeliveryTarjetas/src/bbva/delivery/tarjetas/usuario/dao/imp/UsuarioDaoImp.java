@@ -198,6 +198,7 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 		JdbcHelper.setInParameter(call, in, "a_codusuario", OracleTypes.VARCHAR, usuario.getCodusuario());
 		JdbcHelper.setInParameter(call, in, "a_idpestado", OracleTypes.INTEGER, usuario.getIdpestado());
 		JdbcHelper.setInParameter(call, in, "a_nrodocumento", OracleTypes.VARCHAR, usuario.getNrodocumento());
+		JdbcHelper.setInParameter(call, in, "a_noidperfil", OracleTypes.INTEGER, usuario.getNoidperfil());
 		JdbcHelper.setOutParameter(call,  "a_cursor", OracleTypes.CURSOR, Usuario.class);
 
 		out = call.execute(in);
@@ -226,6 +227,7 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 																"BBVA", "pq_del_usuario", "sp_mnt_contrasena");
 
 		JdbcHelper.setInOutParameter(call, in, "a_codusuario", Types.VARCHAR, usuario.getCodusuario());
+		JdbcHelper.setInOutParameter(call, in, "a_indrnvcontrasena", Types.VARCHAR, usuario.getIndrnvcontrasena());
 		JdbcHelper.setInOutParameter(call, in, "a_contrasena", Types.VARCHAR, usuario.getContrasena());
 
 		call.execute(in);

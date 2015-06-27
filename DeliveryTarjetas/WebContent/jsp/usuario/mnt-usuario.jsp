@@ -26,6 +26,9 @@
 							<div class="col-md-7">								
 		                    	<select class="form-control" id="idperfil" name="idperfil" onchange="javascript:validarExtra();">                        	
 		                   		</select>
+		                   		<input type="hidden" class="form-control" id="noidperfil" name="noidperfil" maxlength="200" >
+		                   		
+		                   		
 							</div>
 						</div>	
 						<div class="form-group">
@@ -104,6 +107,10 @@
 		cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','idperfil',  ['idperfil','descripcion'], {form: 'form-bsqusuario'});
 		
 		$("#form-bsqusuario #idperfil option[value='"+CTE_INIT_IDROL_ADMIN_WS+"']").remove();
+		
+		$("#form-bsqusuario #noidperfil").val(CTE_INIT_IDROL_ADMIN_WS);
+		
+		$("#contrasena-div").remove();
 		
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);

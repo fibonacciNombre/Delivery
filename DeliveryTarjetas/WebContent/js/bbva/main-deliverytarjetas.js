@@ -156,9 +156,42 @@ function loadSesionInicial(){
 		closeModalCargando();
 		$("#link-renovarcontrasena").click();	
 	}else{	
-		CTE_LOAD_INIT = 1;
+		
+		CTE_LOAD_INIT 			= 1;		
+		CTE_INIT_PARAM_ESTADO 	= obtParametrosMaestros('DELWEB_TIPODOCUMENTO');
 		
 		$("#panelDelivery").click();
 		$("#view-lst-entrega").click();
 	}
+}
+
+
+function obtParametrosMaestros(idParametro){
+	
+	var rpta					= null;
+	
+	var param 					= new Object();
+	param.idparametrotipo 		= idParametro;
+	
+	
+	$.ajax({
+		type 		: "POST",
+		url 		: "/DeliveryTarjetas/comun.do"+"?method=lstParametro",
+		cache 		: false,
+		async 		: false,
+		dataType 	: 'json',
+		contentType : "application/x-www-form-urlencoded;charset=utf-8",
+		data		: param,
+		success 	: function(rsp) {
+							var status 	= rsp.tx.statustx;
+							var message = rsp.tx.messagetx;
+							
+							if(status==0)
+								rpta = rsp.lst;
+		
+		},
+		error : function(xhr, ajaxOptions, thrownError) {}
+	});
+	
+	return rpta;
 }
