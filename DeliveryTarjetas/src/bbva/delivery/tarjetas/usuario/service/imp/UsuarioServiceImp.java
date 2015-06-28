@@ -160,7 +160,7 @@ public class UsuarioServiceImp implements UsuarioService {
 	@Override
 	public void mntUsuario(Usuario usuario) {
 		// TODO Auto-generated method stub
-		logger.info("Service mntUsuario");
+		logger.info("SERVICE mntUsuario");
 		
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		Date date = new Date();
@@ -180,7 +180,7 @@ public class UsuarioServiceImp implements UsuarioService {
 	@Override
 	public void mntContrasena(Usuario usuario) throws Exception {
 		// TODO Auto-generated method stub
-		logger.info("Service mntContrasena");
+		logger.info("SERVICE mntContrasena");
 		
 		if(usuario.getContrasena()==null || usuario.getContrasena()==""){
 			usuario.setIndrnvcontrasena("S");
@@ -190,5 +190,12 @@ public class UsuarioServiceImp implements UsuarioService {
 		usuario.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, usuario.getContrasena()));
 		
 		usuarioDao.mntContrasena(usuario);
+	}
+
+	@Override
+	public List<Usuario> lstUsuariosWS(Usuario usuario) {
+		// TODO Auto-generated method stub
+		logger.info("SERVICE lstUsuariosWS");
+		return usuarioDao.lstUsuariosWS(usuario);
 	}
 }

@@ -33,6 +33,14 @@
 		    </div>
 		</div>
 		
+		<div class="form-group" id="contrasena-visible-div" style="display:none;">
+		    <label for="contrasena" class="col-sm-5 col-sm-offset-1 control-label required">Contraseña </label>
+		    <div class="col-sm-5">
+		        <textarea class="form-control" id="contrasena-visible" name="contrasena-visible"  maxlength="300"  wrap="hard" style="min-width: 100%; max-width: 100%; min-height: 50px; max-height: 50px;" />
+		        <div class="result"></div>
+		    </div>
+		</div>
+		
 		<div class="form-group" id="estado-div">
 		    <label for="idpestado" class="col-sm-5 col-sm-offset-1 control-label required">Estado </label>
 		    <div class="col-sm-5">
@@ -45,7 +53,7 @@
 		<div class="form-group" id="comentarios-div">
 		    <label for="comentarios" class="col-sm-5 col-sm-offset-1 control-label">Comentarios </label>
 		    <div class="col-sm-5">
-		    	<textarea class="form-control" id="comentario" name="comentario" maxlength="300"  wrap="hard" style="min-width: 100%; max-width: 100%; min-height: 50px; max-height: 50px;" ></textarea>
+		    	<textarea class="form-control" id="comentario" name="comentario" maxlength="300"  wrap="hard" style="min-width: 100%; max-width: 100%; min-height: 50px; max-height: 50px;"/>
 		    </div>
 		</div>
      	

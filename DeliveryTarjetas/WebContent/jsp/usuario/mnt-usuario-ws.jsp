@@ -108,7 +108,7 @@
 			  		function(){
 			   			$.ajax({
 							type 		: "POST",
-							url 		: "/DeliveryTarjetas/usuario.do"+"?method=lstUsuarios",
+							url 		: "/DeliveryTarjetas/usuario.do"+"?method=lstUsuariosWS",
 							cache 		: false ,
 							dataType	: "json",
 							contentType : "application/x-www-form-urlencoded; charset=UTF-8",
@@ -151,14 +151,19 @@
           	"data"		 		: lstusuarios,
 			"columns"    		: [
 										{ "data"        : "codusuario",
+											"sWidth"	: "25%",
 											"class"		: "text-center"},
 			                           	{ "orderable"	: false,
 				                         	"data"		: "comentario"},                           				
-	                      				{ "orderable"	: false,
-		                      				"data"      : "idpestado",
-		                      				"class"		: "text-center"},
+			                         	{ "orderable"	: false,
+		                      				"data"      : "",
+		                      				"sWidth"	: "15%",
+		                      				"class"		: "text-center",
+                         	 				"mRender"  	: function (data, type, full) {
+                         	 								return obtDescripcionParametro(CTE_INIT_PARAM_ESTADO, null, full.idpestado);} },
 	                      				{ "orderable"	: false,
 		                      				"data"      : "",
+		                      				"sWidth"	: "15%",
 		                      				"class"		: "text-center",
                          	 				"mRender"  	: function (data, type, full) {
 	                         	 								return linkDetalleUsuarioWS(full); } },
@@ -184,15 +189,56 @@
 	}
 
 	function rowSelected(json) {
-		json = JSON.parse(json);
 		
-		$("#form-mntusuario-ws #idusuario").val(json.idusuario);
-		$("#form-mntusuario-ws #cboperfil").val(json.idperfil);
-		$("#form-mntusuario-ws #idperfil").val(json.idperfil);
-		$("#form-mntusuario-ws #idpestado").val(json.idpestado);
-		$("#form-mntusuario-ws #codusuario").val(json.codusuario);
-		$("#form-mntusuario-ws #contrasena").val(json.contrasena);
+		$("#form-mntcontrasena-ws").validate({
+			rules : {
+				contrasena 			: {				required 	: true,
+													minlength 	: 5 },
+			},
+			messages : {
+				contrasena 			: {				required 	: "Debes ingresar la nueva contraseña",
+													minlength 	: "Debes ingresar un mínimo de 5 carácteres"},
+			}
+		});
 		
-		$("#form-mntusuario-ws #cboperfil").attr("disabled","disabled");
+		json 				= JSON.parse(json);
+		var param 			= new Object();
+		param.codusuario	= json.codusuario;
+		
+		$("#form-mntusuario-ws #contrasena-div").remove();		
+		$("#form-mntusuario-ws #contrasena-visible-div").show();
+		$("#form-mntusuario-ws #contrasena-visible").removeClass("resaltar-background");
+		
+		$.ajax({
+			type 		: "POST",
+			url 		: "/DeliveryTarjetas/usuario.do"+"?method=obtUsuario",
+			cache 		: false ,
+			dataType	: "json",
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			async 		: false,
+			data 		: param,		
+			success 	: function(rsp){
+
+							var statustx	= rsp.tx.statustx;
+							var messagetx	= rsp.tx.messagetx;
+							
+							closeModalCargando();
+							
+							if(statustx == 0){								
+								$("#form-mntusuario-ws #contrasena").val(rsp.usuario.contrasena);
+								$("#form-mntusuario-ws #idusuario").val(rsp.usuario.idusuario);
+								$("#form-mntusuario-ws #cboperfil").val(rsp.usuario.idperfil);
+								$("#form-mntusuario-ws #idperfil").val(rsp.usuario.idperfil);
+								$("#form-mntusuario-ws #idpestado").val(rsp.usuario.idpestado);
+								$("#form-mntusuario-ws #codusuario").val(rsp.usuario.codusuario);
+								$("#form-mntusuario-ws #contrasena-visible").val(rsp.usuario.contrasena);
+								$("#form-mntusuario-ws #comentario").val(rsp.usuario.comentario);
+								
+								$("#form-mntusuario-ws #contrasena-visible").attr("readonly",true);
+								
+							}
+			}
+		});
+	
 	}
 </script>

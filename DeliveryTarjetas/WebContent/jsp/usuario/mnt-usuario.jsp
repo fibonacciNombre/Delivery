@@ -175,9 +175,11 @@
           	"oLanguage"  		: {"sUrl": "/DeliveryTarjetas/recursos/idioma/es_ES.txt"},
           	"data"		 		: lstusuarios,
 			"columns"    		: [
-										{ "data"      	: "idperfil",
+										{ "data"      	: "",
 											"sWidth"	: "15%",
-											"class"		: "text-center"},
+											"class"		: "text-center",
+                         	 				"mRender"  	: function (data, type, full) {
+             	 												return obtDescripcionPerfil(full.idperfil);} },											
 			                           	{ "orderable"	: false,
 				                         	"data"		: "codusuario",
 				                         	"sWidth"	: "20%"},

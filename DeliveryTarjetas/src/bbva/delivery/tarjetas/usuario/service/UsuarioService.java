@@ -11,6 +11,8 @@ public interface UsuarioService {
 	
 	List<Usuario> lstUsuarios(Usuario usuario);
 	
+	List<Usuario> lstUsuariosWS(Usuario usuario);
+	
 	boolean validarContrasena(Usuario usuario);
 	
 	void mntContrasena(Usuario usuario) throws Exception;

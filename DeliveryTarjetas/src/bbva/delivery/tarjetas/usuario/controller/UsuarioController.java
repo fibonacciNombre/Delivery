@@ -27,7 +27,7 @@ import bbva.delivery.tarjetas.tercero.service.TerceroService;
 import bbva.delivery.tarjetas.usuario.bean.LoginWeb;
 import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
-import bbva.delivery.tarjetas.util.AESHelper;
+
 import commons.framework.BaseController;
 import commons.web.UtilWeb;
 
@@ -105,7 +105,7 @@ public class UsuarioController extends BaseController {
 	public void lstUsuarios(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		logger.info("Controller lstCourier");
+		logger.info("CONTROLLER lstUsuarios");
 		
 		String result				= "";
 		String lstusuario 			= "";
@@ -118,8 +118,38 @@ public class UsuarioController extends BaseController {
 				listaUsuario 	= usuarioService.lstUsuarios(usuario);
 				
 				lstusuario 		= UtilWeb.listaToArrayJson(listaUsuario, null, Usuario.class.getName());			
-						
+					
+			} catch (Error e) {
+				tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+				lstusuario = "{" + e.getMessage() + "}";
+			}
+			
+			result += "{"
+						+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+						+ "\"lst\":" + lstusuario 
+						+ "}";
+			
+			this.escribirTextoSalida(response, result);
+
+	}
+	
+	public void lstUsuariosWS(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+		logger.info("CONTROLLER lstUsuariosWS");
+		
+		String result				= "";
+		String lstusuario 			= "";
+		List<Usuario> listaUsuario 	= null;
+		TransaccionWeb tx			= new TransaccionWeb();				
+		Usuario usuario 			= new Usuario(request.getParameterMap()); 
+ 					
+			try {
 				
+				listaUsuario 	= usuarioService.lstUsuariosWS(usuario);
+				
+				lstusuario 		= UtilWeb.listaToArrayJson(listaUsuario, null, Usuario.class.getName());			
+					
 			} catch (Error e) {
 				tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
 				lstusuario = "{" + e.getMessage() + "}";
@@ -140,6 +170,8 @@ public class UsuarioController extends BaseController {
 			HttpServletResponse response, HttpServletRequest request)
 			throws Exception {
 
+		logger.info("CONTROLLER addUsuario");
+		
 		System.out.println("header aaaaaaaaaa   --> " + request.getHeader("Authorization"));
 		return usuarioService.addUsuario(usuario);
 
@@ -148,7 +180,7 @@ public class UsuarioController extends BaseController {
 	public void mntUsuario(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		logger.info("Controller mntUsario");
+		logger.info("CONTROLLER mntUsario");
 		
 		String result			= "";
 		HttpSession session 	= request.getSession();
@@ -164,9 +196,10 @@ public class UsuarioController extends BaseController {
 			usuario.setUsucreacion(usrSession.getCodusuario());
 			usuario.setUsumodificacion(usrSession.getCodusuario());
 			
-			terceroService.mntTercero(tercero);
-				
-			usuario.setIdtercero(tercero.getIdtercero());
+			if(tercero.getIdptipodocumento()!=null && tercero.getNrodocumento()!=null){
+				terceroService.mntTercero(tercero);
+				usuario.setIdtercero(tercero.getIdtercero());
+			}
 			
 			usuarioService.mntUsuario(usuario);
 			
@@ -187,6 +220,8 @@ public class UsuarioController extends BaseController {
 	}
 	
 	public void login(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		logger.info("CONTROLLER login");
 		
 		String escenarioLogin 			= "";
 		String result					= "";
@@ -249,6 +284,8 @@ public class UsuarioController extends BaseController {
 	
 	public void logout(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
+		logger.info("CONTROLLER logout");
+		
 		logger.info("*** ini logout *** ");
 		
 		HttpSession session	= request.getSession();
@@ -260,6 +297,8 @@ public class UsuarioController extends BaseController {
 	}
 	
 	public void obtDatosUsuarioSesion(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		logger.info("CONTROLLER mntUsario");
 		
 		logger.info("*** ini obtDatosUsuarioSesion *** ");
 		
@@ -324,7 +363,10 @@ public class UsuarioController extends BaseController {
 		logger.info("*** fin obtDatosUsuarioSesion *** ");
 	}
 	
+	
 	public void mntContrasena(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		logger.info("CONTROLLER mntUsario");
 		
 		logger.info("*** ini actContrasena *** ");
 		
@@ -343,5 +385,32 @@ public class UsuarioController extends BaseController {
 		this.escribirTextoSalida(response, result);
 		
 		logger.info("*** fin actContrasena *** ");
+	}
+	
+	public void obtUsuario(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+
+		logger.info("CONTROLLER mntUsario");
+		
+		String result			= "";
+		TransaccionWeb tx		= new TransaccionWeb();
+		Usuario usuario 		= new Usuario(request.getParameterMap());		
+		
+		try {
+			
+			usuario = usuarioService.obtUsuario(usuario);
+			
+			tx.setMessagetx("Su transaccion fue realizada con exito");
+			
+		} catch (Error e) {
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+		}
+
+		result += "{\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + "," +
+					"\"usuario\":"+ UtilWeb.objectToJson(usuario, null, Usuario.class.getName()) + "}";
+		
+		this.escribirTextoSalida(response, result);
+		 
+		
 	}
 }

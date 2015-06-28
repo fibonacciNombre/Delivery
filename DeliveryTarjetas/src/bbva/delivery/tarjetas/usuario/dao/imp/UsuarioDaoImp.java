@@ -222,5 +222,32 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 		call.execute(in);
 	}
 
-	 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Usuario> lstUsuariosWS(Usuario usuario) {
+		// TODO Auto-generated method stub
+		logger.info("DAO lstUsuariosWS");
+		
+		SimpleJdbcCall call 			= null;
+		Map<String, Object> out 		= null;
+		List<Usuario> lista				= null;		
+		MapSqlParameterSource in 		= new MapSqlParameterSource();
+		
+		call = JdbcHelper
+				.initializeSimpleJdbcCallProcedure(
+						getJdbcTemplate(),
+						resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
+						resources.getString(ConstantsProperties.PQ_DEL_USUARIO),
+						"sp_lst_usuario_maestro");
+
+		JdbcHelper.setInParameter(call, in, "a_idperfil", 		OracleTypes.INTEGER, usuario.getIdperfil());
+		JdbcHelper.setInParameter(call, in, "a_codusuario", 	OracleTypes.VARCHAR, usuario.getCodusuario());
+		JdbcHelper.setInParameter(call, in, "a_idpestado", 		OracleTypes.INTEGER, usuario.getIdpestado());
+		JdbcHelper.setOutParameter(call,  "a_cursor", 			OracleTypes.CURSOR, Usuario.class);
+
+		out = call.execute(in);
+		lista = (List<Usuario>) out.get("a_cursor");
+
+		return lista;		
+	}
 }

@@ -160,17 +160,43 @@ function loadSesionInicial(){
 		CTE_LOAD_INIT 					= 1;		
 		CTE_INIT_PARAM_ESTADO 			= obtParametrosMaestros('DELWEB_ESTADO');
 		CTE_INIT_PARAM_TIPDOCUMENTO 	= obtParametrosMaestros('DELWEB_TIPODOCUMENTO');
+		CTE_INIT_PERFILES				= obtMaestroPerfil();
 		
 		$("#panelDelivery").click();
 		$("#view-lst-entrega").click();
 	}
 }
 
+function obtMaestroPerfil(){
+	
+	var rptaLstPerfil;
+	var param 	= new Object();
+	
+	$.ajax({
+	type 		: "POST",
+	url 		: "/DeliveryTarjetas/perfil.do"+"?method=lstPerfil",
+	cache 		: false ,
+	dataType	: "json",
+	contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+	async 		: false,
+	data 		: param,
+	success 	: function(rsp){
+	
+						var status 	= rsp.tx.statustx;
+						var message = rsp.tx.messagetx;
 
+						if(status == 0)									
+								rptaLstPerfil = rsp.lst;						
+	},						
+	error		: function (rsp, xhr, ajaxOptions, thrownError) {}			
+	});		
+	
+	return rptaLstPerfil;
+	
+}	
 function obtParametrosMaestros(idParametro){
 	
-	var rpta					= null;
-	
+	var rpta;
 	var param 					= new Object();
 	param.idparametrotipo 		= idParametro;
 	
@@ -188,8 +214,7 @@ function obtParametrosMaestros(idParametro){
 							var message = rsp.tx.messagetx;
 							
 							if(status==0)
-								rpta = rsp.lst;
-		
+								rpta = rsp.lst;		
 		},
 		error : function(xhr, ajaxOptions, thrownError) {}
 	});
@@ -215,6 +240,17 @@ function obtDescripcionParametro(lstValParam, codigoc, codigon){
 		}
 	}
 	
-	return descripcion;
+	return descripcion;	
+}
+
+function obtDescripcionPerfil(idperfil){
 	
+	var descripcion;
+	
+	for(var i=0; i<CTE_INIT_PERFILES.length; i++){
+		if(CTE_INIT_PERFILES[i].idperfil == idperfil)
+				descripcion = CTE_INIT_PERFILES[i].descripcion;			
+		}
+
+	return descripcion;	
 }

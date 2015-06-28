@@ -9,6 +9,8 @@ public interface UsuarioDao {
 	void mntUsuario(Usuario usuario);
 	
 	List<Usuario> lstUsuarios(Usuario usuario);
+	
+	List<Usuario> lstUsuariosWS(Usuario usuario);
 		
 	boolean validarContrasena(Usuario usuario);
 	
