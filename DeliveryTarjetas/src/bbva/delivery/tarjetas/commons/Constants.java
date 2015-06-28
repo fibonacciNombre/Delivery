@@ -35,6 +35,8 @@ public class Constants {
 	public static final Integer DELIVERY_IDPESTADO_ACTIVO				=  1;
 	public static final Integer DELIVERY_IDPESTADO_INACTIVO				=  0;
 
+	public static final Integer DELIVERY_INDMNT_REGISTRAR				=  0;
+	public static final Integer DELIVERY_INDMNT_ACTUALIZAR				=  1;
 	
 	//Estados de un transaccion en el DeliveryTarjetas	
 	public static final Integer TRANSACCION_STATUS_OK					= 0;

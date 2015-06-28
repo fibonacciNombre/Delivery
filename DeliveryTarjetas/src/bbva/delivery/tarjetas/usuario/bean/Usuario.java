@@ -16,32 +16,33 @@ public class Usuario implements Serializable {
 	private Integer idpestado;
 	private String codusuario;
 	private String contrasena;
-	private String usuario; 
 	private String comentario;
 	private String historial;
 	private String indrnvcontrasena;
-	private Integer idtercero;
-
 	private String idptipodocumento;
-	private String nrodocumento;
-	private String nombres; 
+	private String nrodocumento;	
+	private String nombrecompleto;
+	private Integer indaccion;
+	private String usucreacion;
+	private String usumodificacion;
+	/*
 	private String apepaterno;
 	private String apematerno;
-
 	private String telfmovil;
 	private String correo;
-
 	private String dscperfil;
 	private String dscestado;
- 
- 	private Integer idcourier; 
-	private Integer idperfil; 
-	
+ 	*/
+	private Integer idtercero;
+	private Integer idcourier; 
+	private Integer idperfil; 	
 	private Integer noidperfil;
 	private Tercero tercero;
 	private Perfil perfil;
 	private Courier courier;
 	
+	
+
 	@SuppressWarnings("rawtypes")
 	public Usuario(Map map) throws Exception {
 	    ResourceManager.populateDtoFromMap(this, map);
@@ -55,12 +56,6 @@ public class Usuario implements Serializable {
 	}
 	public void setIdusuario(Integer idusuario) {
 		this.idusuario = idusuario;
-	}
-	public String getIdptipodocumento() {
-		return idptipodocumento;
-	}
-	public void setIdptipodocumento(String idptipodocumento) {
-		this.idptipodocumento = idptipodocumento;
 	}
 	public String getCodusuario() {
 		return codusuario;
@@ -128,32 +123,25 @@ public class Usuario implements Serializable {
 	public void setIndrnvcontrasena(String indrnvcontrasena) {
 		this.indrnvcontrasena = indrnvcontrasena;
 	}
-
-	public String getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
-
 	public String getComentario() {
 		return comentario;
 	}
-
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
 	}
+	public Integer getNoidperfil() {
+		return noidperfil;
+	}
+	public void setNoidperfil(Integer noidperfil) {
+		this.noidperfil = noidperfil;
+	}
 
-	@Override
-	public String toString() {
-		return "Usuario [idusuario=" + idusuario + ", idptipodocumento="
-				+ idptipodocumento + ", idpestado=" + idpestado
-				+ ", codusuario=" + codusuario 
-				+ ", usuario=" + usuario + ", comentario=" + comentario
-				+ ", indrnvcontrasena=" + indrnvcontrasena + ", idtercero="
-				+ idtercero + ", idperfil=" + idperfil + ", idcourier="
-				+ idcourier + "]";
+	public String getIdptipodocumento() {
+		return idptipodocumento;
+	}
+
+	public void setIdptipodocumento(String idptipodocumento) {
+		this.idptipodocumento = idptipodocumento;
 	}
 
 	public String getNrodocumento() {
@@ -164,70 +152,49 @@ public class Usuario implements Serializable {
 		this.nrodocumento = nrodocumento;
 	}
 
-	public String getNombres() {
-		return nombres;
+	public String getNombrecompleto() {
+		return nombrecompleto;
 	}
 
-	public void setNombres(String nombres) {
-		this.nombres = nombres;
+	public void setNombrecompleto(String nombrecompleto) {
+		this.nombrecompleto = nombrecompleto;
 	}
 
-	public String getApepaterno() {
-		return apepaterno;
+	public String getUsucreacion() {
+		return usucreacion;
 	}
 
-	public void setApepaterno(String apepaterno) {
-		this.apepaterno = apepaterno;
+	public void setUsucreacion(String usucreacion) {
+		this.usucreacion = usucreacion;
 	}
 
-	public String getApematerno() {
-		return apematerno;
+	public String getUsumodificacion() {
+		return usumodificacion;
 	}
 
-	public void setApematerno(String apematerno) {
-		this.apematerno = apematerno;
+	public void setUsumodificacion(String usumodificacion) {
+		this.usumodificacion = usumodificacion;
+	}
+	public Integer getIndaccion() {
+		return indaccion;
+	}
+	public void setIndaccion(Integer indaccion) {
+		this.indaccion = indaccion;
 	}
 
-	public String getTelfmovil() {
-		return telfmovil;
-	}
-
-	public void setTelfmovil(String telfmovil) {
-		this.telfmovil = telfmovil;
-	}
-
-	public String getCorreo() {
-		return correo;
-	}
-
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
-	
-	public String getDscperfil() {
-		return dscperfil;
-	}
-
-	public void setDscperfil(String dscperfil) {
-		this.dscperfil = dscperfil;
-	}
-
-	public String getDscestado() {
-		return dscestado;
-	}
-
-	public void setDscestado(String dscestado) {
-		this.dscestado = dscestado;
-	}
-
-	public Integer getNoidperfil() {
-		return noidperfil;
-	}
-
-	public void setNoidperfil(Integer noidperfil) {
-		this.noidperfil = noidperfil;
+	@Override
+	public String toString() {
+		return "Usuario [idusuario=" + idusuario + ", idpestado=" + idpestado
+				+ ", codusuario=" + codusuario + ", contrasena=" + contrasena
+				+ ", comentario=" + comentario + ", historial=" + historial
+				+ ", indrnvcontrasena=" + indrnvcontrasena
+				+ ", idptipodocumento=" + idptipodocumento + ", nrodocumento="
+				+ nrodocumento + ", nombrecompleto=" + nombrecompleto
+				+ ", usucreacion=" + usucreacion + ", usumodificacion="
+				+ usumodificacion + ", idtercero=" + idtercero + ", idcourier="
+				+ idcourier + ", idperfil=" + idperfil + ", noidperfil="
+				+ noidperfil + ", tercero=" + tercero + ", perfil=" + perfil
+				+ ", courier=" + courier + "]";
 	}	
-	
-	
 	
 }

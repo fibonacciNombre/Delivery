@@ -115,7 +115,7 @@
                 <div class="form-group" id="comentarios-div">
                     <label for="comentarios" class="col-md-6 control-label">Comentarios </label>
                     <div class="col-md-12">
-                    	<textarea readonly class="form-control" id="comentarios" name="comentarios" maxlength="300"  wrap="hard" style="min-width: 100%; max-width: 100%; min-height: 50px; max-height: 50px;" ></textarea>
+                    	<textarea readonly class="form-control" id="comentario" name="comentario" maxlength="300"  wrap="hard" style="min-width: 100%; max-width: 100%; min-height: 50px; max-height: 50px;" ></textarea>
                     </div>
                 </div>
         	</div>	
@@ -265,7 +265,7 @@
 		$("#form-micuenta #codusuario").val(CTE_JSON_USUARIOWEB.codusuario);
 		$("#form-micuenta #telfmovil").val(CTE_JSON_TERCERO.telfmovil);
 		$("#form-micuenta #correo").val(CTE_JSON_TERCERO.correo);
-		$("#form-micuenta #comentarios").val(CTE_JSON_USUARIOWEB.comentarios);
+		$("#form-micuenta #comentario").val(CTE_JSON_USUARIOWEB.comentario);
 		
 		if(CTE_JSON_PERFIL.idperfil ==CTE_INIT_IDROL_COLAB_COURIER)
 			$("#rznsocial-div").show();

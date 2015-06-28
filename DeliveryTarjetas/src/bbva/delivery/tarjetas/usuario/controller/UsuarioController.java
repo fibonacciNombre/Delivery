@@ -28,7 +28,6 @@ import bbva.delivery.tarjetas.usuario.bean.LoginWeb;
 import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
 import bbva.delivery.tarjetas.util.AESHelper;
-
 import commons.framework.BaseController;
 import commons.web.UtilWeb;
 
@@ -113,9 +112,7 @@ public class UsuarioController extends BaseController {
 		List<Usuario> listaUsuario 	= null;
 		TransaccionWeb tx			= new TransaccionWeb();				
 		Usuario usuario 			= new Usuario(request.getParameterMap()); 
- 
-			
-					
+ 					
 			try {
 				
 				listaUsuario 	= usuarioService.lstUsuarios(usuario);
@@ -157,18 +154,24 @@ public class UsuarioController extends BaseController {
 		HttpSession session 	= request.getSession();
 		TransaccionWeb tx		= new TransaccionWeb();
 		Tercero tercero			= new Tercero(request.getParameterMap());
-		Usuario usuario 		= new Usuario(request.getParameterMap());
-		
-		//String usuario = session.getAttribute(Constants.REQ_SESSION_USUARIO).toString();
-		usuario.setUsuario("BBVA");
+		Usuario usuario 		= new Usuario(request.getParameterMap());		
+		Usuario usrSession 		= (Usuario) session.getAttribute(Constants.REQ_SESSION_USUARIO);
 		
 		try {
+			tercero.setUsucreacion(usrSession.getCodusuario());
+			tercero.setUsumodificacion(usrSession.getCodusuario());
+			
+			usuario.setUsucreacion(usrSession.getCodusuario());
+			usuario.setUsumodificacion(usrSession.getCodusuario());
 			
 			terceroService.mntTercero(tercero);
-			
+				
 			usuario.setIdtercero(tercero.getIdtercero());
 			
 			usuarioService.mntUsuario(usuario);
+			
+			if(usuario.getIndaccion() == Constants.DELIVERY_INDMNT_REGISTRAR)			
+					usuarioService.mntContrasena(usuario);
 			
 			tx.setMessagetx("Su transaccion fue realizada con exito");
 			
@@ -285,20 +288,16 @@ public class UsuarioController extends BaseController {
 		if(usuario.getIdperfil()!=null){
 			perfil.setIdperfil(usuario.getIdperfil());
 			perfil = perfilService.obtPerfil(perfil);	
+			
 			jsonPerfil += commons.web.UtilWeb.objectToJson(perfil, null, Perfil.class.getName());
 		}
 		
 		jsonPerfil += "]";
 		
 		if(usuario.getIdtercero()!=null){
-			System.out.println("*******************");
-			System.out.println(tercero.toString());
 			tercero.setIdtercero(usuario.getIdtercero());
-			System.out.println("*******************");
-			System.out.println(tercero.toString());
 			tercero = terceroService.lstTerceros(tercero).get(0);
-			System.out.println("*******************");
-			System.out.println(tercero.toString());
+			
 			jsonTercero += commons.web.UtilWeb.objectToJson(tercero, null, Tercero.class.getName());
 		}
 		
@@ -307,6 +306,7 @@ public class UsuarioController extends BaseController {
 		if(tercero.getIdcourier()!=null){
 			courier.setIdcourier(tercero.getIdcourier());
 			lstcourier = courierService.obtCourier(courier);	
+			
 			jsonCourier += commons.web.UtilWeb.objectToJson(lstcourier.get(0), null, Courier.class.getName());
 		}
 		
@@ -333,14 +333,6 @@ public class UsuarioController extends BaseController {
 		String result				= "";
 		TransaccionWeb tx			= new TransaccionWeb();
 		Usuario usuario 			= new Usuario(request.getParameterMap());
-		
-		if(usuario.getContrasena()!=null && usuario.getContrasena()!=""){
-			usuario.setIndrnvcontrasena("N");
-			usuario.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, usuario.getContrasena()));
-		}else{
-			usuario.setIndrnvcontrasena("S");
-			usuario.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, Constants.CONTRASENA_DEFAULT));
-		}
 		
 		usuarioService.mntContrasena(usuario);
 		

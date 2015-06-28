@@ -75,29 +75,25 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 
 	@Override
 	public void mntUsuario(Usuario usuario) {
-		System.out.println("INI: Ejecutando metodo addUsuario");
-		 
-		MapSqlParameterSource in = null;
-
-		SimpleJdbcCall call = null;
-		Map<String, Object> out = null;
-		in = new MapSqlParameterSource();
+		
+		logger.info("Dao mntUsuario");
+		
+		SimpleJdbcCall call 		= null;
+		Map<String, Object> out 	= null;
+		MapSqlParameterSource in 	= new MapSqlParameterSource();
 
 		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
 				"BBVA", "pq_del_usuario", "sp_mnt_usuario");
 
 		JdbcHelper.setInOutParameter(call, in, "a_idusuario", 	Types.INTEGER, usuario.getIdusuario());
-		JdbcHelper.setInParameter(call, in, "a_contrasena", 	OracleTypes.VARCHAR, usuario.getContrasena());
 		JdbcHelper.setInParameter(call, in, "a_idtercero", 		OracleTypes.INTEGER, usuario.getIdtercero());
 		JdbcHelper.setInParameter(call, in, "a_idperfil",		OracleTypes.INTEGER, usuario.getIdperfil());
 		JdbcHelper.setInParameter(call, in, "a_idpestado", 		OracleTypes.INTEGER, usuario.getIdpestado());
-		JdbcHelper.setInParameter(call, in, "a_telfmovil", 		OracleTypes.VARCHAR, usuario.getTelfmovil());
-		JdbcHelper.setInParameter(call, in, "a_correo", 		OracleTypes.VARCHAR, usuario.getCorreo());
 		JdbcHelper.setInParameter(call, in, "a_codusuario", 	OracleTypes.VARCHAR, usuario.getCodusuario());
 		JdbcHelper.setInParameter(call, in, "a_historial", 		OracleTypes.VARCHAR, usuario.getHistorial());
 		JdbcHelper.setInParameter(call, in, "a_comentario", 	OracleTypes.VARCHAR, usuario.getComentario());
 		JdbcHelper.setInParameter(call, in, "a_indrnvcontrasena", 	OracleTypes.VARCHAR, usuario.getIndrnvcontrasena());
-		JdbcHelper.setInParameter(call, in, "a_usuario", 		OracleTypes.VARCHAR, usuario.getUsuario());
+		JdbcHelper.setInParameter(call, in, "a_usuario", 		OracleTypes.VARCHAR, usuario.getUsumodificacion());
 		// JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR,
 		// Usuario.class);
 
@@ -162,7 +158,7 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 		JdbcHelper.setInParameter(call, in, "a_codusuario", OracleTypes.VARCHAR, usuario.getCodusuario());
 		JdbcHelper.setInParameter(call, in, "a_historial", OracleTypes.VARCHAR, usuario.getHistorial());
 		JdbcHelper.setInParameter(call, in, "a_comentario", OracleTypes.VARCHAR, usuario.getComentario());
-		JdbcHelper.setInParameter(call, in, "a_usuario", OracleTypes.VARCHAR, usuario.getUsuario());
+		JdbcHelper.setInParameter(call, in, "a_usuario", OracleTypes.VARCHAR, usuario.getUsucreacion());
 		// JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR,
 		// Usuario.class);
 
@@ -205,13 +201,6 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 		lista = (List<Usuario>) out.get("a_cursor");
 
 		return lista;
-	}
-
-	@Override
-	public Usuario obtDetalleUsuario(Usuario usuarioWeb) {
-		// TODO Auto-generated method stub
-		logger.info("Dao obtDetalleUsuarioWeb");
-		return null;
 	}
 
 	@Override

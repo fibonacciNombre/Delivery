@@ -17,7 +17,9 @@
 			 
 			<form id="form-mntusuario-ws">
 			
-				<input type="hidden" id="idusuario" name="idusuario" value=""/>
+				<input type="hidden" id="idusuario" name="idusuario"/>
+				
+				<input type="hidden" id="indaccion" name="indaccion" value="1"/>
 				
 				<%@include file="/jsp/usuario/form-usuario-ws.jsp" %>
 				

@@ -106,7 +106,8 @@
 			
 			setTimeout( function() {
 							
-							CTE_JSON_USUARIOWEB.contrasena = $("#nuevacontrasena").val();
+							CTE_JSON_USUARIOWEB.contrasena 			= $("#nuevacontrasena").val();
+							CTE_JSON_USUARIOWEB.indrnvcontrasena 	= 'N';
 							
 							console.log(CTE_JSON_USUARIOWEB);
 							
@@ -120,8 +121,8 @@
 								data 		: CTE_JSON_USUARIOWEB,		
 								success 	: function(rsp){
 			
-												var statustx	= rsp.statustx;
-												var messagetx	= rsp.messagetx;
+												var statustx	= rsp.tx.statustx;
+												var messagetx	= rsp.tx.messagetx;
 												
 												closeModalCargando();
 												

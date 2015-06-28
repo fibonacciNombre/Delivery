@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 
+<input type="hidden" id="idusuario" name="idusuario"/>
+				
+<input type="hidden" id="idperfil" name="idperfil"/>
+
+<input type="hidden" id="idtercero" name="idtercero"/>
+
 <div class="row">
 	<div class="col-md-12">
 
@@ -8,7 +14,6 @@
 		    <div class="col-sm-5">
 		    	<select class="form-control" id="cboperfil" name="cboperfil">                        	
 		   		</select>
-		   		<input type="hidden" class="form-control" id="idperfil" name="idperfil" >
 		    </div>
 		</div>
 		

@@ -157,8 +157,9 @@ function loadSesionInicial(){
 		$("#link-renovarcontrasena").click();	
 	}else{	
 		
-		CTE_LOAD_INIT 			= 1;		
-		CTE_INIT_PARAM_ESTADO 	= obtParametrosMaestros('DELWEB_TIPODOCUMENTO');
+		CTE_LOAD_INIT 					= 1;		
+		CTE_INIT_PARAM_ESTADO 			= obtParametrosMaestros('DELWEB_ESTADO');
+		CTE_INIT_PARAM_TIPDOCUMENTO 	= obtParametrosMaestros('DELWEB_TIPODOCUMENTO');
 		
 		$("#panelDelivery").click();
 		$("#view-lst-entrega").click();
@@ -194,4 +195,26 @@ function obtParametrosMaestros(idParametro){
 	});
 	
 	return rpta;
+}
+
+function obtDescripcionParametro(lstValParam, codigoc, codigon){
+	
+	var descripcion;
+	
+	for(var i=0; i<lstValParam.length; i++){
+		if(codigoc!=null){
+			if(lstValParam[i].codigoc == codigoc){
+				descripcion = lstValParam[i].descripcion;			
+			}
+		}
+		
+		if(codigon!=null){
+			if(lstValParam[i].codigon == codigon){
+				descripcion = lstValParam[i].descripcion;			
+			}
+		}
+	}
+	
+	return descripcion;
+	
 }

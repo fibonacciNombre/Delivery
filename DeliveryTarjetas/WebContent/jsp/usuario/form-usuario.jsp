@@ -1,12 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 
+<input type="hidden" id="idusuario" name="idusuario"/>
+				
+<input type="hidden" id="idperfil" name="idperfil"/>
+
+<input type="hidden" id="idtercero" name="idtercero"/>
+
+<input type="hidden" id="idcourier" name="idcourier"/>
+				
 <div class="row">	 
            
 	<div class="col-md-6">
 		<div class="form-group" id="idperfil-div">
 	        <label for="idperfil" class="col-md-12 control-label required">Perfil </label>
 	        <div class="col-md-12">
-	        	<select class="form-control" id="idperfil" name="idperfil" onchange="javascript:validarExtra();">                       	
+	        	<select class="form-control" id="cboperfil" name="cboperfil" onchange="javascript:validarExtra();">                       	
 	       		</select>
 	        </div>
 	    </div>
@@ -14,7 +22,7 @@
 		<div class="form-group" id="idcourier-div" style="display:none;">
 		    <label for=idcourier" class="col-md-12 control-label">Courier </label>
 		    <div class="col-md-12">
-		        <select class="form-control" id="idcourier" name="idcourier">                        	
+		        <select class="form-control" id="cbocourier" name="cbocourier">                        	
 		   		</select>
 		        <div class="result"></div>
 		    </div>
@@ -74,9 +82,7 @@
 		<div class="form-group" id="contrasena-div">
 		    <label for="contrasena" class="col-md-12 control-label required">Contraseña </label>
 		    <div class="col-md-12">
-		        <input type="password" class="form-control" id="contrasena" name="contrasena" maxlength="200">
-		        <input type="text" class="form-control" id="indrnvcontrasena" name="indrnvcontrasena" value="S" style="display: none;">
-		        
+		        <input type="password" class="form-control" id="contrasena" name="contrasena" maxlength="200">		        
 		        <div class="result"></div>
 		    </div>
 		</div>
@@ -123,3 +129,15 @@
 	</div>
 	            
 </div>
+
+<script>
+	function validarExtra(){	
+		if($("#cboperfil").val() == CTE_INIT_IDROL_COLAB_COURIER){
+			$("#idcourier-div").show();
+		}else{
+			$("#idcourier-div").hide();
+			$("#cbocourier").val('');							
+			$("#idcourier").val('');
+		}
+	}
+</script>

@@ -13,17 +13,10 @@
 	        
 	        <input type="hidden" id="indrnvcontrasena" name="indrnvcontrasena" value="S"/>
 	        
+	        <input type="hidden" id="indaccion" name="indaccion" value="0"/>
+	        
 			<%@include file="/jsp/usuario/form-usuario.jsp" %>   
 	         
-	        <script>
-				function validarExtra(){
-					if($("#idperfil").val() == CTE_INIT_IDROL_COLAB_COURIER){
-						$("#idcourier-div").show();
-					}else{
-						$("#idcourier-div").hide();
-					}
-				}
-			</script>
 	        <div class="row">
 	        
 		        <div class="col-md-12">		        
@@ -63,21 +56,16 @@
     $().ready(function(){
     	
 		loadModalCargando();
-    	
 
-		cargarComboArray('indrnvcontrasena', [['S', 'SI'], ['N', 'No']]);
-		
 		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-registrousuario #idptipodocumento',false);  
 		
 		callCargaControlParam('DELWEB_ESTADO','form-registrousuario #idpestado',false);
     	 
-		cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','idperfil',  ['idperfil','descripcion'], {form: 'form-registrousuario'});
+		cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','cboperfil',  ['idperfil','descripcion'], {form: 'form-registrousuario'});
 		
-    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form: 'form-registrousuario'});
-    	
-    	cargarCombo('/DeliveryTarjetas/tercero.do', 'lstTerceros','idtercero', ['idtercero','nomcompleto'], {form: 'form-registrousuario'});
-    	
-    	$("#form-registrousuario #idperfil option[value='"+CTE_INIT_IDROL_ADMIN_WS+"']").remove();
+    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','cbocourier', ['idcourier','rznsocial'], {form: 'form-registrousuario'});
+
+    	$("#form-registrousuario #cboperfil option[value='"+CTE_INIT_IDROL_ADMIN_WS+"']").remove();
     	
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
@@ -86,7 +74,7 @@
 		$("#form-registrousuario").validate({
 			rules : {
 
-				idperfil 			: {				required 	: true },
+				cboperfil 			: {				required 	: true },
 				
 				idptipodocumento 	: {				required 	: true },
 				
@@ -114,7 +102,7 @@
 													email		: true}
 			},
 			messages : {
-				idperfil 			: {				required 	: "Debes seleccionar un perfil" },
+				cboperfil 			: {				required 	: "Debes seleccionar un perfil" },
 				
 				idptipodocumento 	: {				required 	: "Debes seleccionar un tipo de documento" },
 				
@@ -166,7 +154,11 @@
 		activarChecksValidate("form-registrousuario");
 		
 		if($("#form-registrousuario").valid()){
-
+			
+			$("#form-registrousuario #idperfil").val($("#form-registrousuario #cboperfil").val());
+			
+			$("#form-registrousuario #idcourier").val($("#form-registrousuario #cbocourier").val());
+			
  			var param 	= new Object();
  			param 		= $("#form-registrousuario").serializeArray();
  			
