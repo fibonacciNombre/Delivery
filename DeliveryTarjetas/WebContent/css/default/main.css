@@ -11052,6 +11052,10 @@ span.loading-animate:nth-child(5) {
 		display: none;
 	}
 }
+
+.resaltar-background{
+	background: yellow !important;
+}
 /* fin mfarfanr - bbva */
 
 .vineta-title {

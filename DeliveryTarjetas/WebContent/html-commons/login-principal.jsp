@@ -69,9 +69,7 @@
 													<div id="mensajes-login" class="row" style="display: none;">
 														<div class="col-md-12">
 													   		<div class="alert alert-danger">
-													   			<button aria-hidden="true" 
-													   					data-dismiss="alert" 
-													   					class="close"
+													   			<button class="close"
 													   					type="button">×</button>
 													   			<span id="msj-result-login"></span>
 															</div>

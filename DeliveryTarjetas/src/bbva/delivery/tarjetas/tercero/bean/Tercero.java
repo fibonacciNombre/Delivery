@@ -5,28 +5,25 @@ import java.util.Map;
 
 import commons.mapper.ResourceManager;
 
-import bbva.delivery.tarjetas.courier.bean.Courier;
-
 public class Tercero implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	private Integer idtercero;
+	private String idpestado;
+	private Integer idptipodocumento;
 	private String nrodocumento;
 	private String nombres;
-	private String nomcompleto;
 	private String apepaterno;
 	private String apematerno;
-	 
-	private String idpestado;
-	private String usuario; 
- 	private String historial;
+	private String nomcompleto;
+	private String telfmovil;
+	private String correo;
+	private String historial;
  	private Integer idcourier; 
-	private Integer idptipodocumento;
- 
 	
-	private String dsccourier;
-	private String dscestado; 
+ 	private String usucreacion;
+ 	private String usumodificacion;
 	public Tercero() {
 	
 	}	
@@ -65,16 +62,7 @@ public class Tercero implements Serializable {
 	}
 	public void setApematerno(String apematerno) {
 		this.apematerno = apematerno;
-	}
-	 
-	
-	public String getUsuario() {
-		return usuario;
-	}
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
-	
+	}	
 	public String getHistorial() {
 		return historial;
 	}
@@ -101,41 +89,51 @@ public class Tercero implements Serializable {
 	public void setIdptipodocumento(Integer idptipodocumento) {
 		this.idptipodocumento = idptipodocumento;
 	}
-
-	@Override
-	public String toString() {
-		return "Tercero [idtercero=" + idtercero + ", nrodocumento="
-				+ nrodocumento + ", nombres=" + nombres + ", apepaterno="
-				+ apepaterno + ", apematerno=" + apematerno + ", idpestado="
-				+ idpestado + ", usuario=" + usuario + ", historial="
-				+ historial + ", idcourier=" + idcourier
-				+ ", idptipodocumento=" + idptipodocumento + "]";
-	}
-
 	public String getNomcompleto() {
 		return nomcompleto;
 	}
-
 	public void setNomcompleto(String nomcompleto) {
 		this.nomcompleto = nomcompleto;
 	}
-
-	public String getDsccourier() {
-		return dsccourier;
+	public String getTelfmovil() {
+		return telfmovil;
+	}
+	public void setTelfmovil(String telfmovil) {
+		this.telfmovil = telfmovil;
+	}
+	public String getCorreo() {
+		return correo;
+	}
+	public void setCorreo(String correo) {
+		this.correo = correo;
 	}
 
-	public void setDsccourier(String dsccourier) {
-		this.dsccourier = dsccourier;
+	public String getUsucreacion() {
+		return usucreacion;
 	}
 
-	public String getDscestado() {
-		return dscestado;
+	public void setUsucreacion(String usucreacion) {
+		this.usucreacion = usucreacion;
 	}
 
-	public void setDscestado(String dscestado) {
-		this.dscestado = dscestado;
+	public String getUsumodificacion() {
+		return usumodificacion;
 	}
-	 
+
+	public void setUsumodificacion(String usumodificacion) {
+		this.usumodificacion = usumodificacion;
+	}
+
+	@Override
+	public String toString() {
+		return "Tercero [idtercero=" + idtercero + ", idpestado=" + idpestado
+				+ ", idptipodocumento=" + idptipodocumento + ", nrodocumento="
+				+ nrodocumento + ", nombres=" + nombres + ", apepaterno="
+				+ apepaterno + ", apematerno=" + apematerno + ", nomcompleto="
+				+ nomcompleto + ", telfmovil=" + telfmovil + ", correo="
+				+ correo + ", historial=" + historial + ", idcourier="
+				+ idcourier + ", usucreacion=" + usucreacion
+				+ ", usumodificacion=" + usumodificacion + "]";
+	}
 	
-	 
 }

@@ -115,7 +115,7 @@
                 <div class="form-group" id="comentarios-div">
                     <label for="comentarios" class="col-md-6 control-label">Comentarios </label>
                     <div class="col-md-12">
-                    	<textarea readonly class="form-control" id="comentarios" name="comentarios" maxlength="300"  wrap="hard" style="min-width: 100%; max-width: 100%; min-height: 50px; max-height: 50px;" ></textarea>
+                    	<textarea readonly class="form-control" id="comentario" name="comentario" maxlength="300"  wrap="hard" style="min-width: 100%; max-width: 100%; min-height: 50px; max-height: 50px;" ></textarea>
                     </div>
                 </div>
         	</div>	
@@ -141,86 +141,88 @@
 					<button id="btnclosemodal" type="button" class="close-white" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</span>
 				
-				<div class="row">
-					<div class="col-md-12" style="margin-top: 15px;">
-						<p class="page-info-wc">Estos son los datos actualmente registrados para tu Courier.</p>
-					</div>		
-			   	</div>
-			   	
-				<div id="container-courier" class="panel panel-default">	
-					
-					<div id="datos-courier" class="panel-body">
-					
-						<div class="col-md-6" style="padding: 0px;">
-			                <div class="form-group" id="codbbva-div">
-			                    <label for="codbbva" class="col-md-12 control-label">Código Bbva </label>
-			                    <div class="col-md-12">
-			                        <input type="text" readonly class="form-control" id=codbbva name="codbbva" maxlength="200">
-			                    </div>
-			                </div>
-			                
-			                <div class="form-group" id="tipdocumento-div">
-			                    <label for="idptipodocumento" class="col-md-12 control-label">Tipo de documento </label>
-			                    <div class="col-md-12">
-			                        <input type="text" readonly class="form-control" id=idptipodocumento name="idptipodocumento" maxlength="200">
-			                    </div>
-			                </div>
-			                
-			                <div class="form-group" id="nrodocumento-div">
-			                    <label for="nrodocumentocou" class="col-md-12 control-label">Nro. documento </label>
-			                    <div class="col-md-12">
-			                        <input type="text" readonly class="form-control" id="nrodocumentocou"  name="nrodocumentocou" maxlength="11">                        
-			                    </div>
-			                </div>
-			                
-			                <div class="form-group" id="rznsocial-div">
-			                    <label for="rznsocial" class="col-md-12 control-label">Razón social </label>
-			                    <div class="col-md-12">
-			                        <input type="text" readonly class="form-control" id="rznsocial" name="rznsocial" maxlength="200">                        
-			                    </div>
-			                </div>
-			                
-			                <div class="form-group" id="direccion-div">
-			                    <label for="direccion" class="col-md-12 control-label">Dirección completa </label>
-			                    <div class="col-md-12">
-			                        <input type="text" readonly class="form-control" id="direccion" name="direccion" maxlength="200">                        
-			                    </div>
-			                </div>
-						</div>
+				<form id="form-micuenta-courier">
+					<div class="row">
+						<div class="col-md-12" style="margin-top: 15px;">
+							<p class="page-info-wc">Estos son los datos actualmente registrados para tu Courier.</p>
+						</div>		
+				   	</div>
+				   	
+					<div id="container-courier" class="panel panel-default">	
 						
-					  	<div class="col-md-6" style="padding: 0px;">            
-			                <div class="form-group" id="telfmovil-div">
-			                    <label for="telfmovil" class="col-md-12 control-label">Teléfono móvil </label>
-			                    <div class="col-md-12">
-			                        <input type="text" readonly class="form-control phone-group" id="telfmovil" name="telfmovil" maxlength="9">                        
-			                    </div>
-			                </div>
-			                
-			                <div class="form-group" id="telffijo-div">
-			                    <label for="telffijo" class="col-md-12 control-label">Teléfono fijo </label>
-			                    <div class="col-md-12">
-			                        <input type="text" readonly class="form-control phone-group" id="telffijo"  name="telffijo" maxlength="9">                        
-			                    </div>
-			                </div>
-			                
-			                <div class="form-group" id="correo-div">
-			                    <label for="correo" class="col-md-12 control-label">Correo electrónico </label>
-			                    <div class="col-md-12">
-			                        <input type="text" readonly class="form-control" id="correo"  name="correo" maxlength="200">                        
-			                    </div>
-			                </div>
-			                
-			                <div class="form-group" id="idpestado-div">
-			                    <label for="idpestado" class="col-md-12 control-label">Estado </label>
-			                    <div class="col-md-12">
-			                    	<input type="text" readonly class="form-control" id=idpestado name="idpestado" maxlength="200">                        
-			                    </div>
-			                </div>
-			            </div>
-			                      	         
-			        </div>			        
-				</div>
-								
+						<div id="datos-courier" class="panel-body">
+						
+							<div class="col-md-6" style="padding: 0px;">
+				                <div class="form-group" id="codbbva-div">
+				                    <label for="codbbva" class="col-md-12 control-label">Código Bbva </label>
+				                    <div class="col-md-12">
+				                        <input type="text" readonly class="form-control" id=codbbva name="codbbva" maxlength="200">
+				                    </div>
+				                </div>
+				                
+				                <div class="form-group" id="tipdocumento-div">
+				                    <label for="idptipodocumento" class="col-md-12 control-label">Tipo de documento </label>
+				                    <div class="col-md-12">
+				                        <input type="text" readonly class="form-control" id=idptipodocumento name="idptipodocumento" maxlength="200">
+				                    </div>
+				                </div>
+				                
+				                <div class="form-group" id="nrodocumento-div">
+				                    <label for="nrodocumentocou" class="col-md-12 control-label">Nro. documento </label>
+				                    <div class="col-md-12">
+				                        <input type="text" readonly class="form-control" id="nrodocumentocou"  name="nrodocumentocou" maxlength="11">                        
+				                    </div>
+				                </div>
+				                
+				                <div class="form-group" id="rznsocial-div">
+				                    <label for="rznsocial" class="col-md-12 control-label">Razón social </label>
+				                    <div class="col-md-12">
+				                        <input type="text" readonly class="form-control" id="rznsocial" name="rznsocial" maxlength="200">                        
+				                    </div>
+				                </div>
+				                
+				                <div class="form-group" id="direccion-div">
+				                    <label for="direccion" class="col-md-12 control-label">Dirección completa </label>
+				                    <div class="col-md-12">
+				                        <input type="text" readonly class="form-control" id="direccion" name="direccion" maxlength="200">                        
+				                    </div>
+				                </div>
+							</div>
+							
+						  	<div class="col-md-6" style="padding: 0px;">            
+				                <div class="form-group" id="telfmovil-div">
+				                    <label for="telfmovil" class="col-md-12 control-label">Teléfono móvil </label>
+				                    <div class="col-md-12">
+				                        <input type="text" readonly class="form-control phone-group" id="telfmovil" name="telfmovil" maxlength="9">                        
+				                    </div>
+				                </div>
+				                
+				                <div class="form-group" id="telffijo-div">
+				                    <label for="telffijo" class="col-md-12 control-label">Teléfono fijo </label>
+				                    <div class="col-md-12">
+				                        <input type="text" readonly class="form-control phone-group" id="telffijo"  name="telffijo" maxlength="9">                        
+				                    </div>
+				                </div>
+				                
+				                <div class="form-group" id="correo-div">
+				                    <label for="correo" class="col-md-12 control-label">Correo electrónico </label>
+				                    <div class="col-md-12">
+				                        <input type="text" readonly class="form-control" id="correo"  name="correo" maxlength="200">                        
+				                    </div>
+				                </div>
+				                
+				                <div class="form-group" id="idpestado-div">
+				                    <label for="idpestado" class="col-md-12 control-label">Estado </label>
+				                    <div class="col-md-12">
+				                    	<input type="text" readonly class="form-control" id=idpestado name="idpestado" maxlength="200">                        
+				                    </div>
+				                </div>
+				            </div>
+				                      	         
+				        </div>			        
+					</div>
+				</form>		
+					
 			</div>
 		</div>		  		
 	</div>
@@ -265,12 +267,26 @@
 		$("#form-micuenta #codusuario").val(CTE_JSON_USUARIOWEB.codusuario);
 		$("#form-micuenta #telfmovil").val(CTE_JSON_TERCERO.telfmovil);
 		$("#form-micuenta #correo").val(CTE_JSON_TERCERO.correo);
-		$("#form-micuenta #comentarios").val(CTE_JSON_USUARIOWEB.comentarios);
+		$("#form-micuenta #comentario").val(CTE_JSON_USUARIOWEB.comentario);
+		$
 		
-		if(CTE_JSON_PERFIL.idperfil ==CTE_INIT_IDROL_COLAB_COURIER)
+		if(CTE_JSON_PERFIL.idperfil ==CTE_INIT_IDROL_COLAB_COURIER){
 			$("#rznsocial-div").show();
+			$("#form-micuenta #rznsocial").val(CTE_JSON_COURIER.rznsocial);	
+			$("#form-micuenta-courier #codbbva").val(CTE_JSON_COURIER.codbbva);
+			$("#form-micuenta-courier #idptipodocumento").val(obtDescripcionParametro(CTE_INIT_PARAM_TIPDOCUMENTO, null, CTE_JSON_COURIER.idptipodocumento));
+			$("#form-micuenta-courier #nrodocumentocou").val(CTE_JSON_COURIER.nrodocumentocou);
+			$("#form-micuenta-courier #rznsocial").val(CTE_JSON_COURIER.rznsocial);
+			$("#form-micuenta-courier #direccion").val(CTE_JSON_COURIER.direccion);
+			$("#form-micuenta-courier #telfmovil").val(CTE_JSON_COURIER.telfmovil);
+			$("#form-micuenta-courier #telffijo").val(CTE_JSON_COURIER.telffijo);
+			$("#form-micuenta-courier #correo").val(CTE_JSON_COURIER.correo);
+			$("#form-micuenta-courier #idpestado").val(obtDescripcionParametro(CTE_INIT_PARAM_ESTADO, null, CTE_JSON_COURIER.idpestado));
+			
+		}
 		
 		$("#form-micuenta *").attr("disabled","disabled");
+		$("#form-micuenta #btnDetalleCourier").attr("disabled",false);
 	}
 		
 </script>

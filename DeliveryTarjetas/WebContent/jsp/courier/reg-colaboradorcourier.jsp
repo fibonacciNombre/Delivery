@@ -8,7 +8,8 @@
 	</h3>
 	
     <form id="form-registrocolaboradores">
-    
+    	<input type="hidden" id="indaccion" name="indaccion" value="0"/>
+    	
         <%@include file="/jsp/courier/form-colaboradorcourier.jsp" %>
         
         <div class="row">

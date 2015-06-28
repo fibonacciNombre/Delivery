@@ -152,7 +152,7 @@ public class UsuarioServiceImp implements UsuarioService {
 
 		usuario.setContrasena(this.encriptar(KEY, IV, usuario.getContrasena()));
 		usuario.setIdpestado(1);
-		usuario.setUsuario("DELIVERY_BBVA");
+		usuario.setCodusuario("DELIVERY_BBVA");
 
 		return usuarioDao.obtUsuario(usuarioDao.addUsuario(usuario)); 
 	}
@@ -160,16 +160,12 @@ public class UsuarioServiceImp implements UsuarioService {
 	@Override
 	public void mntUsuario(Usuario usuario) {
 		// TODO Auto-generated method stub
-		logger.info("Service mntUsuario");
+		logger.info("SERVICE mntUsuario");
+		
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		Date date = new Date();
 		
-		usuario.setHistorial("Usuario: " + usuario.getUsuario() + ", Fecha:" + dateFormat.format(date) + ", " +  usuario.toString()); 
-		try {
-			usuario.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, usuario.getContrasena()));
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		usuario.setHistorial("Usuario: " + usuario.getUsumodificacion() + ", Fecha:" + dateFormat.format(date) + ", " +  usuario.toString());
 		
 		usuarioDao.mntUsuario(usuario);
 	}
@@ -182,11 +178,24 @@ public class UsuarioServiceImp implements UsuarioService {
 	}
 
 	@Override
-	public void mntContrasena(Usuario usuarioWeb) {
+	public void mntContrasena(Usuario usuario) throws Exception {
 		// TODO Auto-generated method stub
-		logger.info("Service actContrasena");
-		usuarioDao.mntContrasena(usuarioWeb);
+		logger.info("SERVICE mntContrasena");
+		
+		if(usuario.getContrasena()==null || usuario.getContrasena()==""){
+			usuario.setIndrnvcontrasena("S");
+			usuario.setContrasena(Constants.CONTRASENA_DEFAULT);
+		}
+
+		usuario.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, usuario.getContrasena()));
+		
+		usuarioDao.mntContrasena(usuario);
 	}
- 
- 
+
+	@Override
+	public List<Usuario> lstUsuariosWS(Usuario usuario) {
+		// TODO Auto-generated method stub
+		logger.info("SERVICE lstUsuariosWS");
+		return usuarioDao.lstUsuariosWS(usuario);
+	}
 }

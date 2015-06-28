@@ -116,4 +116,7 @@
 		closeModalCargando();
     });	
     
+    function bsqDelivery(){
+    	loadModalMensaje("Lo sentimos", "Esta funcionalidad aún se encuentra en desarrollo", null);
+    }
 </script>

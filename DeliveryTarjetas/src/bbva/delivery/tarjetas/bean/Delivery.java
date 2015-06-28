@@ -1,7 +1,6 @@
 package bbva.delivery.tarjetas.bean;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.Map;
 
 import commons.mapper.ResourceManager;

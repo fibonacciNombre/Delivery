@@ -181,13 +181,14 @@
 									"columns" 		: [ 
 														{ "data" 		: "ultdigtarjeta",
 															"orderable"	: false,
-															"sWidth" 	: "10%" },
+															"sWidth" 	: "15%" },
 														{ "data" 		: "nrodocumentocli",
 															"orderable"	: false,
 															"sWidth" 	: "15%" },
 														{ "data" 		: "nombrescli",
 															"orderable"	: false,
 															"sWidth" 	: "35%" },
+
 														{ "data" 		: "mtoasoctarjeta",
 															"sWidth" 	: "15%",
 															"orderable"	: false,
@@ -198,13 +199,13 @@
 																				return a; } }, 
 														{ "data" 		: "fecentrega",
 															"orderable"	: false,
-															"sWidth" 	: "15%" }, 
-															
-						                      				{ "orderable"	: false,
-							                      				"data"      : "",
-							                      				"class"		: "text-center",
-					                         	 				"mRender"  	: function (data, type, full) {
-						                         	 								return linkDetalleDelivery(full);  }}
+															"sWidth" 	: "20%" }, 															
+					                      				{ "data"      	: "",
+															"orderable"	: false,
+															"sWidth" 	: "10%",
+						                      				"class"		: "text-center",
+				                         	 				"mRender"  	: function (data, type, full) {
+					                         	 								return linkDetalleDelivery(full);  }}
 														
 													],
 									"fnDrawCallback" : function() {

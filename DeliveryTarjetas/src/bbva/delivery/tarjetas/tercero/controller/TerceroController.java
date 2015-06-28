@@ -13,9 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 import bbva.delivery.tarjetas.anotaciones.AdviceController;
 import bbva.delivery.tarjetas.commons.Constants;
 import bbva.delivery.tarjetas.comun.bean.TransaccionWeb;
-import bbva.delivery.tarjetas.courier.bean.Courier;
 import bbva.delivery.tarjetas.tercero.bean.Tercero;
 import bbva.delivery.tarjetas.tercero.service.TerceroService;
+import bbva.delivery.tarjetas.usuario.bean.Usuario;
 
 import commons.framework.BaseController;
 import commons.web.UtilWeb;
@@ -41,7 +41,7 @@ public class TerceroController extends BaseController {
 	public void lstTerceros(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		logger.info("Controller lstTerceros");
+		logger.info("CONTROLLER lstTerceros");
 		
 		String result				= "";
 		String lsttercero			= "";
@@ -71,17 +71,17 @@ public class TerceroController extends BaseController {
 		public void mntTercero(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
-		logger.info("Controller mntTercero");
-		
+		logger.info("CONTROLLER mntTercero");
+			
 		String result			= "";
 		HttpSession session 	= request.getSession();
 		TransaccionWeb tx		= new TransaccionWeb();			
 		
 		Tercero tercero 		=  new Tercero(request.getParameterMap());
 		
-//		Usuario usuario = (Usuario) session.getAttribute(Constants.REQ_SESSION_USUARIO);
-//		Courier courier = (Courier) session.getAttribute(Constants.REQ_SESSION_COURIER);
-		tercero.setUsuario("BBVA");
+		Usuario usuario = (Usuario) session.getAttribute(Constants.REQ_SESSION_USUARIO);
+		tercero.setUsucreacion(usuario.getCodusuario());
+		tercero.setUsumodificacion(usuario.getCodusuario());
 		
 		try {
 			terceroService.mntTercero(tercero);

@@ -16,20 +16,11 @@
 			</div>
 			 
 			<form id="form-mntusuario">
-			
+				
+				<input type="hidden" id="indaccion" name="indaccion" value="1"/>
 				
 				<%@include file="/jsp/usuario/form-usuario.jsp" %>
 				
-				<script>
-					function validarExtra(){
-						if($("#idperfil").val() == CTE_INIT_IDROL_COLAB_COURIER){
-							$("#idcourier-div").show();
-						}else{
-							$("#idcourier-div").hide();
-						}
-					}
-				</script>
-			
 				<div class="row">
 	        
 			        <div class="col-md-12">		        
@@ -67,22 +58,6 @@
 	
     $().ready(function(){
     	
-		cargarComboArray('indrnvcontrasena', [['S', 'SI'], ['N', 'No']]);
-		
-		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-mntusuario #idptipodocumento',false);  
-		
-		callCargaControlParam('DELWEB_ESTADO','form-mntusuario #idpestado',false);
-    	 
-		cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','idperfil',  ['idperfil','descripcion'], {form: 'form-mntusuario'});
-		
-    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form: 'form-mntusuario'});
-    	
-    	cargarCombo('/DeliveryTarjetas/tercero.do', 'lstTerceros','idtercero', ['idtercero','nomcompleto'], {form: 'form-mntusuario'});
-    	
-    	$("#form-mntusuario #idperfil option[value='"+CTE_INIT_IDROL_ADMIN_WS+"']").remove();
-    	
-    	$("#form-mntusuario #contrasena").remove();
-    	
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
 		});
@@ -90,7 +65,7 @@
 		$("#form-mntusuario").validate({
 			rules : {
 
-				idperfil 			: {				required 	: true },
+				cboperfil 			: {				required 	: true },
 				
 				idptipodocumento 	: {				required 	: true },
 				
@@ -118,7 +93,7 @@
 													email		: true}
 			},
 			messages : {
-				idperfil 			: {				required 	: "Debes seleccionar un perfil" },
+				cboperfil 			: {				required 	: "Debes seleccionar un perfil" },
 				
 				idptipodocumento 	: {				required 	: "Debes seleccionar un tipo de documento" },
 				
@@ -168,7 +143,11 @@
 		activarChecksValidate("form-mntusuario");
 		
 		if($("#form-mntusuario").valid()){
-
+			
+			$("#form-mntusuario #idperfil").val($("#form-mntusuario #cboperfil").val());
+			
+			$("#form-mntusuario #idcourier").val($("#form-mntusuario #cbocourier").val());
+			
  			var param 	= new Object();
  			param 		= $("#form-mntusuario").serializeArray();
  			
@@ -194,6 +173,7 @@
 													if(status == 0){
 														loadModalMensaje("Enhorabuena", message, function(){
 															bsqUsuario();
+															$("#modalEditarUsuario").modal('hide');
 														});																										
 													}else
 														loadModalMensaje("Atención",message,null);													
@@ -211,9 +191,9 @@
 		
 		loadModalCargando();
 			
-			var param			= new Object();
-			param.codusuario	= $("#form-mntusuario #codusuario").val();
-				
+			var param				= new Object();
+			param.codusuario		= $("#form-mntusuario #codusuario").val();
+			
 			setTimeout(
 					  	function(){   			
 			   			$.ajax({
@@ -232,8 +212,9 @@
 												closeModalCargando();
 												
 												if(status == 0){
-													loadModalMensaje("Enhorabuena", message, function(){
+													loadModalMensaje("Enhorabuena", "Se ha generado una contraseña temporal, el usuario tendrá que renovarla en su próxima autenticación al  sistema", function(){
 														bsqUsuario();
+														$("#modalEditarUsuario").modal('hide');
 													});																										
 												}else
 													loadModalMensaje("Atención",message,null);													
@@ -244,7 +225,6 @@
 							}			
 						});		    					    				
   				},1000);    
-		
 		
 	}
     

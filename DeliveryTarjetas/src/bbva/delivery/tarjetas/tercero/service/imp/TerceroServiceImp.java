@@ -25,18 +25,20 @@ public class TerceroServiceImp implements TerceroService {
 
 	@Override
 	public void mntTercero(Tercero tercero) {
+		
+		logger.info("SERVICE mntTercero");
+		
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		Date date = new Date();
 		
-		tercero.setHistorial("Usuario: " + tercero.getUsuario() + ", Fecha:" + dateFormat.format(date) + ", " +  tercero.toString()); 
-		
-		logger.info("Service mntTercero");
+		tercero.setHistorial("Usuario: " + tercero.getUsumodificacion() + ", Fecha:" + dateFormat.format(date) + ", " +  tercero.toString()); 
 		
 		terceroDao.mntTercero(tercero);	 
 	}
 
 	@Override
 	public List<Tercero> lstTerceros(Tercero tercero) { 
+		logger.info("SERVICE lstTerceros");
 		return terceroDao.lstTerceros(tercero);
 	}
 }

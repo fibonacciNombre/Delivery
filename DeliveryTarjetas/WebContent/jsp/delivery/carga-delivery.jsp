@@ -53,7 +53,7 @@
 			</div>		
 		</div>
 		
-		<div class="row">
+		<div class="row" style="margin-top: 10px;">
 			<div class="col-md-12">
 				 <div class="col-md-12">
 	                <div class="form-group">
@@ -111,6 +111,18 @@
 		});	
 		
 		$('#btnCargar').click(function(){
+				cargarArchivo();			
+			});
+		
+		closeModalCargando(); 
+		
+	});
+	
+	function cargarArchivo(){
+		
+		if($('#form-cargararchivo').valid()){
+			
+			loadModalCargando();
 			
 			var idcourier_ 		= $("#form-cargararchivo #idcourier").val(),
 			fechaentrega_ 		= $("#form-cargararchivo #fecentrega").val();
@@ -121,11 +133,16 @@
 																						"fecentrega="+ fechaentrega_ +"&"+
 																						"tipoarchivo=xlsx",
 												type	:"post", 
-												success	:function(data){}
-											});
-			});
+												success	:function(data){ 
+																closeModalCargando();
+																loadModalMensaje("Enhorabuena","Se ha completado la carga de entregas.",null);
+												},
+												error	:function(){
+																
+												}
+											});			
+		}
 		
-		closeModalCargando(); 
 		
-	});
+	}
 </script>

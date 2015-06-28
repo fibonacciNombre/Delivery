@@ -10,6 +10,8 @@
 	<div id="container-principal"> 
 	    <form id="form-registrousuariows">
 	        
+	        <input type="hidden" id="indaccion" name="indaccion" value="0"/>
+	        
 	        <%@include file="/jsp/usuario/form-usuario-ws.jsp" %>
 	               
 	        <div class="row">

@@ -26,6 +26,9 @@
 							<div class="col-md-7">								
 		                    	<select class="form-control" id="idperfil" name="idperfil" onchange="javascript:validarExtra();">                        	
 		                   		</select>
+		                   		<input type="hidden" class="form-control" id="noidperfil" name="noidperfil" maxlength="200" >
+		                   		
+		                   		
 							</div>
 						</div>	
 						<div class="form-group">
@@ -105,6 +108,8 @@
 		
 		$("#form-bsqusuario #idperfil option[value='"+CTE_INIT_IDROL_ADMIN_WS+"']").remove();
 		
+		$("#form-bsqusuario #noidperfil").val(CTE_INIT_IDROL_ADMIN_WS);
+		
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
 		});
@@ -170,23 +175,30 @@
           	"oLanguage"  		: {"sUrl": "/DeliveryTarjetas/recursos/idioma/es_ES.txt"},
           	"data"		 		: lstusuarios,
 			"columns"    		: [
-										{ "data"        : "idperfil",
-											"class"		: "text-center"},
+										{ "data"      	: "",
+											"sWidth"	: "15%",
+											"class"		: "text-center",
+                         	 				"mRender"  	: function (data, type, full) {
+             	 												return obtDescripcionPerfil(full.idperfil);} },											
 			                           	{ "orderable"	: false,
-				                         	"data"		: "codusuario"},
-				                         	
-                           				{ "orderable"	: false,
-				                         	"class"		: "desktop",
-		                         			"mRender"  	: function (data, type, full) {
-                     	 									return  full.nombres + " " + full.apepaterno + " " + full.apematerno;} },
-	                      				{ "orderable"	: false,
-		                      				"data"      : "idpestado",
-		                      				"class"		: "text-center"},
+				                         	"data"		: "codusuario",
+				                         	"sWidth"	: "20%"},
+			                         	{ "orderable"	: false,
+				                         	"data"		: "nombrecompleto",
+				                         	"sWidth"	: "45%",
+				                         	"class"		: "desktop"},
 	                      				{ "orderable"	: false,
 		                      				"data"      : "",
+		                      				"sWidth"	: "15%",
 		                      				"class"		: "text-center",
                          	 				"mRender"  	: function (data, type, full) {
-	                         	 								return linkDetalleUsuario(full); } },
+                         	 								return obtDescripcionParametro(CTE_INIT_PARAM_ESTADO, null, full.idpestado);} },
+       	 								{ "orderable"	: false,
+  		                      				"data"      : "",
+  		                      				"sWidth"	: "15%",
+  		                      				"class"		: "text-center",
+                           	 				"mRender"  	: function (data, type, full) {
+  	                         	 								return linkDetalleUsuario(full); } },	                         	 								
        	 								{ "orderable" 	: false,
   											"data" 		: "idusuario",
   											"visible"	: false},
@@ -198,18 +210,6 @@
   											"visible"	: false},
 										{ "orderable" 	: false,
 											"data" 		: "idcourier",
-											"visible"	: false},
-                    	 				{ "orderable" 	: false,
-											"data" 		: "idptipodocumento",
-											"visible"	: false},
-										{  "orderable"  : false,
-											"data" 		: "nombres",
-											"visible"	: false}, 
-										{ "orderable" 	: false,
-											"data" 		: "apepaterno",
-											"visible"	: false}, 
-										{ "orderable" 	: false,
-											"data" 		: "apematerno",
 											"visible"	: false} 
 								],
 			"fnDrawCallback"	: function () { mostrarDatatable("#table-lst-usuarios");}
@@ -227,21 +227,74 @@
 	}
 
 	function rowSelected(json) {
+		
+		loadModalCargando();
+		
+		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-mntusuario #idptipodocumento',false);  
+		
+		callCargaControlParam('DELWEB_ESTADO','form-mntusuario #idpestado',false);
+    	 
+		cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','cboperfil',  ['idperfil','descripcion'], {form: 'form-mntusuario'});
+		
+    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','cbocourier', ['idcourier','rznsocial'], {form: 'form-mntusuario'});
+    	
+    	$("#form-mntusuario #cboperfil option[value='"+CTE_INIT_IDROL_ADMIN_WS+"']").remove();
+    	
+		$("#form-mntusuario #contrasena-div").hide();
+		
 		json = JSON.parse(json);
+		
+		var paramTercero 		= new Object();
+		paramTercero.idtercero	= json.idtercero;
+			
+		$.ajax({
+			type 		: "POST",
+			url 		: "/DeliveryTarjetas/tercero.do?method=lstTerceros",
+			cache 		: false,
+			dataType 	: "json",
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			async 		: false,
+			data 		: paramTercero,
+			success 	: function(rsp) {
+
+								var status = rsp.tx.statustx;
+								var message = rsp.messagetx;
+								
+								closeModalCargando();
+								
+								if(status == 0){													
+									if(rsp.lst!= undefined && rsp.lst.length > 0){
+										$("#form-mntusuario #idptipodocumento").val(rsp.lst[0].idptipodocumento);
+										$("#form-mntusuario #nrodocumento").val(rsp.lst[0].nrodocumento);
+										$("#form-mntusuario #nombres").val(rsp.lst[0].nombres);
+										$("#form-mntusuario #apepaterno").val(rsp.lst[0].apepaterno);
+										$("#form-mntusuario #apematerno").val(rsp.lst[0].apematerno);
+										$("#form-mntusuario #correo").val(rsp.lst[0].correo);
+										$("#form-mntusuario #telfmovil").val(rsp.lst[0].telfmovil);
+										$("#form-mntusuario #idcourier").val(rsp.lst[0].idcourier);
+										$("#form-mntusuario #cbocourier").val(rsp.lst[0].idcourier);
+									}
+								}
+			},
+			error 		: function(rsp, xhr, ajaxOptions, thrownError) {
+								closeModalCargando();
+								loadModalMensaje("Error","ERROR OBTENIENDO LA INFORMACION DEL TERCERO",null);
+			}
+		});
 		
 		$("#form-mntusuario #idusuario").val(json.idusuario);
 		$("#form-mntusuario #idtercero").val(json.idtercero);
 		$("#form-mntusuario #idperfil").val(json.idperfil);
-		$("#form-mntusuario #idcourier").val(json.idcourier);
-		$("#form-mntusuario #nombres").val(json.nombres);
-		$("#form-mntusuario #apepaterno").val(json.apepaterno);
-		$("#form-mntusuario #apematerno").val(json.apematerno);
-		$("#form-mntusuario #idptipodocumento").val(json.idptipodocumento);
-		$("#form-mntusuario #nrodocumento").val(json.nrodocumento);
-		$("#form-mntusuario #correo").val(json.correo);
-		$("#form-mntusuario #telfmovil").val(json.telfmovil);
+		$("#form-mntusuario #cboperfil").val(json.idperfil);				
 		$("#form-mntusuario #idpestado").val(json.idpestado);
 		$("#form-mntusuario #codusuario").val(json.codusuario);
 		$("#form-mntusuario #contrasena").val(json.contrasena);
+		$("#form-mntusuario #comentario").val(json.comentario);
+		
+		validarExtra();
+		
+		$("#form-mntusuario").valid();
+		
+		closeModalCargando();
 	}
 </script>
