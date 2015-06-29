@@ -187,7 +187,8 @@
 															"sWidth" 	: "15%" },
 														{ "data" 		: "nombrescli",
 															"orderable"	: false,
-															"sWidth" 	: "30%" },
+															"sWidth" 	: "35%" },
+
 														{ "data" 		: "mtoasoctarjeta",
 															"sWidth" 	: "15%",
 															"orderable"	: false,

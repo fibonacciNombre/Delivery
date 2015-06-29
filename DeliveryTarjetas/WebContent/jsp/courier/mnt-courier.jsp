@@ -59,7 +59,8 @@
 		</div>
 	</form>
 
-	<div id="container-lst-courier" style="margin-top: 20px; display: none;">
+	<div id="container-lst-courier"
+		style="margin-top: 20px; display: none;">
 		<table class="table table-hover table-bordered"
 			id="table-lst-couriers">
 			<thead>
@@ -77,70 +78,85 @@
 			</tbody>
 		</table>
 	</div>
-	
-	<%@include file="/jsp/courier/det-courier.jsp" %>
+
+	<%@include file="/jsp/courier/det-courier.jsp"%>
 </div>
 
 <script>
-	$().ready(function() {
-		
-		loadModalCargando();
-		
-		callCargaControlParam('DELWEB_ESTADO','form-bsqcourier #idpestado',true);
-		
-		callCargaControlParam('DELWEB_ESTADO','form-mntcourier #idpestado',true);
-		
-		callCargaControlParam('DELWEB_TIPODOCUMENTO', 'form-mntcourier #idptipodocumento',false);
-		
-		jQuery.validator.addMethod("alphanumeric", function(value, element) {
-			return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
-		});
-		
-		closeModalCargando();
-	});
+	$().ready(
+			function() {
+
+				loadModalCargando();
+
+				callCargaControlParam('DELWEB_ESTADO',
+						'form-bsqcourier #idpestado', true);
+
+				callCargaControlParam('DELWEB_ESTADO',
+						'form-mntcourier #idpestado', true);
+
+				callCargaControlParam('DELWEB_TIPODOCUMENTO',
+						'form-mntcourier #idptipodocumento', false);
+
+				jQuery.validator.addMethod("alphanumeric", function(value,
+						element) {
+					return this.optional(element)
+							|| /^[a-zA-Z0-9]+$/.test(value);
+				});
+
+				closeModalCargando();
+			});
 
 	function bsqCourier() {
-		
+
 		$("#container-lst-courier").hide();
-		
+
 		$('#table-lst-couriers').dataTable().fnClearTable();
 		$('#table-lst-couriers').dataTable().fnDestroy();
-		
-		var param 	= new Object();
-		param 		= $("#form-bsqcourier").serializeArray();
+
+		var param = new Object();
+		param = $("#form-bsqcourier").serializeArray();
 
 		loadModalCargando();
 
 		setTimeout(
 				function() {
-						$.ajax({
-								type 		: "POST",
-								url 		: "/DeliveryTarjetas/courier.do?method=lstCourier",
-								cache 		: false,
-								dataType 	: "json",
-								contentType	: "application/x-www-form-urlencoded; charset=UTF-8",
-								async 		: false,
-								data 		: param,
-								success 	: function(rsp) {
-									
-													var status 	= rsp.tx.statustx;
-													var message = rsp.tx.messagetx;
-				
-													closeModalCargando();
-													
-													if(status == 0){
-														if(rsp.lst!= undefined && rsp.lst.length > 0){
-															$("#container-lst-courier").slideDown(1000);
-															cargarDataTablesCouries(rsp.lst);
-														}else
-															loadModalMensaje("Atención","No se encontraron resultados por la búsqueda realizada",null);
-														
-													}else
-														loadModalMensaje("Atención",message,null);
+					$
+							.ajax({
+								type : "POST",
+								url : "/DeliveryTarjetas/courier.do?method=lstCourier",
+								cache : false,
+								dataType : "json",
+								contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+								async : false,
+								data : param,
+								success : function(rsp) {
+
+									var status = rsp.tx.statustx;
+									var message = rsp.tx.messagetx;
+
+									closeModalCargando();
+
+									if (status == 0) {
+										if (rsp.lst != undefined
+												&& rsp.lst.length > 0) {
+											$("#container-lst-courier")
+													.slideDown(1000);
+											cargarDataTablesCouries(rsp.lst);
+										} else
+											loadModalMensaje(
+													"Atención",
+													"No se encontraron resultados por la búsqueda realizada",
+													null);
+
+									} else
+										loadModalMensaje("Atención", message,
+												null);
 								},
-								error 		: function(rsp, xhr, ajaxOptions, thrownError) {
-													closeModalCargando();
-													loadModalMensaje("Error","ERROR BUSCANDO COURIER", null);
+								error : function(rsp, xhr, ajaxOptions,
+										thrownError) {
+									closeModalCargando();
+									loadModalMensaje("Error",
+											"ERROR BUSCANDO COURIER", null);
 								}
 							});
 				}, 1000);
@@ -149,113 +165,121 @@
 	function cargarDataTablesCouries(lstCouriers) {
 
 		$("#table-lst-couriers").DataTable({
-											"order" 		: [ [ 0, "asc" ] ],
-											"searching" 	: true,
-											"paging" 		: true,
-											"bInfo" 		: true,
-											"bAutoWidth" 	: false,
-											"oLanguage" 	: { "sUrl" : "/DeliveryTarjetas/recursos/idioma/es_ES.txt" },
-											"data" 			: lstCouriers,
-											"columns" 		: [ {
-																	"data" 		: "codbbva",
-																	"sWidth" 	: "15%",
-																	"class" 	: "text-center"
-																}, {
-																	"orderable" : false,
-																	"sWidth" 	: "25%",
-																	"data" 		: "rznsocial"
-																}, {
-																	"orderable" : false,
-																	"data" 		: "telfmovil",
-																	"sWidth" 	: "15%",
-																	"class" 	: "desktop"
-																}, {
-																	"orderable" : false,
-																	"data" 		: "correo",
-																	"sWidth" 	: "20%",
-																	"class" 	: "desktop"
-																}, {
-																	"orderable" : false,
-																	"data" 		: "idpestado",
-																	"sWidth" 	: "15%",
-																	"class" 	: "text-center"
-																}, {
-																	"orderable" : false,
-																	"data" 		: "",
-																	"mRender" : function(data, type, full) {
-																					return linkDetalleCourier(data,full);}
-																} ],
-											"fnDrawCallback" : function() {
-																mostrarDatatable("#table-lst-couriers");
-											}
+			"order" : [ [ 0, "asc" ] ],
+			"searching" : true,
+			"paging" : true,
+			"bInfo" : true,
+			"bAutoWidth" : false,
+			"oLanguage" : {
+				"sUrl" : "/DeliveryTarjetas/recursos/idioma/es_ES.txt"
+			},
+			"data" : lstCouriers,
+			"columns" : [ {
+				"data" : "codbbva",
+				"sWidth" : "15%",
+				"class" : "text-center"
+			}, {
+				"orderable" : false,
+				"sWidth" : "25%",
+				"data" : "rznsocial"
+			}, {
+				"orderable" : false,
+				"data" : "telfmovil",
+				"sWidth" : "15%",
+				"class" : "desktop"
+			}, {
+				"orderable" : false,
+				"data" : "correo",
+				"sWidth" : "20%",
+				"class" : "desktop"
+			}, {
+				"orderable" : false,
+				"data" : "dscestado",
+				"sWidth" : "15%",
+				"class" : "text-center"
+			}, {
+				"orderable" : false,
+				"data" : "",
+				"mRender" : function(data, type, full) {
+					return linkDetalleCourier(data, full);
+				}
+			} ],
+			"fnDrawCallback" : function() {
+				mostrarDatatable("#table-lst-couriers");
+			}
 		});
 	}
-	
-	function linkDetalleCourier(data,full) {
-	 	enlace = "<a data-toggle='modal' " 
-					+ "data-target='#modalEditarCourier' "
-					+ "onclick='return rowSelected("+JSON.stringify(JSON.stringify(full))+");'>" 
-					+ "<i class='i-detalle'></i>" + 
-				"</a>";
 
-		return enlace; 
+	function linkDetalleCourier(data, full) {
+		enlace = "<a data-toggle='modal' "
+				+ "data-target='#modalEditarCourier' "
+				+ "onclick='return rowSelected("
+				+ JSON.stringify(JSON.stringify(full)) + ");'>"
+				+ "<i class='i-detalle'></i>" + "</a>";
+
+		return enlace;
 	}
 
 	function rowSelected(json) {
 		json = JSON.parse(json);
-		$("#form-mntcourier #idcourier").val(json.idcourier); 
+		$("#form-mntcourier #idcourier").val(json.idcourier);
 		$("#form-mntcourier #codbbva").val(json.codbbva);
 		$("#form-mntcourier #rznsocial").val(json.rznsocial);
 		$("#form-mntcourier #idptipodocumento").val(json.idptipodocumento);
 		$("#form-mntcourier #nrodocumentocou").val(json.nrodocumentocou);
 		$("#form-mntcourier #telffijo").val(json.telffijo);
-		$("#form-mntcourier #telfmovil").val(json.telfmovil); 
-		$("#form-mntcourier #direccion").val(json.direccion); 
-		$("#form-mntcourier #correo").val(json.correo); 
-		$("#form-mntcourier #idpestado").val(json.idpestado); 
+		$("#form-mntcourier #telfmovil").val(json.telfmovil);
+		$("#form-mntcourier #direccion").val(json.direccion);
+		$("#form-mntcourier #correo").val(json.correo);
+		$("#form-mntcourier #idpestado").val(json.idpestado);
 	}
-	
-	function actualizarCourier() { 
-		if ($("#form-mntcourier").valid()){
-		 
-     		loadModalCargando();
-     		
-     		$.ajax({
-				type 		: "POST",
-				url 		: "/DeliveryTarjetas/courier.do?method=mntCourier",
-				cache 		: false,
-				dataType 	: "json",
-				contentType	: "application/x-www-form-urlencoded; charset=UTF-8",
-				async 		: false,
-				data 		: $("#form-mntcourier").serializeArray(),
-				success 	: function(rsp) {
-					
-									var status 	= rsp.tx.statustx;
-									var message = rsp.tx.messagetx;
 
-									closeModalCargando();
-									
-									if(status == 0)
-										loadModalMensaje("Enhorabuena",
-															message,
-															function(){
-																$("#modalEditarCourier").modal('hide');
-																bsqCourier();
-															});										
+	function actualizarCourier() {
+		if ($("#form-mntcourier").valid()) {
 
-									else
-										loadModalMensaje("Atención",message,null);
-				},
-				error 		: function(rsp, xhr, ajaxOptions, thrownError) {
-									closeModalCargando();
-									loadModalMensaje("Lo sentimos","Se presentaron problemas al registrar sus cambios. <br> Por favor intentelo en unos minutos.", null);
-				}
-			});
-     						 
+			loadModalCargando();
+
+			$
+					.ajax({
+						type : "POST",
+						url : "/DeliveryTarjetas/courier.do?method=mntCourier",
+						cache : false,
+						dataType : "json",
+						contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+						async : false,
+						data : $("#form-mntcourier").serializeArray(),
+						success : function(rsp) {
+
+							var status = rsp.tx.statustx;
+							var message = rsp.tx.messagetx;
+
+							closeModalCargando();
+
+							if (status == 0)
+								loadModalMensaje("Enhorabuena", message,
+										function() {
+											$("#modalEditarCourier").modal(
+													'hide');
+											bsqCourier();
+										});
+
+							else
+								loadModalMensaje("Atención", message, null);
+						},
+						error : function(rsp, xhr, ajaxOptions, thrownError) {
+							closeModalCargando();
+							loadModalMensaje(
+									"Lo sentimos",
+									"Se presentaron problemas al registrar sus cambios. <br> Por favor intentelo en unos minutos.",
+									null);
+						}
+					});
+
 		} else {
-			$.each($('input[type=text], select ,textarea', '#form-mntcourier'),function(k){
-			   validateItems("form-mntcourier", this);
-			});
-		} 
+			$.each($('input[type=text], select ,textarea', '#form-mntcourier'),
+					function(k) {
+						validateItems("form-mntcourier", this);
+					});
+		}
 	}
 </script>
