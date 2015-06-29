@@ -1,6 +1,7 @@
 package bbva.delivery.tarjetas.usuario.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Map;
 
 import commons.mapper.ResourceManager;
@@ -33,7 +34,7 @@ public class Usuario implements Serializable {
 	private String dscperfil;
 	private String dscestado;
  	*/
-	private Integer idtercero;
+	private BigDecimal idtercero;
 	private Integer idcourier; 
 	private Integer idperfil; 	
 	private Integer noidperfil;
@@ -69,10 +70,10 @@ public class Usuario implements Serializable {
 	public void setHistorial(String historial) {
 		this.historial = historial;
 	}
-	public Integer getIdtercero() {
+	public BigDecimal getIdtercero() {
 		return idtercero;
 	}
-	public void setIdtercero(Integer idtercero) {
+	public void setIdtercero(BigDecimal idtercero) {
 		this.idtercero = idtercero;
 	}
 	public Integer getIdperfil() {

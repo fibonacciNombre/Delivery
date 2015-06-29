@@ -52,13 +52,21 @@
 							<label for="btnBsqDelivery" class="col-md-5 control-label">
 							</label>
 							<div class="col-md-7">
-								<button id="btnBsqDelivery"
+								<button id="btnExpDelivery"
 			                    		type="button" 
 			                    		class="btn btn-primary" 
 			                    		style="float:right;padding-top: 3px; padding-bottom: 3px;"
 			                    		onclick="javascript:bsqDelivery();">
 			                    			<i style="background-position: -592px -1405px; height: 25px; margin-right: 0px; width: 25px; display: inline-block; vertical-align: top; transform: scale(0.6);"></i>			                    			
 			                    			<div style="display: inline-block; margin-top: 3px; vertical-align: top;">Buscar</div>			                    			
+			                    </button>
+								<button id="btnBsqDelivery"
+			                    		type="button" 
+			                    		class="btn btn-primary" 
+			                    		style="float:right;padding-top: 3px; padding-bottom: 3px;"
+			                    		onclick="javascript:exportarListaDelivery();">
+			                    			<i style="background-position: -592px -1405px; height: 25px; margin-right: 0px; width: 25px; display: inline-block; vertical-align: top; transform: scale(0.4);"></i>			                    			
+			                    			<div style="display: inline-block; margin-top: 3px; vertical-align: top;">Exportar a Excel</div>			                    			
 			                    </button>
 			                </div>							
 						</div>			
@@ -113,9 +121,9 @@
 
 		var param = new Object();
 		 
-		param.dnicliente 		= $("#form-bsqdelivery #dnicliente").val(); 
+		param.nrodocumentocli 		= $("#form-bsqdelivery #nrodocumentocli").val(); 
 		param.idcourier 		= $("#form-bsqdelivery #idcourier").val();
-		param.fecentrega 		= $("#form-bsqdelivery #fecentrega").val();
+		param.fechaentregaarh 		= $("#form-bsqdelivery #fecentrega").val();
 
 		$.ajax({
 			type 			: "POST",
@@ -139,6 +147,36 @@
 		});
 	}
 	
+	function exportarListaDelivery() {
+
+		loadModalCargando();
+
+		var param = new Object();
+		 
+		param.nrodocumentocli 		= $("#form-bsqdelivery #nrodocumentocli").val(); 
+		param.idcourier 		= $("#form-bsqdelivery #idcourier").val();
+		param.fechaentregaarh 		= $("#form-bsqdelivery #fecentrega").val();
+
+		$.ajax({
+			type 			: "POST",
+			url 			: "/DeliveryTarjetas/delivery.do?method=exportarListaDelivery",
+			cache 			: false,
+			async 			: false,
+			dataType 		: 'json',
+			contentType 	: "application/x-www-form-urlencoded; charset=UTF-8",
+			data 			: param,
+			success 		: function(data) {
+				loadModalMensaje('Enhorabuena','Se ha exportado la lista a excel',function(){}); 
+									closeModalCargando(); 
+			},
+			error 			: function(xhr, ajaxOptions, thrownError) {
+									closeModalCargando();
+									loadModalMensaje('Lo Sentimos','<center>Hubo problemas en el procesamiento de datos.</center>',function(){}); 
+			}
+		});
+	}
+
+	
 	function createHtmlTable(dataList, table) {
 
 		$("#divdestroy *").remove();
@@ -153,7 +191,6 @@
 								 '<th class="text-center">DNI Cliente</th>' +
 								 '<th class="text-center">Nombre Cliente</th>' +
 								 '<th class="text-center">Monto Crédito</th>' +
-								 '<th class="text-center">Fecha Entrega</th>' +  
 								 '<th class="text-center">Detalle</th>' +
 					 		'</tr>' +
 					 	'</thead>' +
@@ -197,10 +234,7 @@
 																						+ formatNumber(data)
 																						+ '</div>';
 																				return a; } }, 
-														{ "data" 		: "fecentrega",
-															"orderable"	: false,
-															"sWidth" 	: "20%" }, 															
-					                      				{ "data"      	: "",
+														 { "data"      	: "",
 															"orderable"	: false,
 															"sWidth" 	: "10%",
 						                      				"class"		: "text-center",

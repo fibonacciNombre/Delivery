@@ -130,12 +130,20 @@
 			$('#form-cargararchivo').ajaxForm({	
 												url		:"/DeliveryTarjetas/delivery.do?method=uploadFile&"+
 																						"idcourier="+ idcourier_ + "&"+
-																						"fecentrega="+ fechaentrega_ +"&"+
-																						"tipoarchivo=xlsx",
+																						"fecentrega="+ fechaentrega_ , 
 												type	:"post", 
 												success	:function(data){ 
-																closeModalCargando();
-																loadModalMensaje("Enhorabuena","Se ha completado la carga de entregas.",null);
+													var jsonRpta = JSON.parse(data);
+													if(jsonRpta.resultado == 0){
+														loadModalMensaje("Enhorabuena","Se ha completado la carga de entregas.",null);	
+													} else if(jsonRpta.resultado == 2){
+														loadModalMensaje("Alerta!", jsonRpta.mensaje, null)
+													} else{
+														loadModalMensaje("Error!", jsonRpta.mensaje, null);
+													}
+													
+													closeModalCargando();
+													
 												},
 												error	:function(){
 																

@@ -45,4 +45,16 @@ public class CourierServiceImp implements CourierService {
 		logger.info("Service obtDetalleCourier");
 		return courierDao.obtCourier(courier);
 	}
+
+	@Override
+	public Integer obtTipoarchXExt(String extension) {
+		// TODO Auto-generated method stub
+		return courierDao.obtTipoarchXExt(extension);
+	}
+
+	@Override
+	public Integer obtCourierXCodbbva(String codbbva) {
+		// TODO Auto-generated method stub
+		return courierDao.obtCourierXCodbbva(codbbva);
+	}
 }

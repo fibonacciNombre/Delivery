@@ -125,7 +125,7 @@
 		
 		var param 	= new Object();
 		param 		= $("#form-bsqcolaborador").serializeArray();
-
+		
 		loadModalCargando();
 
 		setTimeout(
@@ -222,10 +222,9 @@
 		$("#form-mntcolaborador #nrodocumento").val(json.nrodocumento);
 		$("#form-mntcolaborador #apematerno").val(json.apematerno);
 		$("#form-mntcolaborador #idcourier").val(json.idcourier);
-		
+		$("#form-mntcolaborador #correo").val(json.correo);
 		$("#form-mntcolaborador #idpestado").val(json.idpestado);
-		$("#form-mntcolaborador #telfmovil").val(json.telfmovil);
-		$("#form-mntcolaborador #telffijo").val(json.telffijo);
+		$("#form-mntcolaborador #telfmovil").val(json.telfmovil); 
 	}
 	
 	function actualizarColaborador() { 

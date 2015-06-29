@@ -1,6 +1,7 @@
 package bbva.delivery.tarjetas.bean;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Map;
 
 import commons.mapper.ResourceManager;
@@ -38,6 +39,9 @@ public class Delivery {
 	
 	private String codcourier;
 	private String dnitrabajador;
+	private Date fechaentregaarh;
+	private String usuario;
+	
 	
 	public Delivery(){
 		
@@ -289,6 +293,22 @@ public class Delivery {
 
 	public void setIdpestadodelivery(Integer idpestadodelivery) {
 		this.idpestadodelivery = idpestadodelivery;
+	}
+
+	public Date getFechaentregaarh() {
+		return fechaentregaarh;
+	}
+
+	public void setFechaentregaarh(Date fechaentregaarh) {
+		this.fechaentregaarh = fechaentregaarh;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
 	 

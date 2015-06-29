@@ -1,5 +1,6 @@
 package bbva.delivery.tarjetas.tercero.service.imp;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,7 +32,7 @@ public class TerceroServiceImp implements TerceroService {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		Date date = new Date();
 		
-		tercero.setHistorial("Usuario: " + tercero.getUsumodificacion() + ", Fecha:" + dateFormat.format(date) + ", " +  tercero.toString()); 
+		tercero.setHistorial("Usuario: " + tercero.getUsuario() + ", Fecha:" + dateFormat.format(date) + ", " +  tercero.toString()); 
 		
 		terceroDao.mntTercero(tercero);	 
 	}
@@ -40,5 +41,10 @@ public class TerceroServiceImp implements TerceroService {
 	public List<Tercero> lstTerceros(Tercero tercero) { 
 		logger.info("SERVICE lstTerceros");
 		return terceroDao.lstTerceros(tercero);
+	}
+	
+	@Override
+	public BigDecimal obtTerceroXNrodoc(String nrodocumento){
+		return terceroDao.obtTerceroXNrodoc(nrodocumento);
 	}
 }

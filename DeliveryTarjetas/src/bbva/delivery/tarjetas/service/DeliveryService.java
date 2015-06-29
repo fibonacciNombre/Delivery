@@ -1,6 +1,7 @@
 package bbva.delivery.tarjetas.service;
 
 import java.io.FileNotFoundException; 
+import java.io.IOException;
 import java.util.List;
 
 import org.json.simple.JSONObject;
@@ -12,8 +13,7 @@ import bbva.delivery.tarjetas.bean.Delivery;
 public interface DeliveryService {
 
 	public void test();
-
-	public JSONObject cargarExcelDelivery(Archivo archivo) throws FileNotFoundException;
+ 
 	public List<Delivery> lstDelivery(Delivery param);
 	 
 	 
@@ -24,7 +24,7 @@ public interface DeliveryService {
 	
 	public void cargaDelivery(Delivery param);
 	
-	public void cargarArchivoDelivery(Archivo param);
-	
-	public JSONObject cargarExcelDelivery2(MultipartFile multipartFile,Archivo archivo) throws FileNotFoundException;
+	public void mntArchivo(Archivo param);
+	public void exportarListaDelivery(Delivery delivery) throws IOException;
+	public JSONObject cargarExcelDelivery(MultipartFile multipartFile,Archivo archivo) throws FileNotFoundException;
 }

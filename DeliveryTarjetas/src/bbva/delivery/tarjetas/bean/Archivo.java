@@ -10,7 +10,7 @@ public class Archivo {
 	private Integer idarchivo;
 	private Date feccarga;
 	private Integer idtipoarchivo;
-	private String fecentrega;
+	private Date fecentrega;
 	private Integer idcourier;
 	
 	private String codcourier;
@@ -49,11 +49,11 @@ public class Archivo {
 		this.idtipoarchivo = idtipoarchivo;
 	}
 
-	public String getFecentrega() {
+	public Date getFecentrega() {
 		return fecentrega;
 	}
 
-	public void setFecentrega(String fecentrega) {
+	public void setFecentrega(Date fecentrega) {
 		this.fecentrega = fecentrega;
 	}
 

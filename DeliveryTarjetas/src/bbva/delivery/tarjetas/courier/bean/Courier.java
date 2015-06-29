@@ -124,7 +124,7 @@ public class Courier implements Serializable {
 				+ ", observacion=" + observacion + ", idpestado=" + idpestado
 				+ ", nrodocumentocou=" + nrodocumentocou
 				+ ", idptipodocumento=" + idptipodocumento + ", direccion="
-				+ direccion + ", usuario=" + usuario + "]";
+				+ direccion + "]";
 	}
 	public String getDscestado() {
 		return dscestado;

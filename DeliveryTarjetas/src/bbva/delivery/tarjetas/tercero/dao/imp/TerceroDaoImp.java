@@ -1,5 +1,6 @@
 package bbva.delivery.tarjetas.tercero.dao.imp;
 
+import java.math.BigDecimal;
 import java.sql.Types;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
+import bbva.delivery.tarjetas.bean.Archivo;
 import bbva.delivery.tarjetas.commons.ConstantsProperties;
 import bbva.delivery.tarjetas.comun.dao.imp.JdbcDaoBase;
 import bbva.delivery.tarjetas.tercero.bean.Tercero;
@@ -44,7 +46,7 @@ public class TerceroDaoImp extends JdbcDaoBase implements TerceroDao {
 		
 		logger.info("DAO TerceroDaoImp mntTercero");
 		
-		Integer idtercero 				= null;
+		BigDecimal idtercero 				= null;
 		SimpleJdbcCall call 			= null;
 		Map<String, Object> out 		= null; 	
 		MapSqlParameterSource in 		= new MapSqlParameterSource(); 
@@ -54,7 +56,7 @@ public class TerceroDaoImp extends JdbcDaoBase implements TerceroDao {
 				resources.getString(ConstantsProperties.PQ_DEL_TERCERO), 
 				"sp_mnt_tercero");
 		
-		  JdbcHelper.setInOutParameter(call, in, "a_idtercero", 	Types.INTEGER, tercero.getIdtercero());  
+		  JdbcHelper.setInOutParameter(call, in, "a_idtercero", 	Types.NUMERIC, tercero.getIdtercero());  
 	      JdbcHelper.setInParameter(call, in, "a_nombres" , 		Types.VARCHAR, tercero.getNombres());  	  
 	      JdbcHelper.setInParameter(call, in, "a_nrodocumento" , 	Types.VARCHAR, tercero.getNrodocumento());
 	      JdbcHelper.setInParameter(call, in, "a_apepaterno" , 		Types.VARCHAR, tercero.getApepaterno());
@@ -64,12 +66,12 @@ public class TerceroDaoImp extends JdbcDaoBase implements TerceroDao {
 	      JdbcHelper.setInParameter(call, in, "a_correo", 			Types.VARCHAR, tercero.getCorreo());  
 	      JdbcHelper.setInParameter(call, in, "a_idcourier", 		Types.INTEGER, tercero.getIdcourier()); 
 	      JdbcHelper.setInParameter(call, in, "a_idpestado", 		Types.INTEGER, tercero.getIdpestado());
-	      JdbcHelper.setInParameter(call, in, "a_usuario", 			Types.VARCHAR, tercero.getUsucreacion());
+	      JdbcHelper.setInParameter(call, in, "a_usuario", 			Types.VARCHAR, tercero.getUsuario());
 	      JdbcHelper.setInParameter(call, in, "a_historial", 		Types.VARCHAR, tercero.getHistorial());
 		
 		out = call.execute(in);
 		
-		idtercero = JdbcHelper.getOutResult(out, "a_idtercero", Integer.class);
+		idtercero = JdbcHelper.getOutResult(out, "a_idtercero", BigDecimal.class);
 		tercero.setIdtercero(idtercero);  
 		
 	}
@@ -103,6 +105,31 @@ public class TerceroDaoImp extends JdbcDaoBase implements TerceroDao {
 		  
 		return lista;
 
-	} 
+	}
+	
+	@Override
+	public BigDecimal obtTerceroXNrodoc(String nrodocumento) { 
+		
+		SimpleJdbcCall call = null;
+		MapSqlParameterSource in = null;
+		Map<String, Object> out = null; 
+		in = new MapSqlParameterSource(); 
+		BigDecimal idtercero = null;
+		
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), 
+				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY), 
+				resources.getString(ConstantsProperties.PQ_DEL_TERCERO), 
+				"sp_obt_terceroxdni");
+		
+		  JdbcHelper.setInParameter(call, in, "a_nrodocumento"      , 	Types.VARCHAR, nrodocumento);
+	      JdbcHelper.setOutParameter(call, "a_idtercero"     , 	Types.NUMERIC, BigDecimal.class);  
+	      
+		
+		out = call.execute(in);
+		
+		idtercero = JdbcHelper.getOutResult(out, "a_idtercero", BigDecimal.class);
+		return idtercero;
+
+	}
 }
 

@@ -19,5 +19,5 @@ public interface DeliveryDao{
 	
 	public void cargaDelivery(Delivery param);
 	
-	public void cargarArchivoDelivery(Archivo param);
+	public void mntArchivo(Archivo param);
 }

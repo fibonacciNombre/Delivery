@@ -190,9 +190,8 @@ public class UsuarioController extends BaseController {
 		Usuario usrSession 		= (Usuario) session.getAttribute(Constants.REQ_SESSION_USUARIO);
 		
 		try {
-			tercero.setUsucreacion(usrSession.getCodusuario());
-			tercero.setUsumodificacion(usrSession.getCodusuario());
-			
+			tercero.setUsuario(usrSession.getCodusuario());
+			 
 			usuario.setUsucreacion(usrSession.getCodusuario());
 			usuario.setUsumodificacion(usrSession.getCodusuario());
 			

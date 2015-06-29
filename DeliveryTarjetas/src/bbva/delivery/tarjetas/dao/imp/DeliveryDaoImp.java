@@ -99,7 +99,7 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 				"sp_lst_delivery");
  
 		
-		JdbcHelper.setInParameter(call, in, "a_fecentrega", OracleTypes.VARCHAR, param.getFecentrega());
+		JdbcHelper.setInParameter(call, in, "a_fecentrega", OracleTypes.DATE, param.getFechaentregaarh());
 		JdbcHelper.setInParameter(call, in, "a_idcourier", OracleTypes.INTEGER, param.getIdcourier());
 		JdbcHelper.setInParameter(call, in, "a_nrodocumentocli", OracleTypes.VARCHAR, param.getNrodocumentocli());
 		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, Delivery.class);
@@ -208,7 +208,7 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 	}
 	
 	@Override
-	public void cargarArchivoDelivery(Archivo param) { 
+	public void mntArchivo(Archivo param) { 
 		
 		SimpleJdbcCall call = null;
 		MapSqlParameterSource in = null;
@@ -219,11 +219,11 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), 
 				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY), 
 				resources.getString(ConstantsProperties.PQ_DEL_COURIER), 
-				"sp_carga_archivo");
+				"sp_mnt_archivo");
 		
 		  JdbcHelper.setInOutParameter(call, in, "a_idarchivo"      , 	Types.INTEGER, param.getIdarchivo());  	  
-	      JdbcHelper.setInParameter(call, in, "a_tipoarchivo" , 	Types.VARCHAR, param.getTipoarchivo()); 	  
-	      JdbcHelper.setInParameter(call, in, "a_fecentrega"      , 	Types.VARCHAR, param.getFecentrega()); 
+	      JdbcHelper.setInParameter(call, in, "a_idtipoarchivo" , 	Types.INTEGER, param.getIdtipoarchivo()); 	  
+	      JdbcHelper.setInParameter(call, in, "a_fecentrega"      , 	Types.DATE, param.getFecentrega()); 
 	      JdbcHelper.setInParameter(call, in, "a_idcourier"     , 	Types.INTEGER, param.getIdcourier());  
 	      
 		

@@ -1,6 +1,7 @@
 package bbva.delivery.tarjetas.tercero.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Map;
 
 import commons.mapper.ResourceManager;
@@ -9,7 +10,7 @@ public class Tercero implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Integer idtercero;
+	private BigDecimal idtercero;
 	private String idpestado;
 	private Integer idptipodocumento;
 	private String nrodocumento;
@@ -22,8 +23,10 @@ public class Tercero implements Serializable {
 	private String historial;
  	private Integer idcourier; 
 	
- 	private String usucreacion;
- 	private String usumodificacion;
+ 	private String dsccourier;
+ 	private String dscestado;
+ 	
+ 	private String usuario; 
 	public Tercero() {
 	
 	}	
@@ -33,10 +36,10 @@ public class Tercero implements Serializable {
 	    ResourceManager.populateDtoFromMap(this, map);
 	}	
 	
-	public Integer getIdtercero() {
+	public BigDecimal getIdtercero() {
 		return idtercero;
 	}
-	public void setIdtercero(Integer idtercero) {
+	public void setIdtercero(BigDecimal idtercero) {
 		this.idtercero = idtercero;
 	}
 	public String getNrodocumento() {
@@ -108,21 +111,7 @@ public class Tercero implements Serializable {
 		this.correo = correo;
 	}
 
-	public String getUsucreacion() {
-		return usucreacion;
-	}
-
-	public void setUsucreacion(String usucreacion) {
-		this.usucreacion = usucreacion;
-	}
-
-	public String getUsumodificacion() {
-		return usumodificacion;
-	}
-
-	public void setUsumodificacion(String usumodificacion) {
-		this.usumodificacion = usumodificacion;
-	}
+ 
 
 	@Override
 	public String toString() {
@@ -131,9 +120,32 @@ public class Tercero implements Serializable {
 				+ nrodocumento + ", nombres=" + nombres + ", apepaterno="
 				+ apepaterno + ", apematerno=" + apematerno + ", nomcompleto="
 				+ nomcompleto + ", telfmovil=" + telfmovil + ", correo="
-				+ correo + ", historial=" + historial + ", idcourier="
-				+ idcourier + ", usucreacion=" + usucreacion
-				+ ", usumodificacion=" + usumodificacion + "]";
+				+ correo + ", idcourier="
+				+ idcourier  + "]";
+	}
+
+	public String getDsccourier() {
+		return dsccourier;
+	}
+
+	public void setDsccourier(String dsccourier) {
+		this.dsccourier = dsccourier;
+	}
+
+	public String getDscestado() {
+		return dscestado;
+	}
+
+	public void setDscestado(String dscestado) {
+		this.dscestado = dscestado;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 	
 }

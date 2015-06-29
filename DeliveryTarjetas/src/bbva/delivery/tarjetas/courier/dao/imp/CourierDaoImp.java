@@ -1,5 +1,6 @@
 package bbva.delivery.tarjetas.courier.dao.imp;
  
+import java.math.BigDecimal;
 import java.sql.Types;
 import java.util.List;
 import java.util.Map;
@@ -134,6 +135,55 @@ public class CourierDaoImp extends JdbcDaoBase implements CourierDao {
 		logger.info("Dao lstTercerosxCourier");
 		return null;
 	}
- 
 	
+	@Override
+	public Integer obtCourierXCodbbva(String codbbva) { 
+		
+		SimpleJdbcCall call = null;
+		MapSqlParameterSource in = null;
+		Map<String, Object> out = null; 
+		in = new MapSqlParameterSource(); 
+		Integer idcourier = null;
+		
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), 
+				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY), 
+				resources.getString(ConstantsProperties.PQ_DEL_COURIER), 
+				"sp_obt_curierxcodbbva");
+		
+		  JdbcHelper.setInParameter(call, in, "a_codbbva"      , 	Types.VARCHAR, codbbva);
+	      JdbcHelper.setOutParameter(call, "a_idcourier"     , 	Types.INTEGER, Integer.class);  
+	      
+		
+		out = call.execute(in);
+		
+		idcourier = JdbcHelper.getOutResult(out, "a_idcourier", Integer.class);
+		return idcourier;
+
+	}
+ 
+	@Override
+	public Integer obtTipoarchXExt(String extension) { 
+		
+		SimpleJdbcCall call = null;
+		MapSqlParameterSource in = null;
+		Map<String, Object> out = null; 
+		in = new MapSqlParameterSource(); 
+		Integer idtipoarchivo = null;
+		
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), 
+				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY), 
+				resources.getString(ConstantsProperties.PQ_DEL_COURIER), 
+				"sp_obt_idtipoarchxext");
+		
+		  JdbcHelper.setInParameter(call, in, "a_tipoarchivo"   , 	Types.VARCHAR, extension);
+	      JdbcHelper.setOutParameter(call, "a_idtipoarchivo"     , 	Types.INTEGER, Integer.class);  
+	      
+		
+		out = call.execute(in);
+		
+		idtipoarchivo = JdbcHelper.getOutResult(out, "a_idtipoarchivo", Integer.class);
+		return idtipoarchivo;
+
+	}
+
 }

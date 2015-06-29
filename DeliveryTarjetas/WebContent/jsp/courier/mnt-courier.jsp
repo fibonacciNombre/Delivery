@@ -232,6 +232,7 @@
 		$("#form-mntcourier #direccion").val(json.direccion);
 		$("#form-mntcourier #correo").val(json.correo);
 		$("#form-mntcourier #idpestado").val(json.idpestado);
+		$("#form-mntcourier #observacion").val(json.observacion);
 	}
 
 	function actualizarCourier() {

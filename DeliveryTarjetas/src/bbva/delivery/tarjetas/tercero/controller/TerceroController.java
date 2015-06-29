@@ -80,8 +80,7 @@ public class TerceroController extends BaseController {
 		Tercero tercero 		=  new Tercero(request.getParameterMap());
 		
 		Usuario usuario = (Usuario) session.getAttribute(Constants.REQ_SESSION_USUARIO);
-		tercero.setUsucreacion(usuario.getCodusuario());
-		tercero.setUsumodificacion(usuario.getCodusuario());
+		tercero.setUsuario(usuario.getCodusuario());
 		
 		try {
 			terceroService.mntTercero(tercero);

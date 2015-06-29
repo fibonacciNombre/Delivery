@@ -2,6 +2,10 @@ package bbva.delivery.tarjetas.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -29,6 +33,7 @@ import bbva.delivery.tarjetas.comun.bean.TransaccionWeb;
 import bbva.delivery.tarjetas.comun.service.ComunService;
 import bbva.delivery.tarjetas.courier.bean.Courier;
 import bbva.delivery.tarjetas.service.DeliveryService;
+import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
 import commons.framework.BaseController;
 import commons.web.UtilWeb;
@@ -76,19 +81,7 @@ public class DeliveryController extends BaseController{
 
 	}
 	
-	public void cargaExcelDelivery(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-
-		JSONObject joRetorno = new JSONObject();
-		
-		Archivo archivo = null;
-		 
-		archivo = new Archivo(request.getParameterMap());
-		 
-		joRetorno = deliveryService.cargarExcelDelivery(archivo);
-
-		this.escribirTextoSalida(response, joRetorno.toString());
-	}
+	 
 
 	public void mntDelivery(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -98,9 +91,10 @@ public class DeliveryController extends BaseController{
 		HttpSession session 	= request.getSession();
 		TransaccionWeb tx		= new TransaccionWeb();				
 		Delivery delivery = new Delivery(request.getParameterMap());
+		 Usuario usuarioSes     = (Usuario)session.getAttribute(Constants.REQ_SESSION_USUARIO);
 		
-		//String usuario = session.getAttribute(Constants.REQ_SESSION_USUARIO).toString();
-	 	
+		delivery.setUsuario(usuarioSes.getCodusuario());
+	
 		try {
 			
 			deliveryService.mntDelivery(delivery);			
@@ -114,6 +108,19 @@ public class DeliveryController extends BaseController{
 		
 		this.escribirTextoSalida(response, result);
 	}
+	
+	public void exportarListaDelivery(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		Delivery delivery = null;
+		delivery = new Delivery(request.getParameterMap());
+		try {
+			 deliveryService.exportarListaDelivery(delivery);
+ 		} catch (Error e) {
+ 		}
+		this.escribirTextoSalida(response, "{}");
+	}
+
+		
 	
 	public void lstDelivery(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -145,11 +152,19 @@ public class DeliveryController extends BaseController{
 		JSONObject joRetorno = new JSONObject();
 		Archivo archivo = new Archivo();
 		Integer idcourier = Integer.parseInt(request.getParameter("idcourier"));
-		String fecentrega=request.getParameter("fecentrega");
-		String tipoarchivo=request.getParameter("tipoarchivo");
-		archivo.setIdcourier(idcourier);
-		archivo.setTipoarchivo(tipoarchivo);
-		archivo.setFecentrega(fecentrega);
+		String fecentrega=request.getParameter("fecentrega"); 
+		archivo.setIdcourier(idcourier); 
+		
+		 DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		 Date dfechaentrega = null;
+		try {
+			dfechaentrega = df.parse(fecentrega);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		archivo.setFecentrega(dfechaentrega);
 		if (isMultipart) {
 
 			FileItemFactory factory = new DiskFileItemFactory();
@@ -168,8 +183,8 @@ public class DeliveryController extends BaseController{
  
 						archivo.setFilename(f.getOriginalFilename());
 						
-						joRetorno = deliveryService.cargarExcelDelivery2(f, archivo);
-						
+						joRetorno = deliveryService.cargarExcelDelivery(f, archivo);
+						break;
 				//	}
 				}
 				

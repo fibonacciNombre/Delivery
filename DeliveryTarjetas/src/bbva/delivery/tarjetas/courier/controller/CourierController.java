@@ -15,7 +15,7 @@ import bbva.delivery.tarjetas.commons.Constants;
 import bbva.delivery.tarjetas.comun.bean.TransaccionWeb;
 import bbva.delivery.tarjetas.courier.bean.Courier;
 import bbva.delivery.tarjetas.courier.service.CourierService;
-
+import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import commons.framework.BaseController;
 import commons.web.UtilWeb;
 
@@ -142,9 +142,9 @@ public class CourierController extends BaseController {
 		HttpSession session 	= request.getSession();
 		TransaccionWeb tx		= new TransaccionWeb();				
 		Courier courier 		= new Courier(request.getParameterMap());
+		Usuario usuarioSes     = (Usuario)session.getAttribute(Constants.REQ_SESSION_USUARIO);
 		
-		//String usuario = session.getAttribute(Constants.REQ_SESSION_USUARIO).toString();
-		courier.setUsuario("BBVA");
+		courier.setUsuario(usuarioSes.getCodusuario());
 		
 		try {
 			
