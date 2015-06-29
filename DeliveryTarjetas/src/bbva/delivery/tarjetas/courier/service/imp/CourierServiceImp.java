@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import bbva.delivery.tarjetas.courier.bean.Courier;
 import bbva.delivery.tarjetas.courier.dao.CourierDao;
 import bbva.delivery.tarjetas.courier.service.CourierService;
+import bbva.delivery.tarjetas.tercero.bean.Tercero;
 
 @Service("courierService")
 @Transactional(propagation=Propagation.SUPPORTS)
@@ -36,13 +37,19 @@ public class CourierServiceImp implements CourierService {
 
 	@Override
 	public List<Courier> lstCouriers(Courier courier) {
-		logger.info("Service lstCourier");
+		logger.info("SERVICE lstCourier");
 		return courierDao.lstCouriers(courier);
 	}
 
 	@Override
 	public List<Courier>  obtCourier(Courier courier) {
-		logger.info("Service obtDetalleCourier");
+		logger.info("SERVICE obtDetalleCourier");
 		return courierDao.obtCourier(courier);
+	}
+
+	@Override
+	public List<Tercero> lstTercerosxCourier(Tercero tercero) {
+		logger.info("SERVICE lstTercerosxCourier");
+		return courierDao.lstTercerosxCourier(tercero);
 	}
 }

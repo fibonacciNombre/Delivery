@@ -51,10 +51,6 @@
     	
     	callCargaControlParam('DELWEB_ESTADO','form-registrocourier #idpestado',false);
     	
-		jQuery.validator.addMethod("alphanumeric", function(value, element) {
-	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
-		});
-		
 		$("#form-registrocourier").validate({
 			rules : {
 
@@ -118,19 +114,6 @@
 	});
     
 	function registrarCourier(){
-
-		var $inputs = $('#form-registrocourier :input');
-
-		$inputs.each(function() {
-			if(this.id!=""){
-				if($("#form-registrocourier #"+ this.id).valid())
-					$(".result", $("#"+this.id).parent()).html("<i class='success'></i>");			
-				else
-					$(".result", $("#"+this.id).parent()).html("<i class='error'></i>");
-			}
-	    });
-
-		activarChecksValidate("form-registrocourier");
 		
 		if($("#form-registrocourier").valid()){
 

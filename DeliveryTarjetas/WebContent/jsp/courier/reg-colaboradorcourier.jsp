@@ -53,16 +53,18 @@
     	
 		callCargaControlParam('DELWEB_ESTADO','form-registrocolaboradores #idpestado',false);
     	 
-    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form: 'form-registrocolaboradores'});
+    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','cbocourier', ['idcourier','rznsocial'], {form: 'form-registrocolaboradores'});
 		
-		jQuery.validator.addMethod("alphanumeric", function(value, element) {
-	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
-		});
-		
+    	if($("#form-datos-usuario #idcourier").val()!=null  && $("#form-datos-usuario #idcourier").val()!=""){
+    		$("#form-registrocolaboradores #cbocourier").val($("#form-datos-usuario #idcourier").val());
+    		$("#form-registrocolaboradores #idcourier").val($("#form-datos-usuario #idcourier").val());    		
+    		$("#form-registrocolaboradores #cbocourier").attr("disabled","disabled");
+    	}
+    	
 		$("#form-registrocolaboradores").validate({
 			rules : {
 
-				idcourier 			: {				required 	: true },
+				cbocourier 			: {				required 	: true },
 				
 				idptipodocumento 	: {				required 	: true },
 				
@@ -86,7 +88,7 @@
 				idpestado 			: {				required 	: true }
 			},
 			messages : {
-				idcourier 			: {				required 	: "Debes seleccionar un courier" },
+				cbocourier 			: {				required 	: "Debes seleccionar un courier" },
 				
 				idptipodocumento 	: {				required 	: "Debes seleccionar un tipo de documento" },
 				
@@ -117,21 +119,12 @@
     
 	function registrarColaboradorxCourier(){
 
-		var $inputs = $('#form-registrocolaboradores :input');
-
-		$inputs.each(function() {
-			if(this.id!=""){
-				if($("#form-registrocolaboradores #"+ this.id).valid())
-					$(".result", $("#"+this.id).parent()).html("<i class='success'></i>");			
-				else
-					$(".result", $("#"+this.id).parent()).html("<i class='error'></i>");
-			}
-	    });
-
-		activarChecksValidate("form-registrocolaboradores");
-		
 		if($("#form-registrocolaboradores").valid()){
-
+			
+			$("#form-registrocolaboradores #cbocourier").attr("disabled",false);
+			$("#form-registrocolaboradores #idcourier").val($("#form-registrocolaboradores #cbocourier").val());
+			$("#form-registrocolaboradores #cbocourier").attr("disabled",true);
+			
  			var param 	= new Object();
  			param 		= $("#form-registrocolaboradores").serializeArray();
  			

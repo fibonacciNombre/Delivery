@@ -13,7 +13,6 @@ public interface CourierDao {
 	
 	List<Courier>  obtCourier(Courier courier);
 	
-	List<Tercero> lstTercerosxCourier(Courier courier);
-	 
+	List<Tercero> lstTercerosxCourier(Tercero tercero);
 	 
 }

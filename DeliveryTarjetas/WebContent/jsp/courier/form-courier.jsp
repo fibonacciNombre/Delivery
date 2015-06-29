@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 
+<input type="hidden" id="idcourier" name="idcourier"/>
+
 <div class="row">
      
     <div class="col-md-6">
@@ -77,6 +79,13 @@
 		        <select class="form-control" id="idpestado" name="idpestado">                        	
 		        </select>
 		        <div class="result"></div>
+		    </div>
+		</div>
+		
+		<div class="form-group" id="comentarios-div">
+		    <label for="comentarios" class="col-md-12 control-label">Comentarios </label>
+		    <div class="col-md-12">
+		    	<textarea class="form-control" id="observacion" name="observacion" maxlength="300"  wrap="hard" style="min-width: 100%; max-width: 100%; min-height: 50px; max-height: 50px;"/>
 		    </div>
 		</div>
 	</div>
