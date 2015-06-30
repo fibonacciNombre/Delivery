@@ -147,10 +147,12 @@
 																						"fecentrega="+ fechaentrega_ , 
 												type	:"post", 
 												success	:function(data){ 
-<<<<<<< HEAD
+
 													var jsonRpta = JSON.parse(data);
 													if(jsonRpta.resultado == 0){
-														loadModalMensaje("Enhorabuena","Se ha completado la carga de entregas.",null);	
+														loadModalMensaje("Enhorabuena",
+																			"Se ha completado la carga de entregas.",
+																			function(){$("#view-carga-entrega").click();});		
 													} else if(jsonRpta.resultado == 2){
 														loadModalMensaje("Alerta!", jsonRpta.mensaje, null)
 													} else{
@@ -158,20 +160,11 @@
 													}
 													
 													closeModalCargando();
-													
-=======
-																closeModalCargando();
-																loadModalMensaje("Enhorabuena",
-																					"Se ha completado la carga de entregas.",
-																					function(){$("#view-carga-entrega").click();});																
->>>>>>> refs/remotes/origin/master
 												},
 												error	:function(){
 																
 												}
 											});			
-		}
-		
-		
+		}		
 	}
 </script>

@@ -221,7 +221,6 @@
 		$("#form-mntcourier #direccion").val(json.direccion);
 		$("#form-mntcourier #correo").val(json.correo);
 		$("#form-mntcourier #idpestado").val(json.idpestado);
-<<<<<<< HEAD
 		$("#form-mntcourier #observacion").val(json.observacion);
 	}
 
@@ -266,15 +265,7 @@
 						}
 					});
 
-		} else {
-			$.each($('input[type=text], select ,textarea', '#form-mntcourier'),
-					function(k) {
-						validateItems("form-mntcourier", this);
-					});
 		}
-=======
-		
 		closeModalCargando();
->>>>>>> refs/remotes/origin/master
 	}
 </script>

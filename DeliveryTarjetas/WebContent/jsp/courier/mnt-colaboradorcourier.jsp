@@ -129,11 +129,6 @@
 		
 		var param 	= new Object();
 		param 		= $("#form-bsqcolaborador").serializeArray();
-<<<<<<< HEAD
-		
-		loadModalCargando();
-=======
->>>>>>> refs/remotes/origin/master
 
 		setTimeout(
 				function() {
@@ -242,12 +237,17 @@
 		$("#form-mntcolaborador #apematerno").val(json.apematerno);
 		$("#form-mntcolaborador #idptipodocumento").val(json.idptipodocumento);
 		$("#form-mntcolaborador #nrodocumento").val(json.nrodocumento);
-<<<<<<< HEAD
-		$("#form-mntcolaborador #apematerno").val(json.apematerno);
-		$("#form-mntcolaborador #idcourier").val(json.idcourier);
+		$("#form-mntcolaborador #telfmovil").val(json.telfmovil);
+		$("#form-mntcolaborador #telffijo").val(json.telffijo);
 		$("#form-mntcolaborador #correo").val(json.correo);
+		$("#form-mntcolaborador #idcourier").val(json.idcourier);
+		$("#form-mntcolaborador #cbocourier").val(json.idcourier);
 		$("#form-mntcolaborador #idpestado").val(json.idpestado);
-		$("#form-mntcolaborador #telfmovil").val(json.telfmovil); 
+		
+		if($("#form-datos-usuario #idcourier").val()!=null  && $("#form-datos-usuario #idcourier").val()!="")
+			$("#form-mntcolaborador #cbocourier").attr("disabled",true);
+		
+		closeModalCargando();
 	}
 	
 	function actualizarColaborador() { 
@@ -287,23 +287,6 @@
 				}
 			});
      						 
-		} else {
-			$.each($('input[type=text], select ,textarea', '#form-mntcourier'),function(k){
-			   validateItems("form-mntcourier", this);
-			});
-		} 
-=======
-		$("#form-mntcolaborador #telfmovil").val(json.telfmovil);
-		$("#form-mntcolaborador #telffijo").val(json.telffijo);
-		$("#form-mntcolaborador #correo").val(json.correo);
-		$("#form-mntcolaborador #idcourier").val(json.idcourier);
-		$("#form-mntcolaborador #cbocourier").val(json.idcourier);
-		$("#form-mntcolaborador #idpestado").val(json.idpestado);
-		
-		if($("#form-datos-usuario #idcourier").val()!=null  && $("#form-datos-usuario #idcourier").val()!="")
-			$("#form-mntcolaborador #cbocourier").attr("disabled",true);
-		
-		closeModalCargando();
->>>>>>> refs/remotes/origin/master
+		}
 	}
 </script>

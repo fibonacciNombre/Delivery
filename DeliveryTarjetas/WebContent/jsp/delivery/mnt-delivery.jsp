@@ -125,25 +125,18 @@
 		$('#table-lst-mntdelivery').dataTable().fnDestroy();
 		
 		loadModalCargando();
-
-<<<<<<< HEAD
-		var param = new Object();
-		 
-		param.nrodocumentocli 		= $("#form-bsqdelivery #nrodocumentocli").val(); 
-		param.idcourier 		= $("#form-bsqdelivery #idcourier").val();
-		param.fechaentregaarh 		= $("#form-bsqdelivery #fecentrega").val();
-=======
+		
 		$("#form-bsq-mntdelivery #cbocourier").attr("disabled",false);
 		$("#form-bsq-mntdelivery #idcourier").val($("#form-bsq-mntdelivery #cbocourier").val());
 		
 		if($("#form-datos-usuario #idcourier").val()!=null  && $("#form-datos-usuario #idcourier").val()!="")
 			$("#form-bsq-mntdelivery #cbocourier").attr("disabled",true);
-		
-		var param 				= new Object();		 
-		param.dnicliente 		= $("#form-bsq-mntdelivery #dnicliente").val(); 
+
+		var param 				= new Object();
+		 
+		param.nrodocumentocli 	= $("#form-bsq-mntdelivery #nrodocumentocli").val(); 
 		param.idcourier 		= $("#form-bsq-mntdelivery #idcourier").val();
-		param.fecentrega 		= $("#form-bsq-mntdelivery #fecentrega").val();
->>>>>>> refs/remotes/origin/master
+		param.fechaentregaarh 	= $("#form-bsq-mntdelivery #fecentrega").val();
 
 		$.ajax({
 			type 			: "POST",
@@ -213,13 +206,9 @@
 								 '<th class="text-center">N° Tarjeta</th>' +
 								 '<th class="text-center">DNI Cliente</th>' +
 								 '<th class="text-center">Nombre Cliente</th>' +
-<<<<<<< HEAD
-								 '<th class="text-center">Monto Crédito</th>' +
-=======
 								 '<th class="text-center">Courier</th>' +
 								 '<th class="text-center">Responsable</th>' +
 								 '<th class="text-center">Fecha Entrega</th>' +  
->>>>>>> refs/remotes/origin/master
 								 '<th class="text-center">Detalle</th>' +
 					 		'</tr>' +
 					 	'</thead>' +
@@ -256,15 +245,6 @@
 															"sWidth" 	: "25%" },
 														{ "data" 		: "idcourier",
 															"sWidth" 	: "15%",
-<<<<<<< HEAD
-															"orderable"	: false,
-															"mRender" 	: function(data, type, full) {
-																				var a = '<div style="text-align: right;">'
-																						+ formatNumber(data)
-																						+ '</div>';
-																				return a; } }, 
-														 { "data"      	: "",
-=======
 															"orderable"	: false }, 
 														{ "data" 		: "idtercero",
 															"sWidth" 	: "10%",
@@ -273,7 +253,6 @@
 															"orderable"	: false,
 															"sWidth" 	: "10%" }, 															
 					                      				{ "data"      	: "",
->>>>>>> refs/remotes/origin/master
 															"orderable"	: false,
 															"sWidth" 	: "10%",
 						                      				"class"		: "text-center",

@@ -92,52 +92,6 @@
 		</div>
 	</div>
 
-<<<<<<< HEAD
-=======
- 	<div class="col-md-6">            
-		<div class="form-group" id="telfmovil-div">
-		    <label for="telfmovil" class="col-md-12 control-label required">Teléfono móvil </label>
-		    <div class="col-md-12">
-		        <input type="text" class="form-control phone-group" id="telfmovil" name="telfmovil" maxlength="9">
-		        <div class="result"></div>
-		    </div>
-		</div>
-             
-		<div class="form-group" id="telffijo-div">
-		    <label for="telffijo" class="col-md-12 control-label required">Teléfono fijo </label>
-		    <div class="col-md-12">
-		        <input type="text" class="form-control phone-group" id="telffijo"  name="telffijo" maxlength="9">
-		        <div class="result"></div>
-		    </div>
-		</div>
-             
-		<div class="form-group" id="correo-div">
-		    <label for="correo" class="col-md-12 control-label required">Correo electrónico </label>
-		    <div class="col-md-12">
-		        <input type="text" class="form-control" id="correo"  name="correo" maxlength="200">
-		        <div class="result"></div>
-		    </div>
-		</div>
-             
-             
-		<div class="form-group" id="idpestado-div">
-		    <label for="idpestado" class="col-md-12 control-label required">Estado </label>
-		    <div class="col-md-12">
-		        <select class="form-control" id="idpestado" name="idpestado">                        	
-		        </select>
-		        <div class="result"></div>
-		    </div>
-		</div>
-		
-		<div class="form-group" id="comentarios-div">
-		    <label for="comentarios" class="col-md-12 control-label">Comentarios </label>
-		    <div class="col-md-12">
-		    	<textarea class="form-control" id="observacion" name="observacion" maxlength="300"  wrap="hard" style="min-width: 100%; max-width: 100%; min-height: 50px; max-height: 50px;"/>
-		    </div>
-		</div>
-	</div>
-         
->>>>>>> refs/remotes/origin/master
 	<div class="col-md-12">
 		<div class="form-group" id="direccion-div">
 			<label for="direccion" class="col-md-12 control-label required">Dirección

@@ -180,12 +180,12 @@ public class DeliveryController extends BaseController{
 					System.out.println("nombre --> "+ item.getName());
 					System.out.println("getOriginalFilename --> "+ f.getOriginalFilename());
 					System.out.println("getOriginalFilename --> "+ f.getInputStream());
- 
+					if(item.getFieldName().equalsIgnoreCase("filename")){
 						archivo.setFilename(f.getOriginalFilename());
 						
 						joRetorno = deliveryService.cargarExcelDelivery(f, archivo);
 						break;
-				//	}
+					}
 				}
 				
 				
