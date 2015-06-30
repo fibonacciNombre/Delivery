@@ -185,13 +185,15 @@
 																							return full.nombres + " " + full.apepaterno + " " + full.apematerno; }
 																	}, {
 																		"orderable" : false,
-																		"data" 		: "idcourier",
+																		"data" 		: "",
 																		"sWidth" 	: "20%",
-																		"class" 	: "desktop"
+																		"mRender"  	: function (data, type, full) {
+				                         	 												return obtDescripcionCourier(full.idcourier);}
 																	}, {
 																		"orderable" : false,
 																		"data" 		: "",
 																		"sWidth" 	: "15%",
+																		"class"		: "text-center",
 																		"mRender"  	: function (data, type, full) {
 				                         	 												return obtDescripcionParametro(CTE_INIT_PARAM_ESTADO, null, full.idpestado);}
 																	}, {

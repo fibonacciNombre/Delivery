@@ -161,6 +161,7 @@ function loadSesionInicial(){
 		CTE_INIT_PARAM_ESTADO 			= obtParametrosMaestros('DELWEB_ESTADO');
 		CTE_INIT_PARAM_TIPDOCUMENTO 	= obtParametrosMaestros('DELWEB_TIPODOCUMENTO');
 		CTE_INIT_PERFILES				= obtMaestroPerfil();
+		CTE_INIT_COURIERS				= obtMaestroCouriers();
 		
 		$("#panelDelivery").click();
 		$("#view-lst-entrega").click();
@@ -194,6 +195,35 @@ function obtMaestroPerfil(){
 	return rptaLstPerfil;
 	
 }	
+
+function obtMaestroCouriers(){
+	
+	var rptaLstPerfil;
+	var param 	= new Object();
+	
+	$.ajax({
+	type 		: "POST",
+	url 		: "/DeliveryTarjetas/courier.do"+"?method=lstCourier",
+	cache 		: false ,
+	dataType	: "json",
+	contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+	async 		: false,
+	data 		: param,
+	success 	: function(rsp){
+	
+						var status 	= rsp.tx.statustx;
+						var message = rsp.tx.messagetx;
+
+						if(status == 0)									
+								rptaLstPerfil = rsp.lst;						
+	},						
+	error		: function (rsp, xhr, ajaxOptions, thrownError) {}			
+	});		
+	
+	return rptaLstPerfil;
+	
+}
+
 function obtParametrosMaestros(idParametro){
 	
 	var rpta;
@@ -250,6 +280,18 @@ function obtDescripcionPerfil(idperfil){
 	for(var i=0; i<CTE_INIT_PERFILES.length; i++){
 		if(CTE_INIT_PERFILES[i].idperfil == idperfil)
 				descripcion = CTE_INIT_PERFILES[i].descripcion;			
+		}
+
+	return descripcion;	
+}
+
+function obtDescripcionCourier(idcourier){
+	
+	var descripcion;
+	
+	for(var i=0; i<CTE_INIT_COURIERS.length; i++){
+		if(CTE_INIT_COURIERS[i].idcourier == idcourier)
+				descripcion = CTE_INIT_COURIERS[i].rznsocial;			
 		}
 
 	return descripcion;	

@@ -135,8 +135,6 @@
 		$('#table-lst-delivery').dataTable().fnClearTable();
 		$('#table-lst-delivery').dataTable().fnDestroy();
 		
-		loadModalCargando();
-
 		$("#form-bsq-lstdelivery #cbocourier").attr("disabled",false);
 		$("#form-bsq-lstdelivery #idcourier").val($("#form-bsq-lstdelivery #cbocourier").val());
 		

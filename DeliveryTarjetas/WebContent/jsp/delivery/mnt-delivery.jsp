@@ -243,13 +243,55 @@
 	function rowSelected(json) {
 		
 		loadModalCargando();
+
+		json = JSON.parse(json);
 		
 		$("#tabs-detalle-delivery").tabs();
 		
 		callCargaControlParam('DELWEB_ESTADO','form-cargar-entrega-tarjeta-edit #idpestado',false);
 		
-		json = JSON.parse(json);
+		var paramCourier		= new Object();
+		paramCourier.idecourier	= json.idcourier;
+		
+		$.ajax({
+			type 		: "POST",
+			url 		: "/DeliveryTarjetas/courier.do"+"?method=lstCourier",
+			cache 		: false ,
+			dataType	: "json",
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			async 		: false,
+			data 		: paramCourier,		
+			success 	: function(rsp){
 
+							var statustx	= rsp.tx.statustx;
+							var messagetx	= rsp.tx.messagetx;
+							
+							if(statustx == 0){																
+							}
+			}
+		});
+		
+		var paramTercero 		= new Object();
+		paramTercero.idtercero	= json.idtercero;
+		
+		$.ajax({
+			type 		: "POST",
+			url 		: "/DeliveryTarjetas/tercero.do"+"?method=lstTerceros",
+			cache 		: false ,
+			dataType	: "json",
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			async 		: false,
+			data 		: paramTercero,		
+			success 	: function(rsp){
+
+							var statustx	= rsp.tx.statustx;
+							var messagetx	= rsp.tx.messagetx;
+							
+							if(statustx == 0){								
+							}
+			}
+		});
+		
 		$("#form-cargar-entrega-tarjeta-edit #iddelivery").val(json.iddelivery);
         $("#form-cargar-entrega-tarjeta-edit #tipodocumento").val(json.tipodocumento);
         $("#form-cargar-entrega-tarjeta-edit #nrodocumentocli").val(json.nrodocumentocli);

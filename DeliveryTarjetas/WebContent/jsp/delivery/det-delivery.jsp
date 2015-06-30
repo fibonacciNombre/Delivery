@@ -236,23 +236,19 @@
 			</form>
 			
 			<div class="row" style="margin-top: 10px;">
-		        <div class="col-md-12">
-		        
-		            <div class="col-sm-10  col-sm-offset-1">
-		                <div class="form-group">
-		                	<label class="col-sm-5 col-sm-offset-1 control-label" style="padding: 0px;">
-		                	</label>
-		                	<div class="col-sm-6 pull-right" style="text-align: right; padding: 0px;">
-			                    <button id="btnRegistrar"
-			                    		type="button" 
-			                    		class="btn btn-primary" 
-			                    		onclick="javascript:guardarDatosEditados();">
-			                    			Guardar
-			                    </button>
-		                    </div>
-		                </div>
-		            </div>
-		            
+		        <div class="col-md-12">		        		         
+	                <div class="form-group">
+	                	<label class="col-sm-5 col-sm-offset-1 control-label" style="padding: 0px;">
+	                	</label>
+	                	<div class="col-sm-6 pull-right" style="text-align: right; padding: 0px;">
+		                    <button id="btnRegistrar"
+		                    		type="button" 
+		                    		class="btn btn-primary" 
+		                    		onclick="javascript:guardarDatosEditados();">
+		                    			Guardar
+		                    </button>
+	                    </div>
+	                </div>
 		        </div>
 	        </div>
 		</div>
