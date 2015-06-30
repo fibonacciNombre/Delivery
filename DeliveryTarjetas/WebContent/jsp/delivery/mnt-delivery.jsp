@@ -167,7 +167,8 @@
 								 '<th class="text-center">N° Tarjeta</th>' +
 								 '<th class="text-center">DNI Cliente</th>' +
 								 '<th class="text-center">Nombre Cliente</th>' +
-								 '<th class="text-center">Monto Crédito</th>' +
+								 '<th class="text-center">Courier</th>' +
+								 '<th class="text-center">Responsable</th>' +
 								 '<th class="text-center">Fecha Entrega</th>' +  
 								 '<th class="text-center">Detalle</th>' +
 					 		'</tr>' +
@@ -196,25 +197,22 @@
 									"columns" 		: [ 
 														{ "data" 		: "ultdigtarjeta",
 															"orderable"	: false,
-															"sWidth" 	: "15%" },
+															"sWidth" 	: "10%" },
 														{ "data" 		: "nrodocumentocli",
 															"orderable"	: false,
 															"sWidth" 	: "15%" },
 														{ "data" 		: "nombrescli",
 															"orderable"	: false,
-															"sWidth" 	: "35%" },
-
-														{ "data" 		: "mtoasoctarjeta",
+															"sWidth" 	: "25%" },
+														{ "data" 		: "idcourier",
 															"sWidth" 	: "15%",
-															"orderable"	: false,
-															"mRender" 	: function(data, type, full) {
-																				var a = '<div style="text-align: right;">'
-																						+ formatNumber(data)
-																						+ '</div>';
-																				return a; } }, 
+															"orderable"	: false }, 
+														{ "data" 		: "idtercero",
+															"sWidth" 	: "10%",
+															"orderable"	: false }, 
 														{ "data" 		: "fecentrega",
 															"orderable"	: false,
-															"sWidth" 	: "20%" }, 															
+															"sWidth" 	: "10%" }, 															
 					                      				{ "data"      	: "",
 															"orderable"	: false,
 															"sWidth" 	: "10%",
