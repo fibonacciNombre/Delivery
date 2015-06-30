@@ -66,7 +66,7 @@
 			<thead>
 				<tr>
 					<th class="text-center">Cod. Bbva</th>
-					<th class="text-center">Razón social</th>
+					<th class="text-center tablet">Razón social</th>
 					<th class="text-center desktop">Móvil</th>
 					<th class="text-center desktop">Correo electrónico</th>
 					<th class="text-center">Estado</th>
@@ -159,7 +159,8 @@
 															"class" 	: "text-center"
 														}, {
 															"orderable"	: false,
-															"sWidth" 	: "25%",
+															"sWidth" 	: "35%",
+															"class"		: "tablet",
 															"data" 		: "rznsocial"
 														}, {
 															"orderable"	: false,
@@ -169,7 +170,7 @@
 														}, {
 															"orderable"	: false,
 															"data"		: "correo",
-															"sWidth"	: "20%",
+															"sWidth"	: "15%",
 															"class"		: "desktop"
 														}, {
 															"orderable"	: false,
@@ -181,6 +182,7 @@
 														}, {
 															"orderable"	: false,
 															"data" 		: "",
+															"sWidth"	: "10%",
 															"mRender" 	: function(data, type, full) {
 																				return linkDetalleCourier(data, full);
 															}
@@ -222,6 +224,8 @@
 		$("#form-mntcourier #correo").val(json.correo);
 		$("#form-mntcourier #idpestado").val(json.idpestado);
 		$("#form-mntcourier #observacion").val(json.observacion);
+		
+		closeModalCargando();
 	}
 
 	function actualizarCourier() {
@@ -265,7 +269,6 @@
 						}
 					});
 
-		}
-		closeModalCargando();
+		}		
 	}
 </script>

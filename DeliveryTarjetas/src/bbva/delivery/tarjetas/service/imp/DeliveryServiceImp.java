@@ -424,7 +424,7 @@ public class DeliveryServiceImp implements DeliveryService {
 		return joRetorno;
 	}
 	
-	public void exportarListaDelivery(Delivery delivery) throws IOException{
+	public String exportarListaDelivery(Delivery delivery) throws IOException{
 		Workbook wb = new HSSFWorkbook();
 		Sheet personSheet = wb.createSheet("Datos de Delivery");
 		Row headerRow = personSheet.createRow(0);
@@ -539,11 +539,15 @@ public class DeliveryServiceImp implements DeliveryService {
 		
 		    row = row + 1;
 		}
-		 
-		String outputDirPath = "D:/CargaDelivery.xls";
-		FileOutputStream fileOut = new FileOutputStream(outputDirPath);
+		
+		
+//		String outputDirPath = "D:/CargaDelivery.xls";
+
+		FileOutputStream fileOut = new FileOutputStream(delivery.getRutaexpotacion());
 		wb.write(fileOut);
 		fileOut.close();
+		
+		return delivery.getRutaexpotacion();
 	}
 
 }

@@ -76,9 +76,9 @@
 			id="table-lst-colaboradores">
 			<thead>
 				<tr>
-					<th class="text-center">Nro Documento</th>
-					<th class="text-center">Nombre</th>
-					<th class="text-center">Courier</th>
+					<th class="text-center tablet">Courier</th>
+					<th class="text-center">Nro Documento</th>					
+					<th class="text-center desktop">Nombre</th>					
 					<th class="text-center">Estado</th>
 					<th class="text-center">Editar</th>
 				</tr>
@@ -174,6 +174,13 @@
 												"oLanguage" 	: {"sUrl" : "/DeliveryTarjetas/recursos/idioma/es_ES.txt"},
 												"data" 			: lstTerceros,
 												"columns" 		: [ {
+																		"orderable" : false,
+																		"data" 		: "",
+																		"sWidth" 	: "20%",
+																		"class"		: "tablet",
+																		"mRender"  	: function (data, type, full) {
+					                     	 												return obtDescripcionCourier(full.idcourier);}
+																	},{
 																		"data"		: "nrodocumento",
 																		"sWidth" 	: "15%",
 																		"class"		: "text-center"
@@ -181,14 +188,9 @@
 																		"orderable" : false,
 																		"data" 		: "nombres",
 																		"sWidth" 	: "40%",
+																		"class"		: "desktop",
 																		"mRender" 	: function(data, type, full) {
 																							return full.nombres + " " + full.apepaterno + " " + full.apematerno; }
-																	}, {
-																		"orderable" : false,
-																		"data" 		: "",
-																		"sWidth" 	: "20%",
-																		"mRender"  	: function (data, type, full) {
-				                         	 												return obtDescripcionCourier(full.idcourier);}
 																	}, {
 																		"orderable" : false,
 																		"data" 		: "",

@@ -21,9 +21,9 @@ public interface DeliveryService {
 	
 	public void mntDelivery(Delivery delivery);
 	
-	 
-	
 	public void mntArchivo(Archivo param);
-	public void exportarListaDelivery(Delivery delivery) throws IOException;
+	
+	public String exportarListaDelivery(Delivery delivery) throws IOException;
+	
 	public JSONObject cargarExcelDelivery(MultipartFile multipartFile,Archivo archivo) throws FileNotFoundException;
 }
