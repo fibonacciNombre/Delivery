@@ -12,7 +12,7 @@ public class Archivo {
 	private Integer idtipoarchivo;
 	private Date fecentrega;
 	private Integer idcourier;
-	
+	private String usuario; 
 	private String codcourier;
 	private String tipoarchivo;
 	private String filename;
@@ -87,6 +87,14 @@ public class Archivo {
 
 	public void setFilename(String filename) {
 		this.filename = filename;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 	
 	

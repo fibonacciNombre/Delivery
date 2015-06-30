@@ -1,6 +1,5 @@
 package bbva.delivery.tarjetas.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -98,7 +97,7 @@ public class DeliveryController extends BaseController{
 		try {
 			
 			deliveryService.mntDelivery(delivery);			
-			tx.setMessagetx("Su transacciÃ³n fue realizada con Ã©xito");
+			tx.setMessagetx("Su transacción fue realizada con éxito");
 			
 		} catch (Error e) {
 			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
@@ -151,6 +150,11 @@ public class DeliveryController extends BaseController{
 		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 		JSONObject joRetorno = new JSONObject();
 		Archivo archivo = new Archivo();
+
+		HttpSession session 	= request.getSession();
+ 		Usuario usuarioSes     = (Usuario)session.getAttribute(Constants.REQ_SESSION_USUARIO);
+ 		archivo.setUsuario(usuarioSes.getCodusuario());
+
 		Integer idcourier = Integer.parseInt(request.getParameter("idcourier"));
 		String fecentrega=request.getParameter("fecentrega"); 
 		archivo.setIdcourier(idcourier); 
@@ -176,13 +180,10 @@ public class DeliveryController extends BaseController{
 				while (iterator.hasNext()) {
 					FileItem item = (FileItem) iterator.next();
 					MultipartFile f = new CommonsMultipartFile(item);
-					
-					System.out.println("nombre --> "+ item.getName());
-					System.out.println("getOriginalFilename --> "+ f.getOriginalFilename());
-					System.out.println("getOriginalFilename --> "+ f.getInputStream());
+					 
 					if(item.getFieldName().equalsIgnoreCase("filename")){
 						archivo.setFilename(f.getOriginalFilename());
-						
+					
 						joRetorno = deliveryService.cargarExcelDelivery(f, archivo);
 						break;
 					}

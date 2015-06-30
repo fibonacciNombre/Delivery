@@ -35,6 +35,7 @@ public class Delivery {
 	private Integer idpestadodelivery;
 	private String historial;
 	private BigDecimal grupocarga;
+	private String responsable;
 	
 	
 	private String codcourier;
@@ -311,7 +312,36 @@ public class Delivery {
 		this.usuario = usuario;
 	}
 
-	 
-	
+	@Override
+	public String toString() {
+		return "Delivery [iddelivery=" + iddelivery + ", tipodocumento="
+				+ tipodocumento + ", nrodocumentocli=" + nrodocumentocli
+				+ ", nombrescli=" + nombrescli + ", tipotarjeta=" + tipotarjeta
+				+ ", pridigtarjeta=" + pridigtarjeta + ", ultdigtarjeta="
+				+ ultdigtarjeta + ", nrocontrato=" + nrocontrato
+				+ ", mtoasoctarjeta=" + mtoasoctarjeta + ", fecentrega="
+				+ fecentrega + ", horaentrega=" + horaentrega
+				+ ", lugarentrega=" + lugarentrega + ", indverificacion="
+				+ indverificacion + ", direccioncli=" + direccioncli
+				+ ", distritocli=" + distritocli + ", latitudofi=" + latitudofi
+				+ ", longitudofi=" + longitudofi + ", correocli=" + correocli
+				+ ", telmovilcli=" + telmovilcli + ", ordenentrega="
+				+ ordenentrega + ", idcourier=" + idcourier + ", idtercero="
+				+ idtercero + ", idpestado=" + idpestado + ", idarchivo="
+				+ idarchivo + ", idpestadocarga=" + idpestadocarga
+				+ ", idpestadodelivery=" + idpestadodelivery + ", grupocarga="
+				+ grupocarga + ", codcourier=" + codcourier
+				+ ", dnitrabajador=" + dnitrabajador + ", fechaentregaarh="
+				+ fechaentregaarh + ", usuario=" + usuario + "]";
+	}
+
+	public String getResponsable() {
+		return responsable;
+	}
+
+	public void setResponsable(String responsable) {
+		this.responsable = responsable;
+	}
+  
 	
 }

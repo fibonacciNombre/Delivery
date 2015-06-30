@@ -5,6 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
@@ -84,6 +87,13 @@ public class DeliveryServiceImp implements DeliveryService {
 	}
  
 	public void mntDelivery(Delivery param) {
+		
+
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		Date date = new Date();
+		
+		param.setHistorial("Usuario: " + param.getUsuario() + ", Fecha:" + dateFormat.format(date) + ", " +  param.toString()); 
+		
 		portalWebDao.mntDelivery(param);
 	}
 	 
@@ -92,11 +102,7 @@ public class DeliveryServiceImp implements DeliveryService {
 	public Integer valCourierDelivery(String dnicourier) {
 		return portalWebDao.valCourierDelivery(dnicourier);
 	}
- 
-	public void cargaDelivery(Delivery param){
-		portalWebDao.cargaDelivery(param);
-	}
-	
+  
 	public void mntArchivo(Archivo param){
 		portalWebDao.mntArchivo(param);
 	}
@@ -149,7 +155,8 @@ public class DeliveryServiceImp implements DeliveryService {
 					}
 					
 					BigDecimal idgrupoCarga = crearGrupoCargaDelivery();
-					 archivo.setIdtipoarchivo(tipoarchivo);
+					
+					archivo.setIdtipoarchivo(tipoarchivo);
 					mntArchivo(archivo);
 					
 					// Integer existeCourier;
@@ -187,7 +194,7 @@ public class DeliveryServiceImp implements DeliveryService {
 							 
 							carga.setIddelivery(null);
 							carga.setGrupocarga(idgrupoCarga);
-
+							carga.setUsuario(archivo.getUsuario());
 							carga.setIdpestado(1);
 
 							carga.setIdpestadodelivery(0);
@@ -348,8 +355,7 @@ public class DeliveryServiceImp implements DeliveryService {
 								if(idtercero == null){
 									Tercero tercero =  new Tercero();
 									tercero.setNrodocumento(carga.getDnitrabajador());
-									carga.setHistorial("Tercero registrado con Nro Documento " + carga.getDnitrabajador()+ ", " + mensaje);
-									
+									 
 									terceroService.mntTercero(tercero);
 									idtercero = tercero.getIdtercero();
 								}

@@ -71,6 +71,12 @@ function llenarCombo(idCombo, listaOpciones, arrayFields,  emptyElement) {
 
 function cargarComboArray(idCombo, arrayItems) {
 	for ( var i = 0; i < arrayItems.length; i++) {
+
+	 	$("#" + idCombo).children('option:not(:first)').remove();
+		$('#mySelect')
+	    
+	    .val('whatever')
+	;
 		$("#" + idCombo).append(
 				'<option value="'+ arrayItems[i][0] +'">'
 						+ arrayItems[i][1] + '</option>');

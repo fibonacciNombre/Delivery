@@ -206,8 +206,7 @@
 								 '<th class="text-center">N° Tarjeta</th>' +
 								 '<th class="text-center">DNI Cliente</th>' +
 								 '<th class="text-center">Nombre Cliente</th>' +
-								 '<th class="text-center">Courier</th>' +
-								 '<th class="text-center">Responsable</th>' +
+ 								 '<th class="text-center">Responsable</th>' +
 								 '<th class="text-center">Fecha Entrega</th>' +  
 								 '<th class="text-center">Detalle</th>' +
 					 		'</tr>' +
@@ -236,25 +235,22 @@
 									"columns" 		: [ 
 														{ "data" 		: "ultdigtarjeta",
 															"orderable"	: false,
-															"sWidth" 	: "10%" },
+															"sWidth" 	: "15%" },
 														{ "data" 		: "nrodocumentocli",
 															"orderable"	: false,
-															"sWidth" 	: "15%" },
+															"sWidth" 	: "10%" },
 														{ "data" 		: "nombrescli",
 															"orderable"	: false,
-															"sWidth" 	: "25%" },
-														{ "data" 		: "idcourier",
-															"sWidth" 	: "15%",
-															"orderable"	: false }, 
-														{ "data" 		: "idtercero",
-															"sWidth" 	: "10%",
+															"sWidth" 	: "30%" },
+ 														{ "data" 		: "responsable",
+															"sWidth" 	: "30%",
 															"orderable"	: false }, 
 														{ "data" 		: "fecentrega",
 															"orderable"	: false,
 															"sWidth" 	: "10%" }, 															
 					                      				{ "data"      	: "",
 															"orderable"	: false,
-															"sWidth" 	: "10%",
+															"sWidth" 	: "5%",
 						                      				"class"		: "text-center",
 				                         	 				"mRender"  	: function (data, type, full) {
 					                         	 								return linkDetalleDelivery(full);  }}
@@ -265,7 +261,11 @@
 														
 														if (table.fnGetData().length == 0)
 															table.parent().toggle(true);
-														}
+														},
+									"fnCreatedRow" : function (r, data, i) {
+									    if(data.idpestadocarga == 2)  
+											$(r).addClass("row-alerta");
+									   }
 								});		
 	}
 
@@ -288,6 +288,10 @@
 		$("#tabs-detalle-delivery").tabs();
 		
 		callCargaControlParam('DELWEB_ESTADO','form-cargar-entrega-tarjeta-edit #idpestado',false);
+		callCargaControlParam('DELWEB_ESTADODELIVERY','form-cargar-entrega-tarjeta-edit #idpestadodelivery',false);
+		callCargaControlParam('DELWEB_ESTADOCARGA','form-cargar-entrega-tarjeta-edit #idpestadocarga',false);
+		cargarComboArray('form-cargar-entrega-tarjeta-edit #indverificacion',[['S','SI'], ['N','NO']])
+		$("#form-cargar-entrega-tarjeta-edit #idpestadodelivery").attr("disabled","disabled");
 		
 		var paramCourier		= new Object();
 		paramCourier.idecourier	= json.idcourier;

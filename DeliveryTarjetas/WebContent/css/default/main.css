@@ -11096,3 +11096,7 @@ span.loading-animate:nth-child(5) {
 		width: 100%; 
 	}
 }
+
+.row-alerta{
+	color: #FF6666; 
+}

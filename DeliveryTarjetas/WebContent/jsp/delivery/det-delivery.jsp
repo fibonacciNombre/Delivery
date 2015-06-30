@@ -18,9 +18,10 @@
 				
 				<div id="tabs-detalle-delivery">
 					<ul style="background: white; border:0px;">
-						<li class="tabs" style="width: 30%; display: inline-block; padding: 10px;"><a href="#tabs-entrega">Datos de entrega</a></li>
-						<li class="tabs" style="width: 30%; display: inline-block; padding: 10px;"><a href="#tabs-cliente">Datos del cliente</a></li>							
-						<li class="tabs" style="width: 30%; display: inline-block; padding: 10px;"><a href="#tabs-tarjeta">Datos de tarjeta</a></li>
+						<li class="tabs" style="width: 20%; display: inline-block; padding: 10px;"><a href="#tabs-entrega">Entrega</a></li>
+						<li class="tabs" style="width: 20%; display: inline-block; padding: 10px;"><a href="#tabs-cliente">Cliente</a></li>							
+						<li class="tabs" style="width: 20%; display: inline-block; padding: 10px;"><a href="#tabs-tarjeta">Tarjeta</a></li>
+						<li class="tabs" style="width: 20%; display: inline-block; padding: 10px;"><a href="#tabs-courier">Courier</a></li>
 					</ul>
 					
 					<div id="tabs-cliente">
@@ -90,7 +91,7 @@
 								</div>
 							</div>
 							
-							<div class="form-group form-group-persona">
+							<div class="form-group form-group-carga">
 								<label for="horaentrega"
 									class="col-md-5 control-label carga-content-maxim">Hora
 									de entrega:</label>
@@ -121,6 +122,17 @@
 									<div class="result"></div>
 								</div>
 							</div>
+							
+							
+							<div class="form-group form-group-carga">
+								<label for="idpestadodelivery" class="col-md-12 control-label required">Estado de la entrega
+								</label>
+								<div class="col-md-12">
+									<select class="form-control" id="idpestadodelivery" name="idpestadodelivery">
+									</select>
+									<div class="result"></div>
+								</div>
+							</div> 
 								
 						</div>
 						<div class="column-formulario-carga">	
@@ -155,17 +167,17 @@
 							</div>
 							
 							<div class="form-group form-group-carga">
-								<label for="indverificacion"
-									class="col-md-5 control-label carga-content-maxim">Indica verificación</label>
-								<div class="col-md-7 carga-content-maxim">
-									<input type="text" id="indverificacion" name="indverificacion"
-										class="form-control">
+								<label for="indverificacion" class="col-md-12 control-label">Necesita Verificación
+								</label>
+								<div class="col-md-12">
+									<select class="form-control" id="indverificacion" name="indverificacion">
+									</select>
 									<div class="result"></div>
 								</div>
 							</div>
-							
-							<div class="form-group" id="estado-div">
-								<label for="idpestado" class="col-md-12 control-label required">Estado
+							 
+							<div class="form-group form-group-carga">
+								<label for="idpestado" class="col-md-12 control-label">Estado del registro
 								</label>
 								<div class="col-md-12">
 									<select class="form-control" id="idpestado" name="idpestado">
@@ -173,6 +185,17 @@
 									<div class="result"></div>
 								</div>
 							</div>
+							
+							
+							<div class="form-group form-group-carga">
+								<label for="idpestadocarga" class="col-md-12 control-label required">Estado de la carga
+								</label>
+								<div class="col-md-12">
+									<select class="form-control" id="idpestadocarga" name="idpestadocarga">
+									</select>
+									<div class="result"></div>
+								</div>
+							</div> 
 						</div>
 					</div>
 					
@@ -218,7 +241,7 @@
 									<div class="result"></div>
 								</div>
 							</div>								
-							<div class="form-group form-group-persona">
+							<div class="form-group form-group-carga">
 								<label for="ultdigtarjeta"
 									class="col-md-5 control-label carga-content-maxim">Ultimos Digitos</label>
 								<div class="col-md-7 carga-content-maxim">
@@ -229,7 +252,39 @@
 							</div>
 						</div>	
 					</div>
-				
+					
+					<div id="tabs-courier">
+						
+						<div class="column-formulario-carga">
+							<div class="form-group form-group-carga" >
+								<label for="idcourier" class="col-md-12 control-label">Courier
+								</label>
+								<div class="col-md-12">
+									<select class="form-control" id="idcourier" name="idcourier">
+									</select>
+									<div class="result"></div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="column-formulario-carga">
+							<div class="form-group form-group-carga">
+					            <label for="fecentrega" class="col-md-5 control-label carga-content-maxim">Fecha de entrega </label>
+					            <div class="col-md-7  carga-content-maxim">
+					                <div id="div-fecentregaarch" class="input-group">
+										<input type="text" readonly id="fecentregaarch" name="fecentregaarch" class="form-control calendario"> 
+										<span class="input-group-addon">
+											<a id="btnfecentregaarch" href="javascript:void(0)" class="btn-date calendario"> 
+												<span class="glyphicon glyphicon-calendar"></span>
+											</a>
+										</span>
+									</div>
+					            </div>
+			        		</div>
+		        		</div>
+						
+					</div>
+					
 					<div class="row">
 						<div class="col-md-12">
 							<div class="col-md-12">
@@ -241,6 +296,8 @@
 							</div>
 						</div>
 					</div>
+					
+					
 				</div>
 			</form>
 			
@@ -254,6 +311,23 @@
 		 
 	 		loadModalCargando();
 	 		
+
+	    	$("#fecentregaarch").datepicker({ 
+	    								beforeShow 	: function() {
+															setTimeout(function() {
+																$('.ui-datepicker').css({'z-index' : 9999, 'border' : '1px solid #ccc'});
+															}, 0);
+										},
+										onSelect 		: function(dateText, inst) {
+															$("#fecentregaarch").removeClass("error");
+										}
+						});
+						
+			$(".calendario").click(function() {
+										$("#fecentregaarch").datepicker("show");
+			});
+		
+			
 	 		$.ajax({
 				type 		: "POST",
 				url 		: "/DeliveryTarjetas/delivery.do?method=mntDelivery",
