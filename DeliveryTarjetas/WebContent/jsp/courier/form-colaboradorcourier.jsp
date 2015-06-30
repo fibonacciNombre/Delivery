@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 
+<input type="hidden" id="idcourier" name="idcourier"/>
+
 <div class="row">
         
 	<div class="col-md-6">
@@ -15,7 +17,7 @@
 		<div class="form-group" id="nrodocumento-div">
 		    <label for="nrodocumento" class="col-md-12 control-label required">Nro. documento </label>
 		    <div class="col-md-12">
-		        <input type="text" class="form-control" id="nrodocumento"  name="nrodocumento" maxlength="12">
+		        <input type="text" class="form-control" id="nrodocumento"  name="nrodocumento" maxlength="8">
 		        <div class="result"></div>
 		    </div>
 		</div>
@@ -49,7 +51,7 @@
 		<div class="form-group" id="codbbva-div">
 		    <label for=idcourier" class="col-md-12 control-label required">Courier </label>
 		    <div class="col-md-12">
-		        <select class="form-control" id="idcourier" name="idcourier">                     	
+		        <select class="form-control" id="cbocourier" name="cbocourier">                     	
 		   		</select>
 		        <div class="result"></div>
 		    </div>

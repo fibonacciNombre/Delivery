@@ -14,7 +14,8 @@ import bbva.delivery.tarjetas.anotaciones.AdviceController;
 import bbva.delivery.tarjetas.commons.Constants;
 import bbva.delivery.tarjetas.comun.bean.TransaccionWeb;
 import bbva.delivery.tarjetas.courier.bean.Courier;
-import bbva.delivery.tarjetas.courier.service.CourierService;
+import bbva.delivery.tarjetas.courier.service.CourierService; 
+import bbva.delivery.tarjetas.tercero.bean.Tercero; 
 import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import commons.framework.BaseController;
 import commons.web.UtilWeb;
@@ -143,8 +144,8 @@ public class CourierController extends BaseController {
 		TransaccionWeb tx		= new TransaccionWeb();				
 		Courier courier 		= new Courier(request.getParameterMap());
 		Usuario usuarioSes     = (Usuario)session.getAttribute(Constants.REQ_SESSION_USUARIO);
-		
-		courier.setUsuario(usuarioSes.getCodusuario());
+ 		courier.setUsuario(usuarioSes.getCodusuario());
+   
 		
 		try {
 			
@@ -158,6 +159,36 @@ public class CourierController extends BaseController {
 		result += "{\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) +"}";
 		
 		this.escribirTextoSalida(response, result);
+	}
+	
+	public void lstColaboradores(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+		logger.info("Controller lstColaboradores");
+		
+		String result				= "";
+		String lstterceros 			= "";
+		List<Tercero> listaTerceros = null;
+		TransaccionWeb tx			= new TransaccionWeb();						
+		Tercero tercero 			= new Tercero(request.getParameterMap());
+
+		try {
+			
+			listaTerceros 	= courierService.lstTercerosxCourier(tercero);
+			lstterceros 		= UtilWeb.listaToJson(listaTerceros, null, Tercero.class.getName());
+			
+		} catch (Error e) {
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+			lstterceros = "{" + e.getMessage() + "}";
+		}
+
+		result += "{"
+				+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+				+ "\"lst\":" + lstterceros 
+				+ "}";
+		
+		this.escribirTextoSalida(response, result);
+
 	}
 
 }

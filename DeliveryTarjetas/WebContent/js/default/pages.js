@@ -19,7 +19,7 @@
 			
 			var path = defaultPage;
 			
-			if(path.search("inicio.jsp")<0 && path.search("misseguros-token.jsp")<0){
+			if(path.search("inicio.jsp")<0){
 				CTE_PAGEINIT = path;				
 				initPageLoading(path);
 			}

@@ -25,7 +25,7 @@
 							<label for="nrodocumento" class="col-md-5 control-label">Nro.
 								documento</label>
 							<div class="col-md-7">
-								<input type="text" class="form-control" id="nrodocumento" name="nrodocumento" maxlength="12">
+								<input type="text" class="form-control" id="nrodocumento" name="nrodocumento" maxlength="8">
 							</div>
 						</div>
 					</div>
@@ -33,8 +33,8 @@
 						<div class="form-group">
 							<label for="idcourier" class="col-md-5 control-label">Courier</label>
 							<div class="col-md-7">
-								<select class="form-control" id="idcourier" name="idcourier">
-								</select>
+								<select class="form-control" id="cbocourier" name="cbocourier"></select>
+								<input type="hidden" id="idcourier" name="idcourier"/>
 							</div>
 						</div>
 						<div class="form-group">
@@ -100,17 +100,13 @@
 		
 		callCargaControlParam('DELWEB_ESTADO','form-bsqcolaborador #idpestado', false);
 
-		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form : 'form-bsqcolaborador'});
+		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','cbocourier', ['idcourier','rznsocial'], {form : 'form-bsqcolaborador'});
 		
-		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-mntcolaborador #idptipodocumento',false);
-		
-		callCargaControlParam('DELWEB_ESTADO','form-mntcolaborador #idpestado',true);
-		
-		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form : 'form-mntcolaborador'});
-
-		jQuery.validator.addMethod("alphanumeric", function(value,element) {
-			return this.optional(element)|| /^[a-zA-Z0-9]+$/.test(value);
-		});
+		if($("#form-datos-usuario #idcourier").val()!=null  && $("#form-datos-usuario #idcourier").val()!=""){
+    		$("#form-bsqcolaborador #cbocourier").val($("#form-datos-usuario #idcourier").val());
+    		$("#form-bsqcolaborador #idcourier").val($("#form-datos-usuario #idcourier").val());    		
+    		$("#form-bsqcolaborador #cbocourier").attr("disabled","disabled");
+    	}
 		
 		closeModalCargando();
 
@@ -123,16 +119,27 @@
 		$('#table-lst-colaboradores').dataTable().fnClearTable();
 		$('#table-lst-colaboradores').dataTable().fnDestroy();
 		
+		loadModalCargando();
+
+		$("#form-bsqcolaborador #cbocourier").attr("disabled",false);
+		$("#form-bsqcolaborador #idcourier").val($("#form-bsqcolaborador #cbocourier").val());
+		
+		if($("#form-datos-usuario #idcourier").val()!=null  && $("#form-datos-usuario #idcourier").val()!="")
+			$("#form-bsqcolaborador #cbocourier").attr("disabled",true);
+		
 		var param 	= new Object();
 		param 		= $("#form-bsqcolaborador").serializeArray();
+<<<<<<< HEAD
 		
 		loadModalCargando();
+=======
+>>>>>>> refs/remotes/origin/master
 
 		setTimeout(
 				function() {
 						$.ajax({
 								type 		: "POST",
-								url 		: "/DeliveryTarjetas/tercero.do?method=lstTerceros",
+								url 		: "/DeliveryTarjetas/courier.do?method=lstColaboradores",
 								cache 		: false,
 								dataType 	: "json",
 								contentType : "application/x-www-form-urlencoded; charset=UTF-8",
@@ -183,13 +190,17 @@
 																							return full.nombres + " " + full.apepaterno + " " + full.apematerno; }
 																	}, {
 																		"orderable" : false,
-																		"data" 		: "dsccourier",
+																		"data" 		: "",
 																		"sWidth" 	: "20%",
-																		"class" 	: "desktop"
+																		"mRender"  	: function (data, type, full) {
+				                         	 												return obtDescripcionCourier(full.idcourier);}
 																	}, {
 																		"orderable" : false,
-																		"data" 		: "dscestado",
-																		"sWidth" 	: "15%"
+																		"data" 		: "",
+																		"sWidth" 	: "15%",
+																		"class"		: "text-center",
+																		"mRender"  	: function (data, type, full) {
+				                         	 												return obtDescripcionParametro(CTE_INIT_PARAM_ESTADO, null, full.idpestado);}
 																	}, {
 																		"orderable" : false,
 																		"sWidth" 	: "10%",
@@ -207,19 +218,31 @@
 		enlace = "<a data-toggle='modal' "
 					+ "data-target='#modalEditarColaborador' "
 					+ "onclick='return rowSelected("+ JSON.stringify(JSON.stringify(full)) +");'>"
-					+ "<i class='i-detalle'></i>" 
+						+ "<i class='i-detalle'></i>" 
 				+ "</a>";
 
 		return enlace;
 	}
 
 	function rowSelected(json) {
+		
+		loadModalCargando();
+		
+		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-mntcolaborador #idptipodocumento',false);
+		
+		callCargaControlParam('DELWEB_ESTADO','form-mntcolaborador #idpestado',true);
+		
+		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','cbocourier', ['idcourier','rznsocial'], {form : 'form-mntcolaborador'});
+		
 		json = JSON.parse(json);
+		
 		$("#form-mntcolaborador #idtercero").val(json.idtercero);
 		$("#form-mntcolaborador #nombres").val(json.nombres);
 		$("#form-mntcolaborador #apepaterno").val(json.apepaterno);
+		$("#form-mntcolaborador #apematerno").val(json.apematerno);
 		$("#form-mntcolaborador #idptipodocumento").val(json.idptipodocumento);
 		$("#form-mntcolaborador #nrodocumento").val(json.nrodocumento);
+<<<<<<< HEAD
 		$("#form-mntcolaborador #apematerno").val(json.apematerno);
 		$("#form-mntcolaborador #idcourier").val(json.idcourier);
 		$("#form-mntcolaborador #correo").val(json.correo);
@@ -269,5 +292,18 @@
 			   validateItems("form-mntcourier", this);
 			});
 		} 
+=======
+		$("#form-mntcolaborador #telfmovil").val(json.telfmovil);
+		$("#form-mntcolaborador #telffijo").val(json.telffijo);
+		$("#form-mntcolaborador #correo").val(json.correo);
+		$("#form-mntcolaborador #idcourier").val(json.idcourier);
+		$("#form-mntcolaborador #cbocourier").val(json.idcourier);
+		$("#form-mntcolaborador #idpestado").val(json.idpestado);
+		
+		if($("#form-datos-usuario #idcourier").val()!=null  && $("#form-datos-usuario #idcourier").val()!="")
+			$("#form-mntcolaborador #cbocourier").attr("disabled",true);
+		
+		closeModalCargando();
+>>>>>>> refs/remotes/origin/master
 	}
 </script>

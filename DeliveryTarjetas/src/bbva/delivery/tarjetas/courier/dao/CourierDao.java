@@ -13,9 +13,12 @@ public interface CourierDao {
 	
 	List<Courier>  obtCourier(Courier courier);
 	
-	List<Tercero> lstTercerosxCourier(Courier courier);
+  
 
 	public Integer obtTipoarchXExt(String extension);
 	 
 	public Integer obtCourierXCodbbva(String codbbva);
+
+	List<Tercero> lstTercerosxCourier(Tercero tercero);
+	  
 }

@@ -7,7 +7,10 @@
 		<span>Consultar entregas a realizar</span>
 	</h3>
 	
-	    <form id="form-lstdelivery">
+    <form id="form-bsq-lstdelivery">
+    	
+    	<input type="hidden" class="form-control" id="idcourier" name="idcourier"/>
+    	
     	<div class="panel panel-default">
 	    	<div class="panel-heading">
 				Buscar entregas de tarjetas
@@ -20,8 +23,7 @@
 						<div class="form-group">
 							<label for="idcourier" class="col-md-5 control-label">Courier</label>
 		                    <div class="col-md-7">
-								<select class="form-control" id="idcourier" name="idcourier">                        	
-		                   		</select>
+								<select class="form-control" id="cbocourier" name="cbocourier"></select>
 		                    </div>
 	                	</div>	
 						
@@ -77,9 +79,13 @@
 					</div>
 				</div>										
 	    	</div>
-    	</div>	
+    	</div>
+	    	
 	</form>
 	
+	<div id="container-lst-delivery" style="margin-top:20px; display: none;">		
+		<div id="div-container-lst-delivery"></div>		
+	</div>
 </div>
 
 <script>
@@ -91,9 +97,9 @@
     	else
     		CTE_LOAD_INIT = 0;
     	
-		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form: 'form-lstdelivery'});
+		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','cbocourier', ['idcourier','rznsocial'], {form: 'form-bsq-lstdelivery'});
     	
-		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-lstdelivery #idptipodocumento', true);
+		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-bsq-lstdelivery #idptipodocumento', true);
 		
     	$("#fecentrega").datepicker({ 
     								beforeShow 	: function() {
@@ -113,10 +119,28 @@
 									$("#fecentrega").datepicker("show");
 		});
 		
+		if($("#form-datos-usuario #idcourier").val()!=null  && $("#form-datos-usuario #idcourier").val()!=""){
+    		$("#form-bsq-lstdelivery #cbocourier").val($("#form-datos-usuario #idcourier").val());
+    		$("#form-bsq-lstdelivery #idcourier").val($("#form-datos-usuario #idcourier").val());    		
+    		$("#form-bsq-lstdelivery #cbocourier").attr("disabled",true);
+    	}
+		
 		closeModalCargando();
     });	
     
     function bsqDelivery(){
+		
+    	$("#container-lst-delivery").hide();
+		
+		$('#table-lst-delivery').dataTable().fnClearTable();
+		$('#table-lst-delivery').dataTable().fnDestroy();
+		
+		$("#form-bsq-lstdelivery #cbocourier").attr("disabled",false);
+		$("#form-bsq-lstdelivery #idcourier").val($("#form-bsq-lstdelivery #cbocourier").val());
+		
+		if($("#form-datos-usuario #idcourier").val()!=null  && $("#form-datos-usuario #idcourier").val()!="")
+			$("#form-bsq-lstdelivery #cbocourier").attr("disabled",true);
+		
     	loadModalMensaje("Lo sentimos", "Esta funcionalidad aún se encuentra en desarrollo", null);
     }
 </script>

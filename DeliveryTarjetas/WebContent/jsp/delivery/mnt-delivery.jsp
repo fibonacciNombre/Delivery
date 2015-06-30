@@ -7,7 +7,10 @@
 		<span>Edición de datos de entrega</span>
 	</h3>
 	
-    <form id="form-bsqdelivery">
+    <form id="form-bsq-mntdelivery">
+    
+    	<input type="hidden" class="form-control" id="idcourier" name="idcourier"/>
+    	
     	<div class="panel panel-default">
 	    	<div class="panel-heading">
 				Buscar entregas de tarjetas
@@ -20,8 +23,7 @@
 						<div class="form-group">
 							<label for="idcourier" class="col-md-5 control-label">Courier</label>
 		                    <div class="col-md-7">
-								<select class="form-control" id="idcourier" name="idcourier">                        	
-		                   		</select>
+								<select class="form-control" id="cbocourier" name="cbocourier"></select>
 		                    </div>
 	                	</div>	
 						
@@ -76,8 +78,8 @@
     	</div>	
 	</form>
 	
-	<div id="container-lst-delivery" style="margin-top:20px;">		
-		<div id="div-container-lst-delivery"></div>		
+	<div id="container-lst-mntdelivery" style="margin-top:20px; display: none;">		
+		<div id="div-container-lst-mntdelivery"></div>		
 	</div>
 	
 	<%@include file="/jsp/delivery/det-delivery.jsp" %>
@@ -87,20 +89,14 @@
 <script>
 	
     $().ready(function(){    
-    	
     	loadModalCargando();
     	
-    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form: 'form-bsqdelivery'});
-		callCargaControlParam('DELWEB_ESTADO','form-cargar-entrega-tarjeta-edit #idpestado',false);
-
-		
+    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','cbocourier', ['idcourier','rznsocial'], {form: 'form-bsq-mntdelivery'});
+	
     	$("#fecentrega").datepicker({ 
     								beforeShow 	: function() {
 														setTimeout(function() {
-															$('.ui-datepicker').css({
-																'z-index' : 9999,
-																'border' : '1px solid #ccc'
-															});
+															$('.ui-datepicker').css({'z-index' : 9999, 'border' : '1px solid #ccc'});
 														}, 0);
 									},
 									onSelect 		: function(dateText, inst) {
@@ -111,19 +107,43 @@
 		$(".calendario").click(function() {
 									$("#fecentrega").datepicker("show");
 		});
-					
+		
+		if($("#form-datos-usuario #idcourier").val()!=null  && $("#form-datos-usuario #idcourier").val()!=""){
+    		$("#form-bsq-mntdelivery #cbocourier").val($("#form-datos-usuario #idcourier").val());
+    		$("#form-bsq-mntdelivery #idcourier").val($("#form-datos-usuario #idcourier").val());    		
+    		$("#form-bsq-mntdelivery #cbocourier").attr("disabled",true);
+    	}
+		
 		closeModalCargando();
 	});
       
 	function bsqDelivery() {
 
+		$("#container-lst-mntdelivery").hide();
+		
+		$('#table-lst-mntdelivery').dataTable().fnClearTable();
+		$('#table-lst-mntdelivery').dataTable().fnDestroy();
+		
 		loadModalCargando();
 
+<<<<<<< HEAD
 		var param = new Object();
 		 
 		param.nrodocumentocli 		= $("#form-bsqdelivery #nrodocumentocli").val(); 
 		param.idcourier 		= $("#form-bsqdelivery #idcourier").val();
 		param.fechaentregaarh 		= $("#form-bsqdelivery #fecentrega").val();
+=======
+		$("#form-bsq-mntdelivery #cbocourier").attr("disabled",false);
+		$("#form-bsq-mntdelivery #idcourier").val($("#form-bsq-mntdelivery #cbocourier").val());
+		
+		if($("#form-datos-usuario #idcourier").val()!=null  && $("#form-datos-usuario #idcourier").val()!="")
+			$("#form-bsq-mntdelivery #cbocourier").attr("disabled",true);
+		
+		var param 				= new Object();		 
+		param.dnicliente 		= $("#form-bsq-mntdelivery #dnicliente").val(); 
+		param.idcourier 		= $("#form-bsq-mntdelivery #idcourier").val();
+		param.fecentrega 		= $("#form-bsq-mntdelivery #fecentrega").val();
+>>>>>>> refs/remotes/origin/master
 
 		$.ajax({
 			type 			: "POST",
@@ -134,9 +154,12 @@
 			contentType 	: "application/x-www-form-urlencoded; charset=UTF-8",
 			data 			: param,
 			success 		: function(data) {
+									
+									$("#container-lst-mntdelivery").slideDown(1000);
+				
 									var jsonDelivery = eval(data);
 									
-									createHtmlTable(jsonDelivery, "table-lst-delivery");	
+									createHtmlTable(jsonDelivery, "table-lst-mntdelivery");	
 									
 									closeModalCargando(); 
 			},
@@ -190,7 +213,13 @@
 								 '<th class="text-center">N° Tarjeta</th>' +
 								 '<th class="text-center">DNI Cliente</th>' +
 								 '<th class="text-center">Nombre Cliente</th>' +
+<<<<<<< HEAD
 								 '<th class="text-center">Monto Crédito</th>' +
+=======
+								 '<th class="text-center">Courier</th>' +
+								 '<th class="text-center">Responsable</th>' +
+								 '<th class="text-center">Fecha Entrega</th>' +  
+>>>>>>> refs/remotes/origin/master
 								 '<th class="text-center">Detalle</th>' +
 					 		'</tr>' +
 					 	'</thead>' +
@@ -204,7 +233,7 @@
 				 '</div>'+
 			 '</div>';
 
-		$("#div-container-lst-delivery").append(html);
+		$("#div-container-lst-mntdelivery").append(html);
 
 		var idDataTable = '#' + table;
 
@@ -218,16 +247,16 @@
 									"columns" 		: [ 
 														{ "data" 		: "ultdigtarjeta",
 															"orderable"	: false,
-															"sWidth" 	: "15%" },
+															"sWidth" 	: "10%" },
 														{ "data" 		: "nrodocumentocli",
 															"orderable"	: false,
 															"sWidth" 	: "15%" },
 														{ "data" 		: "nombrescli",
 															"orderable"	: false,
-															"sWidth" 	: "35%" },
-
-														{ "data" 		: "mtoasoctarjeta",
+															"sWidth" 	: "25%" },
+														{ "data" 		: "idcourier",
 															"sWidth" 	: "15%",
+<<<<<<< HEAD
 															"orderable"	: false,
 															"mRender" 	: function(data, type, full) {
 																				var a = '<div style="text-align: right;">'
@@ -235,6 +264,16 @@
 																						+ '</div>';
 																				return a; } }, 
 														 { "data"      	: "",
+=======
+															"orderable"	: false }, 
+														{ "data" 		: "idtercero",
+															"sWidth" 	: "10%",
+															"orderable"	: false }, 
+														{ "data" 		: "fecentrega",
+															"orderable"	: false,
+															"sWidth" 	: "10%" }, 															
+					                      				{ "data"      	: "",
+>>>>>>> refs/remotes/origin/master
 															"orderable"	: false,
 															"sWidth" 	: "10%",
 						                      				"class"		: "text-center",
@@ -262,8 +301,57 @@
 	}
 
 	function rowSelected(json) {
-		json = JSON.parse(json);
+		
+		loadModalCargando();
 
+		json = JSON.parse(json);
+		
+		$("#tabs-detalle-delivery").tabs();
+		
+		callCargaControlParam('DELWEB_ESTADO','form-cargar-entrega-tarjeta-edit #idpestado',false);
+		
+		var paramCourier		= new Object();
+		paramCourier.idecourier	= json.idcourier;
+		
+		$.ajax({
+			type 		: "POST",
+			url 		: "/DeliveryTarjetas/courier.do"+"?method=lstCourier",
+			cache 		: false ,
+			dataType	: "json",
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			async 		: false,
+			data 		: paramCourier,		
+			success 	: function(rsp){
+
+							var statustx	= rsp.tx.statustx;
+							var messagetx	= rsp.tx.messagetx;
+							
+							if(statustx == 0){																
+							}
+			}
+		});
+		
+		var paramTercero 		= new Object();
+		paramTercero.idtercero	= json.idtercero;
+		
+		$.ajax({
+			type 		: "POST",
+			url 		: "/DeliveryTarjetas/tercero.do"+"?method=lstTerceros",
+			cache 		: false ,
+			dataType	: "json",
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			async 		: false,
+			data 		: paramTercero,		
+			success 	: function(rsp){
+
+							var statustx	= rsp.tx.statustx;
+							var messagetx	= rsp.tx.messagetx;
+							
+							if(statustx == 0){								
+							}
+			}
+		});
+		
 		$("#form-cargar-entrega-tarjeta-edit #iddelivery").val(json.iddelivery);
         $("#form-cargar-entrega-tarjeta-edit #tipodocumento").val(json.tipodocumento);
         $("#form-cargar-entrega-tarjeta-edit #nrodocumentocli").val(json.nrodocumentocli);
@@ -291,50 +379,8 @@
         $("#form-cargar-entrega-tarjeta-edit #idpestadocarga").val(json.idpestadocarga);
         $("#form-cargar-entrega-tarjeta-edit #historial").val(json.historial);
         $("#form-cargar-entrega-tarjeta-edit #grupocarga").val(json.grupocarga);
-	}
-	
-	function guardarDatosEditados() { 
-		if ($("#form-cargar-entrega-tarjeta-edit").valid()){
-		 
-     		loadModalCargando();
-     		
-     		$.ajax({
-				type 		: "POST",
-				url 		: "/DeliveryTarjetas/delivery.do?method=mntDelivery",
-				cache 		: false,
-				dataType 	: "json",
-				contentType	: "application/x-www-form-urlencoded; charset=UTF-8",
-				async 		: false,
-				data 		: $("#form-cargar-entrega-tarjeta-edit").serializeArray(),
-				success 	: function(rsp) {
-					
-									var status 	= rsp.tx.statustx;
-									var message = rsp.tx.messagetx;
-
-									closeModalCargando();
-									
-									if(status == 0)
-										loadModalMensaje("Enhorabuena",
-															message,
-															function(){
-																$("#modalDetalleEntrega").modal('hide');
-																bsqDelivery();
-															});										
-
-									else
-										loadModalMensaje("Atención",message,null);
-				},
-				error 		: function(rsp, xhr, ajaxOptions, thrownError) {
-									closeModalCargando();
-									loadModalMensaje("Lo sentimos","Se presentaron problemas al registrar sus cambios. <br> Por favor intentelo en unos minutos.", null);
-				}
-			});
-     						 
-		} else {
-			$.each($('input[type=text], select ,textarea', '#form-cargar-entrega-tarjeta-edit'),function(k){
-			   validateItems("form-cargar-entrega-tarjeta-edit", this);
-			});
-		} 
+        
+        closeModalCargando();
 	}
 		
 </script>

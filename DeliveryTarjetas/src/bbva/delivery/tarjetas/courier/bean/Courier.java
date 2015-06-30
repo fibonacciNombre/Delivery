@@ -20,11 +20,8 @@ public class Courier implements Serializable {
 	private String nrodocumentocou;
 	private Integer idptipodocumento;
 	private String direccion;
-	private String usuario; 
- 
+	private String usuario;  
 	private String historial;
-	
-	private String dscestado;
 	
 	@SuppressWarnings("rawtypes")
 	public Courier(Map map) throws Exception {
@@ -113,8 +110,6 @@ public class Courier implements Serializable {
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
-	 
-	
 
 	@Override
 	public String toString() {
@@ -126,13 +121,5 @@ public class Courier implements Serializable {
 				+ ", idptipodocumento=" + idptipodocumento + ", direccion="
 				+ direccion + "]";
 	}
-	public String getDscestado() {
-		return dscestado;
-	}
-	public void setDscestado(String dscestado) {
-		this.dscestado = dscestado;
-	}
-	
-	
 		
 }

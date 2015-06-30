@@ -11,7 +11,9 @@
 
 	<!--  Botones de filtro de la grilla -->
 	<form id="form-cargararchivo" method="post" enctype="multipart/form-data">
-	
+		
+		<input type="hidden" class="form-control" id="idcourier" name="idcourier"/>
+		
 		<div class="row">		
 			<div class="col-md-12">
 		        <div class="form-group" id="filename-div">
@@ -45,7 +47,7 @@
 		        <div class="idcourier" id="filename-div">
 		            <label for="filename" class="col-md-6 control-label required">Courier </label>
 		            <div class="col-md-12">
-		                <select id="idcourier" name="idcourier" class="form-control">
+		                <select id="cbocourier" name="cbocourier" class="form-control">
 						</select>
 		                <div class="result"></div>
 		            </div>
@@ -77,7 +79,7 @@
 		
 		loadModalCargando();
 		
-		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier', 'rznsocial'], {form: 'form-cargararchivo'});
+		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','cbocourier', ['idcourier', 'rznsocial'], {form: 'form-cargararchivo'});
 		
 		$("#fecentrega").datepicker({ 	beforeShow 		: function() {
 															setTimeout(function() {
@@ -94,7 +96,7 @@
 		$("#form-cargararchivo").validate({
 			rules : {
 
-				idcourier 			: {				required 	: true },
+				cbocourier 			: {				required 	: true },
 				
 				fecentrega 			: {				required 	: true },
 				
@@ -102,13 +104,19 @@
 				
 			},
 			messages : {
-				idcourier 			: {				required 	: "Debes seleccionar un Courier" },
+				cbocourier 			: {				required 	: "Debes seleccionar un Courier" },
 			
 				fecentrega 			: {				required 	: "Debes ingresar la fecha de entrega" },
 				
 				filename 			: {				required 	: "Debes seleccionar el archivo a cargar" }					
 			}
 		});	
+		
+		if($("#form-datos-usuario #idcourier").val()!=null  && $("#form-datos-usuario #idcourier").val()!=""){
+    		$("#form-cargararchivo #cbocourier").val($("#form-datos-usuario #idcourier").val());
+    		$("#form-cargararchivo #idcourier").val($("#form-datos-usuario #idcourier").val());    		
+    		$("#form-cargararchivo #cbocourier").attr("disabled",true);
+    	}
 		
 		$('#btnCargar').click(function(){
 				cargarArchivo();			
@@ -124,8 +132,14 @@
 			
 			loadModalCargando();
 			
-			var idcourier_ 		= $("#form-cargararchivo #idcourier").val(),
-			fechaentrega_ 		= $("#form-cargararchivo #fecentrega").val();
+			$("#form-cargararchivo #cbocourier").attr("disabled",false);
+			$("#form-cargararchivo #idcourier").val($("#form-cargararchivo #cbocourier").val());
+			
+			if($("#form-datos-usuario #idcourier").val()!=null  && $("#form-datos-usuario #idcourier").val()!="")
+				$("#form-cargararchivo #cbocourier").attr("disabled",true);
+			
+			var idcourier_ 		= $("#form-cargararchivo #idcourier").val();
+			var fechaentrega_ 	= $("#form-cargararchivo #fecentrega").val();
 			
 			$('#form-cargararchivo').ajaxForm({	
 												url		:"/DeliveryTarjetas/delivery.do?method=uploadFile&"+
@@ -133,6 +147,7 @@
 																						"fecentrega="+ fechaentrega_ , 
 												type	:"post", 
 												success	:function(data){ 
+<<<<<<< HEAD
 													var jsonRpta = JSON.parse(data);
 													if(jsonRpta.resultado == 0){
 														loadModalMensaje("Enhorabuena","Se ha completado la carga de entregas.",null);	
@@ -144,6 +159,12 @@
 													
 													closeModalCargando();
 													
+=======
+																closeModalCargando();
+																loadModalMensaje("Enhorabuena",
+																					"Se ha completado la carga de entregas.",
+																					function(){$("#view-carga-entrega").click();});																
+>>>>>>> refs/remotes/origin/master
 												},
 												error	:function(){
 																

@@ -129,11 +129,34 @@ public class CourierDaoImp extends JdbcDaoBase implements CourierDao {
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Tercero> lstTercerosxCourier(Courier courier) {
+	public List<Tercero> lstTercerosxCourier(Tercero tercero) {
 		// TODO Auto-generated method stub
-		logger.info("Dao lstTercerosxCourier");
-		return null;
+		logger.info("DAO lstTercerosxCourier");
+		
+		List<Tercero> lista 		= null; 
+		SimpleJdbcCall call 		= null;
+		Map<String, Object> out 	= null;
+		MapSqlParameterSource in	= new MapSqlParameterSource();
+
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
+				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
+				resources.getString(ConstantsProperties.PQ_DEL_COURIER),
+				"sp_lst_colaboradores");
+ 
+		JdbcHelper.setInParameter(call, in, "a_idptipodocumento", 	Types.INTEGER, tercero.getIdptipodocumento());
+	    JdbcHelper.setInParameter(call, in, "a_nrodocumento" , 		Types.VARCHAR, tercero.getNrodocumento());  	  
+	    JdbcHelper.setInParameter(call, in, "a_idcourier" , 		Types.INTEGER, tercero.getIdcourier());
+	    JdbcHelper.setInParameter(call, in, "a_idpestado" , 		Types.INTEGER, tercero.getIdpestado());
+	    JdbcHelper.setInParameter(call, in, "a_idtercero", 			Types.INTEGER, tercero.getIdtercero());   
+
+		JdbcHelper.setOutParameter(call, "a_cursor", 		OracleTypes.CURSOR, Tercero.class);
+		 
+		out 	= call.execute(in);
+		lista 	= (List<Tercero>) out.get("a_cursor");
+		  
+		return lista;
 	}
 	
 	@Override
