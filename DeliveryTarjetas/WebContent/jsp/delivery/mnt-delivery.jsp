@@ -91,21 +91,37 @@
     $().ready(function(){    
     	loadModalCargando();
     	
-    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','cbocourier', ['idcourier','rznsocial'], {form: 'form-bsq-mntdelivery'});
-	
+    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form: 'form-bsq-mntdelivery'});
+    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form: 'form-cargar-entrega-tarjeta-edit'});
+    	
     	$("#fecentrega").datepicker({ 
-    								beforeShow 	: function() {
-														setTimeout(function() {
-															$('.ui-datepicker').css({'z-index' : 9999, 'border' : '1px solid #ccc'});
-														}, 0);
-									},
-									onSelect 		: function(dateText, inst) {
-														$("#fecentrega").removeClass("error");
-									}
-					});
+			beforeShow 	: function() {
+				setTimeout(function() {
+					$('.ui-datepicker').css({'z-index' : 9999, 'border' : '1px solid #ccc'});
+				}, 0);
+			},
+			onSelect : function(dateText, inst) {
+				$("#fecentrega").removeClass("error");
+			}
+		});
 					
 		$(".calendario").click(function() {
-									$("#fecentrega").datepicker("show");
+			$("#fecentrega").datepicker("show");
+		});
+		
+ 		$("#fecentregaarch").datepicker({ 
+			beforeShow 	: function() {
+				setTimeout(function() {
+					$('.ui-datepicker').css({'z-index' : 9999, 'border' : '1px solid #ccc'});
+				}, 0);
+			},
+			onSelect : function(dateText, inst) {
+			    $("#fecentregaarch").removeClass("error");
+			}
+		});
+					
+		$(".calendario2").click(function() {
+			$("#fecentregaarch").datepicker("show");
 		});
 		
 		if($("#form-datos-usuario #idcourier").val()!=null  && $("#form-datos-usuario #idcourier").val()!=""){
@@ -120,7 +136,6 @@
 	function bsqDelivery() {
 
 		$("#container-lst-mntdelivery").hide();
-		
 		$('#table-lst-mntdelivery').dataTable().fnClearTable();
 		$('#table-lst-mntdelivery').dataTable().fnDestroy();
 		
@@ -146,19 +161,15 @@
 			dataType 		: 'json',
 			contentType 	: "application/x-www-form-urlencoded; charset=UTF-8",
 			data 			: param,
-			success 		: function(data) {
-									
-									$("#container-lst-mntdelivery").slideDown(1000);
-				
-									var jsonDelivery = eval(data);
-									
-									createHtmlTable(jsonDelivery, "table-lst-mntdelivery");	
-									
-									closeModalCargando(); 
+			success 		: function(data) {					
+				$("#container-lst-mntdelivery").slideDown(1000);
+				var jsonDelivery = eval(data);
+				createHtmlTable(jsonDelivery, "table-lst-mntdelivery");	
+				closeModalCargando(); 
 			},
-			error 			: function(xhr, ajaxOptions, thrownError) {
-									closeModalCargando();
-									loadModalMensaje('Lo Sentimos','<center>Hubo problemas en el procesamiento de datos.</center>',function(){}); 
+			error : function(xhr, ajaxOptions, thrownError) {
+				closeModalCargando();
+				loadModalMensaje('Lo Sentimos','<center>Hubo problemas en el procesamiento de datos.</center>',function(){}); 
 			}
 		});
 	}
@@ -362,7 +373,8 @@
         $("#form-cargar-entrega-tarjeta-edit #idpestadocarga").val(json.idpestadocarga);
         $("#form-cargar-entrega-tarjeta-edit #historial").val(json.historial);
         $("#form-cargar-entrega-tarjeta-edit #grupocarga").val(json.grupocarga);
-        
+        $("#form-cargar-entrega-tarjeta-edit #idcourier").val(json.idcourier);
+        $("#form-cargar-entrega-tarjeta-edit #fecentregaarch").val(json.fecentregaarch);
         closeModalCargando();
 	}
 		

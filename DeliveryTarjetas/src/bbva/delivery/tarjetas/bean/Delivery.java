@@ -36,7 +36,7 @@ public class Delivery {
 	private String historial;
 	private BigDecimal grupocarga;
 	private String responsable;
-	
+	private String fecentregaarch;
 	
 	private String codcourier;
 	private String dnitrabajador;
@@ -341,6 +341,14 @@ public class Delivery {
 
 	public void setResponsable(String responsable) {
 		this.responsable = responsable;
+	}
+
+	public String getFecentregaarch() {
+		return fecentregaarch;
+	}
+
+	public void setFecentregaarch(String fecentregaarch) {
+		this.fecentregaarch = fecentregaarch;
 	}
   
 	

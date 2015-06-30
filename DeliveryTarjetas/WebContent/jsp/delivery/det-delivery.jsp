@@ -269,12 +269,12 @@
 						
 						<div class="column-formulario-carga">
 							<div class="form-group form-group-carga">
-					            <label for="fecentrega" class="col-md-5 control-label carga-content-maxim">Fecha de entrega </label>
+					            <label for="fecentregaarr" class="col-md-5 control-label carga-content-maxim">Fecha de entrega </label>
 					            <div class="col-md-7  carga-content-maxim">
 					                <div id="div-fecentregaarch" class="input-group">
-										<input type="text" readonly id="fecentregaarch" name="fecentregaarch" class="form-control calendario"> 
+										<input type="text" readonly id="fecentregaarch" name="fecentregaarch" class="form-control calendario2"> 
 										<span class="input-group-addon">
-											<a id="btnfecentregaarch" href="javascript:void(0)" class="btn-date calendario"> 
+											<a id="btnfecentregaarch" href="javascript:void(0)" class="btn-date calendario2"> 
 												<span class="glyphicon glyphicon-calendar"></span>
 											</a>
 										</span>
@@ -310,22 +310,7 @@
 		if ($("#form-cargar-entrega-tarjeta-edit").valid()){
 		 
 	 		loadModalCargando();
-	 		
 
-	    	$("#fecentregaarch").datepicker({ 
-	    								beforeShow 	: function() {
-															setTimeout(function() {
-																$('.ui-datepicker').css({'z-index' : 9999, 'border' : '1px solid #ccc'});
-															}, 0);
-										},
-										onSelect 		: function(dateText, inst) {
-															$("#fecentregaarch").removeClass("error");
-										}
-						});
-						
-			$(".calendario").click(function() {
-										$("#fecentregaarch").datepicker("show");
-			});
 		
 			
 	 		$.ajax({
