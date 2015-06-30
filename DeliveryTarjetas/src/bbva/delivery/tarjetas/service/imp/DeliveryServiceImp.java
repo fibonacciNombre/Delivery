@@ -197,7 +197,7 @@ public class DeliveryServiceImp implements DeliveryService {
 							carga.setUsuario(archivo.getUsuario());
 							carga.setIdpestado(1);
 
-							carga.setIdpestadodelivery(0);
+							carga.setIdpestadodelivery(10);
 							carga.setIdpestadocarga(1);
 							carga.setIdarchivo(archivo.getIdarchivo());
 							
@@ -354,6 +354,9 @@ public class DeliveryServiceImp implements DeliveryService {
 								
 								if(idtercero == null){
 									Tercero tercero =  new Tercero();
+									tercero.setIdcourier(archivo.getIdcourier());
+									tercero.setIdpestado("1");
+									tercero.setUsuario(archivo.getUsuario());
 									tercero.setNrodocumento(carga.getDnitrabajador());
 									 
 									terceroService.mntTercero(tercero);
