@@ -79,9 +79,9 @@
 		<table class="table table-hover table-bordered" id="table-lst-usuarios">
 			<thead>
 				<tr>
-					<th class="text-center desktop">Perfil</th>
+					<th class="text-center tablet">Perfil</th>
 					<th class="text-center">Cod. Usuario</th>
-					<th class="text-center">Nombres</th>					
+					<th class="text-center desktop">Nombres</th>					
 					<th class="text-center">Estado</th>
 					<th class="text-center">Editar</th>
 				</tr>
@@ -177,7 +177,7 @@
 			"columns"    		: [
 										{ "data"      	: "",
 											"sWidth"	: "15%",
-											"class"		: "text-center",
+											"class"		: "text-center tablet",
                          	 				"mRender"  	: function (data, type, full) {
              	 												return obtDescripcionPerfil(full.idperfil);} },											
 			                           	{ "orderable"	: false,
@@ -195,7 +195,7 @@
                          	 								return obtDescripcionParametro(CTE_INIT_PARAM_ESTADO, null, full.idpestado);} },
        	 								{ "orderable"	: false,
   		                      				"data"      : "",
-  		                      				"sWidth"	: "15%",
+  		                      				"sWidth"	: "10%",
   		                      				"class"		: "text-center",
                            	 				"mRender"  	: function (data, type, full) {
   	                         	 								return linkDetalleUsuario(full); } },	                         	 								

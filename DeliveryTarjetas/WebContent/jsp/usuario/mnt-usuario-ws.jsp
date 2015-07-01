@@ -57,7 +57,7 @@
 			<thead>
 				<tr>
 					<th class="text-center">Cod. Usuario</th>
-					<th class="text-center desktop">Comentarios</th>
+					<th class="text-center tablet">Comentarios</th>
 					<th class="text-center">Estado</th>
 					<th class="text-center">Editar</th>
 				</tr>
@@ -154,7 +154,8 @@
 											"sWidth"	: "25%",
 											"class"		: "text-center"},
 			                           	{ "orderable"	: false,
-				                         	"data"		: "comentario"},                           				
+				                         	"data"		: "comentario",
+				                         	"class"		: "tablet"},                           				
 			                         	{ "orderable"	: false,
 		                      				"data"      : "",
 		                      				"sWidth"	: "15%",

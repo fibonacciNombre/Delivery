@@ -5820,8 +5820,6 @@ button.close {
 .modal {
   display: none;
   overflow: auto;
-  overflow-y: scroll;
-  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
@@ -11053,6 +11051,11 @@ span.loading-animate:nth-child(5) {
 	}
 }
 
+@media (max-width: 400px) {
+	.tablet{
+		display: none;
+	}
+}
 .resaltar-background{
 	background: yellow !important;
 }
