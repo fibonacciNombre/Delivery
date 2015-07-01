@@ -84,7 +84,34 @@
 	</form>
 	
 	<div id="container-lst-delivery" style="margin-top:20px; display: none;">		
-		<div id="div-container-lst-delivery"></div>		
+		<div class="row">
+			<div class="col-md-12">						
+				<div class="form-group">
+					<button id="btnBsqDelivery"
+				    		type="button" 
+				    		class="btn-descargar btn btn-primary " 
+				    		onclick="javascript:exportarListaDelivery();">
+				    			<i class="icono-excel"></i>			                    			
+				    			<div style="display: inline-block; margin-top: 3px; vertical-align: top;">Exportar a Excel</div>			                    			
+				    </button>																				
+				</div>			
+			</div>	
+		</div>
+		
+		<table class="table table-hover table-bordered"
+			id="table-lst-delivery">
+			<thead>
+				<tr>
+					<th class="text-center tablet">Orden entrega</th>
+					<th class="text-center">Nro Documento</th>					
+					<th class="text-center desktop">Nombre</th>					
+					<th class="text-center">Estado</th>
+					<th class="text-center">Editar</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>	
 	</div>
 </div>
 

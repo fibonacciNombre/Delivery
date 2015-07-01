@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -30,10 +31,10 @@ import bbva.delivery.tarjetas.bean.Delivery;
 import bbva.delivery.tarjetas.commons.Constants;
 import bbva.delivery.tarjetas.comun.bean.TransaccionWeb;
 import bbva.delivery.tarjetas.comun.service.ComunService;
-import bbva.delivery.tarjetas.courier.bean.Courier;
 import bbva.delivery.tarjetas.service.DeliveryService;
 import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
+
 import commons.framework.BaseController;
 import commons.web.UtilWeb;
 
@@ -110,16 +111,31 @@ public class DeliveryController extends BaseController{
 	
 	public void exportarListaDelivery(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		Delivery delivery = null;
-		delivery = new Delivery(request.getParameterMap());
+		
+		String result		= "";
+		String archivo		= "";
+		Delivery delivery 	= null;		
+		TransaccionWeb tx	= new TransaccionWeb();
+		Calendar cal 		= Calendar.getInstance();
+		delivery 			= new Delivery(request.getParameterMap());
+		
 		try {
-			 deliveryService.exportarListaDelivery(delivery);
+			delivery.setRutaexpotacion(request.getServletContext().getRealPath("/") +"ListadoEntregas"+cal.get(Calendar.DATE) + (cal.get(Calendar.MONTH)+1) + cal.get(Calendar.YEAR)+".xls");
+			System.out.println(delivery.getRutaexpotacion());
+			archivo = deliveryService.exportarListaDelivery(delivery);
+			
  		} catch (Error e) {
+ 			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
  		}
-		this.escribirTextoSalida(response, "{}");
+		
+		result += "{"
+				+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+				+ "\"archivo\":\"" + archivo.replace("\\", "\\\\") + "\"" 
+				+ "}";
+	
+		this.escribirTextoSalida(response,result);
 	}
 
-		
 	
 	public void lstDelivery(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {

@@ -18,10 +18,10 @@
 				
 				<div id="tabs-detalle-delivery">
 					<ul style="background: white; border:0px;">
-						<li class="tabs" style="width: 20%; display: inline-block; padding: 10px;"><a href="#tabs-entrega">Entrega</a></li>
-						<li class="tabs" style="width: 20%; display: inline-block; padding: 10px;"><a href="#tabs-cliente">Cliente</a></li>							
-						<li class="tabs" style="width: 20%; display: inline-block; padding: 10px;"><a href="#tabs-tarjeta">Tarjeta</a></li>
-						<li class="tabs" style="width: 20%; display: inline-block; padding: 10px;"><a href="#tabs-courier">Courier</a></li>
+						<li class="tabs" style="display: inline-block; width: 24.5%; float: left;"><a href="#tabs-entrega">Entrega</a></li>
+						<li class="tabs" style="display: inline-block; width: 24.5%; float: left;"><a href="#tabs-cliente">Cliente</a></li>							
+						<li class="tabs" style="display: inline-block; width: 24.5%; float: left;"><a href="#tabs-tarjeta">Tarjeta</a></li>
+						<li class="tabs" style="display: inline-block; width: 24.5%; float: left;"><a href="#tabs-courier">Courier</a></li>
 					</ul>
 					
 					<div id="tabs-cliente">

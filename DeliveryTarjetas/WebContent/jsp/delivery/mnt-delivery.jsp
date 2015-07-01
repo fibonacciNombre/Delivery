@@ -59,17 +59,9 @@
 			                    		class="btn btn-primary" 
 			                    		style="float:right;padding-top: 3px; padding-bottom: 3px;"
 			                    		onclick="javascript:bsqDelivery();">
-			                    			<i style="background-position: -592px -1405px; height: 25px; margin-right: 0px; width: 25px; display: inline-block; vertical-align: top; transform: scale(0.6);"></i>			                    			
+			                    			<i class="icono-buscar"></i>			                    			
 			                    			<div style="display: inline-block; margin-top: 3px; vertical-align: top;">Buscar</div>			                    			
-			                    </button>
-								<button id="btnBsqDelivery"
-			                    		type="button" 
-			                    		class="btn btn-primary" 
-			                    		style="float:right;padding-top: 3px; padding-bottom: 3px;"
-			                    		onclick="javascript:exportarListaDelivery();">
-			                    			<i style="background-position: -592px -1405px; height: 25px; margin-right: 0px; width: 25px; display: inline-block; vertical-align: top; transform: scale(0.4);"></i>			                    			
-			                    			<div style="display: inline-block; margin-top: 3px; vertical-align: top;">Exportar a Excel</div>			                    			
-			                    </button>
+			                    </button>								
 			                </div>							
 						</div>			
 					</div>														
@@ -78,7 +70,21 @@
     	</div>	
 	</form>
 	
-	<div id="container-lst-mntdelivery" style="margin-top:20px; display: none;">		
+	<div id="container-lst-mntdelivery" style="margin-top:20px; display: none;">	
+		<div class="row">
+			<div class="col-md-12">						
+				<div class="form-group">
+					<button id="btnBsqDelivery"
+				    		type="button" 
+				    		class="btn-descargar btn btn-primary " 
+				    		onclick="javascript:exportarListaDelivery();">
+				    			<i class="icono-excel"></i>			                    			
+				    			<div style="display: inline-block; margin-top: 3px; vertical-align: top;">Exportar a Excel</div>			                    			
+				    </button>																				
+				</div>			
+			</div>	
+		</div>			
+	
 		<div id="div-container-lst-mntdelivery"></div>		
 	</div>
 	
@@ -167,10 +173,10 @@
 
 		loadModalCargando();
 
-		var param = new Object();
+		var param 					= new Object();
 		 
 		param.nrodocumentocli 		= $("#form-bsqdelivery #nrodocumentocli").val(); 
-		param.idcourier 		= $("#form-bsqdelivery #idcourier").val();
+		param.idcourier 			= $("#form-bsqdelivery #idcourier").val();
 		param.fechaentregaarh 		= $("#form-bsqdelivery #fecentrega").val();
 
 		$.ajax({
@@ -181,11 +187,25 @@
 			dataType 		: 'json',
 			contentType 	: "application/x-www-form-urlencoded; charset=UTF-8",
 			data 			: param,
-			success 		: function(data) {
-				loadModalMensaje('Enhorabuena','Se ha exportado la lista a excel',function(){}); 
-									closeModalCargando(); 
+			success 		: function(rsp) {
+									
+									var status 	= rsp.tx.statustx;
+									var message = rsp.tx.messagetx;
+	
+									closeModalCargando();
+									console.log(rsp.archivo);
+									if(status==0){
+										console.log(rsp.archivo);
+										//window.open('DeliveryTarjetas' + rsp.archivo, 'NewWin');
+										window.open(rsp.archivo, 'NewWin');
+										loadModalMensaje('Enhorabuena','Se ha exportado la lista a excel',function(){});	
+									}
+									 										 
 			},
 			error 			: function(xhr, ajaxOptions, thrownError) {
+				console.log(xhr);
+				console.log(ajaxOptions);
+				console.log(thrownError);
 									closeModalCargando();
 									loadModalMensaje('Lo Sentimos','<center>Hubo problemas en el procesamiento de datos.</center>',function(){}); 
 			}
@@ -197,29 +217,20 @@
 
 		$("#divdestroy *").remove();
 
-		var html = 
-			 '<div id="divdestroy" class="row visible-md-block visible-sm-block visible-lg-block">' + 
-				 '<div class="table-responsive col-md-12">' + 
-					 '<table id="' + table + '" class="table table-hover table-bordered table-inter text-center">' +
+		var html = '<table id="' + table + '" class="table table-hover table-bordered table-inter text-center">' +
 					 	'<thead>' +
 					 		'<tr>' + 
 								 '<th class="text-center">N° Tarjeta</th>' +
 								 '<th class="text-center">DNI Cliente</th>' +
 								 '<th class="text-center">Nombre Cliente</th>' +
- 								 '<th class="text-center">Responsable</th>' +
+								 '<th class="text-center">Responsable</th>' +
 								 '<th class="text-center">Fecha Entrega</th>' +  
 								 '<th class="text-center">Detalle</th>' +
 					 		'</tr>' +
 					 	'</thead>' +
 					 	'<tbody class="vcenter">' +
 					 	'</tbody>' +
-					 '</table>' +
-				 '</div>' +
-			
-				 '<div class="row">' +
-				 	'<div class="col-md-12"></div>' +
-				 '</div>'+
-			 '</div>';
+					 '</table>';
 
 		$("#div-container-lst-mntdelivery").append(html);
 

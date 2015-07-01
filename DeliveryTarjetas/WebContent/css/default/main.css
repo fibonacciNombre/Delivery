@@ -11059,6 +11059,31 @@ span.loading-animate:nth-child(5) {
 .resaltar-background{
 	background: yellow !important;
 }
+.btn-descargar{
+	padding-top: 3px; 
+	padding-bottom: 3px; 
+	font-size: 11px; 
+	height: 30px; 
+	background: transparent linear-gradient(to bottom, rgb(34, 187, 34) 0px, rgb(108, 166, 108) 100%) repeat scroll 0px 0px;
+}
+.icono-buscar{
+	background-position: -592px -1405px; 
+	height: 25px; 
+	margin-right: 0px; 
+	width: 25px; 
+	display: inline-block; 
+	vertical-align: top; 
+	transform: scale(0.6);
+}
+.icono-excel{
+	background-position: -445px -1924px; 
+	height: 25px;
+	margin-right: 0px;
+	width: 25px; 
+	display: inline-block; 
+	vertical-align: top; 
+	transform: scale(0.6);"
+}
 /* fin mfarfanr - bbva */
 
 .vineta-title {
