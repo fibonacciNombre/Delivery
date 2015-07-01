@@ -17,7 +17,6 @@ public interface DeliveryDao{
 	
 	public Integer valCourierDelivery(String dnicourier);
 	
-	public void cargaDelivery(Delivery param);
 	
 	public void mntArchivo(Archivo param);
 }

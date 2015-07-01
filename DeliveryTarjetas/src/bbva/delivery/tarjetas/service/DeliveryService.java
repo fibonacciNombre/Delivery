@@ -21,8 +21,7 @@ public interface DeliveryService {
 	
 	public void mntDelivery(Delivery delivery);
 	
-	
-	public void cargaDelivery(Delivery param);
+	 
 	
 	public void mntArchivo(Archivo param);
 	public void exportarListaDelivery(Delivery delivery) throws IOException;

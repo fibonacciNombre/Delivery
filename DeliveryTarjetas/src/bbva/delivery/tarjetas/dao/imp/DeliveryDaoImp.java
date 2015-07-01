@@ -74,7 +74,9 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 	      JdbcHelper.setInParameter(call, in, "a_idpestadodelivery"        , 	Types.INTEGER, param.getIdpestadodelivery()); 
 	      JdbcHelper.setInParameter(call, in, "a_historial"        , 	Types.VARCHAR, param.getHistorial()); 
 	      JdbcHelper.setInParameter(call, in, "a_grupocarga"        , 	Types.INTEGER, param.getGrupocarga()); 
-	        
+	      JdbcHelper.setInParameter(call, in, "a_usuario"        , 	Types.VARCHAR, param.getUsuario()); 
+	          
+	      
 		out = call.execute(in);
 		
 		iddelivery = JdbcHelper.getOutResult(out, "a_iddelivery", BigDecimal.class);
@@ -161,52 +163,7 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 		return valor;
 
 	} 
-	
-	@Override
-	public void cargaDelivery(Delivery param) { 
-		
-		SimpleJdbcCall call = null;
-		MapSqlParameterSource in = null;
-		Map<String, Object> out = null; 
-		in = new MapSqlParameterSource(); 
-		BigDecimal iddelivery = null;
-		
-		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), 
-				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY), 
-				resources.getString(ConstantsProperties.PQ_DEL_COURIER), 
-				"sp_carga_delivery");
-		
-		  JdbcHelper.setInOutParameter(call, in, "a_iddelivery"      , 	Types.NUMERIC, param.getIddelivery());  
-	      JdbcHelper.setInParameter(call, in, "a_tipodocumento" , 	Types.VARCHAR, param.getTipodocumento());  	  
-	      JdbcHelper.setInParameter(call, in, "a_nrodocumentocli" , 	Types.VARCHAR, param.getNrodocumentocli()); 	  
-	      JdbcHelper.setInParameter(call, in, "a_nombrescli"      , 	Types.VARCHAR, param.getNombrescli()); 
-	      JdbcHelper.setInParameter(call, in, "a_tipotarjeta"     , 	Types.VARCHAR, param.getTipotarjeta());  
-	      JdbcHelper.setInParameter(call, in, "a_pridigtarjeta"   , 	Types.VARCHAR, param.getPridigtarjeta()); 
-	      JdbcHelper.setInParameter(call, in, "a_ultdigtarjeta"   , 	Types.VARCHAR, param.getUltdigtarjeta()); 
-	      JdbcHelper.setInParameter(call, in, "a_nrocontrato"     , 	Types.VARCHAR, param.getNrocontrato()); 
-	      JdbcHelper.setInParameter(call, in, "a_mtoasoctarjeta"  , 	Types.VARCHAR, param.getMtoasoctarjeta()); 
-	      JdbcHelper.setInParameter(call, in, "a_fecentrega"      , 	Types.VARCHAR, param.getFecentrega()); 
-	      JdbcHelper.setInParameter(call, in, "a_horaentrega"     , 	Types.VARCHAR, param.getHoraentrega()); 
-	      JdbcHelper.setInParameter(call, in, "a_lugarentrega"    , 	Types.VARCHAR, param.getLugarentrega()); 
-	      JdbcHelper.setInParameter(call, in, "a_indverificacion" , 	Types.VARCHAR, param.getIndverificacion()); 
-	      JdbcHelper.setInParameter(call, in, "a_direccioncli"    , 	Types.VARCHAR, param.getDireccioncli()); 
-	      JdbcHelper.setInParameter(call, in, "a_distritocli"     , 	Types.VARCHAR, param.getDistritocli()); 
-	      JdbcHelper.setInParameter(call, in, "a_latitudofi"      , 	Types.NUMERIC, param.getLatitudofi()); 
-	      JdbcHelper.setInParameter(call, in, "a_longitudofi"     , 	Types.NUMERIC, param.getLongitudofi()); 
-	      JdbcHelper.setInParameter(call, in, "a_correocli"       , 	Types.VARCHAR, param.getCorreocli()); 
-	      JdbcHelper.setInParameter(call, in, "a_telmovilcli"     , 	Types.VARCHAR, param.getTelmovilcli()); 
-	      JdbcHelper.setInParameter(call, in, "a_ordenentrega"    , 	Types.VARCHAR, param.getOrdenentrega());  
-	      JdbcHelper.setInParameter(call, in, "a_dnitrabajador"   , 	Types.VARCHAR, param.getDnitrabajador()); 
-	      JdbcHelper.setInParameter(call, in, "a_idarchivo"       , 	Types.INTEGER, param.getIdarchivo());  
-	      JdbcHelper.setInParameter(call, in, "a_grupocarga"      , 	Types.NUMERIC, param.getGrupocarga()); 
-		
-		out = call.execute(in);
-		
-		iddelivery = JdbcHelper.getOutResult(out, "a_iddelivery", BigDecimal.class);
-		param.setIddelivery(iddelivery); 
-
-	}
-	
+	 	
 	@Override
 	public void mntArchivo(Archivo param) { 
 		
@@ -225,7 +182,8 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 	      JdbcHelper.setInParameter(call, in, "a_idtipoarchivo" , 	Types.INTEGER, param.getIdtipoarchivo()); 	  
 	      JdbcHelper.setInParameter(call, in, "a_fecentrega"      , 	Types.DATE, param.getFecentrega()); 
 	      JdbcHelper.setInParameter(call, in, "a_idcourier"     , 	Types.INTEGER, param.getIdcourier());  
-	      
+	      JdbcHelper.setInParameter(call, in, "a_usuario"     , 	Types.VARCHAR, param.getUsuario());  
+
 		
 		out = call.execute(in);
 		
