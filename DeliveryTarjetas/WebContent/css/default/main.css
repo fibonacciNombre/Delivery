@@ -11067,13 +11067,14 @@ span.loading-animate:nth-child(5) {
 	background: transparent linear-gradient(to bottom, rgb(34, 187, 34) 0px, rgb(108, 166, 108) 100%) repeat scroll 0px 0px;
 }
 
-.btn-descargar :HOVER,
-.btn-descargar :ACTIVE {
+.btn-descargar:hover,
+.btn-descargar:active {
 	padding-top: 3px; 
 	padding-bottom: 3px; 
 	font-size: 11px; 
 	height: 30px; 
 	background: transparent linear-gradient(to bottom, rgb(34, 187, 34) 0px, rgb(108, 166, 108) 100%) repeat scroll 0px 0px;
+	border: 1px solid rgb(34, 187, 34);
 } 
 .icono-buscar{
 	background-position: -592px -1405px; 

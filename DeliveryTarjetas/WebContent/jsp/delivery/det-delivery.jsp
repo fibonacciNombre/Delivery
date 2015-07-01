@@ -14,9 +14,9 @@
 			
 			<form id="form-cargar-entrega-tarjeta-edit">
 				
-				<input type="hidden" id="iddelivery" name="iddelivery" value=""/>			
+				<input type="hidden" id="iddelivery" name="iddelivery"/>			
 				
-				<div id="tabs-detalle-delivery">
+				<div id="tabs-detalle-delivery" style="border: 0px solid;">
 					<ul style="background: white; border:0px;">
 						<li class="tabs" style="display: inline-block; width: 24.5%; float: left;"><a href="#tabs-entrega">Entrega</a></li>
 						<li class="tabs" style="display: inline-block; width: 24.5%; float: left;"><a href="#tabs-cliente">Cliente</a></li>							
@@ -285,15 +285,12 @@
 						
 					</div>
 					
-					<div class="row">
+					<div class="row" style="margin-top:10px;">
 						<div class="col-md-12">
-							<div class="col-md-12">
-								 
-								<div id="divbutton">
-									<button type="button" class="btn btn-primary pull-right"
-										onclick="guardarDatosEditados();">Guardar</button>
-								</div>
-							</div>
+							<div id="divbutton">
+								<button type="button" class="btn btn-primary pull-right"
+									onclick="guardarDatosEditados();">Guardar</button>
+							</div>							
 						</div>
 					</div>
 					
@@ -310,8 +307,6 @@
 		if ($("#form-cargar-entrega-tarjeta-edit").valid()){
 		 
 	 		loadModalCargando();
-
-		
 			
 	 		$.ajax({
 				type 		: "POST",
