@@ -435,7 +435,7 @@ function rowEntregaSelectedUtil(json, formEdit) {
     if(!formEdit){
     	$("#form-detdelivery *").attr("disabled",true);
     	$("#form-detdelivery #idpestadodelivery").attr("disabled",false);
-    	$("#form-detdelivery #bntMntDetalleDelivery").attr("disabled",true);
+    	$("#form-detdelivery #bntMntDetalleDelivery").attr("disabled",false);
     }
     
     closeModalCargando();

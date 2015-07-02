@@ -102,9 +102,9 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 		JdbcHelper.setInParameter(call, in, "a_fecentrega", OracleTypes.DATE, delivery.getFechaentregaarh());
 		JdbcHelper.setInParameter(call, in, "a_idcourier", OracleTypes.INTEGER, delivery.getIdcourier());
 		JdbcHelper.setInParameter(call, in, "a_nrodocumentocli", OracleTypes.VARCHAR, delivery.getNrodocumentocli());
-		JdbcHelper.setInParameter(call, in, "a_idpestadodelivery", OracleTypes.VARCHAR, delivery.getIdpestadodelivery());
-		JdbcHelper.setInParameter(call, in, "a_idptipodocumento", OracleTypes.VARCHAR, tercero.getIdptipodocumento());
-		JdbcHelper.setInParameter(call, in, "a_nrodocumento", OracleTypes.VARCHAR, tercero.getNrodocumento());
+//		JdbcHelper.setInParameter(call, in, "a_idpestadodelivery", OracleTypes.VARCHAR, delivery.getIdpestadodelivery());
+//		JdbcHelper.setInParameter(call, in, "a_idptipodocumento", OracleTypes.VARCHAR, tercero.getIdptipodocumento());
+//		JdbcHelper.setInParameter(call, in, "a_nrodocumento", OracleTypes.VARCHAR, tercero.getNrodocumento());
 		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, Delivery.class);
 		
 		out = call.execute(in);

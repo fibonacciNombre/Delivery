@@ -307,7 +307,9 @@
 		if ($("#form-detdelivery").valid()){
 		 
 	 		loadModalCargando();
-			
+	 		
+	 		$("#form-detdelivery *").attr("disabled",false);
+	 		
 	 		$.ajax({
 				type 		: "POST",
 				url 		: "/DeliveryTarjetas/delivery.do?method=mntDelivery",
