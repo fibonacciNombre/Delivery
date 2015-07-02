@@ -285,10 +285,10 @@
 						
 					</div>
 					
-					<div class="row" style="margin-top:10px;">
+					<div class="row" style="margin-top:10px;" id="bntDetalleDelivery-div">
 						<div class="col-md-12">
 							<div id="divbutton">
-								<button id="bntMntDetalleDelivery" 
+								<button id="bntDetalleDelivery" 
 										type="button" 
 										class="btn btn-primary pull-right"
 										onclick="guardarDatosEditados();">
