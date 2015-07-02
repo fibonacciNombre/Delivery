@@ -12,7 +12,7 @@
 				<h3 class="modal-title">Editar datos de entrega de tarjeta</h3>
 			</div>
 			
-			<form id="form-cargar-entrega-tarjeta-edit">
+			<form id="form-detdelivery">
 				
 				<input type="hidden" id="iddelivery" name="iddelivery"/>			
 				
@@ -288,7 +288,7 @@
 					<div class="row" style="margin-top:10px;">
 						<div class="col-md-12">
 							<div id="divbutton">
-								<button type="button" class="btn btn-primary pull-right"
+								<button id="bntMntDetalleDelivery" type="button" class="btn btn-primary pull-right"
 									onclick="guardarDatosEditados();">Guardar</button>
 							</div>							
 						</div>
@@ -304,7 +304,7 @@
 
 <script>
 	function guardarDatosEditados() { 
-		if ($("#form-cargar-entrega-tarjeta-edit").valid()){
+		if ($("#form-detdelivery").valid()){
 		 
 	 		loadModalCargando();
 			
@@ -315,7 +315,7 @@
 				dataType 	: "json",
 				contentType	: "application/x-www-form-urlencoded; charset=UTF-8",
 				async 		: false,
-				data 		: $("#form-cargar-entrega-tarjeta-edit").serializeArray(),
+				data 		: $("#form-detdelivery").serializeArray(),
 				success 	: function(rsp) {
 					
 									var status 	= rsp.tx.statustx;
@@ -340,10 +340,6 @@
 				}
 			});
 	 						 
-		} else {
-			$.each($('input[type=text], select ,textarea', '#form-cargar-entrega-tarjeta-edit'),function(k){
-			   validateItems("form-cargar-entrega-tarjeta-edit", this);
-			});
 		} 
 	}
 </script>

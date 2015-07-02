@@ -139,19 +139,6 @@
 	});
     
 	function registrarUsuario(){
-
-		var $inputs = $('#form-registrousuario :input');
-
-		$inputs.each(function() {
-			if(this.id!=""){
-				if($("#form-registrousuario #"+ this.id).valid())
-					$(".result", $("#"+this.id).parent()).html("<i class='success'></i>");			
-				else
-					$(".result", $("#"+this.id).parent()).html("<i class='error'></i>");
-			}
-	    });
-
-		activarChecksValidate("form-registrousuario");
 		
 		if($("#form-registrousuario").valid()){
 			

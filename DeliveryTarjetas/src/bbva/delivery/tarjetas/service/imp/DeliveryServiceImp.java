@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -36,6 +37,8 @@ import bbva.delivery.tarjetas.tercero.service.TerceroService;
 @Transactional(propagation=Propagation.SUPPORTS)
 public class DeliveryServiceImp implements DeliveryService {
 
+	private static Logger logger = Logger.getLogger(DeliveryServiceImp.class.getName());
+	
 	@Autowired
 	private DeliveryDao portalWebDao;
 
@@ -44,13 +47,6 @@ public class DeliveryServiceImp implements DeliveryService {
 	
 	@Autowired
 	private CourierService courierService;
-	
-	public void test() {
-		// TODO Auto-generated method stub
-		System.out.println("service ok");
-		
-		portalWebDao.test();
-	}
 		
 	/** Retorna el valor de la celda indicada en la fila **/
 	public static String getCellValue(Row row, int posicion) {
@@ -78,17 +74,20 @@ public class DeliveryServiceImp implements DeliveryService {
 	}
 	
 	@Override
-	public List<Delivery> lstDelivery(Delivery param){
-		return portalWebDao.lstDelivery(param);
+	public List<Delivery> lstDelivery(Delivery delivery, Tercero tercero){
+		logger.info("SERVICE lstDelivery");
+		return portalWebDao.lstDelivery(delivery, tercero);
 	}
 	 
 	public BigDecimal crearGrupoCargaDelivery(){
+		logger.info("SERVICE crearGrupoCargaDelivery");
 		return portalWebDao.crearGrupoCargaDelivery();
 	}
  
 	public void mntDelivery(Delivery param) {
-		
 
+		logger.info("SERVICE mntDelivery");
+		
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		Date date = new Date();
 		
@@ -96,20 +95,22 @@ public class DeliveryServiceImp implements DeliveryService {
 		
 		portalWebDao.mntDelivery(param);
 	}
-	 
 
 	@Override
 	public Integer valCourierDelivery(String dnicourier) {
+		logger.info("SERVICE valCourierDelivery");
 		return portalWebDao.valCourierDelivery(dnicourier);
 	}
   
 	public void mntArchivo(Archivo param){
+		logger.info("SERVICE mntArchivo");
 		portalWebDao.mntArchivo(param);
 	}
 	
-	
 	@SuppressWarnings("unchecked")
 	public JSONObject cargarExcelDelivery(MultipartFile multipartFile, Archivo archivo) throws FileNotFoundException{
+		
+		logger.info("SERVICE cargarExcelDelivery");
 		
 		JSONObject joRetorno = new JSONObject();
 		Integer resultado = 0;
@@ -141,6 +142,7 @@ public class DeliveryServiceImp implements DeliveryService {
 						try {
 							wb = new XSSFWorkbook(fileInput);
 						} catch (Exception e) {
+							e.printStackTrace();
 							resultado = 1;
 							mensaje = "Error al levantar el archivo excel";
 						}
@@ -149,6 +151,7 @@ public class DeliveryServiceImp implements DeliveryService {
 						try {
 							wb = new HSSFWorkbook(fileInput);
 						} catch (Exception e) { 
+							e.printStackTrace();
 							resultado = 1;
 							mensaje = "Error al levantar el archivo excel";
 						} 
@@ -271,12 +274,12 @@ public class DeliveryServiceImp implements DeliveryService {
 						}
 						if (indverificacion == null) {
 							resultado = 2;
-							mensaje += "Indicador de verificación no enviado, ";
+							mensaje += "Indicador de verificaciï¿½n no enviado, ";
 
 						}
 						if (direccioncli == null) {
 							resultado = 2;
-							mensaje += "Dirección del cliente no enviado, ";
+							mensaje += "Direcciï¿½n del cliente no enviado, ";
 
 						}
 						if (latitudofi == null) {
@@ -401,6 +404,7 @@ public class DeliveryServiceImp implements DeliveryService {
 					 
 
 				} catch (Exception e) {
+					e.printStackTrace();
 					resultado = 1;
 					mensaje = "El sistema no pudo ubicar el archivo indicado";
 				}
@@ -427,10 +431,15 @@ public class DeliveryServiceImp implements DeliveryService {
 		return joRetorno;
 	}
 	
-	public String exportarListaDelivery(Delivery delivery) throws IOException{
-		Workbook wb = new HSSFWorkbook();
-		Sheet personSheet = wb.createSheet("Datos de Delivery");
-		Row headerRow = personSheet.createRow(0);
+	public String obtArchivoLstDelivery(Delivery delivery, Tercero tercero) throws IOException{
+		
+		logger.info("SERVICE obtArchivoLstDelivery");
+		
+		Workbook wb 		= new HSSFWorkbook();
+		
+		Sheet personSheet 	= wb.createSheet("Datos de Delivery");
+		Row headerRow 		= personSheet.createRow(0);
+		
 		Cell tipodocumentoHeader = headerRow.createCell(0);
 		tipodocumentoHeader.setCellValue("Tipo de Documento");
 		
@@ -462,10 +471,10 @@ public class DeliveryServiceImp implements DeliveryService {
 		lugarHeader.setCellValue("Lugar de Entrega");
 		
 		Cell indverificacionHeader = headerRow.createCell(10);
-		indverificacionHeader.setCellValue("Indica Verificación");
+		indverificacionHeader.setCellValue("Indica VerificaciÃ³n");
 		
 		Cell direccionHeader = headerRow.createCell(11);
-		direccionHeader.setCellValue("Dirección");
+		direccionHeader.setCellValue("DirecciÃ³n");
 		
 		Cell latitudHeader = headerRow.createCell(12);
 		latitudHeader.setCellValue("Latitud");
@@ -482,7 +491,7 @@ public class DeliveryServiceImp implements DeliveryService {
 		Cell dnitrabajadorHeader = headerRow.createCell(16);
 		dnitrabajadorHeader.setCellValue("DNI Trabajador");
 		
-		List<Delivery> lstDelivery = lstDelivery(delivery);
+		List<Delivery> lstDelivery = lstDelivery(delivery, tercero);
 		
 		int row = 1;
 		
@@ -542,9 +551,6 @@ public class DeliveryServiceImp implements DeliveryService {
 		
 		    row = row + 1;
 		}
-		
-		
-//		String outputDirPath = "D:/CargaDelivery.xls";
 
 		FileOutputStream fileOut = new FileOutputStream(delivery.getRutaexpotacion());
 		wb.write(fileOut);

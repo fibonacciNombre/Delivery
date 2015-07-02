@@ -137,19 +137,6 @@
     }
     
 	function registrarUsuarioWS(){
-
-		var $inputs = $('#form-registrousuariows :input');
-
-		$inputs.each(function() {
-			if(this.id!=""){
-				if($("#form-registrousuariows #"+ this.id).valid())
-					$(".result", $("#"+this.id).parent()).html("<i class='success'></i>");			
-				else
-					$(".result", $("#"+this.id).parent()).html("<i class='error'></i>");
-			}
-	    });
-
-		activarChecksValidate("form-registrousuariows");
 		
 		if($("#form-registrousuariows").valid()){
 

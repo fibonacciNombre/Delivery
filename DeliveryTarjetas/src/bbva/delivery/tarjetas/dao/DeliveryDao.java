@@ -4,19 +4,17 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import bbva.delivery.tarjetas.bean.*;
+import bbva.delivery.tarjetas.tercero.bean.Tercero;
 
 public interface DeliveryDao{
-	void test();
-	
 	 
-	public void mntDelivery(Delivery param);
-	public List<Delivery> lstDelivery(Delivery param);
-	public BigDecimal crearGrupoCargaDelivery();
+	void mntDelivery(Delivery param);
 	
- 
+	List<Delivery> lstDelivery(Delivery delivery, Tercero tercero);
 	
-	public Integer valCourierDelivery(String dnicourier);
+	BigDecimal crearGrupoCargaDelivery();
+		
+	Integer valCourierDelivery(String dnicourier);
 	
-	
-	public void mntArchivo(Archivo param);
+	void mntArchivo(Archivo param);
 }

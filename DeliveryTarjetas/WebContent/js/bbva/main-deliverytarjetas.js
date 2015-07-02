@@ -252,6 +252,194 @@ function obtParametrosMaestros(idParametro){
 	return rpta;
 }
 
+function bsqDeliveryUtil(paramQuery){
+	
+	var lstDelivery;
+	
+	$.ajax({
+		type 			: "POST",
+		url 			: "/DeliveryTarjetas/delivery.do?method=lstDelivery",
+		cache 			: false,
+		async 			: false,
+		dataType 		: 'json',
+		contentType 	: "application/x-www-form-urlencoded; charset=UTF-8",
+		data 			: paramQuery,
+		success 		: function(rsp) {				
+								
+								var status 	= rsp.tx.statustx;
+								var message = rsp.messagetx;
+			
+								closeModalCargando();
+								
+								if(status == 0){													
+									if(rsp.lst!= undefined && rsp.lst.length > 0){											
+										lstDelivery = rsp.lst;
+									
+									}else
+										loadModalMensaje("Atención","No se encontraron resultados por la búsqueda realizada",null);
+								}
+		},
+		error 			: function(xhr, ajaxOptions, thrownError) {
+								closeModalCargando();
+								loadModalMensaje('Lo Sentimos','<center>Hubo problemas en el procesamiento de datos.</center>',function(){}); 
+		}
+	});
+	
+	return lstDelivery;
+}
+
+function obtFileDeliveryUtil(paramQuery){
+	
+	var pathFile		= "";
+	
+	$.ajax({
+		type 			: "POST",
+		url 			: "/DeliveryTarjetas/delivery.do?method=obtFileLstEntregas",
+		cache 			: false,
+		async 			: false,
+		dataType 		: 'json',
+		contentType 	: "application/x-www-form-urlencoded; charset=UTF-8",
+		data 			: param,
+		success 		: function(rsp) {
+								
+								var status 	= rsp.tx.statustx;
+								var message = rsp.tx.messagetx;
+
+								closeModalCargando();
+								console.log(rsp.archivo);
+								if(status==0){									
+									pathFile	= rsp.archivo
+									loadModalMensaje('Enhorabuena','Se ha exportado la lista a excel',function(){});	
+								}
+								 										 
+		},
+		error 			: function(xhr, ajaxOptions, thrownError) {
+			console.log(xhr);
+			console.log(ajaxOptions);
+			console.log(thrownError);
+								closeModalCargando();
+								loadModalMensaje('Lo Sentimos','<center>Hubo problemas en el procesamiento de datos.</center>',function(){}); 
+		}
+	});
+	
+	return pathFile;
+}
+
+function linkDetalleDelivery(full, formEdit) {
+	enlace = "<a data-toggle='modal' "
+				+ "data-target='#modalDetalleEntrega' "
+				+ "onclick='return rowEntregaSelectedUtil("+ JSON.stringify(JSON.stringify(full)) +","+formEdit+");'>"
+					+ "<i class='i-detalle'></i>" 
+			+ "</a>";
+
+	return enlace;
+}		
+
+function rowEntregaSelectedUtil(json, formEdit) {
+	
+	loadModalCargando();
+
+	json = JSON.parse(json);
+	
+	$("#tabs-detalle-delivery").tabs();
+	
+	initDatePicker("fecentregaarch","calendario2");
+	
+	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form: 'form-detdelivery'});
+	
+	callCargaControlParam('DELWEB_ESTADO','form-detdelivery #idpestado',false);
+	
+	callCargaControlParam('DELWEB_ESTADODELIVERY','form-detdelivery #idpestadodelivery',false);
+	
+	callCargaControlParam('DELWEB_ESTADOCARGA','form-detdelivery #idpestadocarga',false);
+	
+	cargarComboArray('form-detdelivery #indverificacion',[['S','SI'], ['N','NO']])
+	
+	/*
+	var paramCourier		= new Object();
+	paramCourier.idecourier	= json.idcourier;
+	
+	$.ajax({
+		type 		: "POST",
+		url 		: "/DeliveryTarjetas/courier.do"+"?method=lstCourier",
+		cache 		: false ,
+		dataType	: "json",
+		contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+		async 		: false,
+		data 		: paramCourier,		
+		success 	: function(rsp){
+
+						var statustx	= rsp.tx.statustx;
+						var messagetx	= rsp.tx.messagetx;
+						
+						if(statustx == 0){																
+						}
+		}
+	});
+	
+	var paramTercero 		= new Object();
+	paramTercero.idtercero	= json.idtercero;
+	
+	$.ajax({
+		type 		: "POST",
+		url 		: "/DeliveryTarjetas/tercero.do"+"?method=lstTerceros",
+		cache 		: false ,
+		dataType	: "json",
+		contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+		async 		: false,
+		data 		: paramTercero,		
+		success 	: function(rsp){
+
+						var statustx	= rsp.tx.statustx;
+						var messagetx	= rsp.tx.messagetx;
+						
+						if(statustx == 0){								
+						}
+		}
+	});
+	*/ 
+	
+	$("#form-detdelivery #iddelivery").val(json.iddelivery);
+    $("#form-detdelivery #tipodocumento").val(json.tipodocumento);
+    $("#form-detdelivery #nrodocumentocli").val(json.nrodocumentocli);
+    $("#form-detdelivery #nombrescli").val(json.nombrescli);
+    $("#form-detdelivery #tipotarjeta").val(json.tipotarjeta);
+    $("#form-detdelivery #pridigtarjeta").val(json.pridigtarjeta);
+    $("#form-detdelivery #ultdigtarjeta").val(json.ultdigtarjeta);
+    $("#form-detdelivery #nrocontrato").val(json.nrocontrato);
+    $("#form-detdelivery #mtoasoctarjeta").val(json.mtoasoctarjeta);
+    $("#form-detdelivery #fecentrega").val(json.fecentrega);
+    $("#form-detdelivery #horaentrega").val(json.horaentrega);
+    $("#form-detdelivery #lugarentrega").val(json.lugarentrega);
+    $("#form-detdelivery #indverificacion").val(json.indverificacion);
+    $("#form-detdelivery #direccioncli").val(json.direccioncli);
+    $("#form-detdelivery #distritocli").val(json.distritocli);
+    $("#form-detdelivery #latitudofi").val(json.latitudofi);
+    $("#form-detdelivery #longitudofi").val(json.longitudofi);
+    $("#form-detdelivery #correocli").val(json.correocli);
+    $("#form-detdelivery #telmovilcli").val(json.telmovilcli);
+    $("#form-detdelivery #ordenentrega").val(json.ordenentrega);
+    $("#form-detdelivery #idcourier").val(json.idcourier);
+    $("#form-detdelivery #idtercero").val(json.idtercero);
+    $("#form-detdelivery #idpestado").val(json.idpestado);
+    $("#form-detdelivery #idarchivo").val(json.idarchivo);
+    $("#form-detdelivery #idpestadocarga").val(json.idpestadocarga);
+    $("#form-detdelivery #historial").val(json.historial);
+    $("#form-detdelivery #grupocarga").val(json.grupocarga);
+    $("#form-detdelivery #idcourier").val(json.idcourier);
+    $("#form-detdelivery #fecentregaarch").val(json.fecentregaarch);
+    $("#form-detdelivery #idpestadodelivery").val(json.idpestadodelivery);
+    
+    $("#form-detdelivery #idpestadodelivery").attr("disabled","disabled");
+    
+    if(!formEdit){
+    	$("#form-detdelivery *").attr("disabled",true);
+    	$("#form-detdelivery #idpestadodelivery").attr("disabled",false);
+    	$("#form-detdelivery #bntMntDetalleDelivery").attr("disabled",true);
+    }
+    
+    closeModalCargando();
+}
 function obtDescripcionParametro(lstValParam, codigoc, codigon){
 	
 	var descripcion;

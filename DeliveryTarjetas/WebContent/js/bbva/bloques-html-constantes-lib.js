@@ -1,2 +1,0 @@
-var BLOQ_TEXTO_AYUDA				= '<a class="ico_help fancybox" href="#{TEXTO-ID}"></a>';
-var REGULAR_ALERT 					= '<div id="alert" class="fancy_items_alert fancy_items"><h3 class="color_red centrar_texto">_TITLE_</h3><div class="borde"></div><p >_BODY_</p><div class="borde centrar_texto"></div><p class="centrar_texto">_FOOTER_</p></div>';

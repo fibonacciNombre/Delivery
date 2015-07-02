@@ -128,19 +128,6 @@
 	});
     
 	function actualizarUsuario(){
-
-		var $inputs = $('#form-mntusuario :input');
-
-		$inputs.each(function() {
-			if(this.id!=""){
-				if($("#form-mntusuario #"+ this.id).valid())
-					$(".result", $("#"+this.id).parent()).html("<i class='success'></i>");			
-				else
-					$(".result", $("#"+this.id).parent()).html("<i class='error'></i>");
-			}
-	    });
-
-		activarChecksValidate("form-mntusuario");
 		
 		if($("#form-mntusuario").valid()){
 			

@@ -19,6 +19,7 @@ import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,6 +33,7 @@ import bbva.delivery.tarjetas.commons.Constants;
 import bbva.delivery.tarjetas.comun.bean.TransaccionWeb;
 import bbva.delivery.tarjetas.comun.service.ComunService;
 import bbva.delivery.tarjetas.service.DeliveryService;
+import bbva.delivery.tarjetas.tercero.bean.Tercero;
 import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
 
@@ -41,6 +43,7 @@ import commons.web.UtilWeb;
 @AdviceController
 public class DeliveryController extends BaseController{
 
+	private static Logger logger = Logger.getLogger(DeliveryController.class.getName());
 		
 	@Autowired
 	private DeliveryService deliveryService;
@@ -71,20 +74,19 @@ public class DeliveryController extends BaseController{
 
 		System.out.println("goCargaDelivery	-->		mnt-carga-delivery.jsp");
 		return "delivery/mnt-delivery";
-
 	}
 	
 	public String golstDelivery(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		System.out.println("goCargaDelivery	-->		carga-delivery.jsp");
 		return "delivery/lst-delivery";
-
 	}
 	
 	public void mntDelivery(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-	 
+		logger.info("CONTROLLER mntDelivery");
+		
 		String result			= "";
 		HttpSession session 	= request.getSession();
 		TransaccionWeb tx		= new TransaccionWeb();				
@@ -110,12 +112,15 @@ public class DeliveryController extends BaseController{
 	public void obtFileLstEntregas(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
+		logger.info("CONTROLLER obtFileLstEntregas");
+		
 		String result		= "";
 		String temporal		= "";
-		Delivery delivery 	= null;		
+		
 		TransaccionWeb tx	= new TransaccionWeb();
 		Calendar cal 		= Calendar.getInstance();
-		delivery 			= new Delivery(request.getParameterMap());
+		Delivery delivery 	= new Delivery(request.getParameterMap());
+		Tercero tercero 	= new Tercero(request.getParameterMap());
 		
 		try {
 			temporal = "temp/"+
@@ -128,7 +133,7 @@ public class DeliveryController extends BaseController{
 			
 			System.out.println(delivery.getRutaexpotacion());
 			
-			deliveryService.exportarListaDelivery(delivery);
+			deliveryService.obtArchivoLstDelivery(delivery,tercero);
 			
  		} catch (Error e) {
  			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
@@ -147,53 +152,58 @@ public class DeliveryController extends BaseController{
 	public void lstDelivery(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
+		logger.info("CONTROLLER lstDelivery");
+		
 		String result				= "";
-		String lstcarga 			= "";
-		Delivery carga 				= null;
+		String lstdelivery 			= "";
 		List<Delivery> listaCarga 	= null;
 		TransaccionWeb tx			= new TransaccionWeb();
 		
-		carga = new Delivery(request.getParameterMap());
+		Delivery delivery 			= new Delivery(request.getParameterMap());
+		Tercero tercero 			= new Tercero(request.getParameterMap());
 
 		try {
-			listaCarga = deliveryService.lstDelivery(carga);
-			lstcarga = commons.web.UtilWeb.listaToArrayJson(listaCarga, null,Delivery.class.getName());
+			
+			listaCarga 		= deliveryService.lstDelivery(delivery, tercero);			
+			lstdelivery 	= commons.web.UtilWeb.listaToArrayJson(listaCarga, null,Delivery.class.getName());
+			
 		} catch (Error e) {
 			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
-			lstcarga = "{" + e.getMessage() + "}";
+			lstdelivery = "{" + e.getMessage() + "}";
 		}
 
 		result += "{"
 				+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
-				+ "\"lst\":" + lstcarga 
+				+ "\"lst\":" + lstdelivery 
 				+ "}";
 		
-		this.escribirTextoSalida(response, result);
-		 
+		this.escribirTextoSalida(response, result);		 
 	} 
 	
 	@SuppressWarnings("rawtypes")
 	public void uploadFile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		System.out.println("Into uploadFile method");
-		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-		JSONObject joRetorno = new JSONObject();
-		Archivo archivo = new Archivo();
-
-		HttpSession session 	= request.getSession();
- 		Usuario usuarioSes     = (Usuario)session.getAttribute(Constants.REQ_SESSION_USUARIO);
- 		archivo.setUsuario(usuarioSes.getCodusuario());
-
-		Integer idcourier = Integer.parseInt(request.getParameter("idcourier"));
-		String fecentrega=request.getParameter("fecentrega"); 
-		archivo.setIdcourier(idcourier); 
+		logger.info("CONTROLLER uploadFile");
 		
-		 DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		 Date dfechaentrega = null;
-		try {
+		Archivo archivo 		= new Archivo();
+		JSONObject joRetorno 	= new JSONObject();
+		HttpSession session 	= request.getSession();
+		boolean isMultipart 	= ServletFileUpload.isMultipartContent(request);
+		
+		String fecentrega		= request.getParameter("fecentrega");
+		Integer idcourier 		= Integer.parseInt(request.getParameter("idcourier"));
+
+ 		Usuario usuarioSes    	= (Usuario)session.getAttribute(Constants.REQ_SESSION_USUARIO);
+ 		
+ 		archivo.setIdcourier(idcourier);
+ 		archivo.setUsuario(usuarioSes.getCodusuario());
+		 
+		Date dfechaentrega 		= null;
+		DateFormat df			= new SimpleDateFormat("dd/MM/yyyy");
+		 
+		try {			
 			dfechaentrega = df.parse(fecentrega);
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -218,8 +228,6 @@ public class DeliveryController extends BaseController{
 					}
 				}
 				
-				
-
 				this.escribirTextoSalida(response, joRetorno.toString());
 				
 			} catch (FileUploadException e) {
@@ -229,5 +237,5 @@ public class DeliveryController extends BaseController{
 			}			
 		}
 	}
-		
+
 }

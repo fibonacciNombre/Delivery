@@ -9,21 +9,19 @@ import org.springframework.web.multipart.MultipartFile;
 
 import bbva.delivery.tarjetas.bean.Archivo;
 import bbva.delivery.tarjetas.bean.Delivery;  
+import bbva.delivery.tarjetas.tercero.bean.Tercero;
 
 public interface DeliveryService {
 
-	public void test();
- 
-	public List<Delivery> lstDelivery(Delivery param);
+	List<Delivery> lstDelivery(Delivery param, Tercero tercero);
 	 
-	 
-	public Integer valCourierDelivery(String dnicourier);
+	Integer valCourierDelivery(String dnicourier);
 	
-	public void mntDelivery(Delivery delivery);
+	void mntDelivery(Delivery delivery);
 	
-	public void mntArchivo(Archivo param);
+	void mntArchivo(Archivo param);
 	
-	public String exportarListaDelivery(Delivery delivery) throws IOException;
+	String obtArchivoLstDelivery(Delivery delivery, Tercero tercero) throws IOException;
 	
-	public JSONObject cargarExcelDelivery(MultipartFile multipartFile,Archivo archivo) throws FileNotFoundException;
+	JSONObject cargarExcelDelivery(MultipartFile multipartFile,Archivo archivo) throws FileNotFoundException;
 }

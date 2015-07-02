@@ -53,7 +53,7 @@
 	</form>
 	
 	<div id="container-lst-usuariosws" style="margin-top:20px; display: none;">
-		<table class="table table-hover table-bordered" id="table-lst-usuariosws">
+		<table class="table table-hover table-bordered" id="table-lstusuariosws">
 			<thead>
 				<tr>
 					<th class="text-center">Cod. Usuario</th>
@@ -96,8 +96,7 @@
 		
 		$("#container-lst-usuariosws").hide();
 		
-		$('#table-lst-usuariosws').dataTable().fnClearTable();
-		$('#table-lst-usuariosws').dataTable().fnDestroy();
+		cleanDatatable("table-lstmntdelivery");
 		
 		var param 	= new Object();
 		param 		= $("#form-bsqusuariows").serializeArray();
@@ -141,7 +140,7 @@
     
 	function cargarDataTablesUsuariosWS(lstusuarios){
 		
-		$("#table-lst-usuariosws").DataTable({
+		$("#table-lstusuariosws").DataTable({
 			"order"				:  [[ 0, "asc" ]],
 			"searching"	 		: true,
 			"paging"	 		: false,
@@ -175,7 +174,7 @@
   											"data" 		: "idperfil",
   											"visible"	: false},		                      				
 								],
-			"fnDrawCallback"	: function () { mostrarDatatable("#table-lst-usuariosws");}
+			"fnDrawCallback"	: function () { mostrarDatatable("#table-lstusuariosws");}
 		});
 	}
 	
