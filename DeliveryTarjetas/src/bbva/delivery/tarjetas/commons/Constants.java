@@ -33,7 +33,7 @@ public class Constants {
 
 	//Constantes INDICADORES DE ESTADOS
 	public static final Integer DELIVERY_IDPESTADO_ACTIVO				=  1;
-	public static final Integer DELIVERY_IDPESTADO_INACTIVO				=  2;
+	public static final Integer DELIVERY_IDPESTADO_INACTIVO				=  0;
 
 	public static final Integer DELIVERY_INDMNT_REGISTRAR				=  0;
 	public static final Integer DELIVERY_INDMNT_ACTUALIZAR				=  1;

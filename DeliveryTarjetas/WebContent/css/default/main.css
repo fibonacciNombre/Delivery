@@ -10768,52 +10768,6 @@ span.loading-animate:nth-child(5) {
   }
 }
 
-@media (min-width: 767px) {
-  .logo-escenario {
-    position: absolute;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    top: 0px;
-    margin: auto;
-    background-image: url("../../img/login/escenario.png");
-    background-position: center 450px;
-    background-repeat: no-repeat;
-    overflow: hidden;
-    z-index: -1;
-  }
-}
-
-@media (min-width: 767px) {
-  .color-bg-login-cielo {
-    background-color: #A7DFF8;
-    background-image: url("../../img/login/cielo.jpg");
-    background-position: center top;
-    background-repeat: no-repeat;
-  }
-}
-@media (max-width: 767px) {
-  .color-bg-login-cielo {
-    background: none;
-    background-color: #FFF;
-  }
-}
-
-@media (min-width: 767px) {
-  .color-bg-login-nubes {
-    background-color: #A7DFF8;
-    background-image: url("../../img/login/nubes.png");
-    background-position: center 206px;
-    background-repeat: no-repeat;
-  }
-}
-@media (max-width: 767px) {
-  .color-bg-login-nubes {
-    background: none;
-    background-color: #FFF;
-  }
-}
-/*CSS Agregado - XF - Fin -  23-04-2015 */
 
 .disclaimer-componentes{
 	margin-top: 10px; 
@@ -11067,13 +11021,14 @@ span.loading-animate:nth-child(5) {
 	background: transparent linear-gradient(to bottom, rgb(34, 187, 34) 0px, rgb(108, 166, 108) 100%) repeat scroll 0px 0px;
 }
 
-.btn-descargar :HOVER,
-.btn-descargar :ACTIVE {
+.btn-descargar:hover,
+.btn-descargar:active {
 	padding-top: 3px; 
 	padding-bottom: 3px; 
 	font-size: 11px; 
 	height: 30px; 
 	background: transparent linear-gradient(to bottom, rgb(34, 187, 34) 0px, rgb(108, 166, 108) 100%) repeat scroll 0px 0px;
+	border: 1px solid rgb(34, 187, 34);
 } 
 .icono-buscar{
 	background-position: -592px -1405px; 

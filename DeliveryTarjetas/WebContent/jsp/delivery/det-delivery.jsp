@@ -14,9 +14,9 @@
 			
 			<form id="form-cargar-entrega-tarjeta-edit">
 				
-				<input type="hidden" id="iddelivery" name="iddelivery" value=""/>			
+				<input type="hidden" id="iddelivery" name="iddelivery"/>			
 				
-				<div id="tabs-detalle-delivery">
+				<div id="tabs-detalle-delivery" style="border: 0px solid;">
 					<ul style="background: white; border:0px;">
 						<li class="tabs" style="display: inline-block; width: 24.5%; float: left;"><a href="#tabs-entrega">Entrega</a></li>
 						<li class="tabs" style="display: inline-block; width: 24.5%; float: left;"><a href="#tabs-cliente">Cliente</a></li>							
@@ -269,12 +269,12 @@
 						
 						<div class="column-formulario-carga">
 							<div class="form-group form-group-carga">
-					            <label for="fecentrega" class="col-md-5 control-label carga-content-maxim">Fecha de entrega </label>
+					            <label for="fecentregaarr" class="col-md-5 control-label carga-content-maxim">Fecha de entrega </label>
 					            <div class="col-md-7  carga-content-maxim">
 					                <div id="div-fecentregaarch" class="input-group">
-										<input type="text" readonly id="fecentregaarch" name="fecentregaarch" class="form-control calendario"> 
+										<input type="text" readonly id="fecentregaarch" name="fecentregaarch" class="form-control calendario2"> 
 										<span class="input-group-addon">
-											<a id="btnfecentregaarch" href="javascript:void(0)" class="btn-date calendario"> 
+											<a id="btnfecentregaarch" href="javascript:void(0)" class="btn-date calendario2"> 
 												<span class="glyphicon glyphicon-calendar"></span>
 											</a>
 										</span>
@@ -285,15 +285,12 @@
 						
 					</div>
 					
-					<div class="row">
+					<div class="row" style="margin-top:10px;">
 						<div class="col-md-12">
-							<div class="col-md-12">
-								 
-								<div id="divbutton">
-									<button type="button" class="btn btn-primary pull-right"
-										onclick="guardarDatosEditados();">Guardar</button>
-								</div>
-							</div>
+							<div id="divbutton">
+								<button type="button" class="btn btn-primary pull-right"
+									onclick="guardarDatosEditados();">Guardar</button>
+							</div>							
 						</div>
 					</div>
 					
@@ -310,23 +307,6 @@
 		if ($("#form-cargar-entrega-tarjeta-edit").valid()){
 		 
 	 		loadModalCargando();
-	 		
-
-	    	$("#fecentregaarch").datepicker({ 
-	    								beforeShow 	: function() {
-															setTimeout(function() {
-																$('.ui-datepicker').css({'z-index' : 9999, 'border' : '1px solid #ccc'});
-															}, 0);
-										},
-										onSelect 		: function(dateText, inst) {
-															$("#fecentregaarch").removeClass("error");
-										}
-						});
-						
-			$(".calendario").click(function() {
-										$("#fecentregaarch").datepicker("show");
-			});
-		
 			
 	 		$.ajax({
 				type 		: "POST",

@@ -98,20 +98,35 @@
     	loadModalCargando();
     	
     	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','cbocourier', ['idcourier','rznsocial'], {form: 'form-bsq-mntdelivery'});
-	
+    	
     	$("#fecentrega").datepicker({ 
-    								beforeShow 	: function() {
-														setTimeout(function() {
-															$('.ui-datepicker').css({'z-index' : 9999, 'border' : '1px solid #ccc'});
-														}, 0);
-									},
-									onSelect 		: function(dateText, inst) {
-														$("#fecentrega").removeClass("error");
-									}
-					});
+			beforeShow 	: function() {
+				setTimeout(function() {
+					$('.ui-datepicker').css({'z-index' : 9999, 'border' : '1px solid #ccc'});
+				}, 0);
+			},
+			onSelect : function(dateText, inst) {
+				$("#fecentrega").removeClass("error");
+			}
+		});
 					
 		$(".calendario").click(function() {
-									$("#fecentrega").datepicker("show");
+			$("#fecentrega").datepicker("show");
+		});
+		
+ 		$("#fecentregaarch").datepicker({ 
+			beforeShow 	: function() {
+				setTimeout(function() {
+					$('.ui-datepicker').css({'z-index' : 9999, 'border' : '1px solid #ccc'});
+				}, 0);
+			},
+			onSelect : function(dateText, inst) {
+			    $("#fecentregaarch").removeClass("error");
+			}
+		});
+					
+		$(".calendario2").click(function() {
+			$("#fecentregaarch").datepicker("show");
 		});
 		
 		if($("#form-datos-usuario #idcourier").val()!=null  && $("#form-datos-usuario #idcourier").val()!=""){
@@ -126,7 +141,6 @@
 	function bsqDelivery() {
 
 		$("#container-lst-mntdelivery").hide();
-		
 		$('#table-lst-mntdelivery').dataTable().fnClearTable();
 		$('#table-lst-mntdelivery').dataTable().fnDestroy();
 		
@@ -152,15 +166,21 @@
 			dataType 		: 'json',
 			contentType 	: "application/x-www-form-urlencoded; charset=UTF-8",
 			data 			: param,
-			success 		: function(data) {
+			success 		: function(rsp) {				
 									
-									$("#container-lst-mntdelivery").slideDown(1000);
+									var status 	= rsp.tx.statustx;
+									var message = rsp.messagetx;
 				
-									var jsonDelivery = eval(data);
+									closeModalCargando();
 									
-									createHtmlTable(jsonDelivery, "table-lst-mntdelivery");	
-									
-									closeModalCargando(); 
+									if(status == 0){													
+										if(rsp.lst!= undefined && rsp.lst.length > 0){											
+											createHtmlTable(rsp.lst, "table-lst-mntdelivery");
+											$("#container-lst-mntdelivery").slideDown(1000);
+										
+										}else
+											loadModalMensaje("Atención","No se encontraron resultados por la búsqueda realizada",null);
+									}
 			},
 			error 			: function(xhr, ajaxOptions, thrownError) {
 									closeModalCargando();
@@ -181,7 +201,7 @@
 
 		$.ajax({
 			type 			: "POST",
-			url 			: "/DeliveryTarjetas/delivery.do?method=exportarListaDelivery",
+			url 			: "/DeliveryTarjetas/delivery.do?method=obtFileLstEntregas",
 			cache 			: false,
 			async 			: false,
 			dataType 		: 'json',
@@ -196,8 +216,7 @@
 									console.log(rsp.archivo);
 									if(status==0){
 										console.log(rsp.archivo);
-										//window.open('DeliveryTarjetas' + rsp.archivo, 'NewWin');
-										window.open(rsp.archivo, 'NewWin');
+										window.open("../"+rsp.archivo, 'NewWin');
 										loadModalMensaje('Enhorabuena','Se ha exportado la lista a excel',function(){});	
 									}
 									 										 
@@ -264,8 +283,7 @@
 															"sWidth" 	: "5%",
 						                      				"class"		: "text-center",
 				                         	 				"mRender"  	: function (data, type, full) {
-					                         	 								return linkDetalleDelivery(full);  }}
-														
+					                         	 								return linkDetalleDelivery(full);  }}														
 													],
 									"fnDrawCallback" : function() {
 														var table = $(idDataTable).dataTable();
@@ -284,7 +302,7 @@
 		enlace = "<a data-toggle='modal' "
 					+ "data-target='#modalDetalleEntrega' "
 					+ "onclick='return rowSelected("+ JSON.stringify(JSON.stringify(full)) +");'>"
-					+ "<i class='i-detalle'></i>" 
+						+ "<i class='i-detalle'></i>" 
 				+ "</a>";
 
 		return enlace;
@@ -298,12 +316,17 @@
 		
 		$("#tabs-detalle-delivery").tabs();
 		
-		callCargaControlParam('DELWEB_ESTADO','form-cargar-entrega-tarjeta-edit #idpestado',false);
-		callCargaControlParam('DELWEB_ESTADODELIVERY','form-cargar-entrega-tarjeta-edit #idpestadodelivery',false);
-		callCargaControlParam('DELWEB_ESTADOCARGA','form-cargar-entrega-tarjeta-edit #idpestadocarga',false);
-		cargarComboArray('form-cargar-entrega-tarjeta-edit #indverificacion',[['S','SI'], ['N','NO']])
-		$("#form-cargar-entrega-tarjeta-edit #idpestadodelivery").attr("disabled","disabled");
+		cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form: 'form-cargar-entrega-tarjeta-edit'});
 		
+		callCargaControlParam('DELWEB_ESTADO','form-cargar-entrega-tarjeta-edit #idpestado',false);
+		
+		callCargaControlParam('DELWEB_ESTADODELIVERY','form-cargar-entrega-tarjeta-edit #idpestadodelivery',false);
+		
+		callCargaControlParam('DELWEB_ESTADOCARGA','form-cargar-entrega-tarjeta-edit #idpestadocarga',false);
+		
+		cargarComboArray('form-cargar-entrega-tarjeta-edit #indverificacion',[['S','SI'], ['N','NO']])
+		
+		/*
 		var paramCourier		= new Object();
 		paramCourier.idecourier	= json.idcourier;
 		
@@ -345,6 +368,7 @@
 							}
 			}
 		});
+		*/ 
 		
 		$("#form-cargar-entrega-tarjeta-edit #iddelivery").val(json.iddelivery);
         $("#form-cargar-entrega-tarjeta-edit #tipodocumento").val(json.tipodocumento);
@@ -373,6 +397,11 @@
         $("#form-cargar-entrega-tarjeta-edit #idpestadocarga").val(json.idpestadocarga);
         $("#form-cargar-entrega-tarjeta-edit #historial").val(json.historial);
         $("#form-cargar-entrega-tarjeta-edit #grupocarga").val(json.grupocarga);
+        $("#form-cargar-entrega-tarjeta-edit #idcourier").val(json.idcourier);
+        $("#form-cargar-entrega-tarjeta-edit #fecentregaarch").val(json.fecentregaarch);
+        $("#form-cargar-entrega-tarjeta-edit #idpestadodelivery").val(json.idpestadodelivery);
+        
+        $("#form-cargar-entrega-tarjeta-edit #idpestadodelivery").attr("disabled","disabled");
         
         closeModalCargando();
 	}

@@ -81,8 +81,6 @@ public class DeliveryController extends BaseController{
 
 	}
 	
-	 
-
 	public void mntDelivery(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
@@ -90,7 +88,7 @@ public class DeliveryController extends BaseController{
 		String result			= "";
 		HttpSession session 	= request.getSession();
 		TransaccionWeb tx		= new TransaccionWeb();				
-		Delivery delivery = new Delivery(request.getParameterMap());
+		Delivery delivery 		= new Delivery(request.getParameterMap());
 		 Usuario usuarioSes     = (Usuario)session.getAttribute(Constants.REQ_SESSION_USUARIO);
 		
 		delivery.setUsuario(usuarioSes.getCodusuario());
@@ -98,7 +96,7 @@ public class DeliveryController extends BaseController{
 		try {
 			
 			deliveryService.mntDelivery(delivery);			
-			tx.setMessagetx("Su transacción fue realizada con éxito");
+			tx.setMessagetx("Su transacciÃ³n fue realizada con Ã©xito");
 			
 		} catch (Error e) {
 			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
@@ -109,59 +107,68 @@ public class DeliveryController extends BaseController{
 		this.escribirTextoSalida(response, result);
 	}
 	
-	public void exportarListaDelivery(HttpServletRequest request,
+	public void obtFileLstEntregas(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
 		String result		= "";
-		String archivo		= "";
+		String temporal		= "";
 		Delivery delivery 	= null;		
 		TransaccionWeb tx	= new TransaccionWeb();
 		Calendar cal 		= Calendar.getInstance();
 		delivery 			= new Delivery(request.getParameterMap());
 		
 		try {
+			temporal = "temp/"+
+						"ListadoEntregas"+
+						cal.get(Calendar.DATE)+
+						(cal.get(Calendar.MONTH)+1)+
+						cal.get(Calendar.YEAR)+".xls";
 			
-			delivery.setRutaexpotacion(request.getServletContext().getRealPath("/") +
-																	"ListadoEntregas"+
-																	cal.get(Calendar.DATE)+
-																	(cal.get(Calendar.MONTH)+1)+
-																	cal.get(Calendar.YEAR)+".xls");
+			delivery.setRutaexpotacion(request.getSession().getServletContext().getRealPath("/")+ temporal);
 			
 			System.out.println(delivery.getRutaexpotacion());
-			archivo = deliveryService.exportarListaDelivery(delivery);
+			
+			deliveryService.exportarListaDelivery(delivery);
 			
  		} catch (Error e) {
  			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
  		}
 		
+		System.out.println(temporal);
+		
 		result += "{"
 				+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
-				+ "\"archivo\":\"" + archivo.replace("\\", "\\\\") + "\"" 
+				+ "\"archivo\":\"" + temporal.replace("\\", "\\\\") + "\"" 
 				+ "}";
 	
 		this.escribirTextoSalida(response,result);
 	}
-
 	
 	public void lstDelivery(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
-		List<Delivery> listaCarga = null;
-		String lstcarga = "";
-
-		Delivery carga = null;
- 
+		String result				= "";
+		String lstcarga 			= "";
+		Delivery carga 				= null;
+		List<Delivery> listaCarga 	= null;
+		TransaccionWeb tx			= new TransaccionWeb();
+		
 		carga = new Delivery(request.getParameterMap());
 
 		try {
 			listaCarga = deliveryService.lstDelivery(carga);
-			lstcarga = commons.web.UtilWeb.listaToArrayJson(listaCarga, null,
-					Delivery.class.getName());
+			lstcarga = commons.web.UtilWeb.listaToArrayJson(listaCarga, null,Delivery.class.getName());
 		} catch (Error e) {
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
 			lstcarga = "{" + e.getMessage() + "}";
 		}
 
-		this.escribirTextoSalida(response, lstcarga);
+		result += "{"
+				+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+				+ "\"lst\":" + lstcarga 
+				+ "}";
+		
+		this.escribirTextoSalida(response, result);
 		 
 	} 
 	
@@ -222,8 +229,5 @@ public class DeliveryController extends BaseController{
 			}			
 		}
 	}
-	
-
-	
-	
+		
 }
