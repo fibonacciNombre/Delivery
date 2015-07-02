@@ -203,13 +203,14 @@
 														data 		: paramUsr,		
 														success 	: function(rspUsr){
 
-																		var statustx	= rspUsr.tx.statustx;
-																		var messagetx	= rspUsr.tx.messagetx;
+																		var status		= rspUsr.tx.statustx;
+																		var message		= rspUsr.tx.messagetx;
 																		
-																		if(statustx == 0){
+																		if(status == 0){
 																			$("#form-mntusuario-ws #contrasena-visible").val(rspUsr.usuario.contrasena);
 																			$("#form-mntusuario-ws #contrasena-visible").addClass("resaltar-background");
-																		}
+																		}else
+																			loadModalMensaje("Atención",message,null);	
 														}
 													});
 													

@@ -71,7 +71,7 @@
 		</div>
 	</form>
 
-	<div id="container-lst-colaboradores-courier" style="margin-top: 20px; display: none;">
+	<div id="container-lst-colaboradorescourier" style="margin-top: 20px; display: none;">
 		<table class="table table-hover table-bordered"
 			id="table-lst-colaboradores">
 			<thead>
@@ -114,10 +114,12 @@
 
 	function bsqColaborador() {
 		
-		$("#container-lst-colaboradores-courier").hide();
+		$("#container-lst-colaboradorescourier").hide();
 		
-		$('#table-lst-colaboradores').dataTable().fnClearTable();
-		$('#table-lst-colaboradores').dataTable().fnDestroy();
+		$('#table-lstcolaboradores').dataTable().fnClearTable();
+		$('#table-lstcolaboradores').dataTable().fnDestroy();
+		
+		cleanDatatable("table-lstmntdelivery");
 		
 		loadModalCargando();
 
@@ -149,7 +151,7 @@
 													
 													if(status == 0){													
 														if(rsp.lst!= undefined && rsp.lst.length > 0){
-															$("#container-lst-colaboradores-courier").slideDown(1000);
+															$("#container-lst-colaboradorescourier").slideDown(1000);
 															cargarDataTablesColaboradores(rsp.lst);
 														}
 													}else
@@ -165,48 +167,46 @@
 
 	function cargarDataTablesColaboradores(lstTerceros) {
 
-		$("#table-lst-colaboradores").DataTable({
-												"order" 		: [ [ 0, "asc" ] ],
-												"searching" 	: true,
-												"paging" 		: true,
-												"bInfo" 		: true,
-												"bAutoWidth" 	: false,
-												"oLanguage" 	: {"sUrl" : "/DeliveryTarjetas/recursos/idioma/es_ES.txt"},
-												"data" 			: lstTerceros,
-												"columns" 		: [ {
-																		"orderable" : false,
-																		"data" 		: "",
-																		"sWidth" 	: "20%",
-																		"class"		: "tablet",
-																		"mRender"  	: function (data, type, full) {
-					                     	 												return obtDescripcionCourier(full.idcourier);}
-																	},{
-																		"data"		: "nrodocumento",
-																		"sWidth" 	: "15%",
-																		"class"		: "text-center"
-																	},{
-																		"orderable" : false,
-																		"data" 		: "nombres",
-																		"sWidth" 	: "40%",
-																		"class"		: "desktop",
-																		"mRender" 	: function(data, type, full) {
-																							return full.nombres + " " + full.apepaterno + " " + full.apematerno; }
-																	}, {
-																		"orderable" : false,
-																		"data" 		: "",
-																		"sWidth" 	: "15%",
-																		"class"		: "text-center",
-																		"mRender"  	: function (data, type, full) {
-				                         	 												return obtDescripcionParametro(CTE_INIT_PARAM_ESTADO, null, full.idpestado);}
-																	}, {
-																		"orderable" : false,
-																		"sWidth" 	: "10%",
-																		"mRender" 	: function(data, type, full) {
-																							return linkDetalleColaborador(full); } 
-																	}],
-												"fnDrawCallback" : function() {
-																		mostrarDatatable("#table-lst-colaboradores");
-												}
+		$("#table-lstcolaboradores").DataTable({
+			"order" 		: [ [ 0, "asc" ] ],
+			"searching" 	: true,
+			"paging" 		: true,
+			"bInfo" 		: true,
+			"bAutoWidth" 	: false,
+			"oLanguage" 	: {"sUrl" : "/DeliveryTarjetas/recursos/idioma/es_ES.txt"},
+			"data" 			: lstTerceros,
+			"columns" 		: [ {
+									"orderable" : false,
+									"data" 		: "",
+									"sWidth" 	: "20%",
+									"class"		: "tablet",
+									"mRender"  	: function (data, type, full) {
+                 	 												return obtDescripcionCourier(full.idcourier);}
+								},{
+									"data"		: "nrodocumento",
+									"sWidth" 	: "15%",
+									"class"		: "text-center"
+								},{
+									"orderable" : false,
+									"data" 		: "nombres",
+									"sWidth" 	: "40%",
+									"class"		: "desktop",
+									"mRender" 	: function(data, type, full) {
+														return full.nombres + " " + full.apepaterno + " " + full.apematerno; }
+								}, {
+									"orderable" : false,
+									"data" 		: "",
+									"sWidth" 	: "15%",
+									"class"		: "text-center",
+									"mRender"  	: function (data, type, full) {
+                    	 												return obtDescripcionParametro(CTE_INIT_PARAM_ESTADO, null, full.idpestado);}
+								}, {
+									"orderable" : false,
+									"sWidth" 	: "10%",
+									"mRender" 	: function(data, type, full) {
+														return linkDetalleColaborador(full); } 
+								}],
+			"fnDrawCallback" : function() {mostrarDatatable("#table-lstcolaboradores");}
 		});
 	}
 
@@ -250,45 +250,5 @@
 			$("#form-mntcolaborador #cbocourier").attr("disabled",true);
 		
 		closeModalCargando();
-	}
-	
-	function actualizarColaborador() { 
-		if ($("#form-mntcolaborador").valid()){
-		 
-     		loadModalCargando();
-     		
-     		$.ajax({
-				type 		: "POST",
-				url 		: "/DeliveryTarjetas/tercero.do?method=mntTercero",
-				cache 		: false,
-				dataType 	: "json",
-				contentType	: "application/x-www-form-urlencoded; charset=UTF-8",
-				async 		: false,
-				data 		: $("#form-mntcolaborador").serializeArray(),
-				success 	: function(rsp) {
-					
-									var status 	= rsp.tx.statustx;
-									var message = rsp.tx.messagetx;
-
-									closeModalCargando();
-									
-									if(status == 0)
-										loadModalMensaje("Enhorabuena",
-															message,
-															function(){
-																$("#modalEditarColaborador").modal('hide');
-																bsqColaborador();
-															});										
-
-									else
-										loadModalMensaje("Atención",message,null);
-				},
-				error 		: function(rsp, xhr, ajaxOptions, thrownError) {
-									closeModalCargando();
-									loadModalMensaje("Lo sentimos","Se presentaron problemas al registrar sus cambios. <br> Por favor intentelo en unos minutos.", null);
-				}
-			});
-     						 
-		}
 	}
 </script>
