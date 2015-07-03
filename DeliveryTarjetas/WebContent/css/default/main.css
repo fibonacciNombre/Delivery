@@ -47,7 +47,12 @@ body {
 }
 @media (max-width: 767px) {
   body {
-     width: 100%;
+     width: 95%;
+  }
+}
+@media (max-width: 370px) {
+  body {
+     width: 90%;
   }
 }
 article,
@@ -5423,7 +5428,7 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-g
   /*margin-bottom: 18px;*/
   background-color: white;
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: 10px;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
@@ -6745,6 +6750,17 @@ button.close {
     padding-left: 0px;
   }
 }
+.container-body {
+  position: relative;
+  min-height: 100%;
+  padding-bottom: 100px;
+  background-color: white;
+}
+@media (max-width: 991px) {
+  .container-body {
+    background: transparent;
+  }
+}
 /* fin mfarfanr - bbva */
 
 .container-invisible {
@@ -6752,12 +6768,7 @@ button.close {
   display: block;
 }
 
-.container-body {
-  position: relative;
-  min-height: 100%;
-  padding-bottom: 100px;
-  background-color: white;
-}
+
 
 /*components/_header */
 /* ini mfarfanr - bbva */
@@ -7062,7 +7073,7 @@ button.close {
   height: 80px;
   background-color: white;
   line-height: 20px;
-  color: #cdcdcd;
+  color: #727171;
   padding-top: 10px;
   position: absolute;
   bottom: 0px;
@@ -7480,7 +7491,7 @@ h3.modal-title {
 .login-text .title {
   text-align: center;
   margin: 35px auto 25px;
-  font-size: 16px;
+  font-size: 22px;
   color: #003f8c;
 }
 /* fin mfarfanr - bbva */
@@ -7498,13 +7509,13 @@ h3.modal-title {
 }
 @media (max-width: 480px) {
   .panel-container {
-    margin-top: 90px;
+    margin-top: 60px;
     margin-bottom: 10px;
   }
 }
-@media(min-width: 600px) and (max-width: 20000px) {
+@media(min-width: 991px) and (max-width: 20000px) {
   .panel-container {
-    margin-top: 100px;
+    margin-top: 150px;
   }
 }
 .panel-login {
@@ -8003,207 +8014,6 @@ ul.list-styled ul {
   max-width: 135px;
 }
 
-/*pages/_emergencias-siniestro.sass */
-.form-mis-seguros .btn {
-  margin-top: 4px;
-}
-
-.emergencias-siniestro .boton-siguiente {
-  padding-top: 0.25em;
-  padding-right: 4px;
-}
-.emergencias-siniestro .radio-siniestros {
-  padding-right: 10px;
-  font-size: 12px;
-  color: #333333;
-  font-weight: normal;
-}
-.emergencias-siniestro .preguntas-siniestro {
-  margin-bottom: 8px;
-  margin-top: -7px;
-}
-.emergencias-siniestro .preguntas-siniestro .control-label {
-  font-size: 13px;
-  color: #333333;
-  font-weight: normal;
-}
-.emergencias-siniestro .problema-siniestro {
-  margin-bottom: 0px;
-  line-height: 14px;
-}
-.emergencias-siniestro .problema-siniestro .radio-preguntas {
-  margin-bottom: 0px;
-  margin-top: 0px;
-}
-.emergencias-siniestro .problema-siniestro .radio-preguntas label {
-  padding-top: 0px;
-}
-.emergencias-siniestro .problema-siniestro .radio-preguntas input[type="radio"] {
-  margin-top: 0px;
-}
-.emergencias-siniestro .icon-container {
-  display: table;
-  height: 28px;
-  width: 40px;
-  padding-left: 5px;
-}
-.emergencias-siniestro .icon-container .icon-content {
-  display: table-cell;
-  vertical-align: middle;
-  overflow: hidden;
-}
-.emergencias-siniestro .icon-container .icon-content .i-calendar {
-  padding-left: 0px;
-}
-
-/* .emergencias-siniestro .form-horizontal .form-group:before, .form-horizontal .form-group:after {
-  content: " ";
-  display: list-item;
-} */
-
-/*pages/_emergencias-auxiliomecanico.sass */
-.emergencias-auxiliomecanico .boton-siguiente {
-  padding-top: 0.25em;
-  padding-right: 4px;
-}
-.emergencias-auxiliomecanico .radio-siniestros {
-  padding-right: 10px;
-  font-size: 12px;
-  color: #333333;
-}
-.emergencias-auxiliomecanico .preguntas-siniestro {
-  margin-bottom: -7px;
-  margin-top: -7px;
-}
-.emergencias-auxiliomecanico .preguntas-siniestro .control-label {
-  font-size: 12px;
-  color: #333333;
-  font-weight: normal;
-}
-.emergencias-auxiliomecanico .problema-siniestro {
-  margin-bottom: 0px;
-  line-height: 14px;
-}
-.emergencias-auxiliomecanico .problema-siniestro .radio-preguntas {
-  margin-bottom: 0px;
-  margin-top: 0px;
-}
-.emergencias-auxiliomecanico .problema-siniestro .radio-preguntas label {
-  padding-top: 0px;
-}
-.emergencias-auxiliomecanico .problema-siniestro .radio-preguntas input[type="radio"] {
-  margin-top: 0px;
-}
-.emergencias-auxiliomecanico .icon-container {
-  display: table;
-  height: 28px;
-  width: 40px;
-  padding-left: 5px;
-}
-.emergencias-auxiliomecanico .icon-container .icon-content {
-  display: table-cell;
-  vertical-align: middle;
-  overflow: hidden;
-}
-.emergencias-auxiliomecanico .icon-container .icon-content .i-calendar {
-  padding-left: 0px;
-}
-
-/*pages/_alertas.sass */
-.alertas .input-sm, .alertas .input-group-sm > .form-control,
-.alertas .input-group-sm > .input-group-addon,
-.alertas .input-group-sm > .input-group-btn > .btn {
-  padding: 5px 5px;
-  margin-right: 35px;
-}
-.alertas .vcenter {
-  vertical-align: middle;
-}
-
-/*pages/_talleres.sass */
-.form-mis-talleres .panel .panel-body {
-  padding: 10px;
-}
-.form-mis-talleres .panel .panel-body .radio {
-  margin-top: 0px;
-}
-.form-mis-talleres .scroll-content {
-  min-height: 100px;
-  max-height: 200px;
-  overflow-y: scroll;
-}
-
-.google-map-canvas {
-  height: 200px;
-  width: 100%;
-}
-
-/*pages/_reclamos.sass */
-.form-reclamos .descargar-check {
-  padding-top: 0px;
-  padding-bottom: 0px;
-  margin-bottom: 6px;
-  margin-top: 0px;
-}
-
-/*components/_panels.sass */
-.form-mi-perfil .panel-heading {
-  color: #777777;
-  font-weight: 600 !important;
-  font-size: 14px;
-}
-
-/*components/_buscador.sass */
-.container-buscador h1 {
-  border: 0px;
-  margin-top: 0px;
-  font-size: 19px;
-  font-weight: 600;
-}
-@media (max-width: 400px) {
-  .container-buscador {
-    margin-top: 20px;
-  }
-}
-
-.container-pregunta {
-  margin-top: 20px;
-}
-.elementos-buscador {
-  overflow: hidden;
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-.item-buscador,
-.item-buscador-alternativo {
-  float: left;
-  width: 25%;
-}
-@media (max-width: 320px) {
-  .item-buscador,
-  .item-buscador-alternativo {
-    width: 50% !important;
-  }
-}
-@media (min-width: 321px) and (max-width: 400px) {
-  .item-buscador,
-  .item-buscador-alternativo {
-    width: 50% !important;
-  }
-}
-@media (min-width: 401px) and (max-width: 480px) {
-  .item-buscador,
-  .item-buscador-alternativo {
-    width: 50% !important;
-  }
-}
-@media (min-width: 480px) and (max-width: 767px) {
-  .item-buscador,
-  .item-buscador-alternativo {
-    width: 50% !important;
-  }
-}
 .item-buscador:hover .btn-op-buscador, .item-buscador:focus .btn-op-buscador,
 .item-buscador-alternativo:hover .btn-op-buscador,
 .item-buscador-alternativo:focus .btn-op-buscador {
@@ -9150,52 +8960,6 @@ a.list-group-item label {
   margin-left: 10px;
   margin-right: 10px;
   margin-bottom: 15px;
-}
-
-/* Modificado 09-12-2014 */
-.panel-danger-rimac {
-  border-color: #dddddd;
-  position: relative;
-  overflow: hidden;
-}
-
-.panel-danger-rimac > .panel-heading {
-  /* Modificado 09-12-2014 */
-  border-top: 2px solid #e6281e;
-  font-weight: 600;
-  position: relative;
-  z-index: 2;
-}
-.panel-danger-rimac .panel-body {
-  padding-left: 0px;
-  padding-right: 0px;
-  height: 190px;
-  /*overflow-y: scroll;*/
-  position: relative;
-}
-.panel-danger-rimac .panel-body .info-pendientes {
-  position: absolute;
-  top: 0px;
-  left: 20px;
-  bottom: 0px;
-  margin-top: auto;
-  margin-bottom: auto;
-  max-height: 20px;
-}
-.panel-danger-rimac img.img-brother {
-  /* Modificado 09-12-2014 */
-  position: absolute;
-  top: 0px;
-  z-index: 1;
-}
-@media (max-width: 767px) {
-  .panel-danger-rimac img.img-brother {
-    top: 45px;
-    right: 0px;
-    left: 0px;
-    margin: auto;
-    max-width: 100%
-  }
 }
 
 .list-group-pago {
@@ -10785,153 +10549,6 @@ span.loading-animate:nth-child(5) {
 	}
 }
 
-.content-recaptcha{
-	display: block; 
-	border: 1px solid #e5e5e5; 
-	width: 100%; 
-	text-align: center; 
-	margin: auto; 
-	padding: 20px;
-}
-
-.img-recaptcha{
-	display: inline-block;
-	border: 1px solid #e5e5e5; 
-	min-width: 350px;
-	vertical-align: top; 	
-}
-
-.botonera-recaptcha{
-	width: 50px; 
-	display: inline-block;
-	text-align: center;
-}
-
-.logo-recaptcha{
-	width: 14%; 
-	display: inline-block; 
-	vertical-align: top; 
-	padding-top: 10px;
-}
-
-.input-recaptcha{
-	min-width: 350px;
-}
-
-.input-recaptcha-field{
-	min-width: 350px;
-}
-
-@media (max-width: 768px){
-  .img-recaptcha {
-    display: inline-block;
-    width: 100% !important;
-    min-width: 100%;
-    margin-bottom: 0;
-    vertical-align: middle;
-    text-align: center;
-    
-  }
-  
-  .botonera-recaptcha{
-  	display: inline-block;
-  	width: auto !important;	
-	margin-top: 15px !important;
-	margin-right: 8px !important;
-  }
-  
-  .logo-recaptcha{
-	display: inline-table;
-	vertical-align: ""; 
-	padding-top: "";
-  }
-  
-  .input-recaptcha{
-	min-width: 60%;
-	width: 60%;
-	display: inline-block !important;
-  }
-  
-  .input-recaptcha-field{
-	min-width: 100%;
-	width: 100%;
-	display: inline-block !important;
-  }
-}
-
-.container-opciones-avehicular{
-	background-color: rgb(249, 254, 255); 
-	max-width: 250px;
-	min-width: 250px;  
-	display: inline-block; 
-	padding: 10px;
-	margin:5px;
-}
-
-.botonera-form-avehicular{
-	text-align: right; 
-	margin-bottom: 10px; 
-	padding-right: 0px; 
-	margin-top: 10px;
-}
-
-.vineta-mis-seguros-eps {
-  border-left: 10px solid #DF198F;
-  padding-left: 10px;
-}
-.vineta-mis-seguros-salud {
-  border-left: 10px solid #ffc600;
-  padding-left: 10px;
-}
-.vineta-mis-seguros-vida {
-  border-left: 10px solid #40c6ac;
-  padding-left: 10px;
-}
-.vineta-mis-seguros-vehicular {
-  border-left: 10px solid #ff7635;
-  padding-left: 10px;
-}
-.vineta-mis-seguros-domiciliario {
-  border-left: 10px solid #84bd00;
-  padding-left: 10px;
-}
-.vineta-mis-seguros-otros {
-  border-left: 10px solid #981d97;
-  padding-left: 10px;
-}
-
-.list-reclamos-responsive dl{
-	margin:0;	
-}
-
-.list-reclamos-responsive dt label{
-	color: gray;	
-}
-
-.form-group-reclamo{
-	min-height: 60px;
-}
-
-.form-group-reclamo label{
-	vertical-align: top;
-}
-
-.column-formulario-reclamo{
-	width: 49%; 
-	vertical-align: top; 
-	display: inline-block;
-}
-
-.reclamos-content-maxim{
-	width: 100%;
-}
-
-@media (max-width: 550px) {
-	.column-formulario-reclamo{
-		width: 100%; 
-	}
-}
-
 /* ini mfarfanr bbva */
 .color-bar {
     background-color: #9dd7f6;
@@ -11048,47 +10665,77 @@ span.loading-animate:nth-child(5) {
 	vertical-align: top; 
 	transform: scale(0.6);"
 }
+.login-column-left{
+	background:linear-gradient(to left, #ffffff 0px, #0079c1 100%);
+	height: 100%; 
+	padding: 0px;
+}
+.login-column-right{
+	background: white;
+	padding: 0px; 
+	height: 100%;
+}
+.login-logo{
+	display: none;
+}
+.escala-logo{
+	transform: scale(0.8);
+}
+@media (max-width: 991px) {
+	.login-column-left{
+		display: none;
+	}
+	.login-column-right{
+		background:linear-gradient(to bottom, #0079c1 0px, #ffffff 100%);
+	}		
+	.login-logo{
+		display: block;
+		text-align: center;
+	}	
+	.panel {
+  		background-color: transparent;
+  	}
+  	.escala-logo{
+		transform: scale(0.8);
+		padding-top: 20px;
+	}
+}
+@media (max-width: 370px) {
+	.escala-logo{
+		transform: scale(0.7);
+		padding-top: 20px;
+	}
+}
 /* fin mfarfanr - bbva */
-
 .vineta-title {
   border-left: 10px solid #22bb22;
   padding-left: 10px;
 }
-
 .vineta-avatar {
  	border-left: 10px solid rgb(245, 0, 95);
  	padding-left: 20px;
 }
-
-
 .column-formulario-carga{
 	width: 49%; 
 	vertical-align: top; 
 	display: inline-block;
 }
-
 .column-formulario-carga{
 	width: 49%; 
 	vertical-align: top; 
 	display: inline-block;
 }
-
 .form-group-carga{
 	min-height: 60px;
 }
-
 .carga-content-maxim{
 	width: 100%;
 }
-
-
-/*********Web Responsive***********/
 @media (max-width: 550px) {
 	.column-formulario-carga{
 		width: 100%; 
 	}
 }
-
 .row-alerta{
 	color: #FF6666; 
 }

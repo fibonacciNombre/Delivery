@@ -12,7 +12,7 @@
 
 	<body class="">
 	
-		<%@include file="/html-commons/login-principal.jsp"%>
+		<%@include file="/html-commons/login-principal2.jsp"%>
 	
 		<script>
 	
