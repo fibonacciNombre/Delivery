@@ -172,7 +172,7 @@
 			window.open("../"+pathFile, 'NewWin');
 		}
 	}
-	
+
 	function cargarTablaLstDelivery(dataList) {
 
 		$("#table-lstmntdelivery").DataTable({ 

@@ -116,28 +116,22 @@ public class DeliveryController extends BaseController{
 		
 		String result		= "";
 		String temporal		= "";
-		
 		TransaccionWeb tx	= new TransaccionWeb();
 		Calendar cal 		= Calendar.getInstance();
 		Delivery delivery 	= new Delivery(request.getParameterMap());
 		Tercero tercero 	= new Tercero(request.getParameterMap());
 		
-		try {
-			temporal = "temp/"+
-						"ListadoEntregas"+
-						cal.get(Calendar.DATE)+
-						(cal.get(Calendar.MONTH)+1)+
-						cal.get(Calendar.YEAR)+".xls";
-			
-			delivery.setRutaexpotacion(request.getSession().getServletContext().getRealPath("/")+ temporal);
-			
-			System.out.println(delivery.getRutaexpotacion());
-			
-			deliveryService.obtArchivoLstDelivery(delivery,tercero);
-			
- 		} catch (Error e) {
- 			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
- 		}
+		temporal = "temp/"+
+					"ListadoEntregas"+
+					cal.get(Calendar.DATE)+
+					(cal.get(Calendar.MONTH)+1)+
+					cal.get(Calendar.YEAR)+".xls";
+		
+		delivery.setRutaexpotacion(request.getSession().getServletContext().getRealPath("/")+ temporal);
+		
+		System.out.println(delivery.getRutaexpotacion());
+		
+		deliveryService.obtArchivoLstDelivery(delivery,tercero);
 		
 		System.out.println(temporal);
 		
@@ -237,5 +231,4 @@ public class DeliveryController extends BaseController{
 			}			
 		}
 	}
-
 }

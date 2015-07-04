@@ -107,11 +107,11 @@
 		<table id="table-lstdelivery" class="table table-hover table-bordered table-inter text-center">
 		 	<thead>
 				<tr> 
-	 				<th class="text-center">N° Tarjeta</th>
-					<th class="text-center">DNI Cliente</th>
-				 	<th class="text-center">Nombre Cliente</th>
-				 	<th class="text-center">Responsable</th>
-					<th class="text-center">Fecha Entrega</th>  
+	 				<th class="text-center">Fecha Entrega</th>  
+	 				<th class="text-center">DNI Cliente</th>
+				 	<th class="text-center">Nombre cliente</th>
+				 	<th class="text-center">Lugar de entrega</th>
+				 	<th class="text-center">Observaciones</th>					
 					<th class="text-center">Detalle</th>
 				</tr>
 			</thead>
@@ -147,6 +147,8 @@
     		$("#form-bsqlstdelivery #idcourier").val($("#form-datos-usuario #idcourier").val());    		
     		$("#form-bsqlstdelivery #cbocourier").attr("disabled",true);
     	}
+		
+		$("#bntDetalleDelivery-div").remove();
 		
 		closeModalCargando();
     });	
@@ -209,26 +211,26 @@
 			"bAutoWidth" 	: true,
 			"oLanguage"  	: {"sUrl": "/DeliveryTarjetas/recursos/idioma/es_ES.txt"},
 			"columns" 		: [ 
-								{ "data" 		: "ultdigtarjeta",
-									"orderable"	: false,
-									"sWidth" 	: "15%" },
-								{ "data" 		: "nrodocumentocli",
-									"orderable"	: false,
-									"sWidth" 	: "10%" },
-								{ "data" 		: "nombrescli",
-									"orderable"	: false,
-									"sWidth" 	: "30%" },
-									{ "data" 		: "responsable",
-									"sWidth" 	: "30%",
-									"orderable"	: false }, 
 								{ "data" 		: "fecentrega",
 									"orderable"	: false,
-									"sWidth" 	: "10%" }, 															
+									"sWidth" 	: "12%" },
+								{ "data" 		: "nrodocumentocli",
+									"orderable"	: false,
+									"sWidth" 	: "12%" },
+								{ "data" 		: "nombrescli",
+									"orderable"	: false,
+									"sWidth" 	: "30%" },																
+								{ "data" 		: "lugarentrega",
+									"sWidth" 	: "20%",
+									"orderable"	: false }, 
+								{ "data" 		: "lugarentrega",
+									"orderable"	: false,
+									"sWidth" 	: "15%" }, 															
                      				{ "data"      	: "",
 									"orderable"	: false,
-									"sWidth" 	: "5%",
+									"sWidth" 	: "10%",
                       				"class"		: "text-center",
-                       	 				"mRender"  	: function (data, type, full) {
+                       	 			"mRender"  	: function (data, type, full) {
                         	 								return linkDetalleDelivery(full,false);  }}														
 							],
 			"fnDrawCallback" 	: function() {mostrarDatatable("#table-lstdelivery");},
