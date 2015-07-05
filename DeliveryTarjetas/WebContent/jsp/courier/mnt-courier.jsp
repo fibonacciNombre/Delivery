@@ -62,7 +62,7 @@
 	<div id="container-lst-courier"
 		style="margin-top: 20px; display: none;">
 		<table class="table table-hover table-bordered"
-			id="table-lst-couriers">
+			id="table-lstcouriers">
 			<thead>
 				<tr>
 					<th class="text-center">Cod. Bbva</th>
@@ -96,14 +96,13 @@
 	function bsqCourier() {
 
 		$("#container-lst-courier").hide();
-
-		$('#table-lst-couriers').dataTable().fnClearTable();
-		$('#table-lst-couriers').dataTable().fnDestroy();
-
-		var param 	= new Object();
-		param 		= $("#form-bsqcourier").serializeArray();
+		
+		cleanDatatable("table-lstcouriers");
 
 		loadModalCargando();
+		
+		var param 	= new Object();
+		param 		= $("#form-bsqcourier").serializeArray();
 
 		setTimeout(
 				function() {
@@ -146,50 +145,48 @@
 
 	function cargarDataTablesCouries(lstCouriers) {
 
-		$("#table-lst-couriers").DataTable({
-									"order" 		: [ [ 0, "asc" ] ],
-									"searching" 	: true,
-									"paging" 		: true,
-									"bInfo" 		: true,
-									"bAutoWidth" 	: false,
-									"oLanguage" 	: { "sUrl" : "/DeliveryTarjetas/recursos/idioma/es_ES.txt" },
-									"data" 			: lstCouriers,
-									"columns" 		: [ { "data" 		: "codbbva",
-															"sWidth" 	: "15%",
-															"class" 	: "text-center"
-														}, {
-															"orderable"	: false,
-															"sWidth" 	: "35%",
-															"class"		: "tablet",
-															"data" 		: "rznsocial"
-														}, {
-															"orderable"	: false,
-															"data" 		: "telfmovil",
-															"sWidth"	: "15%",
-															"class"		: "desktop"
-														}, {
-															"orderable"	: false,
-															"data"		: "correo",
-															"sWidth"	: "15%",
-															"class"		: "desktop"
-														}, {
-															"orderable"	: false,
-															"data"		: "",
-															"sWidth"	: "15%",
-															"class"		: "text-center",
-															"mRender"  	: function (data, type, full) {
-		                         	 											return obtDescripcionParametro(CTE_INIT_PARAM_ESTADO, null, full.idpestado);} 
-														}, {
-															"orderable"	: false,
-															"data" 		: "",
-															"sWidth"	: "10%",
-															"mRender" 	: function(data, type, full) {
-																				return linkDetalleCourier(data, full);
-															}
-														} ],
-									"fnDrawCallback" : function() {
-										mostrarDatatable("#table-lst-couriers");
+		$("#table-lstcouriers").DataTable({
+			"order" 		: [ [ 0, "asc" ] ],
+			"searching" 	: true,
+			"paging" 		: true,
+			"bInfo" 		: true,
+			"bAutoWidth" 	: false,
+			"oLanguage" 	: { "sUrl" : "/DeliveryTarjetas/recursos/idioma/es_ES.txt" },
+			"data" 			: lstCouriers,
+			"columns" 		: [ { "data" 		: "codbbva",
+									"sWidth" 	: "15%",
+									"class" 	: "text-center"
+								}, {
+									"orderable"	: false,
+									"sWidth" 	: "35%",
+									"class"		: "tablet",
+									"data" 		: "rznsocial"
+								}, {
+									"orderable"	: false,
+									"data" 		: "telfmovil",
+									"sWidth"	: "15%",
+									"class"		: "desktop"
+								}, {
+									"orderable"	: false,
+									"data"		: "correo",
+									"sWidth"	: "15%",
+									"class"		: "desktop"
+								}, {
+									"orderable"	: false,
+									"data"		: "",
+									"sWidth"	: "15%",
+									"class"		: "text-center",
+									"mRender"  	: function (data, type, full) {
+                     	 											return obtDescripcionParametro(CTE_INIT_PARAM_ESTADO, null, full.idpestado);} 
+								}, {
+									"orderable"	: false,
+									"data" 		: "",
+									"sWidth"	: "10%",
+									"mRender" 	: function(data, type, full) {
+														return linkDetalleCourier(data, full);
 									}
+								} ],
+			"fnDrawCallback" : function() {mostrarDatatable("#table-lstcouriers");}
 		});
 	}
 
@@ -226,49 +223,5 @@
 		$("#form-mntcourier #observacion").val(json.observacion);
 		
 		closeModalCargando();
-	}
-
-	function actualizarCourier() {
-		if ($("#form-mntcourier").valid()) {
-
-			loadModalCargando();
-
-			$
-					.ajax({
-						type : "POST",
-						url : "/DeliveryTarjetas/courier.do?method=mntCourier",
-						cache : false,
-						dataType : "json",
-						contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-						async : false,
-						data : $("#form-mntcourier").serializeArray(),
-						success : function(rsp) {
-
-							var status = rsp.tx.statustx;
-							var message = rsp.tx.messagetx;
-
-							closeModalCargando();
-
-							if (status == 0)
-								loadModalMensaje("Enhorabuena", message,
-										function() {
-											$("#modalEditarCourier").modal(
-													'hide');
-											bsqCourier();
-										});
-
-							else
-								loadModalMensaje("Atención", message, null);
-						},
-						error : function(rsp, xhr, ajaxOptions, thrownError) {
-							closeModalCargando();
-							loadModalMensaje(
-									"Lo sentimos",
-									"Se presentaron problemas al registrar sus cambios. <br> Por favor intentelo en unos minutos.",
-									null);
-						}
-					});
-
-		}		
 	}
 </script>

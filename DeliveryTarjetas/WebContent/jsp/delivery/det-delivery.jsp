@@ -12,11 +12,11 @@
 				<h3 class="modal-title">Editar datos de entrega de tarjeta</h3>
 			</div>
 			
-			<form id="form-cargar-entrega-tarjeta-edit">
+			<form id="form-detdelivery">
 				
-				<input type="hidden" id="iddelivery" name="iddelivery" value=""/>			
+				<input type="hidden" id="iddelivery" name="iddelivery"/>			
 				
-				<div id="tabs-detalle-delivery">
+				<div id="tabs-detalle-delivery" style="border: 0px solid;">
 					<ul style="background: white; border:0px;">
 						<li class="tabs" style="display: inline-block; width: 24.5%; float: left;"><a href="#tabs-entrega">Entrega</a></li>
 						<li class="tabs" style="display: inline-block; width: 24.5%; float: left;"><a href="#tabs-cliente">Cliente</a></li>							
@@ -285,15 +285,16 @@
 						
 					</div>
 					
-					<div class="row">
+					<div class="row" style="margin-top:10px;" id="bntDetalleDelivery-div">
 						<div class="col-md-12">
-							<div class="col-md-12">
-								 
-								<div id="divbutton">
-									<button type="button" class="btn btn-primary pull-right"
-										onclick="guardarDatosEditados();">Guardar</button>
-								</div>
-							</div>
+							<div id="divbutton">
+								<button id="bntDetalleDelivery" 
+										type="button" 
+										class="btn btn-primary pull-right"
+										onclick="guardarDatosEditados();">
+									Guardar
+								</button>
+							</div>							
 						</div>
 					</div>
 					
@@ -307,12 +308,12 @@
 
 <script>
 	function guardarDatosEditados() { 
-		if ($("#form-cargar-entrega-tarjeta-edit").valid()){
+		if ($("#form-detdelivery").valid()){
 		 
 	 		loadModalCargando();
-
-		
-			
+	 		
+	 		$("#form-detdelivery *").attr("disabled",false);
+	 		
 	 		$.ajax({
 				type 		: "POST",
 				url 		: "/DeliveryTarjetas/delivery.do?method=mntDelivery",
@@ -320,7 +321,7 @@
 				dataType 	: "json",
 				contentType	: "application/x-www-form-urlencoded; charset=UTF-8",
 				async 		: false,
-				data 		: $("#form-cargar-entrega-tarjeta-edit").serializeArray(),
+				data 		: $("#form-detdelivery").serializeArray(),
 				success 	: function(rsp) {
 					
 									var status 	= rsp.tx.statustx;
@@ -345,10 +346,6 @@
 				}
 			});
 	 						 
-		} else {
-			$.each($('input[type=text], select ,textarea', '#form-cargar-entrega-tarjeta-edit'),function(k){
-			   validateItems("form-cargar-entrega-tarjeta-edit", this);
-			});
 		} 
 	}
 </script>

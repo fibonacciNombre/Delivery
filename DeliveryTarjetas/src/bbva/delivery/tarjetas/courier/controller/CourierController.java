@@ -77,7 +77,7 @@ public class CourierController extends BaseController {
 	public void lstCourier(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		logger.info("Controller lstCourier");
+		logger.info("CONTROLLER lstCourier");
 		
 		String result				= "";
 		String lstcourier 			= "";

@@ -1,3 +1,4 @@
+
 package bbva.delivery.tarjetas.service.imp;
 
 import java.io.FileNotFoundException;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
  
+
 import bbva.delivery.tarjetas.bean.Archivo;
 import bbva.delivery.tarjetas.bean.Delivery;
 import bbva.delivery.tarjetas.commons.Constants;
@@ -55,7 +57,7 @@ public class DeliveryServiceImp implements DeliveryService {
 		// TODO Auto-generated method stub
 		System.out.println("service ok");
 		
-		portalWebDao.test();
+		//portalWebDao.test();
 	}
 		
 	/** Retorna el valor de la celda indicada en la fila **/
@@ -148,13 +150,13 @@ public class DeliveryServiceImp implements DeliveryService {
 		
 		if(numberOfColumns != numberOfParams){
 			resultado = 1;
-			mensaje = "El número de columnas no coincide con el configurado.";
+			mensaje = "El nï¿½mero de columnas no coincide con el configurado.";
 		} else {
 			/** Validar que los campos ingresados estan en el orden correcto **/
 			for (int i = 0; i < lstParametro.size(); i++) {
 				if(!lstParametro.get(i).getAbreviatura().equals(getCellValue(firstRow, i))){
 					resultado = 1;
-					mensaje = "La columna " + i + ": " + getCellValue(firstRow, i) + ", no está en el orden configurado.";
+					mensaje = "La columna " + i + ": " + getCellValue(firstRow, i) + ", no estï¿½ en el orden configurado.";
 				} 
 			}	
 		}
@@ -185,7 +187,7 @@ public class DeliveryServiceImp implements DeliveryService {
 			   latitudofi, longitudofi, correocli, ordenentrega, dnitrabajador;
 		
 		Delivery carga = new Delivery();
-		/** Se obtiene la extensión del archivo **/
+		/** Se obtiene la extensiï¿½n del archivo **/
 		String extArchivo = FilenameUtils.getExtension(archivo.getFilename());
 		
 		/** Verificamos si es una de las extensiones permitidas **/
@@ -314,12 +316,12 @@ public class DeliveryServiceImp implements DeliveryService {
 							
 							if (indverificacion == null) {
 								resultado = Constants.DELIVERY_CARGA_WARNING ;
-								mensaje += getFormatMensaje(" - Indicador de verificación no enviado.");	
+								mensaje += getFormatMensaje(" - Indicador de verificaciï¿½n no enviado.");	
 							}
 							
 							if (direccioncli == null) {
 								resultado = Constants.DELIVERY_CARGA_WARNING ;
-								mensaje += getFormatMensaje(" - Dirección del cliente no enviado.");
+								mensaje += getFormatMensaje(" - Direcciï¿½n del cliente no enviado.");
 							}
 							
 							if (latitudofi == null) {
@@ -404,7 +406,7 @@ public class DeliveryServiceImp implements DeliveryService {
 								terceroService.mntTercero(tercero);
 								idtercero = tercero.getIdtercero();
 							
-								mensaje += getFormatMensaje("DNI del trabajador no enviado, se ha creado el colaborador con código: " + idtercero + "." );
+								mensaje += getFormatMensaje("DNI del trabajador no enviado, se ha creado el colaborador con cï¿½digo: " + idtercero + "." );
 							}
 							
 							if(resultado == Constants.DELIVERY_CARGA_WARNING ){
@@ -503,10 +505,10 @@ public class DeliveryServiceImp implements DeliveryService {
 		lugarHeader.setCellValue("Lugar de Entrega");
 		
 		Cell indverificacionHeader = headerRow.createCell(10);
-		indverificacionHeader.setCellValue("Indica Verificación");
+		indverificacionHeader.setCellValue("Indica Verificaciï¿½n");
 		
 		Cell direccionHeader = headerRow.createCell(11);
-		direccionHeader.setCellValue("Dirección");
+		direccionHeader.setCellValue("Direcciï¿½n");
 		
 		Cell latitudHeader = headerRow.createCell(12);
 		latitudHeader.setCellValue("Latitud");
@@ -594,4 +596,135 @@ public class DeliveryServiceImp implements DeliveryService {
 		return delivery.getRutaexpotacion();
 	}
 
+
+	@Override
+	public String obtArchivoLstDelivery(Delivery delivery) throws IOException{
+		
+		
+		Workbook wb 		= new HSSFWorkbook();
+		
+		Sheet personSheet 	= wb.createSheet("Datos de Delivery");
+		Row headerRow 		= personSheet.createRow(0);
+		
+		Cell tipodocumentoHeader = headerRow.createCell(0);
+		tipodocumentoHeader.setCellValue("Tipo de Documento");
+		
+		Cell nrodocHeader = headerRow.createCell(1);
+		nrodocHeader.setCellValue("Nro Documento");
+		
+		Cell nombreHeader = headerRow.createCell(2);
+		nombreHeader.setCellValue("Nombre Cliente");
+		
+		Cell primHeader = headerRow.createCell(3);
+		primHeader.setCellValue("Primeros 4 digitos");
+		
+		Cell ultHeader = headerRow.createCell(4);
+		ultHeader.setCellValue("Ultimos 4 digitos");
+		
+		Cell nrocontratoHeader = headerRow.createCell(5);
+		nrocontratoHeader.setCellValue("Nro Contrato");
+		
+		Cell montoHeader = headerRow.createCell(6);
+		montoHeader.setCellValue("Monto Linea");
+		
+		Cell fechaentregaHeader = headerRow.createCell(7);
+		fechaentregaHeader.setCellValue("Fecha de entrega");
+		
+		Cell horaentregaHeader = headerRow.createCell(8);
+		horaentregaHeader.setCellValue("Hora de entrega");
+		
+		Cell lugarHeader = headerRow.createCell(9);
+		lugarHeader.setCellValue("Lugar de Entrega");
+		
+		Cell indverificacionHeader = headerRow.createCell(10);
+		indverificacionHeader.setCellValue("Indica VerificaciÃ³n");
+		
+		Cell direccionHeader = headerRow.createCell(11);
+		direccionHeader.setCellValue("DirecciÃ³n");
+		
+		Cell latitudHeader = headerRow.createCell(12);
+		latitudHeader.setCellValue("Latitud");
+		
+		Cell longitudHeader = headerRow.createCell(13);
+		longitudHeader.setCellValue("Longitud");
+		
+		Cell correoHeader = headerRow.createCell(14);
+		correoHeader.setCellValue("Correo Cliente");
+		
+		Cell ordenHeader = headerRow.createCell(15);
+		ordenHeader.setCellValue("Orden de Entrega");
+		
+		Cell dnitrabajadorHeader = headerRow.createCell(16);
+		dnitrabajadorHeader.setCellValue("DNI Trabajador");
+		
+		List<Delivery> lstDelivery = lstDelivery(delivery);
+		
+		int row = 1;
+		
+		for(Delivery d: lstDelivery){
+			Row dataRow = personSheet.createRow(row);
+ 
+		    Cell tipodocumento  = dataRow.createCell(0);
+		    tipodocumento.setCellValue(d.getTipodocumento());
+
+		    Cell nrodocumentocli = dataRow.createCell(1);
+		    nrodocumentocli.setCellValue(d.getNrodocumentocli());
+		    
+		    Cell nombrescli = dataRow.createCell(2);
+		    nombrescli.setCellValue(d.getNombrescli());
+		    
+		    Cell pridigtarjeta = dataRow.createCell(3);
+		    pridigtarjeta.setCellValue(d.getPridigtarjeta());
+		    
+		    Cell ultdigtarjeta = dataRow.createCell(4); 
+		    ultdigtarjeta.setCellValue(d.getUltdigtarjeta());
+		    
+		    Cell nrocontrato = dataRow.createCell(5); 
+		    nrocontrato.setCellValue(d.getNrocontrato());
+		    
+		    Cell mtoasoctarjeta = dataRow.createCell(6);
+		    mtoasoctarjeta.setCellValue(""+d.getMtoasoctarjeta());
+		    
+		    Cell fecentrega = dataRow.createCell(7);
+		    fecentrega.setCellValue(d.getFecentrega());
+		    
+		    Cell horaentrega = dataRow.createCell(8);
+		    horaentrega.setCellValue(d.getHoraentrega());
+		    
+		    Cell lugarentrega = dataRow.createCell(9);
+		    lugarentrega.setCellValue(d.getLugarentrega());
+		    
+		    Cell indverificacion = dataRow.createCell(10);
+		    indverificacion.setCellValue(d.getIndverificacion());
+		    
+		    Cell direccioncli = dataRow.createCell(11); 
+		    direccioncli.setCellValue(d.getDireccioncli());
+		    
+		    Cell latitudofi = dataRow.createCell(12);
+		    latitudofi.setCellValue("" + d.getLatitudofi());
+		    
+		    Cell longitudofi = dataRow.createCell(13); 
+		    longitudofi.setCellValue("" + d.getLongitudofi());
+		    
+		    Cell correocli = dataRow.createCell(14);
+		    correocli.setCellValue(d.getCorreocli());
+		    
+		    Cell ordenentrega = dataRow.createCell(15);
+		    ordenentrega.setCellValue(d.getOrdenentrega());
+		    
+		    Cell dnitrabajador = dataRow.createCell(16);
+		    dnitrabajador.setCellValue(d.getDnitrabajador());
+		
+		    row = row + 1;
+		}
+
+		FileOutputStream fileOut = new FileOutputStream(delivery.getRutaexpotacion());
+		wb.write(fileOut);
+		fileOut.close();
+		
+		return delivery.getRutaexpotacion();
+	}
+
+
 }
+

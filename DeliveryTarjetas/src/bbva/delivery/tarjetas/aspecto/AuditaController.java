@@ -1,7 +1,5 @@
 package bbva.delivery.tarjetas.aspecto;
 
-import java.io.Reader;
-import java.io.StringReader;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +13,12 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import bbva.delivery.tarjetas.commons.Constants;
+import bbva.delivery.tarjetas.comun.bean.TransaccionWeb;
 import bbva.delivery.tarjetas.util.CommonsHelper;
+
 import commons.framework.BaseController;
+import commons.web.UtilWeb;
 
 @Aspect
 public class AuditaController {
@@ -68,40 +70,56 @@ public class AuditaController {
 			
 			System.out.println("response	--> "	+ joinPoint.getArgs()[1]);
 			
-			metodoEjecutado = controller.getClass().getName() + "." +
-					request.getParameter("method");
+			metodoEjecutado = controller.getClass().getName() + "." + request.getParameter("method");
 			
 			result = joinPoint.proceed();
 			
-			logger.info(CommonsHelper.tiempoEjecucion(metodoEjecutado,
-					tiempoInicio));
+			logger.info(CommonsHelper.tiempoEjecucion(metodoEjecutado,tiempoInicio));
 			
 		} catch(Throwable t) {
+			
+			TransaccionWeb tx = new TransaccionWeb();
+			
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+			
 			System.out.println(CommonsHelper.getErrorMessage(t));
-			String jsonCommonsHelper = CommonsHelper.getErrorMessage(t).replaceAll("\r", "").replaceAll("\n", "-").replaceAll("'", "\"").replaceAll("\t", " ");
+			
+			String jsonCommonsHelper 	= CommonsHelper.getErrorMessage(t).
+														replaceAll("\r", "").
+														replaceAll("\n", "-").
+														replaceAll("\"", "").
+														replaceAll("'", "\"").
+														replaceAll("\t", " ");
 
-			Reader targetReader = new StringReader(jsonCommonsHelper.substring(1, jsonCommonsHelper.length()-1));
+			System.out.println(jsonCommonsHelper);
+			
 			JSONObject jsonObject;
 			
 			try {
-				jsonObject = (JSONObject)new JSONParser().parse(targetReader);
-
-				mensajeError = "[{" +
-								"\"estado\"  :\"error\","+
-								"\"origen\"  :\"DeliveryTarjetas\"," +
-								"\"codigo\"  :\""+metodoEjecutado+"\"," +
-								"\"mensaje\" :\""+jsonObject.get("log")+"\"" +
-								"}]";
+				jsonObject = (JSONObject)new JSONParser().parse(jsonCommonsHelper);
+				
+				tx.setOrigen("DeliveryTarjetas");
+				tx.setOperacion(metodoEjecutado);
+				tx.setMessagetx(jsonObject.get("msg").toString());
+				tx.setTrace(jsonObject.get("log").toString());
+				
+				mensajeError = "{"
+									+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) 
+								+ "}";
+				
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 			
 			System.out.println("ERROR AuditaController");
 			System.out.println(mensajeError);
+			
 			logger.debug(mensajeError);
 
 			controller.escribirTextoSalida(response, mensajeError);
+			
 			logger.error("Error ejecutar-> " + metodoEjecutado + " : " + t);
+			
 			t.printStackTrace();
 		}
 		

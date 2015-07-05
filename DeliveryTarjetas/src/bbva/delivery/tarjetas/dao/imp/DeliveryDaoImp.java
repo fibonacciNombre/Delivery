@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 import oracle.jdbc.OracleTypes;
 
+import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
@@ -19,21 +20,20 @@ import bbva.delivery.tarjetas.bean.Delivery;
 import bbva.delivery.tarjetas.commons.ConstantsProperties;
 import bbva.delivery.tarjetas.comun.dao.imp.JdbcDaoBase;
 import bbva.delivery.tarjetas.dao.DeliveryDao;
+import bbva.delivery.tarjetas.service.imp.DeliveryServiceImp;
+import bbva.delivery.tarjetas.tercero.bean.Tercero;
 
 @Repository("portalWebDao")
 public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 	
-	private static final ResourceBundle resources = ResourceBundle
-			.getBundle("configuracion");
+	private static Logger logger = Logger.getLogger(DeliveryServiceImp.class.getName());
 	
-	public void test() {
-		// TODO Auto-generated method stub
-		System.out.println("dao ok");
-
-	}	
+	private static final ResourceBundle resources = ResourceBundle.getBundle("configuracion");
 	
 	@Override
 	public void mntDelivery(Delivery param) { 
+		
+		logger.info("DAO mntDelivery");
 		
 		SimpleJdbcCall call = null;
 		MapSqlParameterSource in = null;
@@ -45,7 +45,6 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY), 
 				resources.getString(ConstantsProperties.PQ_DEL_COURIER), 
 				"sp_mnt_delivery");
-		
 		
 		  JdbcHelper.setInOutParameter(call, in, "a_iddelivery"      , 	Types.NUMERIC, param.getIddelivery());  
 	      JdbcHelper.setInParameter(call, in, "a_tipodocumento" , 	Types.VARCHAR, param.getTipodocumento());  	  
@@ -76,18 +75,18 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 	      JdbcHelper.setInParameter(call, in, "a_grupocarga"        , 	Types.INTEGER, param.getGrupocarga()); 
 	      JdbcHelper.setInParameter(call, in, "a_usuario"        , 	Types.VARCHAR, param.getUsuario()); 
 	          
-	      
 		out = call.execute(in);
 		
 		iddelivery = JdbcHelper.getOutResult(out, "a_iddelivery", BigDecimal.class);
 		param.setIddelivery(iddelivery); 
-
 	}
 	 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Delivery> lstDelivery(Delivery param) {
-		  
+		 
+		logger.info("DAO lstDelivery");
+		
 		List<Delivery> lista = null; 
 		MapSqlParameterSource in = null;
 
@@ -99,8 +98,7 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
 				resources.getString(ConstantsProperties.PQ_DEL_COURIER),
 				"sp_lst_delivery");
- 
-		
+
 		JdbcHelper.setInParameter(call, in, "a_fecentrega", 	 OracleTypes.DATE, 	  param.getFechaentregaarh());
 		JdbcHelper.setInParameter(call, in, "a_idcourier", 		 OracleTypes.INTEGER, param.getIdcourier());
 		JdbcHelper.setInParameter(call, in, "a_nrodocumentocli", OracleTypes.VARCHAR, param.getNrodocumentocli());
@@ -108,17 +106,17 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 		JdbcHelper.setInParameter(call, in, "a_tipodocumento",OracleTypes.VARCHAR, param.getTipodocumento());
 		JdbcHelper.setInParameter(call, in, "a_nrodocumento", 	 OracleTypes.VARCHAR, param.getDnitrabajador());
 		JdbcHelper.setOutParameter(call, 	"a_cursor", 		 OracleTypes.CURSOR,  Delivery.class);
-		
 
 		out = call.execute(in);
 		lista = (List<Delivery>) out.get("a_cursor");
-		 
 		 
 		return lista;
 	}
 	
 	@Override
 	public BigDecimal crearGrupoCargaDelivery() { 
+		
+		logger.info("DAO crearGrupoCargaDelivery");
 		
 		SimpleJdbcCall call = null;
 		MapSqlParameterSource in = null;
@@ -132,19 +130,19 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 				"sp_crear_grupocarga");
 		
 		JdbcHelper.setInOutParameter(call, in, "a_grupocarga", 	Types.NUMERIC, grupocarga); 
-	 
-		
+	 	
 		out = call.execute(in);
 		
 		grupocarga = JdbcHelper.getOutResult(out, "a_grupocarga", BigDecimal.class);
+		
 		return grupocarga;
-
 	}
-	
-	
 	
 	@Override
 	public Integer valCourierDelivery(String dnicourier) {
+		
+		logger.info("DAO valCourierDelivery");
+		
 		SimpleJdbcCall call = null;
 		MapSqlParameterSource in = null;
 		Map<String, Object> out = null; 
@@ -158,17 +156,17 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 		
 		JdbcHelper.setInParameter(call, in, "a_nrodoccou_xls", 	Types.VARCHAR, dnicourier); 
 		JdbcHelper.setInOutParameter(call, in, "a_valor", 	Types.INTEGER, dnicourier); 
-		 
 		
 		out = call.execute(in);
 		
 		valor = JdbcHelper.getOutResult(out, "a_nrodoccou_xls", Integer.class);
 		return valor;
-
 	} 
 	 	
 	@Override
 	public void mntArchivo(Archivo param) { 
+		
+		logger.info("DAO mntArchivo");
 		
 		SimpleJdbcCall call = null;
 		MapSqlParameterSource in = null;
@@ -182,22 +180,14 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 				"sp_mnt_archivo");
 		
 		  JdbcHelper.setInOutParameter(call, in, "a_idarchivo"      , 	Types.INTEGER, param.getIdarchivo());  	  
-	      JdbcHelper.setInParameter(call, in, "a_idtipoarchivo" , 	Types.INTEGER, param.getIdtipoarchivo()); 	  
-	      JdbcHelper.setInParameter(call, in, "a_fecentrega"      , 	Types.DATE, param.getFecentrega()); 
-	      JdbcHelper.setInParameter(call, in, "a_idcourier"     , 	Types.INTEGER, param.getIdcourier());  
-	      JdbcHelper.setInParameter(call, in, "a_usuario"     , 	Types.VARCHAR, param.getUsuario());  
+		  JdbcHelper.setInParameter(call, in, "a_idtipoarchivo" , 	Types.INTEGER, param.getIdtipoarchivo()); 	  
+		  JdbcHelper.setInParameter(call, in, "a_fecentrega"      , 	Types.DATE, param.getFecentrega()); 
+		  JdbcHelper.setInParameter(call, in, "a_idcourier"     , 	Types.INTEGER, param.getIdcourier());  
+		  JdbcHelper.setInParameter(call, in, "a_usuario"     , 	Types.VARCHAR, param.getUsuario());  
 
-		
 		out = call.execute(in);
 		
 		idarchivo = JdbcHelper.getOutResult(out, "a_idarchivo", Integer.class);
 		param.setIdarchivo(idarchivo); 
-
 	}
-	 
-	 
-
-	
-	
 }
-
