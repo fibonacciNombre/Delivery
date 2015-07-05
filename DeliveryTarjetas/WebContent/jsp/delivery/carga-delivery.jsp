@@ -154,7 +154,7 @@
 																			"Se ha completado la carga de entregas.",
 																			function(){$("#view-carga-entrega").click();});		
 													} else if(jsonRpta.resultado == 2){
-														loadModalMensaje("Alerta!", jsonRpta.mensaje, null)
+														loadModalMensaje("Alerta!", "Se ha completado la carga de entregas." + jsonRpta.mensaje, null)
 													} else{
 														loadModalMensaje("Error!", jsonRpta.mensaje, null);
 													}

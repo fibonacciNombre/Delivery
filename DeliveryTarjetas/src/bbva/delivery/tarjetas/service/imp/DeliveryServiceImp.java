@@ -23,9 +23,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
+ 
 import bbva.delivery.tarjetas.bean.Archivo;
 import bbva.delivery.tarjetas.bean.Delivery;
+import bbva.delivery.tarjetas.commons.Constants;
+import bbva.delivery.tarjetas.comun.bean.Parametro;
+import bbva.delivery.tarjetas.comun.service.ComunService;
 import bbva.delivery.tarjetas.courier.service.CourierService;
 import bbva.delivery.tarjetas.dao.DeliveryDao;
 import bbva.delivery.tarjetas.service.DeliveryService;
@@ -41,6 +44,9 @@ public class DeliveryServiceImp implements DeliveryService {
 
 	@Autowired
 	private TerceroService terceroService;
+	
+	@Autowired
+	private ComunService comunService;
 	
 	@Autowired
 	private CourierService courierService;
@@ -106,7 +112,63 @@ public class DeliveryServiceImp implements DeliveryService {
 	public void mntArchivo(Archivo param){
 		portalWebDao.mntArchivo(param);
 	}
+
+	public Workbook instanciarExcel(MultipartFile multipartFile, Archivo archivo) throws IOException {
+		InputStream fileInput = null;
+		Workbook wb = null;
+
+		fileInput = multipartFile.getInputStream();
+		/** Se instancia si es xls o xlsx **/
+		if (archivo.getFilename().toLowerCase().endsWith("xlsx")) {
+			wb = new XSSFWorkbook(fileInput);
+
+		} else if (archivo.getFilename().toLowerCase().endsWith("xls")) {
+			wb = new HSSFWorkbook(fileInput);
+		}
+
+		return wb;
+	}
 	
+	@SuppressWarnings("unchecked")
+	public JSONObject validarParametrosExcel(Row firstRow){
+		JSONObject jo = new JSONObject();
+		Integer resultado = 0;
+		String mensaje = "";
+		
+		Parametro param = new Parametro();
+		param.setIdparametrotipo("DELWEB_XLSDELIVERY");
+		List<Parametro> lstParametro;
+		lstParametro = comunService.lstParametro(param);
+		
+		/** Cargar la primera hoja **/
+		Integer numberOfColumns = firstRow.getPhysicalNumberOfCells();
+		
+		/** Cantidad de filas de la hoja **/
+		Integer numberOfParams = lstParametro.size(); 
+		
+		if(numberOfColumns != numberOfParams){
+			resultado = 1;
+			mensaje = "El número de columnas no coincide con el configurado.";
+		} else {
+			/** Validar que los campos ingresados estan en el orden correcto **/
+			for (int i = 0; i < lstParametro.size(); i++) {
+				if(!lstParametro.get(i).getAbreviatura().equals(getCellValue(firstRow, i))){
+					resultado = 1;
+					mensaje = "La columna " + i + ": " + getCellValue(firstRow, i) + ", no está en el orden configurado.";
+				} 
+			}	
+		}
+
+		jo.put("resultado", resultado);
+		jo.put("mensaje", mensaje);
+		
+		return jo;
+	}
+
+	public String getFormatMensaje(String msj){
+		
+		return "<tr><td>" + msj + "</td></tr>";
+	}
 	
 	@SuppressWarnings("unchecked")
 	public JSONObject cargarExcelDelivery(MultipartFile multipartFile, Archivo archivo) throws FileNotFoundException{
@@ -115,204 +177,185 @@ public class DeliveryServiceImp implements DeliveryService {
 		Integer resultado = 0;
 		String mensaje = "";  
 
-		String mensajeRegistro = "";  
+		String mensajeRegistro = "<center><table>";  
 		BigDecimal idtercero = null;
+ 
+		String nrodocumentocli, tipodocumento, nombrescli, tipotarjeta, pridigtarjeta, ultdigtarjeta, nrocontrato, distritocli,     
+			   mtoasoctarjeta, fecentrega, horaentrega, lugarentrega, indverificacion, direccioncli, telfmovilcli,
+			   latitudofi, longitudofi, correocli, ordenentrega, dnitrabajador;
 		
 		Delivery carga = new Delivery();
-		String ext = FilenameUtils.getExtension(archivo.getFilename());
+		/** Se obtiene la extensión del archivo **/
+		String extArchivo = FilenameUtils.getExtension(archivo.getFilename());
 		
-		Integer tipoarchivo = courierService.obtTipoarchXExt(ext);
-		
-		
-		if(tipoarchivo != null){
+		/** Verificamos si es una de las extensiones permitidas **/
+		Integer extPermitida = 0;
+		for (String extItem : Constants.EXT_EXCEL) {
+		    if (extItem.equals(extArchivo)) {
+		    	extPermitida = 1;
+		        break;
+		    }
+		}
+
+		/** Si es permitida**/
+		if(extPermitida == 1){
 			
-			//Integer idcourier = courierService.obtCourierXCodbbva(archivo.getCodcourier());
-			
-			//if(idcourier != null) {
+			/** Instanciamos el workbook **/
+			Workbook wb;
+			try {
+				wb = instanciarExcel(multipartFile, archivo);
 				
-				//FileInputStream fileInput = null;
-				InputStream fileInput = null;
-				Workbook wb = null;
+				/** Generamos el correlativo de carga **/
+				BigDecimal idgrupoCarga = crearGrupoCargaDelivery();
+				
+				
+				/** Registramos el archivo **/
 				try {
-					//fileInput = new FileInputStream(archivo.getFilename());
-					fileInput = multipartFile.getInputStream();
-					/** Se instancia si es xls o xlsx **/
-					if (archivo.getFilename().toLowerCase().endsWith("xlsx")) {
-						try {
-							wb = new XSSFWorkbook(fileInput);
-						} catch (Exception e) {
-							resultado = 1;
-							mensaje = "Error al levantar el archivo excel";
-						}
-
-					} else if (archivo.getFilename().toLowerCase().endsWith("xls")) {
-						try {
-							wb = new HSSFWorkbook(fileInput);
-						} catch (Exception e) { 
-							resultado = 1;
-							mensaje = "Error al levantar el archivo excel";
-						} 
-					}
-					
-					BigDecimal idgrupoCarga = crearGrupoCargaDelivery();
-					
-					archivo.setIdtipoarchivo(tipoarchivo);
 					mntArchivo(archivo);
-					
-					// Integer existeCourier;
-					String  nrodocumentocli, 
-							tipodocumento, 
-							nombrescli, 
-							pridigtarjeta, 
-							ultdigtarjeta, 
-							nrocontrato, 
-							mtoasoctarjeta, 
-							fecentrega, 
-							horaentrega, 
-							lugarentrega, 
-							indverificacion, 
-							direccioncli, 
-							latitudofi, 
-							longitudofi, 
-							correocli, 
-							ordenentrega, 
-							dnitrabajador;
-					
-					/** Recorrer las hojas del excel **/
-					for (int k = 0; k < wb.getNumberOfSheets(); k++) {
-						Sheet sheet = wb.getSheetAt(k);
+					 
+					/** Cargamos la primera hoja **/
+					Sheet sheet = wb.getSheetAt(Constants.NROHOJAEXCEL);
 
-						/** Cantidad de filas de la hoja **/
-						int rows = sheet.getPhysicalNumberOfRows();
+					/** Cantidad de filas de la hoja **/
+					int rows = sheet.getPhysicalNumberOfRows();
+						 
+					/** Validamos el excel **/
+					joRetorno = validarParametrosExcel(sheet.getRow(0));
+					resultado = (Integer) joRetorno.get("resultado");
+					mensaje =  (String) joRetorno.get("mensaje");
+					
+					if(resultado == 0){
+						
+						/**Seteamos los datos generales **/
+						carga.setGrupocarga(idgrupoCarga);
+						carga.setUsuario(archivo.getUsuario());
+						carga.setIdpestado(Constants.DELIVERY_IDPESTADO_ACTIVO);
 
-						/** Recorremos las filas **/
+						carga.setIdpestadodelivery(Constants.DELIVERY_PENDIENTE);
+						carga.setIdarchivo(archivo.getIdarchivo());
+						
+						/** Recorremos las filas sin contar el header **/
 						for (int r = 1; r < rows; r++) {
 							Row row = sheet.getRow(r);
 							if (row == null) {
 								continue;
 							}
-							 
-							carga.setIddelivery(null);
-							carga.setGrupocarga(idgrupoCarga);
-							carga.setUsuario(archivo.getUsuario());
-							carga.setIdpestado(1);
-
-							carga.setIdpestadodelivery(10);
-							carga.setIdpestadocarga(1);
-							carga.setIdarchivo(archivo.getIdarchivo());
 							
-							 
-							tipodocumento = getCellValue(row, 0);
+							tipodocumento 	= getCellValue(row, 0);
 							nrodocumentocli = getCellValue(row, 1);
-							nombrescli = getCellValue(row, 2); 
-							pridigtarjeta = getCellValue(row, 4); 
-							ultdigtarjeta = getCellValue(row, 5);
-							nrocontrato = getCellValue(row, 6);
-							mtoasoctarjeta =  getCellValue(row, 7 );
-							fecentrega = getCellValue(row, 8); 
-							horaentrega = getCellValue(row, 9); 
-							lugarentrega= getCellValue(row, 10); 
+							nombrescli 		= getCellValue(row, 2);
+							tipotarjeta		= getCellValue(row, 3);
+							pridigtarjeta 	= getCellValue(row, 4); 
+							ultdigtarjeta 	= getCellValue(row, 5);
+							nrocontrato 	= getCellValue(row, 6);
+							mtoasoctarjeta 	= getCellValue(row, 7);
+							fecentrega 		= getCellValue(row, 8); 
+							horaentrega 	= getCellValue(row, 9); 
+							lugarentrega	= getCellValue(row, 10); 
 							indverificacion = getCellValue(row, 11);
-							direccioncli = getCellValue(row, 12); 
-							latitudofi = getCellValue(row, 14); 
-							longitudofi = getCellValue(row, 15); 
-							correocli = getCellValue(row, 16); 
-							ordenentrega = getCellValue(row, 18); 
-							dnitrabajador = getCellValue(row, 20);
+							direccioncli 	= getCellValue(row, 12); 
+							distritocli		= getCellValue(row, 13); 
+							latitudofi 		= getCellValue(row, 14); 
+							longitudofi 	= getCellValue(row, 15); 
+							correocli 		= getCellValue(row, 16); 
+							telfmovilcli    = getCellValue(row, 17); 
+							ordenentrega 	= getCellValue(row, 18); 
+							dnitrabajador 	= getCellValue(row, 19);
 							
-						if (tipodocumento == null) {
-							resultado = 2;
-							mensaje += "Tipo de documento no enviado, ";
-
-						}
-						if (nrodocumentocli == null) {
-							resultado = 2;
-							mensaje += "Nro de documento no enviado, ";
-
-						}
-						if (nombrescli == null) {
-							resultado = 2;
-							mensaje += "Nombre del cliente no enviado, ";
-						}
-						if (pridigtarjeta == null) {
-							resultado = 2;
-							mensaje += "Primeros 4 digitos de tarjeta no enviado, ";
-
-						}
-						if (ultdigtarjeta == null) {
-							resultado = 2;
-							mensaje += "Ultimos 4 digitos de tarjeta no enviado, ";
-
-						}
-						if (nrocontrato == null) {
-							resultado = 2;
-							mensaje += "Nro de contrato no enviado, ";
-
-						}
-						if (mtoasoctarjeta == null) {
-							resultado = 2;
-							mensaje += "Monto de linea no enviado, ";
-
-						}
-						if (fecentrega == null) {
-							resultado = 2;
-							mensaje += "Fecha de entrega no enviado, ";
-
-						}
-						if (horaentrega == null) {
-							resultado = 2;
-							mensaje += "Hora de entrega no enviado, ";
-						}
-
-						if (lugarentrega == null) {
-							resultado = 2;
-							mensaje += "Lugar de entrega no enviado, ";
-
-						}
-						if (indverificacion == null) {
-							resultado = 2;
-							mensaje += "Indicador de verificación no enviado, ";
-
-						}
-						if (direccioncli == null) {
-							resultado = 2;
-							mensaje += "Dirección del cliente no enviado, ";
-
-						}
-						if (latitudofi == null) {
-							resultado = 2;
-							mensaje += "Latitud no enviado, ";
-						}
-
-						if (longitudofi == null) {
-							resultado = 2;
-							mensaje += "Longitud no enviado, ";
-
-						}
-						if (correocli == null) {
-							resultado = 2;
-							mensaje += "Correo del cliente no enviado, ";
-
-						}
-						if (ordenentrega == null) {
-							resultado = 2;
-							mensaje += "Orden de entrega no enviado, ";
-
-						}
-						if (dnitrabajador == null) {
-							resultado = 2;
-							mensaje += "DNI del trabajador no enviado, ";
-
-						}
+							if (tipodocumento == null) {
+								resultado = Constants.DELIVERY_CARGA_WARNING  ;
+								mensaje += getFormatMensaje(" - Tipo de documento no enviado.");
+							}
+							
+							if (nrodocumentocli == null) {
+								resultado = Constants.DELIVERY_CARGA_WARNING  ;
+								mensaje += getFormatMensaje(" - Nro de documento no enviado.");
+							}
+							
+							if (nombrescli == null) {
+								resultado = Constants.DELIVERY_CARGA_WARNING ;
+								mensaje += getFormatMensaje(" - Nombre del cliente no enviado.");
+							}
+							
+							if (pridigtarjeta == null) {
+								resultado = Constants.DELIVERY_CARGA_WARNING ;
+								mensaje += getFormatMensaje(" - Primeros 4 digitos de tarjeta no enviado.");
+							}
+							
+							if (ultdigtarjeta == null) {
+								resultado = Constants.DELIVERY_CARGA_WARNING ;
+								mensaje += getFormatMensaje(" - Ultimos 4 digitos de tarjeta no enviado.");
+							}
+							
+							if (nrocontrato == null) {
+								resultado = Constants.DELIVERY_CARGA_WARNING ;
+								mensaje += getFormatMensaje(" - Nro de contrato no enviado.");
+							}
+							
+							if (mtoasoctarjeta == null) {
+								resultado = Constants.DELIVERY_CARGA_WARNING ;
+								mensaje += getFormatMensaje(" - Monto de linea no enviado.");
+							}
+							
+							if (fecentrega == null) {
+								resultado = Constants.DELIVERY_CARGA_WARNING ;
+								mensaje += getFormatMensaje(" - Fecha de entrega no enviado.");
+							}
+							
+							if (horaentrega == null) {
+								resultado = Constants.DELIVERY_CARGA_WARNING ;
+								mensaje += getFormatMensaje(" - Hora de entrega no enviado.");
+							}
+						
+							if (lugarentrega == null) {
+								resultado = Constants.DELIVERY_CARGA_WARNING ;
+								mensaje += getFormatMensaje(" - Lugar de entrega no enviado.");
+							}
+							
+							if (indverificacion == null) {
+								resultado = Constants.DELIVERY_CARGA_WARNING ;
+								mensaje += getFormatMensaje(" - Indicador de verificación no enviado.");	
+							}
+							
+							if (direccioncli == null) {
+								resultado = Constants.DELIVERY_CARGA_WARNING ;
+								mensaje += getFormatMensaje(" - Dirección del cliente no enviado.");
+							}
+							
+							if (latitudofi == null) {
+								resultado = Constants.DELIVERY_CARGA_WARNING ;
+								mensaje += getFormatMensaje(" - Latitud no enviado.");
+							}
+						
+							if (longitudofi == null) {
+								resultado = Constants.DELIVERY_CARGA_WARNING ;
+								mensaje += getFormatMensaje(" - Longitud no enviado.");
+							}
+							
+							if (correocli == null) {
+								resultado = Constants.DELIVERY_CARGA_WARNING ;
+								mensaje += getFormatMensaje(" - Correo del cliente no enviado.");	
+							}
+							
+							if (ordenentrega == null) {
+								resultado = Constants.DELIVERY_CARGA_WARNING ;
+								mensaje += getFormatMensaje(" - Orden de entrega no enviado.");
+							}
+							
+							if (dnitrabajador == null) {
+								resultado = Constants.DELIVERY_CARGA_WARNING ;
+							}
+							
+							carga.setIddelivery(null);
 								
-							
 							carga.setTipodocumento(tipodocumento);
 							carga.setNrodocumentocli(nrodocumentocli);
 							carga.setNombrescli(nombrescli);
-							carga.setTipotarjeta(getCellValue(row, 3));
+							carga.setTipotarjeta(tipotarjeta);
 							carga.setPridigtarjeta(pridigtarjeta);
 							carga.setUltdigtarjeta(ultdigtarjeta);
 							carga.setNrocontrato(nrocontrato);
+							
 							try {
 								carga.setMtoasoctarjeta(new BigDecimal(mtoasoctarjeta));
 							} catch (Exception e) {
@@ -321,13 +364,11 @@ public class DeliveryServiceImp implements DeliveryService {
 							
 							carga.setFecentrega(fecentrega);
 							carga.setHoraentrega(horaentrega);
-						 
-							 
 							carga.setLugarentrega(lugarentrega);
 
 							carga.setIndverificacion(indverificacion);
 							carga.setDireccioncli(direccioncli);
-							carga.setDistritocli(getCellValue(row, 13));
+							carga.setDistritocli(distritocli);
 							
 							try {
 								carga.setLatitudofi(new BigDecimal(latitudofi));
@@ -342,83 +383,83 @@ public class DeliveryServiceImp implements DeliveryService {
 							}
 							
 							carga.setCorreocli(correocli);
-							carga.setTelmovilcli(getCellValue(row, 17));
+							carga.setTelmovilcli(telfmovilcli);
 							carga.setOrdenentrega(ordenentrega);
-							
-							carga.setCodcourier(getCellValue(row, 19));
 							carga.setDnitrabajador(dnitrabajador);
+
+							carga.setIdpestadocarga(resultado);
 							
-							 
-								 
-								idtercero = terceroService.obtTerceroXNrodoc(carga.getDnitrabajador());
-								
-								if(idtercero == null){
-									Tercero tercero =  new Tercero();
-									tercero.setIdcourier(archivo.getIdcourier());
-									tercero.setIdpestado("1");
-									tercero.setUsuario(archivo.getUsuario());
-									tercero.setNrodocumento(carga.getDnitrabajador());
-									 
-									terceroService.mntTercero(tercero);
-									idtercero = tercero.getIdtercero();
-								}
-								
-
-								carga.setHistorial(mensaje);
-								if(resultado == 2){
-
-									carga.setIdpestadocarga(2);
-									mensajeRegistro = mensajeRegistro + "Alerta! Fila Nro: " + r + ", " + mensaje + "\n";
-									mensaje = "";
-									tipodocumento = null;
-									nrodocumentocli = null;
-									nombrescli = null;
-									pridigtarjeta = null;
-									ultdigtarjeta = null;
-									nrocontrato = null;
-									mtoasoctarjeta =  null;
-									fecentrega = null;
-									horaentrega = null;
-									lugarentrega= null;
-									indverificacion = null;
-									direccioncli = null;
-									latitudofi = null;
-									longitudofi = null;
-									correocli = null;
-									ordenentrega = null;
-									dnitrabajador = null;
-									resultado = 0;
-								}
-									
-								carga.setIdtercero(idtercero);
-								
-								mntDelivery(carga);
-								
+							/** Verificacion si dni del colaborador esta en algun tercero **/
+							idtercero = terceroService.obtTerceroXNrodoc(carga.getDnitrabajador());
 							
-							 
-						}
-					}
-					 
+							/** Si no esta lo registramos como tercero **/
+							if(idtercero == null){
+								Tercero tercero =  new Tercero();
+								tercero.setIdcourier(archivo.getIdcourier());
+								tercero.setIdpestado(Constants.DELIVERY_IDPESTADO_ACTIVO);
+								tercero.setUsuario(archivo.getUsuario());
+								tercero.setIdptipodocumento(Constants.TIPODOCUMENTO_DNI);
+								tercero.setNrodocumento(carga.getDnitrabajador());
+								tercero.setIdcourier(archivo.getIdcourier());
+								terceroService.mntTercero(tercero);
+								idtercero = tercero.getIdtercero();
+							
+								mensaje += getFormatMensaje("DNI del trabajador no enviado, se ha creado el colaborador con código: " + idtercero + "." );
+							}
+							
+							if(resultado == Constants.DELIVERY_CARGA_WARNING ){
 
-				} catch (Exception e) {
+								carga.setIdpestadocarga(Constants.DELIVERY_CARGA_WARNING );
+								mensajeRegistro = mensajeRegistro + getFormatMensaje("<b>Alerta! Fila Nro " + r +"</b>" + mensaje );
+								mensaje = "";
+								
+								tipodocumento 	= null;
+								nrodocumentocli = null;
+								nombrescli 		= null;
+								pridigtarjeta 	= null;
+								ultdigtarjeta 	= null;
+								nrocontrato 	= null;
+								mtoasoctarjeta 	= null;
+								telfmovilcli 	= null;
+								fecentrega 		= null;
+								horaentrega 	= null;
+								lugarentrega	= null;
+								indverificacion = null;
+								direccioncli 	= null;
+								latitudofi 		= null;
+								longitudofi 	= null;
+								correocli 		= null;
+								ordenentrega 	= null;
+								dnitrabajador 	= null; 
+								
+								resultado = Constants.DELIVERY_CARGA_OK;
+							}
+								
+							carga.setIdtercero(idtercero);
+							
+							mntDelivery(carga);
+ 
+						}	
+					} 
+ 				} catch (Exception e) {
 					resultado = 1;
-					mensaje = "El sistema no pudo ubicar el archivo indicado";
+					mensaje = "Error al registrar courier y fecha de entrega.";
 				}
-			
-			/*} else {
+				
+			} catch (IOException e1) {
 				resultado = 1;
-				mensaje = "No existe el curier seleccionado";
-			}*/
+				mensaje = "Error al levantar el archivo excel";
+			} 	
 			
 		} else {
 			resultado = 1;
-			mensaje = "Archivo no permitido";
+			mensaje = "Solo se permiten archivos xls o xlsx.";
+			
 		}
-		
-		
-		if(!mensajeRegistro.equals("")) {
-			mensaje = mensajeRegistro;
-			resultado = 2;
+		 
+		if(!mensajeRegistro.equals("<center><table>")) {
+			mensaje = mensajeRegistro + "</table></center>";
+			resultado = Constants.DELIVERY_CARGA_WARNING ;
 		}
 			
 		joRetorno.put("resultado", resultado);

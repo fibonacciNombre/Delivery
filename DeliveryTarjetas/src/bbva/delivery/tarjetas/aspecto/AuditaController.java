@@ -82,6 +82,7 @@ public class AuditaController {
 
 			Reader targetReader = new StringReader(jsonCommonsHelper.substring(1, jsonCommonsHelper.length()-1));
 			JSONObject jsonObject;
+			
 			try {
 				jsonObject = (JSONObject)new JSONParser().parse(targetReader);
 

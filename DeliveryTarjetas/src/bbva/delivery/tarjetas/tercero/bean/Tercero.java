@@ -11,7 +11,7 @@ public class Tercero implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private BigDecimal idtercero;
-	private String idpestado;
+	private Integer idpestado;
 	private Integer idptipodocumento;
 	private String nrodocumento;
 	private String nombres;
@@ -80,10 +80,10 @@ public class Tercero implements Serializable {
 		this.idcourier = idcourier;
 	}
  
-	public String getIdpestado() {
+	public Integer getIdpestado() {
 		return idpestado;
 	}
-	public void setIdpestado(String idpestado) {
+	public void setIdpestado(Integer idpestado) {
 		this.idpestado = idpestado;
 	}
 	public Integer getIdptipodocumento() {

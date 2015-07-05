@@ -39,14 +39,39 @@
 									</span>
 								</div>
 				            </div>
-		        		</div>																											
+		        		</div>
+		        		
+		        		
+						<div class="form-group" id="idpestado-div">
+							<label for="idpestado" class="col-md-5 control-label required">Estado
+							</label>
+							<div class="col-md-7">
+								<select class="form-control" id="idpestado" name="idpestado">
+								</select>
+								<div class="result"></div>
+							</div>
+						</div>																											
 					</div>
 											
 					<div class="col-md-6">						
+						
+						<div class="form-group">
+							<label for="tipodocumento" class="col-md-5 control-label">Tipo de documento</label>
+							<div class="col-md-7">								
+								<input type="text" class="form-control" id="tipodocumento"  name="tipodocumento" maxlength="8">							
+							</div>
+						</div>
 						<div class="form-group">
 							<label for="nrodocumentocli" class="col-md-5 control-label">DNI del cliente</label>
 							<div class="col-md-7">								
 								<input type="text" class="form-control" id="nrodocumentocli"  name="nrodocumentocli" maxlength="8">							
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="dnitrabajador" class="col-md-5 control-label">DNI del colaborador</label>
+							<div class="col-md-7">								
+								<input type="text" class="form-control" id="dnitrabajador"  name="dnitrabajador" maxlength="8">							
 							</div>
 						</div>
 						
@@ -97,8 +122,11 @@
     $().ready(function(){    
     	loadModalCargando();
     	
-    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form: 'form-bsq-mntdelivery'});
+    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','cbocourier', ['idcourier','rznsocial'], {form: 'form-bsq-mntdelivery'});
     	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form: 'form-cargar-entrega-tarjeta-edit'});
+ 
+    	callCargaControlParam('DELWEB_ESTADO', 'form-bsq-mntdelivery #idpestado', true);
+		
     	
     	$("#fecentrega").datepicker({ 
 			beforeShow 	: function() {
@@ -158,7 +186,11 @@
 		param.nrodocumentocli 	= $("#form-bsq-mntdelivery #nrodocumentocli").val(); 
 		param.idcourier 		= $("#form-bsq-mntdelivery #idcourier").val();
 		param.fechaentregaarh 	= $("#form-bsq-mntdelivery #fecentrega").val();
+		param.tipodocumento 	= $("#form-bsq-mntdelivery #tipodocumento").val();
+		param.idpestado 	= $("#form-bsq-mntdelivery #idpestado").val();
+		param.dnitrabajador 	= $("#form-bsq-mntdelivery #dnitrabajador").val();
 
+		
 		$.ajax({
 			type 			: "POST",
 			url 			: "/DeliveryTarjetas/delivery.do?method=lstDelivery",

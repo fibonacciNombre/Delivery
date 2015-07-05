@@ -39,7 +39,7 @@ public class Delivery {
  	private String fecentregaarch;
  	private String rutaexpotacion;
  
-	private String codcourier;
+ 	private String codcourier; 
 	private String dnitrabajador;
 	private Date fechaentregaarh;
 	private String usuario;
@@ -358,6 +358,7 @@ public class Delivery {
 	public void setRutaexpotacion(String rutaexpotacion) {
 		this.rutaexpotacion = rutaexpotacion;
 	}
+ 
   
 	
 }
