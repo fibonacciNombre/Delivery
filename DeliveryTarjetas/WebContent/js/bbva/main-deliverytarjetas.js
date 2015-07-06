@@ -335,6 +335,37 @@ function linkDetalleDelivery(full, formEdit) {
 	return enlace;
 }		
 
+function linkPDF(iddelivery) {
+	enlace = "<a data-toggle='modal' "
+		 + "onclick='return getClickPdf("+ iddelivery + ");'>"
+			+ "<i class='i-pdf'></i>" 
+	+ "</a>";
+
+return enlace;
+}
+
+function getClickPdf(iddelivery){
+	var auth = "Basic "+ Base64.encode("ws-delivery:3TASB6Q9S5bFbobwCXGD9A==");
+	
+	$.ajax({
+		type 		: "POST", 
+		url 		: "/DeliveryTarjetas/delivery.do?method=getArchivoPDF",
+		cache 		: false,
+		async 		: false,
+		dataType 	: 'json',
+		data		: JSON.stringify({"codigoEntrega": iddelivery}),
+		contentType : "application/json",
+		beforeSend : function(req) {
+				        	req.setRequestHeader('Authorization', auth);
+				     },
+		success 	: function(rsp) {
+						console.log(rsp);
+						window.open("/PORTALWEB/"+rsp.archivo);
+		},
+		error : function(xhr, ajaxOptions, thrownError) {}
+	});		
+}
+
 function rowEntregaSelectedUtil(json, formEdit) {
 	
 	loadModalCargando();

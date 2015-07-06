@@ -63,4 +63,5 @@ public class Constants {
 	public static final Integer DELIVERY_CARGA_OK = 0;
 	public static final Integer DELIVERY_CARGA_WARNING = 2;
 	public static final Integer TIPODOCUMENTO_DNI = 1;
+	 
 }

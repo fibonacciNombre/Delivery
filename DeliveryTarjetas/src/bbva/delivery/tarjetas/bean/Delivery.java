@@ -39,6 +39,7 @@ public class Delivery {
  	private Date fecentregaarch;
  	private String rutaexpotacion;
  
+ 	private Integer idptipodocumento; 
  	private String codcourier; 
 	private String dnitrabajador;
 	private String fechaentregaarh;
@@ -357,6 +358,14 @@ public class Delivery {
 
 	public void setRutaexpotacion(String rutaexpotacion) {
 		this.rutaexpotacion = rutaexpotacion;
+	}
+
+	public Integer getIdptipodocumento() {
+		return idptipodocumento;
+	}
+
+	public void setIdptipodocumento(Integer idptipodocumento) {
+		this.idptipodocumento = idptipodocumento;
 	}
  
   

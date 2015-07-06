@@ -60,9 +60,9 @@
 						</div>
 							
 						<div class="form-group" id="nrodocumento-div">
-							<label for="nrodocumento" class="col-md-6 control-label">Nro. documento del responsable</label>
+							<label for="dnitrabajador" class="col-md-6 control-label">DNI del Colaborador</label>
 							<div class="col-md-6">								
-								<input type="text" class="form-control" id="nrodocumento"  name="nrodocumento" maxlength="12">							
+								<input type="text" class="form-control" id="dnitrabajador"  name="dnitrabajador" maxlength="12">							
 							</div>
 						</div>
 						

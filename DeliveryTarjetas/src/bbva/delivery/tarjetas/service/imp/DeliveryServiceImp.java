@@ -1,6 +1,7 @@
 
 package bbva.delivery.tarjetas.service.imp;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -26,7 +28,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
  
 
+ 
+
 import bbva.delivery.tarjetas.bean.Archivo;
+import bbva.delivery.tarjetas.bean.ArchivoPDF;
 import bbva.delivery.tarjetas.bean.Delivery;
 import bbva.delivery.tarjetas.commons.Constants;
 import bbva.delivery.tarjetas.comun.bean.Parametro;
@@ -150,7 +155,7 @@ public class DeliveryServiceImp implements DeliveryService {
 		
 		if(numberOfColumns != numberOfParams){
 			resultado = 1;
-			mensaje = "El n�mero de columnas no coincide con el configurado.";
+			mensaje = "El número de columnas no coincide con el configurado.";
 		} else {
 			/** Validar que los campos ingresados estan en el orden correcto **/
 			for (int i = 0; i < lstParametro.size(); i++) {
@@ -724,7 +729,67 @@ public class DeliveryServiceImp implements DeliveryService {
 		
 		return delivery.getRutaexpotacion();
 	}
+	
+	@Override
+	public ArchivoPDF getArchivoPDF(ArchivoPDF archivoPDF, String ruta) throws Exception{
 
+		System.out.println("INI Service: Ejecutando metodo getArchivoPDF");
+		
+		byte[] getArchivoPDF = null;
+		String file = null;
+		File f = null;
+		String nombreArchivo = "";
+		List<ArchivoPDF> list = deliveryDao.getArchivoPDF(archivoPDF);
+		ArchivoPDF pdf = new ArchivoPDF();
+		DateFormat parser = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		String fechaFile = parser.format(new Date());
 
+		if(!list.isEmpty()){
+			pdf = list.get(0);
+			nombreArchivo = "delivery_" + pdf.getCodigoEntrega() + "_" + fechaFile + ".pdf";
+			file = ruta + "temp" + "/" + nombreArchivo;
+			
+			if(pdf.getArchivo() != null){
+				getArchivoPDF = pdf.getArchivo().getBytes();
+				if(getArchivoPDF == null || getArchivoPDF.length == 0){
+ 					pdf.setArchivo(file);
+					pdf.setCodigo("1");
+					pdf.setMensaje("No tiene pdf");
+					
+					System.out.println("FIN Service: Ejecutando metodo getArchivoPDF");
+ 					
+					return pdf;
+				}else{
+					byte[] bfo = Base64.decodeBase64(getArchivoPDF);
+					f = new File(file);
+	
+					FileOutputStream fos = new FileOutputStream(f);
+					fos.write(bfo);
+					fos.flush();
+					fos.close();
+					
+					file = "temp/"+nombreArchivo;
+					pdf.setArchivo(file);
+					pdf.setCodigo("0");
+					pdf.setMensaje("Exito");
+				}
+			}else{
+				pdf.setArchivo(file);
+				pdf.setCodigo("1");
+				pdf.setMensaje("No tiene pdf");
+				
+				System.out.println("FIN Service: Ejecutando metodo getArchivoPDF");
+ 				
+				return pdf;
+			}
+		}else{
+			pdf.setArchivo(file);
+			pdf.setCodigo("1");
+			pdf.setMensaje("El código de delivery no existe");
+		}
+		
+		System.out.println("FIN Service: Ejecutando metodo getArchivoPDF");
+ 		
+		return pdf;
+	}
 }
-

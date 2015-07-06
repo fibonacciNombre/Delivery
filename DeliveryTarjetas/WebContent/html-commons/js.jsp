@@ -50,6 +50,7 @@
 
 <!-- JS UTILITARIOS -->
 <script charset="utf-8" src="<%=request.getContextPath()%>/js/bbva/constantes-lib.js"></script>
+<script charset="utf-8" src="<%=request.getContextPath()%>/js/bbva/Base64.js"></script>
 <script charset="utf-8" src="<%=request.getContextPath()%>/js/bbva/deliverytarjetas-lib.js"></script>
 <script charset="utf-8" src="<%=request.getContextPath()%>/js/default/additional-methods.min.js"></script>
 
