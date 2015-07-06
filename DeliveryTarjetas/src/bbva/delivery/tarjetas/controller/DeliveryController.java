@@ -22,10 +22,6 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,6 +37,7 @@ import bbva.delivery.tarjetas.service.DeliveryService;
 import bbva.delivery.tarjetas.tercero.bean.Tercero;
 import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
+
 import commons.framework.BaseController;
 import commons.web.UtilWeb;
 
@@ -66,9 +63,6 @@ public class DeliveryController extends BaseController{
 
 	@Override
 	public ModelAndView save(HttpServletRequest request,HttpServletResponse response) {return null;}
-	
-	//Autorizaciones
-	private static final String AUTHORIZATION_PROPERTY = "Authorization";
 	
 	public String goCargaDelivery(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -98,7 +92,7 @@ public class DeliveryController extends BaseController{
 		HttpSession session 	= request.getSession();
 		TransaccionWeb tx		= new TransaccionWeb();				
 		Delivery delivery 		= new Delivery(request.getParameterMap());
-		 Usuario usuarioSes     = (Usuario)session.getAttribute(Constants.REQ_SESSION_USUARIO);
+		Usuario usuarioSes    	= (Usuario)session.getAttribute(Constants.REQ_SESSION_USUARIO);
 		
 		delivery.setUsuario(usuarioSes.getCodusuario());
 	
@@ -128,7 +122,7 @@ public class DeliveryController extends BaseController{
 		Delivery delivery 	= new Delivery(request.getParameterMap());
 		Tercero tercero 	= new Tercero(request.getParameterMap());
 		
-		temporal = "temp/"+
+		temporal = //"temp/"+
 					"ListadoEntregas"+
 					cal.get(Calendar.DATE)+
 					(cal.get(Calendar.MONTH)+1)+
@@ -244,14 +238,25 @@ public class DeliveryController extends BaseController{
 	//Vista del PDF
     public void getArchivoPDF(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String ruta = "";
-		ruta =request.getSession().getServletContext().getRealPath("/");
-		System.out.println("ruta -->" + ruta);
+    	logger.info("CONTROLLER getArchivoPDF");
 		
-		ArchivoPDF archivoPDF = new ArchivoPDF(request.getParameterMap());
+		String result			= "";
+		TransaccionWeb tx		= new TransaccionWeb();
+		String ruta 			= request.getSession().getServletContext().getRealPath("/");		
+		ArchivoPDF archivoPDF 	= new ArchivoPDF(request.getParameterMap());
 		
-		archivoPDF = deliveryService.getArchivoPDF(archivoPDF, ruta);        
-		System.out.println(archivoPDF);
+		try{
+			archivoPDF = deliveryService.getArchivoPDF(archivoPDF, ruta);   			
+			System.out.println(archivoPDF);
+		} catch (Error e) {
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+		}
+		result += "{"
+				+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+				+ "\"archivopdf\":"+ UtilWeb.objectToJson(archivoPDF, null, ArchivoPDF.class.getName()) + ","
+				+ "}";
+	
+		this.escribirTextoSalida(response,result);
 
     }
 }

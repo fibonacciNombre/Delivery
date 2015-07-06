@@ -113,6 +113,7 @@
 				 	<th class="text-center">Lugar de entrega</th>
 				 	<th class="text-center">Observaciones</th>					
 					<th class="text-center">Detalle</th>
+					<th class="text-center">PDF</th>					
 				</tr>
 			</thead>
 			<tbody class="vcenter">
@@ -226,12 +227,18 @@
 								{ "data" 		: "lugarentrega",
 									"orderable"	: false,
 									"sWidth" 	: "15%" }, 															
-                     				{ "data"      	: "",
+                   				{ "data"      	: "",
 									"orderable"	: false,
 									"sWidth" 	: "10%",
                       				"class"		: "text-center",
                        	 			"mRender"  	: function (data, type, full) {
-                        	 								return linkDetalleDelivery(full,false);  }}														
+                        	 								return linkDetalleDelivery(full,false);  }},
+								{ "data"      	: "",
+									"orderable"	: false,
+									"sWidth" 	: "5%",
+                      				"class"		: "text-center",
+                  	 				"mRender"  	: function (data, type, full) {
+                   	 									return linkPDF(full.iddelivery);  }}                        	 								
 							],
 			"fnDrawCallback" 	: function() {mostrarDatatable("#table-lstdelivery");},
 			"fnCreatedRow"		: function (r, data, i) {

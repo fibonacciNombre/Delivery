@@ -17,8 +17,7 @@ import bbva.delivery.tarjetas.commons.ConstantsProperties;
 import bbva.delivery.tarjetas.comun.dao.imp.JdbcDaoBase;
 import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import bbva.delivery.tarjetas.usuario.dao.UsuarioDao;
-
-import com.rimac.sas.utiles.comunes.JdbcHelper;
+import bbva.delivery.tarjetas.util.JdbcHelper;
 
 @Repository("usuarioDao")
 public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {

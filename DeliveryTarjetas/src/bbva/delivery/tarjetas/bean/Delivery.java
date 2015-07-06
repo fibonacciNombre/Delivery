@@ -36,13 +36,13 @@ public class Delivery {
 	private String historial;
 	private BigDecimal grupocarga;
 	private String responsable;
- 	private Date fecentregaarch;
+// 	private Date fecentregaarch;
  	private String rutaexpotacion;
  
  	private Integer idptipodocumento; 
  	private String codcourier; 
 	private String dnitrabajador;
-	private String fechaentregaarh;
+	private Date fechaentregaarh;
 	private String usuario;
 	
 	
@@ -298,11 +298,11 @@ public class Delivery {
 		this.idpestadodelivery = idpestadodelivery;
 	}
 
-	public String getFechaentregaarh() {
+	public Date getFechaentregaarh() {
 		return fechaentregaarh;
 	}
 
-	public void setFechaentregaarh(String fechaentregaarh) {
+	public void setFechaentregaarh(Date fechaentregaarh) {
 		this.fechaentregaarh = fechaentregaarh;
 	}
 
@@ -345,14 +345,7 @@ public class Delivery {
 		this.responsable = responsable;
 	}
 
-
-	public Date getFecentregaarch() {
-		return fecentregaarch;
-	}
-
-	public void setFecentregaarch(Date fecentregaarch) {
-		this.fecentregaarch = fecentregaarch;
-	}public String getRutaexpotacion() {
+	public String getRutaexpotacion() {
 		return rutaexpotacion;
 	}
 

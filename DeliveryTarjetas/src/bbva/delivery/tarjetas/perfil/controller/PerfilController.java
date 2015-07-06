@@ -15,7 +15,7 @@ import bbva.delivery.tarjetas.commons.Constants;
 import bbva.delivery.tarjetas.comun.bean.TransaccionWeb;
 import bbva.delivery.tarjetas.perfil.bean.Perfil;
 import bbva.delivery.tarjetas.perfil.service.PerfilService;
-
+import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import commons.framework.BaseController;
 import commons.web.UtilWeb;
 
@@ -75,7 +75,6 @@ public class PerfilController extends BaseController {
 		
 		String result				= "";
 		String lstperfil 			= "";
-		List<Perfil> listaPerfil 	= null;
 		TransaccionWeb tx			= new TransaccionWeb();						
 		Perfil perfil 				= new Perfil(request.getParameterMap());
 
@@ -108,8 +107,9 @@ public class PerfilController extends BaseController {
 		TransaccionWeb tx		= new TransaccionWeb();				
 		Perfil perfil 			= new Perfil(request.getParameterMap());
 		
-		//String usuario = session.getAttribute(Constants.REQ_SESSION_USUARIO).toString();
-		perfil.setUsucreacion("BBVA");
+		Usuario usuario 		= (Usuario) session.getAttribute(Constants.REQ_SESSION_USUARIO);
+		
+		perfil.setUsucreacion(usuario.getCodusuario());
 		
 		try {
 			

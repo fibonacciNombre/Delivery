@@ -17,8 +17,7 @@ import bbva.delivery.tarjetas.comun.dao.imp.JdbcDaoBase;
 import bbva.delivery.tarjetas.courier.bean.Courier;
 import bbva.delivery.tarjetas.courier.dao.CourierDao;
 import bbva.delivery.tarjetas.tercero.bean.Tercero;
-
-import com.rimac.sas.utiles.comunes.JdbcHelper;
+import bbva.delivery.tarjetas.util.JdbcHelper;
              
 @Repository("courierDao")
 public class CourierDaoImp extends JdbcDaoBase implements CourierDao {

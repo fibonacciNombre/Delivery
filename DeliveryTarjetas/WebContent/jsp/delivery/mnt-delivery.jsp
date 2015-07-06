@@ -137,7 +137,6 @@
 				 	<th class="text-center">Responsable</th>
 					<th class="text-center">Fecha Entrega</th>  
 					<th class="text-center">Detalle</th>
-					<th class="text-center">PDF</th>
 				</tr>
 			</thead>
 			<tbody class="vcenter">
@@ -251,18 +250,12 @@
 								{ "data" 		: "fecentrega",
 									"orderable"	: false,
 									"sWidth" 	: "10%" }, 															
-                     				{ "data"      	: "",
+                   				{ "data"      	: "",
 									"orderable"	: false,
 									"sWidth" 	: "5%",
                       				"class"		: "text-center",
-                       	 				"mRender"  	: function (data, type, full) {
-                        	 								return linkDetalleDelivery(full,true);  }},
-									{ "data"      	: "",
-										"orderable"	: false,
-										"sWidth" 	: "5%",
-	                      				"class"		: "text-center",
-	                       	 				"mRender"  	: function (data, type, full) {
-	                        	 								return linkPDF(full.iddelivery);  }}		
+                       	 			"mRender"  	: function (data, type, full) {
+                        	 							return linkDetalleDelivery(full,true);  }}		
 							],
 			"fnDrawCallback"	: function() {mostrarDatatable("#table-lstmntdelivery");},
 			"fnCreatedRow" 		: function (r, data, i) {

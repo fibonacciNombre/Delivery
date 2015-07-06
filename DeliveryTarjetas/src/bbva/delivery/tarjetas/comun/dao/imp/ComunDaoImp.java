@@ -10,13 +10,12 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
-import com.rimac.sas.utiles.comunes.JdbcHelper;
-
 import bbva.delivery.tarjetas.commons.ConstantsProperties;
 import bbva.delivery.tarjetas.comun.bean.ArchivoBlob;
 import bbva.delivery.tarjetas.comun.bean.Constante;
 import bbva.delivery.tarjetas.comun.bean.Parametro;
 import bbva.delivery.tarjetas.comun.dao.ComunDao;
+import bbva.delivery.tarjetas.util.JdbcHelper;
 
 @Repository("comunDao")
 public class ComunDaoImp extends JdbcDaoBase implements ComunDao {

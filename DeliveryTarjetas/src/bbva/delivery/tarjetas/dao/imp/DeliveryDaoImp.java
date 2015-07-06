@@ -21,8 +21,7 @@ import bbva.delivery.tarjetas.comun.dao.imp.JdbcDaoBase;
 import bbva.delivery.tarjetas.dao.DeliveryDao;
 import bbva.delivery.tarjetas.service.imp.DeliveryServiceImp;
 import bbva.delivery.tarjetas.tercero.bean.Tercero;
-
-import com.rimac.sas.utiles.comunes.JdbcHelper;
+import bbva.delivery.tarjetas.util.JdbcHelper;
 
 @Repository("deliveryDao")
 public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {

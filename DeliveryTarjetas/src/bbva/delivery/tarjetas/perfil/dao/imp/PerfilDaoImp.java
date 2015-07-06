@@ -16,8 +16,7 @@ import bbva.delivery.tarjetas.commons.ConstantsProperties;
 import bbva.delivery.tarjetas.comun.dao.imp.JdbcDaoBase;
 import bbva.delivery.tarjetas.perfil.bean.Perfil;
 import bbva.delivery.tarjetas.perfil.dao.PerfilDao;
-
-import com.rimac.sas.utiles.comunes.JdbcHelper;
+import bbva.delivery.tarjetas.util.JdbcHelper;
              
 @Repository("perfilDao")
 public class PerfilDaoImp extends JdbcDaoBase implements PerfilDao {

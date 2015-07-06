@@ -205,7 +205,7 @@
 								<label for="nrocontrato,"
 									class="col-md-5 control-label carga-content-maxim">Nro Contrato</label>
 								<div class="col-md-7 carga-content-maxim">
-									<input type="text" id="nrocontrato," name="nrocontrato,"
+									<input type="text" id="nrocontrato" name="nrocontrato"
 										class="form-control">
 									<div class="result"></div>
 								</div>

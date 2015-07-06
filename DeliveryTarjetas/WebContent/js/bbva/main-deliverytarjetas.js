@@ -299,17 +299,21 @@ function obtArchivoLstEntregas(paramQuery){
 		async 			: false,
 		dataType 		: 'json',
 		contentType 	: "application/x-www-form-urlencoded; charset=UTF-8",
-		data 			: param,
+		data 			: paramQuery,
 		success 		: function(rsp) {
 								
 								var status 	= rsp.tx.statustx;
 								var message = rsp.tx.messagetx;
 
 								closeModalCargando();
+								
 								console.log(rsp.archivo);
+								
 								if(status==0){									
 									pathFile	= rsp.archivo
 									loadModalMensaje('Enhorabuena','Se ha exportado la lista a excel',function(){});	
+								}else{
+									loadModalMensaje('Atención',message,function(){}); 
 								}
 								 										 
 		},
@@ -345,24 +349,42 @@ return enlace;
 }
 
 function getClickPdf(iddelivery){
-	var auth = "Basic "+ Base64.encode("ws-delivery:3TASB6Q9S5bFbobwCXGD9A==");
+
+	var param				= new  Object();
+	param.codigoEntrega		= iddelivery;
 	
 	$.ajax({
-		type 		: "POST", 
-		url 		: "/DeliveryTarjetas/delivery.do?method=getArchivoPDF",
-		cache 		: false,
-		async 		: false,
-		dataType 	: 'json',
-		data		: JSON.stringify({"codigoEntrega": iddelivery}),
-		contentType : "application/json",
-		beforeSend : function(req) {
-				        	req.setRequestHeader('Authorization', auth);
-				     },
-		success 	: function(rsp) {
-						console.log(rsp);
-						window.open("/PORTALWEB/"+rsp.archivo);
+		type 			: "POST", 
+		url 			: "/DeliveryTarjetas/delivery.do?method=getArchivoPDF",
+		cache 			: false,
+		async 			: false,
+		dataType 		: 'json',
+		data			: param,
+		contentType 	: "application/json",
+		success 		: function(rsp) {
+				
+								var status 	= rsp.tx.statustx;
+								var message = rsp.tx.messagetx;
+		
+								closeModalCargando();
+								
+								console.log(rsp.archivo);
+								
+								if(status==0){									
+									var archivopdf	= rsp.archivopdf
+									
+									if(archivopdf.codigo!="" && archivopdf.codigo=="0"){
+										loadModalMensaje('Enhorabuena','Se ha generado el PDF correctamente',function(){});
+										console.log(archivopdf.archivo);
+										window.open("../"+archivopdf.archivo, 'NewWin');
+									}else{
+										loadModalMensaje('Atención',archivopdf.mensaje,function(){}); 
+									}
+								}else{
+									loadModalMensaje('Atención',message,function(){}); 
+								}
 		},
-		error : function(xhr, ajaxOptions, thrownError) {}
+		error 			: function(xhr, ajaxOptions, thrownError) {}
 	});		
 }
 

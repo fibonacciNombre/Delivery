@@ -12,7 +12,7 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 
 import bbva.delivery.tarjetas.commons.ConstantsProperties;
-import bbva.delivery.tarjetas.exception.ValidationException;
+
 import commons.mapper.Utils;
 
 public class CommonsHelper {
@@ -49,10 +49,10 @@ public class CommonsHelper {
 			
 			if (mensaje.indexOf("ORA")>0) {
 				detalleError = Utils.getMessageORA(mensaje);
-			} else if ((t instanceof ValidationException) || (t instanceof
-					com.rimac.sas.excepciones.ValidationException)) {
-				detalleError = formatearMensajeErrorJson(
-						ConstantsProperties.ORIGEN_ERROR_VALIDACION, t.getMessage(), "");
+//			} else if ((t instanceof ValidationException) || (t instanceof
+//					ValidationException)) {
+//				detalleError = formatearMensajeErrorJson(
+//						ConstantsProperties.ORIGEN_ERROR_VALIDACION, t.getMessage(), "");
 			} else {
 				rootStack = ExceptionUtils.getRootCause(t);
 				

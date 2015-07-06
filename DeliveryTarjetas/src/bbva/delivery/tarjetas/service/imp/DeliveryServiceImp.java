@@ -735,19 +735,22 @@ public class DeliveryServiceImp implements DeliveryService {
 
 		System.out.println("INI Service: Ejecutando metodo getArchivoPDF");
 		
-		byte[] getArchivoPDF = null;
-		String file = null;
-		File f = null;
-		String nombreArchivo = "";
-		List<ArchivoPDF> list = deliveryDao.getArchivoPDF(archivoPDF);
-		ArchivoPDF pdf = new ArchivoPDF();
-		DateFormat parser = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-		String fechaFile = parser.format(new Date());
+		byte[] getArchivoPDF 		= null;
+		String file 				= null;
+		File f 						= null;
+		String nombreArchivo 		= "";
+		List<ArchivoPDF> list 		= deliveryDao.getArchivoPDF(archivoPDF);
+		ArchivoPDF pdf 				= new ArchivoPDF();
+		DateFormat parser 			= new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		String fechaFile 			= parser.format(new Date());
 
 		if(!list.isEmpty()){
+			
 			pdf = list.get(0);
-			nombreArchivo = "delivery_" + pdf.getCodigoEntrega() + "_" + fechaFile + ".pdf";
-			file = ruta + "temp" + "/" + nombreArchivo;
+			
+			nombreArchivo = "PDFEntrega_" + pdf.getCodigoEntrega() + "_" + fechaFile + ".pdf";
+//			file = ruta + "temp" + "/" + nombreArchivo;
+			file = ruta + nombreArchivo;
 			
 			if(pdf.getArchivo() != null){
 				getArchivoPDF = pdf.getArchivo().getBytes();
@@ -776,7 +779,7 @@ public class DeliveryServiceImp implements DeliveryService {
 			}else{
 				pdf.setArchivo(file);
 				pdf.setCodigo("1");
-				pdf.setMensaje("No tiene pdf");
+				pdf.setMensaje("La entrega seleccionada no cuenta aún con PDF asociado");
 				
 				System.out.println("FIN Service: Ejecutando metodo getArchivoPDF");
  				
@@ -785,7 +788,7 @@ public class DeliveryServiceImp implements DeliveryService {
 		}else{
 			pdf.setArchivo(file);
 			pdf.setCodigo("1");
-			pdf.setMensaje("El código de delivery no existe");
+			pdf.setMensaje("La entrega seleccionada no cuenta aún con PDF asociado");
 		}
 		
 		System.out.println("FIN Service: Ejecutando metodo getArchivoPDF");

@@ -33,6 +33,8 @@ public class ArchivoPDF  implements Serializable{
 	public ArchivoPDF(){
 		
 	}
+
+	@SuppressWarnings("rawtypes")
 	public ArchivoPDF(Map params) throws Exception {
 		ResourceManager.populateDtoFromMap(this, params);
 	}
