@@ -54,8 +54,7 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 	      JdbcHelper.setInParameter(call, in, "a_pridigtarjeta"   , 	Types.VARCHAR, param.getPridigtarjeta()); 
 	      JdbcHelper.setInParameter(call, in, "a_ultdigtarjeta"   , 	Types.VARCHAR, param.getUltdigtarjeta()); 
 	      JdbcHelper.setInParameter(call, in, "a_nrocontrato"     , 	Types.VARCHAR, param.getNrocontrato()); 
-	      JdbcHelper.setInParameter(call, in, "a_mtoasoctarjeta"  , 	Types.VARCHAR, param.getMtoasoctarjeta()); 
-	      JdbcHelper.setInParameter(call, in, "a_fecentrega"      , 	Types.VARCHAR, param.getFecentrega()); 
+	      JdbcHelper.setInParameter(call, in, "a_mtoasoctarjeta"  , 	Types.VARCHAR, param.getMtoasoctarjeta());  
 	      JdbcHelper.setInParameter(call, in, "a_horaentrega"     , 	Types.VARCHAR, param.getHoraentrega()); 
 	      JdbcHelper.setInParameter(call, in, "a_lugarentrega"    , 	Types.VARCHAR, param.getLugarentrega()); 
 	      JdbcHelper.setInParameter(call, in, "a_indverificacion" , 	Types.VARCHAR, param.getIndverificacion()); 

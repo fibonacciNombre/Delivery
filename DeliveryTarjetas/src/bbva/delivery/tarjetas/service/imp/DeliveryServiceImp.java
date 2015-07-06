@@ -188,7 +188,7 @@ public class DeliveryServiceImp implements DeliveryService {
 		BigDecimal idtercero = null;
  
 		String nrodocumentocli, tipodocumento, nombrescli, tipotarjeta, pridigtarjeta, ultdigtarjeta, nrocontrato, distritocli,     
-			   mtoasoctarjeta, fecentrega, horaentrega, lugarentrega, indverificacion, direccioncli, telfmovilcli,
+			   mtoasoctarjeta, horaentrega, lugarentrega, indverificacion, direccioncli, telfmovilcli,
 			   latitudofi, longitudofi, correocli, ordenentrega, dnitrabajador;
 		
 		Delivery carga = new Delivery();
@@ -256,18 +256,17 @@ public class DeliveryServiceImp implements DeliveryService {
 							ultdigtarjeta 	= getCellValue(row, 5);
 							nrocontrato 	= getCellValue(row, 6);
 							mtoasoctarjeta 	= getCellValue(row, 7);
-							fecentrega 		= getCellValue(row, 8); 
-							horaentrega 	= getCellValue(row, 9); 
-							lugarentrega	= getCellValue(row, 10); 
-							indverificacion = getCellValue(row, 11);
-							direccioncli 	= getCellValue(row, 12); 
-							distritocli		= getCellValue(row, 13); 
-							latitudofi 		= getCellValue(row, 14); 
-							longitudofi 	= getCellValue(row, 15); 
-							correocli 		= getCellValue(row, 16); 
-							telfmovilcli    = getCellValue(row, 17); 
-							ordenentrega 	= getCellValue(row, 18); 
-							dnitrabajador 	= getCellValue(row, 19);
+							horaentrega 	= getCellValue(row, 8); 
+							lugarentrega	= getCellValue(row, 9); 
+							indverificacion = getCellValue(row, 10);
+							direccioncli 	= getCellValue(row, 11); 
+							distritocli		= getCellValue(row, 12); 
+							latitudofi 		= getCellValue(row, 13); 
+							longitudofi 	= getCellValue(row, 14); 
+							correocli 		= getCellValue(row, 15); 
+							telfmovilcli    = getCellValue(row, 16); 
+							ordenentrega 	= getCellValue(row, 17); 
+							dnitrabajador 	= getCellValue(row, 18);
 							
 							if (tipodocumento == null) {
 								resultado = Constants.DELIVERY_CARGA_WARNING  ;
@@ -302,11 +301,6 @@ public class DeliveryServiceImp implements DeliveryService {
 							if (mtoasoctarjeta == null) {
 								resultado = Constants.DELIVERY_CARGA_WARNING ;
 								mensaje += getFormatMensaje(" - Monto de linea no enviado.");
-							}
-							
-							if (fecentrega == null) {
-								resultado = Constants.DELIVERY_CARGA_WARNING ;
-								mensaje += getFormatMensaje(" - Fecha de entrega no enviado.");
 							}
 							
 							if (horaentrega == null) {
@@ -369,7 +363,6 @@ public class DeliveryServiceImp implements DeliveryService {
 								carga.setMtoasoctarjeta(null);
 							}
 							
-							carga.setFecentrega(fecentrega);
 							carga.setHoraentrega(horaentrega);
 							carga.setLugarentrega(lugarentrega);
 
@@ -428,7 +421,6 @@ public class DeliveryServiceImp implements DeliveryService {
 								nrocontrato 	= null;
 								mtoasoctarjeta 	= null;
 								telfmovilcli 	= null;
-								fecentrega 		= null;
 								horaentrega 	= null;
 								lugarentrega	= null;
 								indverificacion = null;
@@ -510,10 +502,10 @@ public class DeliveryServiceImp implements DeliveryService {
 		lugarHeader.setCellValue("Lugar de Entrega");
 		
 		Cell indverificacionHeader = headerRow.createCell(10);
-		indverificacionHeader.setCellValue("Indica Verificaci�n");
+		indverificacionHeader.setCellValue("Indica Verificación");
 		
 		Cell direccionHeader = headerRow.createCell(11);
-		direccionHeader.setCellValue("Direcci�n");
+		direccionHeader.setCellValue("Dirección");
 		
 		Cell latitudHeader = headerRow.createCell(12);
 		latitudHeader.setCellValue("Latitud");
