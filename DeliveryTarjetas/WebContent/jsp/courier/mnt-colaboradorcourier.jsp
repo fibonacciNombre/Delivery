@@ -73,7 +73,7 @@
 
 	<div id="container-lst-colaboradorescourier" style="margin-top: 20px; display: none;">
 		<table class="table table-hover table-bordered"
-			id="table-lst-colaboradores">
+			id="table-lstcolaboradores">
 			<thead>
 				<tr>
 					<th class="text-center tablet">Courier</th>
@@ -144,7 +144,7 @@
 								data 		: param,
 								success 	: function(rsp) {
 
-													var status = rsp.tx.statustx;
+													var status 	= rsp.tx.statustx;
 													var message = rsp.messagetx;
 													
 													closeModalCargando();
@@ -153,9 +153,14 @@
 														if(rsp.lst!= undefined && rsp.lst.length > 0){
 															$("#container-lst-colaboradorescourier").slideDown(1000);
 															cargarDataTablesColaboradores(rsp.lst);
-														}
-													}else
-														loadModalMensaje("Atención","No se encontraron resultados por la búsqueda realizada",null);
+														} else
+															loadModalMensaje(
+																	"Atención",
+																	"No se encontraron resultados por la búsqueda realizada",
+																	null);
+				
+													} else
+														loadModalMensaje("Atención", message, null);
 								},
 								error 		: function(rsp, xhr, ajaxOptions, thrownError) {
 													closeModalCargando();

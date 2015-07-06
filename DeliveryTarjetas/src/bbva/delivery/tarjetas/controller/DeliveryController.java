@@ -76,7 +76,7 @@ public class DeliveryController extends BaseController{
 		return "delivery/mnt-delivery";
 	}
 	
-	public String golstDelivery(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String goLstDelivery(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		System.out.println("goCargaDelivery	-->		carga-delivery.jsp");
 		return "delivery/lst-delivery";
@@ -109,10 +109,10 @@ public class DeliveryController extends BaseController{
 		this.escribirTextoSalida(response, result);
 	}
 	
-	public void obtFileLstEntregas(HttpServletRequest request,
+	public void obtArchivoLstEntregas(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		logger.info("CONTROLLER obtFileLstEntregas");
+		logger.info("CONTROLLER obtArchivoLstEntregas");
 		
 		String result		= "";
 		String temporal		= "";
@@ -131,7 +131,7 @@ public class DeliveryController extends BaseController{
 		
 		System.out.println(delivery.getRutaexpotacion());
 		
-		deliveryService.obtArchivoLstDelivery(delivery);
+		deliveryService.obtArchivoLstDelivery(delivery, tercero);
 		
 		System.out.println(temporal);
 		
@@ -158,7 +158,7 @@ public class DeliveryController extends BaseController{
 
 		try {
 			
-			listaCarga 		= deliveryService.lstDelivery(delivery);			
+			listaCarga 		= deliveryService.lstDelivery(delivery, tercero);			
 			lstdelivery 	= commons.web.UtilWeb.listaToArrayJson(listaCarga, null,Delivery.class.getName());
 			
 		} catch (Error e) {
@@ -202,6 +202,7 @@ public class DeliveryController extends BaseController{
 		}
 		
 		archivo.setFecentrega(dfechaentrega);
+		
 		if (isMultipart) {
 
 			FileItemFactory factory = new DiskFileItemFactory();

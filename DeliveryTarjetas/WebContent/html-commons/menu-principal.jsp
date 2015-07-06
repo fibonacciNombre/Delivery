@@ -94,7 +94,7 @@
 			                <a href="#" id="view-mnt-entrega" data-url="/DeliveryTarjetas/delivery.do?method=goMntCargaDelivery">Edición de datos de entrega</a>
 			            </li>
 			            <li>
-			                <a href="#" id="view-lst-entrega" data-url="/DeliveryTarjetas/delivery.do?method=golstDelivery">Consultar entregas a realizar</a>
+			                <a href="#" id="view-lst-entrega" data-url="/DeliveryTarjetas/delivery.do?method=goLstDelivery">Consultar entregas a realizar</a>
 			            </li>			            			            
 			        </ul>
 			    </div>

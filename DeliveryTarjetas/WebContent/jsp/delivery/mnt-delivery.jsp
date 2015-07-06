@@ -42,7 +42,7 @@
 				            </div>
 		        		</div>
 		        		
-		        		
+		        		<%--
 						<div class="form-group" id="idpestado-div">
 							<label for="idpestado" class="col-md-5 control-label required">Estado
 							</label>
@@ -51,31 +51,34 @@
 								</select>
 								<div class="result"></div>
 							</div>
-						</div>																											
+						</div>
+						--%>																											
 					</div>
 											
 					<div class="col-md-6">						
 						
+						<%--
 						<div class="form-group">
 							<label for="tipodocumento" class="col-md-5 control-label">Tipo de documento</label>
 							<div class="col-md-7">								
 								<input type="text" class="form-control" id="tipodocumento"  name="tipodocumento" maxlength="8">							
 							</div>
 						</div>
+						--%>
 						<div class="form-group">
 							<label for="nrodocumentocli" class="col-md-5 control-label">DNI del cliente</label>
 							<div class="col-md-7">								
 								<input type="text" class="form-control" id="nrodocumentocli"  name="nrodocumentocli" maxlength="8">							
 							</div>
 						</div>
-						
+						<%--
 						<div class="form-group">
 							<label for="dnitrabajador" class="col-md-5 control-label">DNI del colaborador</label>
 							<div class="col-md-7">								
 								<input type="text" class="form-control" id="dnitrabajador"  name="dnitrabajador" maxlength="8">							
 							</div>
 						</div>
-						
+						--%>
 						<div class="form-group">
 							<label for="btnBsqDelivery" class="col-md-5 control-label">
 							</label>
@@ -137,10 +140,10 @@
 	
     $().ready(function(){    
     	loadModalCargando();
-     	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','cbocourier', ['idcourier','rznsocial'], {form: 'form-bsq-mntdelivery'});
-    	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form: 'form-cargar-entrega-tarjeta-edit'});
- 
-    	callCargaControlParam('DELWEB_ESTADO', 'form-bsq-mntdelivery #idpestado', true);
+    	
+     	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','cbocourier', ['idcourier','rznsocial'], {form: 'form-bsqmntdelivery'});
+    	
+    	callCargaControlParam('DELWEB_ESTADO', 'form-bsqmntdelivery #idpestado', true);
 
     	initDatePicker("fecentrega","calendario");
     	
@@ -169,36 +172,20 @@
 
 		var param 				= new Object();
 		 
-		param.nrodocumentocli 	= $("#form-bsq-mntdelivery #nrodocumentocli").val(); 
-		param.idcourier 		= $("#form-bsq-mntdelivery #idcourier").val();
-		param.fechaentregaarh 	= $("#form-bsq-mntdelivery #fecentrega").val();
-		param.tipodocumento 	= $("#form-bsq-mntdelivery #tipodocumento").val();
-		param.idpestado 	= $("#form-bsq-mntdelivery #idpestado").val();
-		param.dnitrabajador 	= $("#form-bsq-mntdelivery #dnitrabajador").val();
+		param.nrodocumentocli 	= $("#form-bsqmntdelivery #nrodocumentocli").val(); 
+		param.idcourier 		= $("#form-bsqmntdelivery #idcourier").val();
+		param.fechaentregaarh 	= $("#form-bsqmntdelivery #fecentrega").val();
+		param.idpestadodelivery = $("#form-bsqmntdelivery #idpestadodelivery").val();
+		
+		<%--
+		param.tipodocumento 	= $("#form-bsqmntdelivery #tipodocumento").val();
+		param.idpestado 		= $("#form-bsqmntdelivery #idpestado").val();
+		param.dnitrabajador 	= $("#form-bsqmntdelivery #dnitrabajador").val();
+ 		--%>
  		
-		$.ajax({
-			type 			: "POST",
-			url 			: "/DeliveryTarjetas/delivery.do?method=lstDelivery",
-			cache 			: false,
-			async 			: false,
-			dataType 		: 'json',
-			contentType 	: "application/x-www-form-urlencoded; charset=UTF-8",
-			data 			: param,
-			success 		: function(data) {					
-				$("#container-lst-mntdelivery").slideDown(1000);
-				var jsonDelivery = eval(data);
-				createHtmlTable(jsonDelivery, "table-lst-mntdelivery");	
-				closeModalCargando(); 
-			},
-			error : function(xhr, ajaxOptions, thrownError) {
-				closeModalCargando();
-				loadModalMensaje('Lo Sentimos','<center>Hubo problemas en el procesamiento de datos.</center>',function(){}); 
-			}
-		});
-
 		var lstDelivery			= bsqDeliveryUtil(param);
 		
-		if(lstDelivery.length > 0){											
+		if(lstDelivery!= undefined && lstDelivery.length > 0){											
 			cargarTablaLstDelivery(lstDelivery);
 			$("#container-lst-mntdelivery").slideDown(1000);
 		} 
@@ -215,7 +202,7 @@
 		param.fechaentregaarh 		= $("#form-bsqmntdelivery #fecentrega").val();
 		param.idpestadodelivery		= $("#form-bsqmntdelivery #idpestadodelivery").val();
 
-		var pathFile				= obtFileDeliveryUtil(param);
+		var pathFile				= obtArchivoLstEntregas(param);
 		
 		if(pathFile!=""){
 			window.open("../"+pathFile, 'NewWin');

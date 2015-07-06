@@ -13,7 +13,7 @@ import bbva.delivery.tarjetas.tercero.bean.Tercero;
 
 public interface DeliveryService {
 
-	List<Delivery> lstDelivery(Delivery param) throws IOException;
+	List<Delivery> lstDelivery(Delivery param, Tercero tercero) throws IOException;
 	 
 	Integer valCourierDelivery(String dnicourier);
 	
@@ -24,5 +24,5 @@ public interface DeliveryService {
 	
 	JSONObject cargarExcelDelivery(MultipartFile multipartFile,Archivo archivo) throws FileNotFoundException;
 
-	String obtArchivoLstDelivery(Delivery delivery) throws IOException;
+	String obtArchivoLstDelivery(Delivery delivery, Tercero tercero) throws IOException;
 }

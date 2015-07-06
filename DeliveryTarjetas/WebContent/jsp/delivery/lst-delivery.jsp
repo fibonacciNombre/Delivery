@@ -177,7 +177,7 @@
 
 		var lstDelivery			= bsqDeliveryUtil(param);
 		
-		if(lstDelivery.length > 0){											
+		if(lstDelivery!= undefined && lstDelivery.length > 0){											
 			cargarTablaLstDelivery(lstDelivery);
 			$("#container-lst-detdelivery").slideDown(1000);
 		}
@@ -193,7 +193,7 @@
 		param.idcourier 			= $("#form-bsqlstdelivery #idcourier").val();
 		param.fechaentregaarh 		= $("#form-bsqlstdelivery #fecentrega").val();
 
-		var pathFile				= obtFileDeliveryUtil(param);
+		var pathFile				= obtArchivoLstEntregas(param);
 		
 		if(pathFile!=""){
 			window.open("../"+pathFile, 'NewWin');

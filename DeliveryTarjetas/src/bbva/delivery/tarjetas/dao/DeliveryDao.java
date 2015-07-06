@@ -10,7 +10,7 @@ public interface DeliveryDao{
 	 
 	void mntDelivery(Delivery param);
 	
-	List<Delivery> lstDelivery(Delivery delivery);
+	List<Delivery> lstDelivery(Delivery delivery, Tercero tercero);
 	
 	BigDecimal crearGrupoCargaDelivery();
 		

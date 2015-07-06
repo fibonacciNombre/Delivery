@@ -80,10 +80,6 @@
     	
     	callCargaControlParam('DELWEB_ESTADO','form-bsqusuariows #idpestado',true);
     	
-    	callCargaControlParam('DELWEB_ESTADO','form-mntusuario-ws #idpestado',false);
-    	
-    	cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','cboperfil', ['idperfil','descripcion'], {form: 'form-mntusuario-ws'});
-    	
 		jQuery.validator.addMethod("alphanumeric", function(value, element) {
 	        return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
 		});
@@ -96,7 +92,7 @@
 		
 		$("#container-lst-usuariosws").hide();
 		
-		cleanDatatable("table-lstmntdelivery");
+		cleanDatatable("table-lstusuariosws");
 		
 		var param 	= new Object();
 		param 		= $("#form-bsqusuariows").serializeArray();
@@ -190,6 +186,14 @@
 
 	function rowSelected(json) {
 		
+		callCargaControlParam('DELWEB_ESTADO','form-mntusuario-ws #idpestado',false);
+    	
+    	cargarCombo('/DeliveryTarjetas/perfil.do', 'lstPerfil','cboperfil', ['idperfil','descripcion'], {form: 'form-mntusuario-ws'});
+    	
+    	$("#form-mntusuario-ws #contrasena-div").remove();		
+		$("#form-mntusuario-ws #contrasena-visible-div").show();
+		$("#form-mntusuario-ws #contrasena-visible").removeClass("resaltar-background");
+		
 		$("#form-mntcontrasena-ws").validate({
 			rules : {
 				contrasena 			: {				required 	: true,
@@ -202,12 +206,9 @@
 		});
 		
 		json 				= JSON.parse(json);
+		
 		var param 			= new Object();
 		param.codusuario	= json.codusuario;
-		
-		$("#form-mntusuario-ws #contrasena-div").remove();		
-		$("#form-mntusuario-ws #contrasena-visible-div").show();
-		$("#form-mntusuario-ws #contrasena-visible").removeClass("resaltar-background");
 		
 		$.ajax({
 			type 		: "POST",
@@ -235,6 +236,7 @@
 								$("#form-mntusuario-ws #comentario").val(rsp.usuario.comentario);
 								
 								$("#form-mntusuario-ws #contrasena-visible").attr("readonly",true);
+								$("#form-mntusuario-ws #cboperfil").attr("disabled","disabled");
 								
 							}
 			}

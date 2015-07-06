@@ -121,7 +121,7 @@
 		
 		$("#container-lst-usuarios").hide();
 		
-		cleanDatatable("table-lstmntdelivery");
+		cleanDatatable("table-lstusuarios");
 		
 		var param 	= new Object();
 		param 		= $("#form-bsqusuario").serializeArray();

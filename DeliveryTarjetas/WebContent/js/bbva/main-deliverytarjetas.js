@@ -288,13 +288,13 @@ function bsqDeliveryUtil(paramQuery){
 	return lstDelivery;
 }
 
-function obtFileDeliveryUtil(paramQuery){
+function obtArchivoLstEntregas(paramQuery){
 	
 	var pathFile		= "";
 	
 	$.ajax({
 		type 			: "POST",
-		url 			: "/DeliveryTarjetas/delivery.do?method=obtFileLstEntregas",
+		url 			: "/DeliveryTarjetas/delivery.do?method=obtArchivoLstEntregas",
 		cache 			: false,
 		async 			: false,
 		dataType 		: 'json',

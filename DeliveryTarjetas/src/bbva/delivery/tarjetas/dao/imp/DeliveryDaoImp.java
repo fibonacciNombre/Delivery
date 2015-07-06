@@ -23,7 +23,7 @@ import bbva.delivery.tarjetas.dao.DeliveryDao;
 import bbva.delivery.tarjetas.service.imp.DeliveryServiceImp;
 import bbva.delivery.tarjetas.tercero.bean.Tercero;
 
-@Repository("portalWebDao")
+@Repository("deliveryDao")
 public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 	
 	private static Logger logger = Logger.getLogger(DeliveryServiceImp.class.getName());
@@ -83,7 +83,7 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 	 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Delivery> lstDelivery(Delivery param) {
+	public List<Delivery> lstDelivery(Delivery delivery, Tercero tercero) {
 		 
 		logger.info("DAO lstDelivery");
 		
@@ -99,12 +99,12 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 				resources.getString(ConstantsProperties.PQ_DEL_COURIER),
 				"sp_lst_delivery");
 
-		JdbcHelper.setInParameter(call, in, "a_fecentrega", 	 OracleTypes.DATE, 	  param.getFechaentregaarh());
-		JdbcHelper.setInParameter(call, in, "a_idcourier", 		 OracleTypes.INTEGER, param.getIdcourier());
-		JdbcHelper.setInParameter(call, in, "a_nrodocumentocli", OracleTypes.VARCHAR, param.getNrodocumentocli());
-		JdbcHelper.setInParameter(call, in, "a_idpestado", 		 OracleTypes.INTEGER, param.getIdpestado());
-		JdbcHelper.setInParameter(call, in, "a_tipodocumento",OracleTypes.VARCHAR, param.getTipodocumento());
-		JdbcHelper.setInParameter(call, in, "a_nrodocumento", 	 OracleTypes.VARCHAR, param.getDnitrabajador());
+		JdbcHelper.setInParameter(call, in, "a_fecentrega", 	 OracleTypes.DATE, 	  delivery.getFechaentregaarh());
+		JdbcHelper.setInParameter(call, in, "a_idcourier", 		 OracleTypes.INTEGER, delivery.getIdcourier());
+		JdbcHelper.setInParameter(call, in, "a_nrodocumentocli", OracleTypes.VARCHAR, delivery.getNrodocumentocli());
+		JdbcHelper.setInParameter(call, in, "a_idpestado", 		 OracleTypes.INTEGER, delivery.getIdpestadodelivery());
+		JdbcHelper.setInParameter(call, in, "a_tipodocumento",	 OracleTypes.VARCHAR, tercero.getIdptipodocumento());
+		JdbcHelper.setInParameter(call, in, "a_nrodocumento", 	 OracleTypes.VARCHAR, tercero.getNrodocumento());
 		JdbcHelper.setOutParameter(call, 	"a_cursor", 		 OracleTypes.CURSOR,  Delivery.class);
 
 		out = call.execute(in);

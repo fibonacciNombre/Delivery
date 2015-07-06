@@ -37,12 +37,12 @@ import bbva.delivery.tarjetas.service.DeliveryService;
 import bbva.delivery.tarjetas.tercero.bean.Tercero;
 import bbva.delivery.tarjetas.tercero.service.TerceroService;
 
-@Service("portalWebService")
+@Service("deliveryService")
 @Transactional(propagation=Propagation.SUPPORTS)
 public class DeliveryServiceImp implements DeliveryService {
 
 	@Autowired
-	private DeliveryDao portalWebDao;
+	private DeliveryDao deliveryDao;
 
 	@Autowired
 	private TerceroService terceroService;
@@ -86,12 +86,12 @@ public class DeliveryServiceImp implements DeliveryService {
 	}
 	
 	@Override
-	public List<Delivery> lstDelivery(Delivery param){
-		return portalWebDao.lstDelivery(param);
+	public List<Delivery> lstDelivery(Delivery delivery, Tercero tercero){
+		return deliveryDao.lstDelivery(delivery, tercero);
 	}
 	 
 	public BigDecimal crearGrupoCargaDelivery(){
-		return portalWebDao.crearGrupoCargaDelivery();
+		return deliveryDao.crearGrupoCargaDelivery();
 	}
  
 	public void mntDelivery(Delivery param) {
@@ -102,17 +102,17 @@ public class DeliveryServiceImp implements DeliveryService {
 		
 		param.setHistorial("Usuario: " + param.getUsuario() + ", Fecha:" + dateFormat.format(date) + ", " +  param.toString()); 
 		
-		portalWebDao.mntDelivery(param);
+		deliveryDao.mntDelivery(param);
 	}
 	 
 
 	@Override
 	public Integer valCourierDelivery(String dnicourier) {
-		return portalWebDao.valCourierDelivery(dnicourier);
+		return deliveryDao.valCourierDelivery(dnicourier);
 	}
   
 	public void mntArchivo(Archivo param){
-		portalWebDao.mntArchivo(param);
+		deliveryDao.mntArchivo(param);
 	}
 
 	public Workbook instanciarExcel(MultipartFile multipartFile, Archivo archivo) throws IOException {
@@ -525,7 +525,7 @@ public class DeliveryServiceImp implements DeliveryService {
 		Cell dnitrabajadorHeader = headerRow.createCell(16);
 		dnitrabajadorHeader.setCellValue("DNI Trabajador");
 		
-		List<Delivery> lstDelivery = lstDelivery(delivery);
+		List<Delivery> lstDelivery = lstDelivery(delivery, null);
 		
 		int row = 1;
 		
@@ -598,7 +598,7 @@ public class DeliveryServiceImp implements DeliveryService {
 
 
 	@Override
-	public String obtArchivoLstDelivery(Delivery delivery) throws IOException{
+	public String obtArchivoLstDelivery(Delivery delivery, Tercero tercero) throws IOException{
 		
 		
 		Workbook wb 		= new HSSFWorkbook();
@@ -657,7 +657,7 @@ public class DeliveryServiceImp implements DeliveryService {
 		Cell dnitrabajadorHeader = headerRow.createCell(16);
 		dnitrabajadorHeader.setCellValue("DNI Trabajador");
 		
-		List<Delivery> lstDelivery = lstDelivery(delivery);
+		List<Delivery> lstDelivery = lstDelivery(delivery, tercero);
 		
 		int row = 1;
 		
