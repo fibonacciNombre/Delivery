@@ -349,7 +349,7 @@ return enlace;
 }
 
 function getClickPdf(iddelivery){
-
+	
 	var param				= new  Object();
 	param.codigoEntrega		= iddelivery;
 	
@@ -362,13 +362,13 @@ function getClickPdf(iddelivery){
 		data			: param,
 		contentType 	: "application/json",
 		success 		: function(rsp) {
-				
+								
 								var status 	= rsp.tx.statustx;
 								var message = rsp.tx.messagetx;
 		
 								closeModalCargando();
 								
-								console.log(rsp.archivo);
+								console.log(rsp.archivopdf);
 								
 								if(status==0){									
 									var archivopdf	= rsp.archivopdf
@@ -386,7 +386,8 @@ function getClickPdf(iddelivery){
 									loadModalMensaje('Atención',message,function(){}); 
 								}
 		},
-		error 			: function(xhr, ajaxOptions, thrownError) {}
+		error 			: function(xhr, ajaxOptions, thrownError) {						
+		}
 	});		
 }
 

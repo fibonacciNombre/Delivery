@@ -62,7 +62,7 @@
 						<div class="form-group" id="nrodocumento-div">
 							<label for="dnitrabajador" class="col-md-6 control-label">DNI del Colaborador</label>
 							<div class="col-md-6">								
-								<input type="text" class="form-control" id="dnitrabajador"  name="dnitrabajador" maxlength="12">							
+								<input type="text" class="form-control" id="nrodocumento"  name="nrodocumento" maxlength="12">							
 							</div>
 						</div>
 						
@@ -190,9 +190,11 @@
 
 		var param 					= new Object();
 		 
-		param.nrodocumentocli 		= $("#form-bsqlstdelivery #nrodocumentocli").val(); 
+		param.idptipodocumento 		= $("#form-bsqlstdelivery #idptipodocumento").val();
+		param.nrodocumento 			= $("#form-bsqlstdelivery #nrodocumento").val();
 		param.idcourier 			= $("#form-bsqlstdelivery #idcourier").val();
 		param.fechaentregaarh 		= $("#form-bsqlstdelivery #fecentrega").val();
+		param.idpestadodelivery 	= $("#form-bsqlstdelivery #idpestadodelivery").val();
 
 		var pathFile				= obtArchivoLstEntregas(param);
 		

@@ -253,7 +253,8 @@ public class DeliveryController extends BaseController{
 		}
 		result += "{"
 				+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
-				+ "\"archivopdf\":"+ UtilWeb.objectToJson(archivoPDF, null, ArchivoPDF.class.getName()) + ","
+				+ "\"archivopdf\":"+ UtilWeb.objectToJson(archivoPDF, null, ArchivoPDF.class.getName()) 
+				
 				+ "}";
 	
 		this.escribirTextoSalida(response,result);
