@@ -204,7 +204,7 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 		
 		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), "BBVADESA", "PQ_DEL_SERVICIOS", "sp_obt_delivery_archivo_pdf");
 
-		JdbcHelper.setInParameter(call, in, "a_iddelivery", OracleTypes.NUMERIC, archivoPDF.getCodigoEntrega());
+		JdbcHelper.setInParameter(call, in, "a_iddelivery", OracleTypes.NUMERIC, archivoPDF.getCodentrega());
 		//JdbcHelper.setInParameter(call, in, "a_codbbva", OracleTypes.VARCHAR, requestChangeEstadoRegistro.getCodbbva());
 		//JdbcHelper.setInParameter(call, in, "a_archivodeliverypdf", OracleTypes.CLOB, archivoPDF.getArchivo());
 		//JdbcHelper.setInParameter(call, in, "a_historial", OracleTypes.VARCHAR, ToStringBuilder.reflectionToString(requestTransferirArchivo,ToStringStyle.MULTI_LINE_STYLE));

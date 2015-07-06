@@ -242,8 +242,8 @@ public class DeliveryController extends BaseController{
 		
 		String result			= "";
 		TransaccionWeb tx		= new TransaccionWeb();
-		String ruta 			= request.getSession().getServletContext().getRealPath("/");		
 		ArchivoPDF archivoPDF 	= new ArchivoPDF(request.getParameterMap());
+		String ruta 			= request.getSession().getServletContext().getRealPath("/");		
 		
 		try{
 			archivoPDF = deliveryService.getArchivoPDF(archivoPDF, ruta);   			

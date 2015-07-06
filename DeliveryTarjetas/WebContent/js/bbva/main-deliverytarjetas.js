@@ -348,49 +348,6 @@ function linkPDF(iddelivery) {
 return enlace;
 }
 
-function getClickPdf(iddelivery){
-	
-	var param				= new  Object();
-	param.codigoEntrega		= iddelivery;
-	
-	$.ajax({
-		type 			: "POST", 
-		url 			: "/DeliveryTarjetas/delivery.do?method=getArchivoPDF",
-		cache 			: false,
-		async 			: false,
-		dataType 		: 'json',
-		data			: param,
-		contentType 	: "application/json",
-		success 		: function(rsp) {
-								
-								var status 	= rsp.tx.statustx;
-								var message = rsp.tx.messagetx;
-		
-								closeModalCargando();
-								
-								console.log(rsp.archivopdf);
-								
-								if(status==0){									
-									var archivopdf	= rsp.archivopdf
-									
-									if(archivopdf.codigo!="" && archivopdf.codigo=="0"){
-										loadModalMensaje('Enhorabuena','Se ha generado el PDF correctamente',function(){});
-										console.log(archivopdf.archivo);
-										window.open("../"+archivopdf.archivo, 'NewWin');
-									}
-									
-									if(archivopdf.codigo!="" && archivopdf.codigo=="1")
-											loadModalMensaje('Atención',archivopdf.mensaje,function(){}); 
-									
-								}else{
-									loadModalMensaje('Atención',message,function(){}); 
-								}
-		},
-		error 			: function(xhr, ajaxOptions, thrownError) {						
-		}
-	});		
-}
-
 function rowEntregaSelectedUtil(json, formEdit) {
 	
 	loadModalCargando();
@@ -494,6 +451,52 @@ function rowEntregaSelectedUtil(json, formEdit) {
     
     closeModalCargando();
 }
+
+function getClickPdf(iddelivery){
+	
+	loadModalCargando();
+	
+	var param			= new  Object();
+	param.codentrega		= iddelivery;
+	
+	$.ajax({
+		type 			: "POST", 
+		url 			: "/DeliveryTarjetas/delivery.do?method=getArchivoPDF",
+		cache 			: false,
+		async 			: false,
+		dataType 		: 'json',
+		data			: param,
+		contentType 	: "application/x-www-form-urlencoded; charset=UTF-8",
+		success 		: function(rsp) {
+								
+								var status 	= rsp.tx.statustx;
+								var message = rsp.tx.messagetx;
+		
+								closeModalCargando();
+								
+								console.log(rsp.archivopdf);
+								
+								if(status==0){									
+									var archivopdf	= rsp.archivopdf
+									
+									if(archivopdf.codigo!="" && archivopdf.codigo=="0"){
+										loadModalMensaje('Enhorabuena','Se ha generado el PDF correctamente',function(){});
+										console.log(archivopdf.archivo);
+										window.open("../"+archivopdf.archivo, 'NewWin');
+									}
+									
+									if(archivopdf.codigo!="" && archivopdf.codigo=="1")
+											loadModalMensaje('Atención',archivopdf.mensaje,function(){}); 
+									
+								}else{
+									loadModalMensaje('Atención',message,function(){}); 
+								}
+		},
+		error 			: function(xhr, ajaxOptions, thrownError) {						
+		}
+	});		
+}
+
 function obtDescripcionParametro(lstValParam, codigoc, codigon){
 	
 	var descripcion;

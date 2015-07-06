@@ -748,7 +748,7 @@ public class DeliveryServiceImp implements DeliveryService {
 			
 			pdf = list.get(0);
 			
-			nombreArchivo = "PDFEntrega_" + pdf.getCodigoEntrega() + "_" + fechaFile + ".pdf";
+			nombreArchivo = "PDFEntrega_" + archivoPDF.getCodentrega() + "_" + fechaFile + ".pdf";
 //			file = ruta + "temp" + "/" + nombreArchivo;
 			file = ruta + nombreArchivo;
 			
@@ -771,7 +771,7 @@ public class DeliveryServiceImp implements DeliveryService {
 					fos.flush();
 					fos.close();
 					
-					file = "temp/"+nombreArchivo;
+//					file = "temp/"+nombreArchivo;
 					pdf.setArchivo(file);
 					pdf.setCodigo("0");
 					pdf.setMensaje("Exito");

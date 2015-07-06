@@ -2,33 +2,19 @@ package bbva.delivery.tarjetas.bean;
 import java.io.Serializable;
 import java.util.Map;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import commons.mapper.ResourceManager;
 
- 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.PROPERTY)
 public class ArchivoPDF  implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1378242042122173286L;
 	
-	private Integer codigoEntrega;
+	private Integer codentrega;
 	
 	private String archivo;
 	
 	private String codigo;
 	
 	private String mensaje;
-
-	public Integer getCodigoEntrega() {
-		return codigoEntrega;
-	}
 	
 	public ArchivoPDF(){
 		
@@ -39,9 +25,11 @@ public class ArchivoPDF  implements Serializable{
 		ResourceManager.populateDtoFromMap(this, params);
 	}
 	
-	
-	public void setCodigoEntrega(Integer codigoEntrega) {
-		this.codigoEntrega = codigoEntrega;
+	public Integer getCodentrega() {
+		return codentrega;
+	}
+	public void setCodentrega(Integer codentrega) {
+		this.codentrega = codentrega;
 	}
 
 	public String getArchivo() {
