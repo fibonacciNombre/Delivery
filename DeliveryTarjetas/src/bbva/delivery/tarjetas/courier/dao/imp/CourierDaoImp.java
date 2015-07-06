@@ -102,7 +102,7 @@ public class CourierDaoImp extends JdbcDaoBase implements CourierDao {
 	}
 
 	@Override
-	public List<Courier>  obtCourier(Courier courier) { 
+	public List<Courier> obtCourier(Courier courier) { 
 
 		List<Courier> lista = null;
 		  
@@ -116,7 +116,7 @@ public class CourierDaoImp extends JdbcDaoBase implements CourierDao {
 				resources.getString(ConstantsProperties.PQ_DEL_COURIER), 
 				"sp_obt_courier");
  
-		JdbcHelper.setInParameter(call, in, "a_idcursor", OracleTypes.INTEGER, courier.getIdcourier());
+		JdbcHelper.setInParameter(call, in, "a_idcourier", OracleTypes.INTEGER, courier.getIdcourier());
 		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, Courier.class);
 
 		out = call.execute(in);

@@ -49,7 +49,7 @@ public class TerceroServiceImp implements TerceroService {
 	}
 	
 	@Override
-	public List<Tercero> obtTercero (Tercero tercero){
+	public Tercero obtTercero (Tercero tercero){
 		return terceroDao.obtTercero(tercero);
 	}
 }

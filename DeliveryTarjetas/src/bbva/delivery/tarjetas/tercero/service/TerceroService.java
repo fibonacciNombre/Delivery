@@ -14,5 +14,5 @@ public interface TerceroService {
 	public BigDecimal obtTerceroXNrodoc(String nrodocumento);
 	
 
-	public List<Tercero> obtTercero (Tercero tercero);
+	public Tercero obtTercero (Tercero tercero);
 }

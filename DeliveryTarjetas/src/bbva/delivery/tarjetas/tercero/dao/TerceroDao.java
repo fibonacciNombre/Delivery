@@ -9,10 +9,11 @@ public interface TerceroDao {
 
 	List<Tercero> lstTerceros(Tercero tercero);
 	
+	Tercero obtTercero(Tercero tercero);
+	
 	void mntTercero(Tercero tercero);
 	
 	public BigDecimal obtTerceroXNrodoc(String nrodocumento);
-
-	public List<Tercero> obtTercero (Tercero tercero);
+ 
 
 }
