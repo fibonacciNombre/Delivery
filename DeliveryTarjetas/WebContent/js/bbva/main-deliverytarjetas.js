@@ -377,9 +377,11 @@ function getClickPdf(iddelivery){
 										loadModalMensaje('Enhorabuena','Se ha generado el PDF correctamente',function(){});
 										console.log(archivopdf.archivo);
 										window.open("../"+archivopdf.archivo, 'NewWin');
-									}else{
-										loadModalMensaje('Atención',archivopdf.mensaje,function(){}); 
 									}
+									
+									if(archivopdf.codigo!="" && archivopdf.codigo=="1")
+											loadModalMensaje('Atención',archivopdf.mensaje,function(){}); 
+									
 								}else{
 									loadModalMensaje('Atención',message,function(){}); 
 								}
