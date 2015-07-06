@@ -129,5 +129,32 @@ public class TerceroDaoImp extends JdbcDaoBase implements TerceroDao {
 		return idtercero;
 
 	}
+	
+
+	@SuppressWarnings("unchecked")
+	public List<Tercero> obtTercero (Tercero tercero){
+		logger.info("DAO ObtTercero");
+		
+		List<Tercero> lista 		= null; 
+		SimpleJdbcCall call 		= null;
+		Map<String, Object> out 	= null;
+		MapSqlParameterSource in	= new MapSqlParameterSource();
+
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
+				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
+				resources.getString(ConstantsProperties.PQ_DEL_TERCERO),
+				"sp_obt_tercero");
+ 
+		JdbcHelper.setInParameter(call, in, "a_idtercero", 			Types.INTEGER, tercero.getIdtercero());   
+
+		JdbcHelper.setOutParameter(call, "a_cursor", 		OracleTypes.CURSOR, Tercero.class);
+		 
+		out 	= call.execute(in);
+		lista 	= (List<Tercero>) out.get("a_cursor");
+		  
+		return lista;
+		
+	}
+	
 }
 
