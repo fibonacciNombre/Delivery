@@ -12,4 +12,7 @@ public interface TerceroService {
 	List<Tercero> lstTerceros(Tercero tercero);
 	
 	public BigDecimal obtTerceroXNrodoc(String nrodocumento);
+	
+
+	public Tercero obtTercero (Tercero tercero);
 }

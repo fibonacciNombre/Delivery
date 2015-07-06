@@ -129,7 +129,7 @@ public class TerceroDaoImp extends JdbcDaoBase implements TerceroDao {
 		return idtercero;
 
 	}
-
+ 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Tercero obtTercero(Tercero tercero) {
@@ -154,6 +154,6 @@ public class TerceroDaoImp extends JdbcDaoBase implements TerceroDao {
 		lista 	= (List<Tercero>) out.get("a_cursor");
 		  
 		return lista.get(0);
-	}
+	} 
 }
 

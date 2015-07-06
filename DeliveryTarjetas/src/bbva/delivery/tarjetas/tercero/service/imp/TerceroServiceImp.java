@@ -47,4 +47,9 @@ public class TerceroServiceImp implements TerceroService {
 	public BigDecimal obtTerceroXNrodoc(String nrodocumento){
 		return terceroDao.obtTerceroXNrodoc(nrodocumento);
 	}
+	
+	@Override
+	public Tercero obtTercero (Tercero tercero){
+		return terceroDao.obtTercero(tercero);
+	}
 }

@@ -14,5 +14,6 @@ public interface TerceroDao {
 	void mntTercero(Tercero tercero);
 	
 	public BigDecimal obtTerceroXNrodoc(String nrodocumento);
-		
+ 
+
 }
