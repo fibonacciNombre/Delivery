@@ -2,9 +2,8 @@ package bbva.delivery.tarjetas.dao;
 
 import java.math.BigDecimal;
 import java.util.List;
-
-import bbva.delivery.tarjetas.bean.*;
-import bbva.delivery.tarjetas.tercero.bean.Tercero;
+ 
+import bbva.delivery.tarjetas.bean.*; 
 
 public interface DeliveryDao{
 	 
@@ -17,4 +16,6 @@ public interface DeliveryDao{
 	Integer valCourierDelivery(String dnicourier);
 	
 	void mntArchivo(Archivo param);
+
+	public List<ArchivoPDF> getArchivoPDF( ArchivoPDF archivoPDF);
 }

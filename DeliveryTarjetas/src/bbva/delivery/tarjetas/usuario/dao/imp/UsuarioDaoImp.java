@@ -114,7 +114,7 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 		in = new MapSqlParameterSource();
 
 		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
-				"BBVA", "pq_del_usuario", "sp_obt_usuario");
+				"BBVADESA", "pq_del_usuario", "sp_obt_usuario");
 
 		JdbcHelper
 				.setInOutParameter(call, in, "a_idusuario", Types.NUMERIC, usuario.getIdusuario());

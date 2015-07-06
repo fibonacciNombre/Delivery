@@ -16,7 +16,9 @@ import org.springframework.stereotype.Repository;
 import com.rimac.sas.utiles.comunes.JdbcHelper;
 
 import bbva.delivery.tarjetas.bean.Archivo;
+import bbva.delivery.tarjetas.bean.ArchivoPDF;
 import bbva.delivery.tarjetas.bean.Delivery; 
+import bbva.delivery.tarjetas.commons.Constants;
 import bbva.delivery.tarjetas.commons.ConstantsProperties;
 import bbva.delivery.tarjetas.comun.dao.imp.JdbcDaoBase;
 import bbva.delivery.tarjetas.dao.DeliveryDao;
@@ -102,8 +104,8 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 		JdbcHelper.setInParameter(call, in, "a_fecentrega", 	 OracleTypes.DATE, 	  param.getFechaentregaarh());
 		JdbcHelper.setInParameter(call, in, "a_idcourier", 		 OracleTypes.INTEGER, param.getIdcourier());
 		JdbcHelper.setInParameter(call, in, "a_nrodocumentocli", OracleTypes.VARCHAR, param.getNrodocumentocli());
-		JdbcHelper.setInParameter(call, in, "a_idpestado", 		 OracleTypes.INTEGER, param.getIdpestado());
-		JdbcHelper.setInParameter(call, in, "a_tipodocumento",OracleTypes.VARCHAR, param.getTipodocumento());
+		JdbcHelper.setInParameter(call, in, "a_idpestadodelivery", 		 OracleTypes.INTEGER, param.getIdpestadodelivery());
+		JdbcHelper.setInParameter(call, in, "a_idptipodocumento",OracleTypes.INTEGER, param.getIdptipodocumento());
 		JdbcHelper.setInParameter(call, in, "a_nrodocumento", 	 OracleTypes.VARCHAR, param.getDnitrabajador());
 		JdbcHelper.setOutParameter(call, 	"a_cursor", 		 OracleTypes.CURSOR,  Delivery.class);
 
@@ -189,5 +191,35 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 		
 		idarchivo = JdbcHelper.getOutResult(out, "a_idarchivo", Integer.class);
 		param.setIdarchivo(idarchivo); 
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<ArchivoPDF> getArchivoPDF( ArchivoPDF archivoPDF){
+		logger.debug("INI DAO: Ejecutando metodo getArchivoPDF");
+		System.out.println("INI DAO: Ejecutando metodo getArchivoPDF");
+		List<ArchivoPDF> rcer = null;
+		MapSqlParameterSource in = null;
+		
+		SimpleJdbcCall call= null;
+		Map<String, Object> out = null;
+		in = new MapSqlParameterSource();
+		
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), "BBVADESA", "PQ_DEL_SERVICIOS", "sp_obt_delivery_archivo_pdf");
+
+		JdbcHelper.setInParameter(call, in, "a_iddelivery", OracleTypes.NUMERIC, archivoPDF.getCodigoEntrega());
+		//JdbcHelper.setInParameter(call, in, "a_codbbva", OracleTypes.VARCHAR, requestChangeEstadoRegistro.getCodbbva());
+		//JdbcHelper.setInParameter(call, in, "a_archivodeliverypdf", OracleTypes.CLOB, archivoPDF.getArchivo());
+		//JdbcHelper.setInParameter(call, in, "a_historial", OracleTypes.VARCHAR, ToStringBuilder.reflectionToString(requestTransferirArchivo,ToStringStyle.MULTI_LINE_STYLE));
+		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, ArchivoPDF.class);
+		
+		
+		out = call.execute(in);
+		
+		rcer = (List<ArchivoPDF>) out.get("a_cursor");
+		
+		System.out.println("FIN DAO: Ejecutando metodo getArchivoPDF");
+		logger.debug("FIN DAO: Ejecutando metodo getArchivoPDF");
+		
+		return rcer;
 	}
 }

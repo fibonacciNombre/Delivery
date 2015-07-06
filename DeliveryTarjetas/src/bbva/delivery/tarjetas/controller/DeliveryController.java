@@ -22,12 +22,17 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import bbva.delivery.tarjetas.anotaciones.AdviceController;
 import bbva.delivery.tarjetas.bean.Archivo;
+import bbva.delivery.tarjetas.bean.ArchivoPDF;
 import bbva.delivery.tarjetas.bean.Delivery;
 import bbva.delivery.tarjetas.commons.Constants;
 import bbva.delivery.tarjetas.comun.bean.TransaccionWeb;
@@ -36,7 +41,6 @@ import bbva.delivery.tarjetas.service.DeliveryService;
 import bbva.delivery.tarjetas.tercero.bean.Tercero;
 import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
-
 import commons.framework.BaseController;
 import commons.web.UtilWeb;
 
@@ -62,6 +66,9 @@ public class DeliveryController extends BaseController{
 
 	@Override
 	public ModelAndView save(HttpServletRequest request,HttpServletResponse response) {return null;}
+	
+	//Autorizaciones
+	private static final String AUTHORIZATION_PROPERTY = "Authorization";
 	
 	public String goCargaDelivery(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -142,6 +149,7 @@ public class DeliveryController extends BaseController{
 	
 		this.escribirTextoSalida(response,result);
 	}
+
 	
 	public void lstDelivery(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -231,4 +239,18 @@ public class DeliveryController extends BaseController{
 			}			
 		}
 	}
+	
+	//Vista del PDF
+    public void getArchivoPDF(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		String ruta = "";
+		ruta =request.getSession().getServletContext().getRealPath("/");
+		System.out.println("ruta -->" + ruta);
+		
+		ArchivoPDF archivoPDF = new ArchivoPDF(request.getParameterMap());
+		
+		archivoPDF = deliveryService.getArchivoPDF(archivoPDF, ruta);        
+		System.out.println(archivoPDF);
+
+    }
 }

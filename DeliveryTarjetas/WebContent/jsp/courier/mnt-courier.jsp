@@ -120,8 +120,7 @@
 													var status = rsp.tx.statustx;
 													var message = rsp.tx.messagetx;
 				
-													closeModalCargando();
-				
+													closeModalCargando(); 
 													if (status == 0) {
 														if (rsp.lst != undefined && rsp.lst.length > 0) {
 															$("#container-lst-courier").slideDown(1000);

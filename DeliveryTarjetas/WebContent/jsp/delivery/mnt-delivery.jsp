@@ -42,26 +42,28 @@
 				            </div>
 		        		</div>
 		        		
-		        		
-						<div class="form-group" id="idpestado-div">
-							<label for="idpestado" class="col-md-5 control-label required">Estado
-							</label>
-							<div class="col-md-7">
-								<select class="form-control" id="idpestado" name="idpestado">
-								</select>
-								<div class="result"></div>
+						<div class="form-group">
+							<label for="dnitrabajador" class="col-md-5 control-label">DNI del colaborador</label>
+							<div class="col-md-7">								
+								<input type="text" class="form-control" id="dnitrabajador"  name="dnitrabajador" maxlength="8">							
 							</div>
-						</div>																											
+						</div>
+		        		 																										
 					</div>
 											
 					<div class="col-md-6">						
 						
-						<div class="form-group">
-							<label for="tipodocumento" class="col-md-5 control-label">Tipo de documento</label>
-							<div class="col-md-7">								
-								<input type="text" class="form-control" id="tipodocumento"  name="tipodocumento" maxlength="8">							
+						<div class="form-group" id="tipdocumento-div">
+							<label for="idptipodocumento"
+								class="col-md-5 control-label required">Tipo de documento </label>
+							<div class="col-md-7">
+								<select class="form-control" id="idptipodocumento"
+									name="idptipodocumento">
+								</select>
+								<div class="result"></div>
 							</div>
 						</div>
+
 						<div class="form-group">
 							<label for="nrodocumentocli" class="col-md-5 control-label">DNI del cliente</label>
 							<div class="col-md-7">								
@@ -69,12 +71,6 @@
 							</div>
 						</div>
 						
-						<div class="form-group">
-							<label for="dnitrabajador" class="col-md-5 control-label">DNI del colaborador</label>
-							<div class="col-md-7">								
-								<input type="text" class="form-control" id="dnitrabajador"  name="dnitrabajador" maxlength="8">							
-							</div>
-						</div>
 						
 						<div class="form-group">
 							<label for="btnBsqDelivery" class="col-md-5 control-label">
@@ -121,6 +117,7 @@
 				 	<th class="text-center">Responsable</th>
 					<th class="text-center">Fecha Entrega</th>  
 					<th class="text-center">Detalle</th>
+					<th class="text-center">PDF</th>
 				</tr>
 			</thead>
 			<tbody class="vcenter">
@@ -137,10 +134,11 @@
 	
     $().ready(function(){    
     	loadModalCargando();
-     	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','cbocourier', ['idcourier','rznsocial'], {form: 'form-bsq-mntdelivery'});
+     	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','cbocourier', ['idcourier','rznsocial'], {form: 'form-bsqmntdelivery'});
     	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form: 'form-cargar-entrega-tarjeta-edit'});
  
-    	callCargaControlParam('DELWEB_ESTADO', 'form-bsq-mntdelivery #idpestado', true);
+    	callCargaControlParam('DELWEB_TIPODOCUMENTO','form-bsqmntdelivery #idptipodocumento',false); 
+    	callCargaControlParam('DELWEB_ESTADODELIVERY','form-bsqmntdelivery #idpestadodelivery',false); 
 
     	initDatePicker("fecentrega","calendario");
     	
@@ -169,12 +167,12 @@
 
 		var param 				= new Object();
 		 
-		param.nrodocumentocli 	= $("#form-bsq-mntdelivery #nrodocumentocli").val(); 
-		param.idcourier 		= $("#form-bsq-mntdelivery #idcourier").val();
-		param.fechaentregaarh 	= $("#form-bsq-mntdelivery #fecentrega").val();
-		param.tipodocumento 	= $("#form-bsq-mntdelivery #tipodocumento").val();
-		param.idpestado 	= $("#form-bsq-mntdelivery #idpestado").val();
-		param.dnitrabajador 	= $("#form-bsq-mntdelivery #dnitrabajador").val();
+		param.nrodocumentocli 	= $("#form-bsqmntdelivery #nrodocumentocli").val(); 
+		param.idcourier 		= $("#form-bsqmntdelivery #idcourier").val();
+		param.fechaentregaarh 	= $("#form-bsqmntdelivery #fecentrega").val();
+		param.idptipodocumento 	= $("#form-bsqmntdelivery #idptipodocumento").val();
+		param.idpestadodelivery = $("#form-bsqmntdelivery #idpestadodelivery").val();
+		param.dnitrabajador 	= $("#form-bsqmntdelivery #dnitrabajador").val();
  		
 		$.ajax({
 			type 			: "POST",
@@ -187,7 +185,7 @@
 			success 		: function(data) {					
 				$("#container-lst-mntdelivery").slideDown(1000);
 				var jsonDelivery = eval(data);
-				createHtmlTable(jsonDelivery, "table-lst-mntdelivery");	
+				//createHtmlTable(jsonDelivery, "table-lst-mntdelivery");	
 				closeModalCargando(); 
 			},
 			error : function(xhr, ajaxOptions, thrownError) {
@@ -241,7 +239,7 @@
 									"sWidth" 	: "10%" },
 								{ "data" 		: "nombrescli",
 									"orderable"	: false,
-									"sWidth" 	: "30%" },
+									"sWidth" 	: "25%" },
 									{ "data" 		: "responsable",
 									"sWidth" 	: "30%",
 									"orderable"	: false }, 
@@ -253,7 +251,13 @@
 									"sWidth" 	: "5%",
                       				"class"		: "text-center",
                        	 				"mRender"  	: function (data, type, full) {
-                        	 								return linkDetalleDelivery(full,true);  }}														
+                        	 								return linkDetalleDelivery(full,true);  }},
+									{ "data"      	: "",
+										"orderable"	: false,
+										"sWidth" 	: "5%",
+	                      				"class"		: "text-center",
+	                       	 				"mRender"  	: function (data, type, full) {
+	                        	 								return linkPDF(full.iddelivery);  }}		
 							],
 			"fnDrawCallback"	: function() {mostrarDatatable("#table-lstmntdelivery");},
 			"fnCreatedRow" 		: function (r, data, i) {

@@ -8,8 +8,8 @@ import org.json.simple.JSONObject;
 import org.springframework.web.multipart.MultipartFile;
 
 import bbva.delivery.tarjetas.bean.Archivo;
-import bbva.delivery.tarjetas.bean.Delivery;  
-import bbva.delivery.tarjetas.tercero.bean.Tercero;
+import bbva.delivery.tarjetas.bean.ArchivoPDF;
+import bbva.delivery.tarjetas.bean.Delivery;   
 
 public interface DeliveryService {
 
@@ -25,4 +25,8 @@ public interface DeliveryService {
 	JSONObject cargarExcelDelivery(MultipartFile multipartFile,Archivo archivo) throws FileNotFoundException;
 
 	String obtArchivoLstDelivery(Delivery delivery) throws IOException;
+	
+	public ArchivoPDF getArchivoPDF(ArchivoPDF archivoPDF, String ruta) throws Exception;
+
+		
 }
