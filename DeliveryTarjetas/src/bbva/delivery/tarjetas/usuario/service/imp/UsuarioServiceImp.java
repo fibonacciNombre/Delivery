@@ -96,7 +96,7 @@ public class UsuarioServiceImp implements UsuarioService {
 			
 					 tercero.setIdtercero(usuario.getIdtercero());
 					 
-					 tercero = terceroDao.lstTerceros(tercero).get(0);
+					 tercero = terceroDao.obtTercero(tercero);
 			
 					 if(tercero.getIdcourier() != null){
 						 	courier.setIdcourier(tercero.getIdcourier());
