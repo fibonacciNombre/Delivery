@@ -10702,13 +10702,13 @@ span.loading-animate:nth-child(5) {
   		background-color: transparent;
   	}
   	.escala-logo{
-		transform: scale(0.8);
+		transform: scale(0.7);
 		padding-top: 20px;
 	}
 }
 @media (max-width: 370px) {
 	.escala-logo{
-		transform: scale(0.7);
+		transform: scale(0.5);
 		padding-top: 20px;
 	}
 }
