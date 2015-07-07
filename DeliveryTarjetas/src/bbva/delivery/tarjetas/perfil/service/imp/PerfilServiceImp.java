@@ -23,22 +23,19 @@ public class PerfilServiceImp implements PerfilService {
 
 	@Override
 	public void mntPerfil(Perfil perfil) {
-		// TODO Auto-generated method stub
-		logger.info("Service mntPerfil");
+		logger.info("SERVICE PerfilServiceImp mntPerfil");
 		perfilDao.mntPerfil(perfil);		
 	}
 
 	@Override
 	public List<Perfil> lstPerfiles(Perfil perfil) {
-		// TODO Auto-generated method stub
-		logger.info("Service lstPerfiles");
+		logger.info("SERVICE PerfilServiceImp lstPerfiles");
 		return perfilDao.lstPerfiles(perfil);
 	}
 
 	@Override
 	public Perfil obtPerfil(Perfil perfil) {
-		// TODO Auto-generated method stub
-		logger.info("Service obtPerfil");
+		logger.info("SERVICE PerfilServiceImp obtPerfil");
 		return perfilDao.obtPerfil(perfil);
 	}
 

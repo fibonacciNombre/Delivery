@@ -28,6 +28,8 @@ public class CourierServiceImp implements CourierService {
 	@Override
 	public void mntCourier(Courier courier) {
 		 
+		logger.info("SERVICE CourierServiceImp mntCourier");
+		
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		Date date = new Date();
 		
@@ -37,30 +39,30 @@ public class CourierServiceImp implements CourierService {
 
 	@Override
 	public List<Courier> lstCouriers(Courier courier) {
-		logger.info("SERVICE lstCourier");
+		logger.info("SERVICE CourierServiceImp lstCouriers");
 		return courierDao.lstCouriers(courier);
 	}
 
 	@Override
 	public List<Courier>  obtCourier(Courier courier) {
-		logger.info("SERVICE obtDetalleCourier");
+		logger.info("SERVICE CourierServiceImp obtCourier");
 		return courierDao.obtCourier(courier);
 	}
 
 	@Override 
 	public Integer obtTipoarchXExt(String extension) {
-		// TODO Auto-generated method stub
+		logger.info("SERVICE CourierServiceImp obtTipoarchXExt");
 		return courierDao.obtTipoarchXExt(extension);
 	}
 
 	@Override
 	public Integer obtCourierXCodbbva(String codbbva) {
-		// TODO Auto-generated method stub
+		logger.info("SERVICE CourierServiceImp obtCourierXCodbbva");
 		return courierDao.obtCourierXCodbbva(codbbva);
 	}
 
 	public List<Tercero> lstTercerosxCourier(Tercero tercero) {
-		logger.info("SERVICE lstTercerosxCourier");
+		logger.info("SERVICE CourierServiceImp lstTercerosxCourier");
 		return courierDao.lstTercerosxCourier(tercero); 
 	}
 }

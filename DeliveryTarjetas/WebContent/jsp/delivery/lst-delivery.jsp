@@ -143,6 +143,9 @@
 		
 		initDatePicker("fecentrega","calendario");
 		
+		$("#t-responsablemnt").remove();
+		$("#tabs-responsablemnt").remove();
+		
 		if($("#form-datos-usuario #idcourier").val()!=null  && $("#form-datos-usuario #idcourier").val()!=""){
     		$("#form-bsqlstdelivery #cbocourier").val($("#form-datos-usuario #idcourier").val());
     		$("#form-bsqlstdelivery #idcourier").val($("#form-datos-usuario #idcourier").val());    		
@@ -234,7 +237,7 @@
 									"sWidth" 	: "10%",
                       				"class"		: "text-center",
                        	 			"mRender"  	: function (data, type, full) {
-                        	 								return linkDetalleDelivery(full,false);  }},
+                        	 								return linkDetalleDelivery(full,false,false);  }},
 								{ "data"      	: "",
 									"orderable"	: false,
 									"sWidth" 	: "5%",
@@ -247,6 +250,6 @@
 									    if(data.idpestadocarga == 2)  
 											$(r).addClass("row-alerta");
 								   }
-		});		
+		});						
 	}
 </script>

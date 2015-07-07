@@ -43,6 +43,9 @@ public class CourierDaoImp extends JdbcDaoBase implements CourierDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Courier> lstCouriers(Courier param) {
+		
+		logger.info("DAO CourierDaoImp lstCouriers");
+		
 		List<Courier> lista = null; 
 		MapSqlParameterSource in = null;
 
@@ -70,6 +73,9 @@ public class CourierDaoImp extends JdbcDaoBase implements CourierDao {
 
 	@Override
 	public void mntCourier(Courier courier) {
+		
+		logger.info("DAO CourierDaoImp mntCourier");
+		
 		SimpleJdbcCall call = null;
 		MapSqlParameterSource in = null;
 		Map<String, Object> out = null; 
@@ -104,6 +110,8 @@ public class CourierDaoImp extends JdbcDaoBase implements CourierDao {
 	@Override
 	public List<Courier> obtCourier(Courier courier) { 
 
+		logger.info("DAO CourierDaoImp obtCourier");
+		
 		List<Courier> lista = null;
 		  
 		SimpleJdbcCall call = null;
@@ -130,8 +138,8 @@ public class CourierDaoImp extends JdbcDaoBase implements CourierDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Tercero> lstTercerosxCourier(Tercero tercero) {
-		// TODO Auto-generated method stub
-		logger.info("DAO lstTercerosxCourier");
+		
+		logger.info("DAO CourierDaoImp lstTercerosxCourier");
 		
 		List<Tercero> lista 		= null; 
 		SimpleJdbcCall call 		= null;
@@ -160,6 +168,8 @@ public class CourierDaoImp extends JdbcDaoBase implements CourierDao {
 	@Override
 	public Integer obtCourierXCodbbva(String codbbva) { 
 		
+		logger.info("DAO CourierDaoImp obtCourierXCodbbva");
+		
 		SimpleJdbcCall call = null;
 		MapSqlParameterSource in = null;
 		Map<String, Object> out = null; 
@@ -184,6 +194,8 @@ public class CourierDaoImp extends JdbcDaoBase implements CourierDao {
  
 	@Override
 	public Integer obtTipoarchXExt(String extension) { 
+		
+		logger.info("DAO CourierDaoImp obtTipoarchXExt");
 		
 		SimpleJdbcCall call = null;
 		MapSqlParameterSource in = null;

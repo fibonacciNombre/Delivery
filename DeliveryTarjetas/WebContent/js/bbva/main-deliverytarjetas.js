@@ -329,10 +329,10 @@ function obtArchivoLstEntregas(paramQuery){
 	return pathFile;
 }
 
-function linkDetalleDelivery(full, formEdit) {
+function linkDetalleDelivery(full, formEdit, loadColaboradores) {
 	enlace = "<a data-toggle='modal' "
 				+ "data-target='#modalDetalleEntrega' "
-				+ "onclick='return rowEntregaSelectedUtil("+ JSON.stringify(JSON.stringify(full)) +","+formEdit+");'>"
+				+ "onclick='return rowEntregaSelectedUtil("+ JSON.stringify(JSON.stringify(full)) +","+formEdit+","+loadColaboradores+");'>"
 					+ "<i class='i-detalle'></i>" 
 			+ "</a>";
 
@@ -348,7 +348,7 @@ function linkPDF(iddelivery) {
 return enlace;
 }
 
-function rowEntregaSelectedUtil(json, formEdit) {
+function rowEntregaSelectedUtil(json, formEdit, loadColaboradores) {
 	
 	loadModalCargando();
 
@@ -358,7 +358,7 @@ function rowEntregaSelectedUtil(json, formEdit) {
 	
 	initDatePicker("fecentregaarch","calendario2");
 	
-	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form: 'form-detdelivery'});
+	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','cbocourier', ['idcourier','rznsocial'], {form: 'form-detdelivery'});
 	
 	callCargaControlParam('DELWEB_ESTADO','form-detdelivery #idpestado',false);
 	
@@ -366,51 +366,14 @@ function rowEntregaSelectedUtil(json, formEdit) {
 	
 	callCargaControlParam('DELWEB_ESTADOCARGA','form-detdelivery #idpestadocarga',false);
 	
+	callCargaControlParam('DELWEB_TIPODOCUMENTO','form-detdelivery #idptipodocumento',false);
+	
 	cargarComboArray('form-detdelivery #indverificacion',[['S','SI'], ['N','NO']])
 	
-	/*
-	var paramCourier		= new Object();
-	paramCourier.idecourier	= json.idcourier;
-	
-	$.ajax({
-		type 		: "POST",
-		url 		: "/DeliveryTarjetas/courier.do"+"?method=lstCourier",
-		cache 		: false ,
-		dataType	: "json",
-		contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-		async 		: false,
-		data 		: paramCourier,		
-		success 	: function(rsp){
-
-						var statustx	= rsp.tx.statustx;
-						var messagetx	= rsp.tx.messagetx;
-						
-						if(statustx == 0){																
-						}
-		}
-	});
-	
-	var paramTercero 		= new Object();
-	paramTercero.idtercero	= json.idtercero;
-	
-	$.ajax({
-		type 		: "POST",
-		url 		: "/DeliveryTarjetas/tercero.do"+"?method=lstTerceros",
-		cache 		: false ,
-		dataType	: "json",
-		contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-		async 		: false,
-		data 		: paramTercero,		
-		success 	: function(rsp){
-
-						var statustx	= rsp.tx.statustx;
-						var messagetx	= rsp.tx.messagetx;
-						
-						if(statustx == 0){								
-						}
-		}
-	});
-	*/ 
+	if($("#form-datos-usuario #idcourier").val()!=null  && $("#form-datos-usuario #idcourier").val()!=""){
+		$("#form-detdelivery #cbocourier").val($("#form-datos-usuario #idcourier").val());
+		$("#form-detdelivery #idcourier").val($("#form-datos-usuario #idcourier").val());    				
+	}
 	
 	$("#form-detdelivery #iddelivery").val(json.iddelivery);
     $("#form-detdelivery #tipodocumento").val(json.tipodocumento);
@@ -440,15 +403,89 @@ function rowEntregaSelectedUtil(json, formEdit) {
     $("#form-detdelivery #historial").val(json.historial);
     $("#form-detdelivery #grupocarga").val(json.grupocarga);
     $("#form-detdelivery #idcourier").val(json.idcourier);
-    $("#form-detdelivery #fecentregaarch").val(json.fecentregaarch);
+    $("#form-detdelivery #cbocourier").val(json.idcourier);
+    $("#form-detdelivery #fecentregaarch").val(json.fecentrega);
     $("#form-detdelivery #idpestadodelivery").val(json.idpestadodelivery);
     
+    $("#form-detdelivery #cbocourier").attr("disabled","disabled");
     $("#form-detdelivery #idpestadodelivery").attr("disabled","disabled");
     
     if(!formEdit){
     	$("#form-detdelivery *").attr("disabled",true);
     }
     
+    if(loadColaboradores){
+		
+		var paramColaboradores 			= new Object();
+		paramColaboradores.idcourier	= $("#form-detdelivery #idcourier").val();
+		
+		$.ajax({
+			type 		: "POST",
+			url 		: "/DeliveryTarjetas/courier.do?method=lstColaboradores",
+			cache 		: false,
+			dataType 	: "json",
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			async 		: false,
+			data 		: paramColaboradores,
+			success 	: function(rsp) {
+
+								var status 	= rsp.tx.statustx;
+								var message = rsp.messagetx;
+								
+								closeModalCargando();
+								
+								if(status == 0){													
+									if(rsp.lst!=undefined && rsp.lst.length>0){
+										
+										$("#form-detdelivery #idtercero").empty();
+										
+										for ( var i = 0; i < rsp.lst.length; i++) { 
+											if(rsp.lst[i].idpestado==1){
+												var opcion = '<option value="'+rsp.lst[i].idtercero+'" >'+ rsp.lst[i].nrodocumento+ " - " +rsp.lst[i].nomcompleto + '</option>';
+												$("#form-detdelivery #idtercero").append(opcion);	
+											}											 
+										}				
+										$("#form-detdelivery #idtercero").val(json.idtercero)
+									}									
+								} 
+			}
+		});
+	}
+	
+	if(!loadColaboradores){
+		var paramTercero 		= new Object();
+		paramTercero.idtercero	= json.idtercero;
+		
+		$.ajax({
+			type 		: "POST",
+			url 		: "/DeliveryTarjetas/tercero.do"+"?method=obtTercero",
+			cache 		: false ,
+			dataType	: "json",
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			async 		: false,
+			data 		: paramTercero,		
+			success 	: function(rsp){
+
+							var statustx	= rsp.tx.statustx;
+							var messagetx	= rsp.tx.messagetx;
+							
+							if(statustx == 0){
+								
+								var tercero = rsp.tercero;
+								
+								$("#form-detdelivery #idptipodocumento").val(tercero.idptipodocumento);
+							    $("#form-detdelivery #nrodocumento").val(tercero.nrodocumento);
+							    $("#form-detdelivery #nombres").val(tercero.nombres);
+							    $("#form-detdelivery #apepaterno").val(tercero.apepaterno);
+							    $("#form-detdelivery #apematerno").val(tercero.apematerno);
+							    $("#form-detdelivery #telfmovil").val(tercero.telfmovil);
+							    $("#form-detdelivery #correo").val(tercero.correo);
+							}
+								
+			}
+		});
+	}
+	
     closeModalCargando();
 }
 

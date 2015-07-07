@@ -108,6 +108,8 @@ public class TerceroDaoImp extends JdbcDaoBase implements TerceroDao {
 	@Override
 	public BigDecimal obtTerceroXNrodoc(String nrodocumento) { 
 		
+		logger.info("DAO TerceroDaoImp obtTerceroXNrodoc");
+		
 		SimpleJdbcCall call = null;
 		MapSqlParameterSource in = null;
 		Map<String, Object> out = null; 

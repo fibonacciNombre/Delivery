@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import bbva.delivery.tarjetas.commons.Constants;
-import sas.seguridad.commons.ConfigurationProperties;
+import bbva.delivery.tarjetas.util.ConfigurationProperties;
 
 public class InicioAppServlet extends HttpServlet {
 
@@ -48,13 +48,13 @@ public class InicioAppServlet extends HttpServlet {
 		
 		try {
 			rutaLog4j = System.getProperty(ConfigurationProperties.RUTA_ARCH_DEFAULT)+
-					Constants.RUTA_FILE_CONFIGURACION_LOG4J;
+							Constants.RUTA_FILE_CONFIGURACION_LOG4J;
 			
 			PropertyConfigurator.configure(rutaLog4j);
 			
 			System.out.println("Informacion acerca de la configuracion del log4j");
 			System.out.println("RUTA -> " + rutaLog4j);
-			System.out.println("Obteniendo los parametros de verificaci�n");
+			System.out.println("Obteniendo los parametros de verificación");
 			
 			logger.info("[---- INICIADO APLICACION DELIVERY TARJETAS ----]");
 			

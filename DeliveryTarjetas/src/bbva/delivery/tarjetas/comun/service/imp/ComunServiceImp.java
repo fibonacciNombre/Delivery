@@ -2,6 +2,7 @@ package bbva.delivery.tarjetas.comun.service.imp;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -19,11 +20,13 @@ public class ComunServiceImp implements ComunService {
 
 	@Autowired private ComunDao comunDao;
 	
+	private static Logger logger = Logger.getLogger(ComunServiceImp.class.getName());
 	/*
 	 * (non-Javadoc)
 	 * @see rimac.portalweb.dao.ComunDaoImp#obtenerConstante(String)
 	 */	
 	public Constante obtenerConstante(String ideConstante) {
+		logger.info("SERVICE ComunServiceImp obtenerConstante");
 		return comunDao.obtenerConstante(ideConstante);
 	}
 	
@@ -32,6 +35,7 @@ public class ComunServiceImp implements ComunService {
 	 * @see rimac.portalweb.dao.ComunDaoImp#obtenerParametro(rimac.portalweb.bean.Parametro)
 	 */	
 	public Parametro obtenerParametro(Parametro parametro){
+		logger.info("SERVICE ComunServiceImp obtenerParametro");
 		return comunDao.obtenerParametro(parametro);
 	}
 
@@ -39,10 +43,12 @@ public class ComunServiceImp implements ComunService {
 	 * @see rimac.portalweb.comun.service.ComunService#listarParametro(rimac.portalweb.comun.bean.Parametro)
 	 */
 	public List<Parametro> lstParametro(Parametro parametro) {
+		logger.info("SERVICE ComunServiceImp lstParametro");
 		return comunDao.lstParametro(parametro);
 	}
 	
 	public List<Parametro> cmbParametro(Parametro parametro) {
+		logger.info("SERVICE ComunServiceImp cmbParametro");
 		return comunDao.cmbParametro(parametro);
 	}
 

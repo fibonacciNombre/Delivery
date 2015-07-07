@@ -44,8 +44,8 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean validarContrasena(Usuario usuario) {
-		// TODO Auto-generated method stub
-		logger.info("Dao validarContrasena");
+		
+		logger.info("DAO UsuarioDaoImp validarContrasena");
 		
 		List<Usuario> usr = null;
 		MapSqlParameterSource in = null;
@@ -54,13 +54,14 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 		Map<String, Object> out = null;
 		in = new MapSqlParameterSource();
 
-		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
-				"BBVA", "pq_del_usuario", "sp_val_contrasena");
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(
+							getJdbcTemplate(),
+							resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
+							resources.getString(ConstantsProperties.PQ_DEL_USUARIO),
+							"sp_val_contrasena");
 
-		JdbcHelper.setInOutParameter(call, in, "a_codusuario", Types.VARCHAR, usuario.getCodusuario());
-		
+		JdbcHelper.setInOutParameter(call, in, "a_codusuario", Types.VARCHAR, usuario.getCodusuario());		
 		JdbcHelper.setInOutParameter(call, in, "a_contrasena", Types.VARCHAR, usuario.getContrasena());
-
 		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, Usuario.class);
 
 		out = call.execute(in);
@@ -75,14 +76,17 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 	@Override
 	public void mntUsuario(Usuario usuario) {
 		
-		logger.info("Dao mntUsuario");
+		logger.info("DAO UsuarioDaoImp mntUsuario");
 		
 		SimpleJdbcCall call 		= null;
 		Map<String, Object> out 	= null;
 		MapSqlParameterSource in 	= new MapSqlParameterSource();
 
-		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
-				"BBVA", "pq_del_usuario", "sp_mnt_usuario");
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(
+								getJdbcTemplate(),
+								resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
+								resources.getString(ConstantsProperties.PQ_DEL_USUARIO),
+								"sp_mnt_usuario");
 
 		JdbcHelper.setInOutParameter(call, in, "a_idusuario", 	Types.INTEGER, usuario.getIdusuario());
 		JdbcHelper.setInParameter(call, in, "a_idtercero", 		OracleTypes.INTEGER, usuario.getIdtercero());
@@ -93,8 +97,6 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 		JdbcHelper.setInParameter(call, in, "a_comentario", 	OracleTypes.VARCHAR, usuario.getComentario());
 		JdbcHelper.setInParameter(call, in, "a_indrnvcontrasena", 	OracleTypes.VARCHAR, usuario.getIndrnvcontrasena());
 		JdbcHelper.setInParameter(call, in, "a_usuario", 		OracleTypes.VARCHAR, usuario.getUsumodificacion());
-		// JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR,
-		// Usuario.class);
 
 		out = call.execute(in);
 
@@ -103,7 +105,9 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 
 	@SuppressWarnings("unchecked")
 	public Usuario obtUsuario(Usuario usuario) {
-		System.out.println("INI: Ejecutando metodo obtUsuario");
+		
+		logger.info("DAO UsuarioDaoImp obtUsuario");
+		
 		List<Usuario> usr = null;
 		Usuario usrRpta = null;
 		MapSqlParameterSource in = null;
@@ -112,8 +116,11 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 		Map<String, Object> out = null;
 		in = new MapSqlParameterSource();
 
-		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
-				"BBVADESA", "pq_del_usuario", "sp_obt_usuario");
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(
+								getJdbcTemplate(),
+								resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
+								resources.getString(ConstantsProperties.PQ_DEL_USUARIO),
+								"sp_obt_usuario");
 
 		JdbcHelper
 				.setInOutParameter(call, in, "a_idusuario", Types.NUMERIC, usuario.getIdusuario());
@@ -138,7 +145,9 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 	}
 
 	public Usuario addUsuario(Usuario usuario) {
-		System.out.println("INI: Ejecutando metodo addUsuario");
+		
+		logger.info("DAO UsuarioDaoImp addUsuario");
+		
 		Usuario usr = new Usuario();
 		MapSqlParameterSource in = null;
 
@@ -146,8 +155,11 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 		Map<String, Object> out = null;
 		in = new MapSqlParameterSource();
 
-		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
-				"BBVA", "pq_del_usuario", "sp_mnt_usuario");
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(
+								getJdbcTemplate(),
+								resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
+								resources.getString(ConstantsProperties.PQ_DEL_USUARIO), 
+								"sp_mnt_usuario");
 
 		JdbcHelper.setInOutParameter(call, in, "a_idusuario", Types.NUMERIC, usuario.getIdusuario());
 		JdbcHelper.setInParameter(call, in, "a_contrasena", OracleTypes.VARCHAR, usuario.getContrasena());
@@ -158,8 +170,6 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 		JdbcHelper.setInParameter(call, in, "a_historial", OracleTypes.VARCHAR, usuario.getHistorial());
 		JdbcHelper.setInParameter(call, in, "a_comentario", OracleTypes.VARCHAR, usuario.getComentario());
 		JdbcHelper.setInParameter(call, in, "a_usuario", OracleTypes.VARCHAR, usuario.getUsucreacion());
-		// JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR,
-		// Usuario.class);
 
 		out = call.execute(in);
 
@@ -172,8 +182,9 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Usuario> lstUsuarios(Usuario usuario) {
-		// TODO Auto-generated method stub
-		logger.info("Dao lstUsuariosWeb");
+		
+		logger.info("DAO UsuarioDaoImp lstUsuarios");
+		
 		List<Usuario> lista = null;
 		MapSqlParameterSource in = null;
 
@@ -181,13 +192,11 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 		Map<String, Object> out = null;
 		in = new MapSqlParameterSource();
 
-		call = JdbcHelper
-				.initializeSimpleJdbcCallProcedure(
-						getJdbcTemplate(),
-						resources
-								.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
-						resources.getString(ConstantsProperties.PQ_DEL_USUARIO),
-						"sp_lst_usuario");
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(
+								getJdbcTemplate(),
+								resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
+								resources.getString(ConstantsProperties.PQ_DEL_USUARIO),
+								"sp_lst_usuario");
 
 		JdbcHelper.setInParameter(call, in, "a_idperfil", OracleTypes.INTEGER, usuario.getIdperfil());
 		JdbcHelper.setInParameter(call, in, "a_codusuario", OracleTypes.VARCHAR, usuario.getCodusuario());
@@ -204,15 +213,19 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 
 	@Override
 	public void mntContrasena(Usuario usuario) {
-		// TODO Auto-generated method stub
-		logger.info("Dao actContrasena");
+		
+		logger.info("DAO UsuarioDaoImp mntContrasena");
+		
 		MapSqlParameterSource in = null;
 		SimpleJdbcCall call 	= null;
 		
 		in = new MapSqlParameterSource();
 
-		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
-																"BBVA", "pq_del_usuario", "sp_mnt_contrasena");
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(
+								getJdbcTemplate(),
+								resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
+								resources.getString(ConstantsProperties.PQ_DEL_USUARIO),
+								"sp_mnt_contrasena");
 
 		JdbcHelper.setInOutParameter(call, in, "a_codusuario", Types.VARCHAR, usuario.getCodusuario());
 		JdbcHelper.setInOutParameter(call, in, "a_indrnvcontrasena", Types.VARCHAR, usuario.getIndrnvcontrasena());
@@ -224,20 +237,19 @@ public class UsuarioDaoImp extends JdbcDaoBase implements UsuarioDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Usuario> lstUsuariosWS(Usuario usuario) {
-		// TODO Auto-generated method stub
-		logger.info("DAO lstUsuariosWS");
+		
+		logger.info("DAO UsuarioDaoImp lstUsuariosWS");
 		
 		SimpleJdbcCall call 			= null;
 		Map<String, Object> out 		= null;
 		List<Usuario> lista				= null;		
 		MapSqlParameterSource in 		= new MapSqlParameterSource();
 		
-		call = JdbcHelper
-				.initializeSimpleJdbcCallProcedure(
-						getJdbcTemplate(),
-						resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
-						resources.getString(ConstantsProperties.PQ_DEL_USUARIO),
-						"sp_lst_usuario_maestro");
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(
+							getJdbcTemplate(),
+							resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
+							resources.getString(ConstantsProperties.PQ_DEL_USUARIO),
+							"sp_lst_usuario_maestro");
 
 		JdbcHelper.setInParameter(call, in, "a_idperfil", 		OracleTypes.INTEGER, usuario.getIdperfil());
 		JdbcHelper.setInParameter(call, in, "a_codusuario", 	OracleTypes.VARCHAR, usuario.getCodusuario());

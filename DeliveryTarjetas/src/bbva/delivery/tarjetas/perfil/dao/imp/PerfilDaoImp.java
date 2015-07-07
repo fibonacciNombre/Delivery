@@ -40,28 +40,30 @@ public class PerfilDaoImp extends JdbcDaoBase implements PerfilDao {
 
 	@Override
 	public void mntPerfil(Perfil perfil) {
-		// TODO Auto-generated method stub
-		
+		logger.info("DAO PerfilDaoImp mntPerfil");
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Perfil> lstPerfiles(Perfil perfil) {
-		List<Perfil> lista = null; 
-		MapSqlParameterSource in = null;
+		
+		logger.info("DAO PerfilDaoImp lstPerfiles");
+		
+		List<Perfil> lista 			= null; 
+		SimpleJdbcCall call			= null;
+		Map<String, Object> out 	= null;
+		MapSqlParameterSource in 	= new MapSqlParameterSource();
 
-		SimpleJdbcCall call = null;
-		Map<String, Object> out = null;
-		in = new MapSqlParameterSource();
-
-		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
-				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
-				resources.getString(ConstantsProperties.PQ_DEL_USUARIO),
-				"sp_lst_perfil");
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(
+					getJdbcTemplate(),
+					resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
+					resources.getString(ConstantsProperties.PQ_DEL_USUARIO),
+					"sp_lst_perfil");
  		
 		JdbcHelper.setOutParameter(call, "a_cursor", 		OracleTypes.CURSOR, Perfil.class);
 		 
 		out = call.execute(in);
+		
 		lista = (List<Perfil>) out.get("a_cursor");
 		  
 		return lista;
@@ -71,18 +73,19 @@ public class PerfilDaoImp extends JdbcDaoBase implements PerfilDao {
 	@Override
 	public Perfil obtPerfil(Perfil perfil) {
 		
-		List<Perfil> lista = null; 
-		MapSqlParameterSource in = null;
-		Perfil perfilRpta = new Perfil();
+		logger.info("DAO PerfilDaoImp obtPerfil");
+		
+		List<Perfil> lista 			= null;
+		SimpleJdbcCall call 		= null;
+		Map<String, Object> out 	= null;
+		MapSqlParameterSource in	= new MapSqlParameterSource();
+		Perfil perfilRpta 			= new Perfil();
 
-		SimpleJdbcCall call = null;
-		Map<String, Object> out = null;
-		in = new MapSqlParameterSource();
-
-		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
-				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
-				resources.getString(ConstantsProperties.PQ_DEL_USUARIO),
-				"sp_obt_perfil");
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(
+							getJdbcTemplate(),
+							resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
+							resources.getString(ConstantsProperties.PQ_DEL_USUARIO),
+							"sp_obt_perfil");
  		
 		JdbcHelper.setInOutParameter(call, in, "a_idperfil", Types.VARCHAR, perfil.getIdperfil());
 		JdbcHelper.setOutParameter(call, "a_cursor", 		OracleTypes.CURSOR, Perfil.class);
@@ -95,6 +98,4 @@ public class PerfilDaoImp extends JdbcDaoBase implements PerfilDao {
 
 		return perfilRpta;
 	}
-
-
 }

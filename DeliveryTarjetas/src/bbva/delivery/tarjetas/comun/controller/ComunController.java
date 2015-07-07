@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,7 +23,7 @@ public class ComunController extends BaseController {
 	@Autowired
 	private ComunService comunService;
 	
-//	private static Logger logger = Logger.getLogger(ComunController.class.getName());
+	private static Logger logger = Logger.getLogger(ComunController.class.getName());
 	
 	@Override 
 	public ModelAndView buscar(HttpServletRequest request,HttpServletResponse response) {return null;}
@@ -36,6 +37,8 @@ public class ComunController extends BaseController {
 	public void lstParametro(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
+		logger.info("CONTROLLER ComunController lstParametro");
+		
 		String result					= "";
 		String lstparametro 			= "";
 		List<Parametro> listaParametro 	= null;
@@ -62,6 +65,8 @@ public class ComunController extends BaseController {
 	public void cmbParametro(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
+		logger.info("CONTROLLER ComunController cmbParametro");
+		
 		List<Parametro> listaParametro = null;
 		String lstparametro = "";
 

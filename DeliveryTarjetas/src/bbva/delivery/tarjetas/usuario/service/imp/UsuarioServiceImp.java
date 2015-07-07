@@ -1,16 +1,9 @@
 package bbva.delivery.tarjetas.usuario.service.imp;
 
-import static org.apache.commons.codec.binary.Base64.decodeBase64;
-import static org.apache.commons.codec.binary.Base64.encodeBase64;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import javax.crypto.Cipher;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,27 +37,14 @@ public class UsuarioServiceImp implements UsuarioService {
 	private static Logger logger = Logger.getLogger(UsuarioServiceImp.class
 			.getName());
 
-	// Definici�n del tipo de algoritmo a utilizar (AES, DES, RSA)
-	private final static String ALG = "AES";
-
-	// Definici�n del modo de cifrado a utilizar
-	private final static String CI = "AES/CBC/PKCS5Padding";
-
-	private final static String KEY = "92AE31A79FEEB2A3"; // llave
-
-	private final static String IV = "0123456789ABCDEF"; // vector de
-															// inicializaci�n
-
 	public Usuario obtUsuario(Usuario usuario) {
-		logger.info("Service obtDetalleUsuarioWeb");
+		logger.info("SERVICE UsuarioServiceImp obtUsuario");
 		return usuarioDao.obtUsuario(usuario);
 	}
 
 	public Usuario autenticarUsuario(LoginWeb loginWeb) throws Exception {
 
-		logger.info("Service autenticarUsuario");
-
-		logger.debug("****ini autenticarUsuario****");
+		logger.info("SERVICE UsuarioServiceImp autenticarUsuario");
 
 		Courier courier 		= new Courier();
 		Tercero tercero 		= new Tercero();
@@ -121,36 +101,15 @@ public class UsuarioServiceImp implements UsuarioService {
 
 	@Override
 	public boolean validarContrasena(Usuario usuario) {
-		logger.info("Service validarContrasena");
-		 return usuarioDao.validarContrasena(usuario);
+		logger.info("SERVICE UsuarioServiceImp validarContrasena");
+		return usuarioDao.validarContrasena(usuario);
 	}
-
-	public String encriptar(String key, String iv, String cleartext)
-			throws Exception {
-
-		Cipher cipher = Cipher.getInstance(CI);
-		SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(), ALG);
-		IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes());
-		cipher.init(Cipher.ENCRYPT_MODE, skeySpec, ivParameterSpec);
-		byte[] encrypted = cipher.doFinal(cleartext.getBytes());
-		return new String(encodeBase64(encrypted));
-
-	}
-
-	public String desencriptar(String key, String iv, String encrypted)
-			throws Exception {
-		Cipher cipher = Cipher.getInstance(CI);
-		SecretKeySpec skeySpec = new SecretKeySpec(key.getBytes(), ALG);
-		IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes());
-		byte[] enc = decodeBase64(encrypted);
-		cipher.init(Cipher.DECRYPT_MODE, skeySpec, ivParameterSpec);
-		byte[] decrypted = cipher.doFinal(enc);
-		return new String(decrypted);
-	}
-	
+		
 	public Usuario addUsuario(Usuario usuario) throws Exception {
 
-		usuario.setContrasena(this.encriptar(KEY, IV, usuario.getContrasena()));
+		logger.info("SERVICE UsuarioServiceImp addUsuario");
+		
+		usuario.setContrasena(AESHelper.encriptar(AESHelper.KEY, AESHelper.IV, usuario.getContrasena()));
 		usuario.setIdpestado(1);
 		usuario.setCodusuario("DELIVERY_BBVA");
 
@@ -159,8 +118,8 @@ public class UsuarioServiceImp implements UsuarioService {
 
 	@Override
 	public void mntUsuario(Usuario usuario) {
-		// TODO Auto-generated method stub
-		logger.info("SERVICE mntUsuario");
+		
+		logger.info("SERVICE UsuarioServiceImp mntUsuario");
 		
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		Date date = new Date();
@@ -172,15 +131,14 @@ public class UsuarioServiceImp implements UsuarioService {
 
 	@Override
 	public List<Usuario> lstUsuarios(Usuario usuario) {
-		// TODO Auto-generated method stub
-		logger.info("Service lstUsuarios");
+		logger.info("SERVICE UsuarioServiceImp lstUsuarios");
 		return usuarioDao.lstUsuarios(usuario);
 	}
 
 	@Override
 	public void mntContrasena(Usuario usuario) throws Exception {
-		// TODO Auto-generated method stub
-		logger.info("SERVICE mntContrasena");
+		
+		logger.info("SERVICE UsuarioServiceImp mntContrasena");
 		
 		if(usuario.getContrasena()==null || usuario.getContrasena()==""){
 			usuario.setIndrnvcontrasena("S");
@@ -194,8 +152,7 @@ public class UsuarioServiceImp implements UsuarioService {
 
 	@Override
 	public List<Usuario> lstUsuariosWS(Usuario usuario) {
-		// TODO Auto-generated method stub
-		logger.info("SERVICE lstUsuariosWS");
+		logger.info("SERVICE UsuarioServiceImp lstUsuariosWS");
 		return usuarioDao.lstUsuariosWS(usuario);
 	}
 }

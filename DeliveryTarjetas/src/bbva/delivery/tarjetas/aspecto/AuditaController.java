@@ -23,11 +23,10 @@ import commons.web.UtilWeb;
 @Aspect
 public class AuditaController {
 	
-	private static Logger logger = Logger.getLogger(
-			AuditaController.class.getName());
+	private static Logger logger = Logger.getLogger(AuditaController.class.getName());
 	
 	/**
-	 * Permite definir la expresi�n para filtrar los metodos que ser�n 
+	 * Permite definir la expresión para filtrar los metodos que serán 
 	 * interceptados en los controladores
 	 */
 	@Pointcut("execution(* org.springframework.web.servlet.mvc.AbstractController.handleRequest(..)) "
@@ -36,9 +35,9 @@ public class AuditaController {
 	}
 	
 	/**
-	 * M�todo que se ejecutar� al llamar a los m�todos de los controladores
+	 * Método que se ejecutará al llamar a los métodos de los controladores
 	 * que hagan match con la expresion definida en metodosController()
-	 * @param joinPoint Permite invocar al m�todo del controlador
+	 * @param joinPoint Permite invocar al método del controlador
 	 */
 	
 	@Around("metodosController()")
@@ -78,6 +77,8 @@ public class AuditaController {
 			
 		} catch(Throwable t) {
 			
+			logger.error("Error controlado por el Audita", t);
+			
 			TransaccionWeb tx = new TransaccionWeb();
 			
 			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
@@ -91,7 +92,7 @@ public class AuditaController {
 														replaceAll("'", "\"").
 														replaceAll("\t", " ");
 
-			System.out.println(jsonCommonsHelper);
+			logger.error("Error Audita JSON" + jsonCommonsHelper);
 			
 			JSONObject jsonObject;
 			

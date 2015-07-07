@@ -9,11 +9,13 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -26,9 +28,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
- 
-
- 
 
 import bbva.delivery.tarjetas.bean.Archivo;
 import bbva.delivery.tarjetas.bean.ArchivoPDF;
@@ -46,6 +45,8 @@ import bbva.delivery.tarjetas.tercero.service.TerceroService;
 @Transactional(propagation=Propagation.SUPPORTS)
 public class DeliveryServiceImp implements DeliveryService {
 
+	private static Logger logger = Logger.getLogger(DeliveryServiceImp.class.getName());
+	
 	@Autowired
 	private DeliveryDao deliveryDao;
 
@@ -57,17 +58,12 @@ public class DeliveryServiceImp implements DeliveryService {
 	
 	@Autowired
 	private CourierService courierService;
-	
-	public void test() {
-		// TODO Auto-generated method stub
-		System.out.println("service ok");
-		
-		//portalWebDao.test();
-	}
 		
 	/** Retorna el valor de la celda indicada en la fila **/
 	public static String getCellValue(Row row, int posicion) {
-
+		
+		logger.info("SERVICE DeliveryServiceImp getCellValue");
+		
 		Cell cell = row.getCell(posicion);
 		String value = null;
 		if(cell != null){
@@ -92,15 +88,18 @@ public class DeliveryServiceImp implements DeliveryService {
 	
 	@Override
 	public List<Delivery> lstDelivery(Delivery delivery, Tercero tercero){
+		logger.info("SERVICE DeliveryServiceImp lstDelivery");
 		return deliveryDao.lstDelivery(delivery, tercero);
 	}
 	 
 	public BigDecimal crearGrupoCargaDelivery(){
+		logger.info("SERVICE DeliveryServiceImp crearGrupoCargaDelivery");
 		return deliveryDao.crearGrupoCargaDelivery();
 	}
  
 	public void mntDelivery(Delivery param) {
 		
+		logger.info("SERVICE DeliveryServiceImp mntDelivery");
 
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		Date date = new Date();
@@ -110,17 +109,21 @@ public class DeliveryServiceImp implements DeliveryService {
 		deliveryDao.mntDelivery(param);
 	}
 	 
-
 	@Override
 	public Integer valCourierDelivery(String dnicourier) {
+		logger.info("SERVICE DeliveryServiceImp valCourierDelivery");
 		return deliveryDao.valCourierDelivery(dnicourier);
 	}
   
 	public void mntArchivo(Archivo param){
+		logger.info("SERVICE DeliveryServiceImp mntArchivo");
 		deliveryDao.mntArchivo(param);
 	}
 
 	public Workbook instanciarExcel(MultipartFile multipartFile, Archivo archivo) throws IOException {
+		
+		logger.info("SERVICE DeliveryServiceImp instanciarExcel");
+		
 		InputStream fileInput = null;
 		Workbook wb = null;
 
@@ -138,6 +141,9 @@ public class DeliveryServiceImp implements DeliveryService {
 	
 	@SuppressWarnings("unchecked")
 	public JSONObject validarParametrosExcel(Row firstRow){
+		
+		logger.info("SERVICE DeliveryServiceImp validarParametrosExcel");
+		
 		JSONObject jo = new JSONObject();
 		Integer resultado = 0;
 		String mensaje = "";
@@ -157,11 +163,12 @@ public class DeliveryServiceImp implements DeliveryService {
 			resultado = 1;
 			mensaje = "El número de columnas no coincide con el configurado.";
 		} else {
+			lstParametro = ordenarParametrosXCodigoN(lstParametro);			
 			/** Validar que los campos ingresados estan en el orden correcto **/
-			for (int i = 0; i < lstParametro.size(); i++) {
+			for (int i = 0; i < lstParametro.size(); i++) {				
 				if(!lstParametro.get(i).getAbreviatura().equals(getCellValue(firstRow, i))){
 					resultado = 1;
-					mensaje = "La columna " + i + ": " + getCellValue(firstRow, i) + ", no est� en el orden configurado.";
+					mensaje = "La columna " + i + ": " + getCellValue(firstRow, i) + ", no está en el orden configurado.";
 				} 
 			}	
 		}
@@ -172,13 +179,41 @@ public class DeliveryServiceImp implements DeliveryService {
 		return jo;
 	}
 
-	public String getFormatMensaje(String msj){
+	private List<Parametro> ordenarParametrosXCodigoN(List<Parametro> lstParametro){
 		
+		int nroParametros 			= lstParametro.size();
+		Parametro[]parametroArray 	= new Parametro[nroParametros];
+		
+		for (int j=0 ; j < nroParametros ; j ++)
+			parametroArray[j]= lstParametro.get(j);
+		
+		for(int k = 0 ; k < nroParametros ; k++ ){			
+			for (int l = k+1; l < nroParametros; l++){				
+				if(parametroArray[k].getCodigon() > parametroArray[l].getCodigon()){
+					Parametro columnaTemp 		= parametroArray[k];
+					parametroArray[k]			= parametroArray[l];
+					parametroArray[l]			= columnaTemp;
+				}			
+			}		
+		}
+		
+		List<Parametro> lstOrdenada = new ArrayList<Parametro>();
+
+		for (int i=0 ; i < nroParametros ; i ++)
+			lstOrdenada.add(parametroArray[i]);
+		
+		return lstOrdenada;
+	}
+	
+	public String getFormatMensaje(String msj){
+		logger.info("SERVICE DeliveryServiceImp getFormatMensaje");
 		return "<tr><td>" + msj + "</td></tr>";
 	}
 	
 	@SuppressWarnings("unchecked")
 	public JSONObject cargarExcelDelivery(MultipartFile multipartFile, Archivo archivo) throws FileNotFoundException{
+		
+		logger.info("SERVICE DeliveryServiceImp cargarExcelDelivery");
 		
 		JSONObject joRetorno = new JSONObject();
 		Integer resultado = 0;
@@ -192,7 +227,7 @@ public class DeliveryServiceImp implements DeliveryService {
 			   latitudofi, longitudofi, correocli, ordenentrega, dnitrabajador;
 		
 		Delivery carga = new Delivery();
-		/** Se obtiene la extensi�n del archivo **/
+		/** Se obtiene la extensión del archivo **/
 		String extArchivo = FilenameUtils.getExtension(archivo.getFilename());
 		
 		/** Verificamos si es una de las extensiones permitidas **/
@@ -315,7 +350,7 @@ public class DeliveryServiceImp implements DeliveryService {
 							
 							if (indverificacion == null) {
 								resultado = Constants.DELIVERY_CARGA_WARNING ;
-								mensaje += getFormatMensaje(" - Indicador de verificaci�n no enviado.");	
+								mensaje += getFormatMensaje(" - Indicador de verificación no enviado.");	
 							}
 							
 							if (direccioncli == null) {
@@ -404,7 +439,7 @@ public class DeliveryServiceImp implements DeliveryService {
 								terceroService.mntTercero(tercero);
 								idtercero = tercero.getIdtercero();
 							
-								mensaje += getFormatMensaje("DNI del trabajador no enviado, se ha creado el colaborador con c�digo: " + idtercero + "." );
+								mensaje += getFormatMensaje("DNI del trabajador no enviado, se ha creado el colaborador con código: " + idtercero + "." );
 							}
 							
 							if(resultado == Constants.DELIVERY_CARGA_WARNING ){
@@ -468,6 +503,9 @@ public class DeliveryServiceImp implements DeliveryService {
 	}
 	
 	public String exportarListaDelivery(Delivery delivery) throws IOException{
+		
+		logger.info("SERVICE DeliveryServiceImp exportarListaDelivery");
+		
 		Workbook wb = new HSSFWorkbook();
 		Sheet personSheet = wb.createSheet("Datos de Delivery");
 		Row headerRow = personSheet.createRow(0);
@@ -593,10 +631,10 @@ public class DeliveryServiceImp implements DeliveryService {
 		return delivery.getRutaexpotacion();
 	}
 
-
 	@Override
 	public String obtArchivoLstDelivery(Delivery delivery, Tercero tercero) throws IOException{
 		
+		logger.info("SERVICE DeliveryServiceImp obtArchivoLstDelivery");
 		
 		Workbook wb 		= new HSSFWorkbook();
 		
@@ -725,7 +763,7 @@ public class DeliveryServiceImp implements DeliveryService {
 	@Override
 	public ArchivoPDF getArchivoPDF(ArchivoPDF archivoPDF, String ruta) throws Exception{
 
-		System.out.println("INI Service: Ejecutando metodo getArchivoPDF");
+		logger.info("SERVICE DeliveryServiceImp getArchivoPDF");
 		
 		byte[] getArchivoPDF 		= null;
 		String file 				= null;
@@ -741,8 +779,8 @@ public class DeliveryServiceImp implements DeliveryService {
 			pdf = list.get(0);
 			
 			nombreArchivo = "PDFEntrega_" + archivoPDF.getCodentrega() + "_" + fechaFile + ".pdf";
-//			file = ruta + "temp" + "/" + nombreArchivo;
-			file = ruta + nombreArchivo;
+			file = ruta + "temp" + "/" + nombreArchivo;
+//			file = ruta + nombreArchivo;
 			
 			if(pdf.getArchivo() != null){
 				getArchivoPDF = pdf.getArchivo().getBytes();

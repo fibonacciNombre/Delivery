@@ -105,7 +105,7 @@ public class UsuarioController extends BaseController {
 	public void lstUsuarios(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		logger.info("CONTROLLER lstUsuarios");
+		logger.info("CONTROLLER UsuarioController lstUsuarios");
 		
 		String result				= "";
 		String lstusuario 			= "";
@@ -113,30 +113,30 @@ public class UsuarioController extends BaseController {
 		TransaccionWeb tx			= new TransaccionWeb();				
 		Usuario usuario 			= new Usuario(request.getParameterMap()); 
  					
-			try {
-				
-				listaUsuario 	= usuarioService.lstUsuarios(usuario);
-				
-				lstusuario 		= UtilWeb.listaToArrayJson(listaUsuario, null, Usuario.class.getName());			
-					
-			} catch (Error e) {
-				tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
-				lstusuario = "{" + e.getMessage() + "}";
-			}
+		try {
 			
-			result += "{"
-						+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
-						+ "\"lst\":" + lstusuario 
-						+ "}";
+			listaUsuario 	= usuarioService.lstUsuarios(usuario);
 			
-			this.escribirTextoSalida(response, result);
+			lstusuario 		= UtilWeb.listaToArrayJson(listaUsuario, null, Usuario.class.getName());			
+				
+		} catch (Error e) {
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+			lstusuario = "{" + e.getMessage() + "}";
+		}
+		
+		result += "{"
+					+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+					+ "\"lst\":" + lstusuario 
+					+ "}";
+		
+		this.escribirTextoSalida(response, result);
 
 	}
 	
 	public void lstUsuariosWS(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		logger.info("CONTROLLER lstUsuariosWS");
+		logger.info("CONTROLLER UsuarioController lstUsuariosWS");
 		
 		String result				= "";
 		String lstusuario 			= "";
@@ -144,24 +144,23 @@ public class UsuarioController extends BaseController {
 		TransaccionWeb tx			= new TransaccionWeb();				
 		Usuario usuario 			= new Usuario(request.getParameterMap()); 
  					
-			try {
-				
-				listaUsuario 	= usuarioService.lstUsuariosWS(usuario);
-				
-				lstusuario 		= UtilWeb.listaToArrayJson(listaUsuario, null, Usuario.class.getName());			
-					
-			} catch (Error e) {
-				tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
-				lstusuario = "{" + e.getMessage() + "}";
-			}
+		try {
 			
-			result += "{"
-						+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
-						+ "\"lst\":" + lstusuario 
-						+ "}";
+			listaUsuario 	= usuarioService.lstUsuariosWS(usuario);
 			
-			this.escribirTextoSalida(response, result);
-
+			lstusuario 		= UtilWeb.listaToArrayJson(listaUsuario, null, Usuario.class.getName());			
+				
+		} catch (Error e) {
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+			lstusuario = "{" + e.getMessage() + "}";
+		}
+		
+		result += "{"
+					+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+					+ "\"lst\":" + lstusuario 
+					+ "}";
+		
+		this.escribirTextoSalida(response, result);
 	}
 	
 	@RequestMapping(value = "/addUsuario", method = RequestMethod.POST, produces = "application/json")
@@ -170,7 +169,7 @@ public class UsuarioController extends BaseController {
 			HttpServletResponse response, HttpServletRequest request)
 			throws Exception {
 
-		logger.info("CONTROLLER addUsuario");
+		logger.info("CONTROLLER UsuarioController addUsuario");
 		
 		System.out.println("header aaaaaaaaaa   --> " + request.getHeader("Authorization"));
 		return usuarioService.addUsuario(usuario);
@@ -180,7 +179,7 @@ public class UsuarioController extends BaseController {
 	public void mntUsuario(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		logger.info("CONTROLLER mntUsario");
+		logger.info("CONTROLLER UsuarioController mntUsuario");
 		
 		String result			= "";
 		HttpSession session 	= request.getSession();
@@ -214,13 +213,12 @@ public class UsuarioController extends BaseController {
 		result += "{\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + "," +
 					"\"usuario\":"+ UtilWeb.objectToJson(usuario, null, Usuario.class.getName()) + "}";
 		
-		this.escribirTextoSalida(response, result);
-		 
+		this.escribirTextoSalida(response, result);		 
 	}
 	
 	public void login(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
-		logger.info("CONTROLLER login");
+		logger.info("CONTROLLER UsuarioController login");
 		
 		String escenarioLogin 			= "";
 		String result					= "";
@@ -276,30 +274,23 @@ public class UsuarioController extends BaseController {
 		
 		result = commons.web.UtilWeb.objectToJson(loginWeb, null, LoginWeb.class.getName());
 		
-		logger.info("*** fin login *** ");
-		
 		this.escribirTextoSalida(response, result);
 	}
 	
 	public void logout(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
-		logger.info("CONTROLLER logout");
-		
-		logger.info("*** ini logout *** ");
+		logger.info("CONTROLLER UsuarioController logout");
 		
 		HttpSession session	= request.getSession();
 		
 		session.invalidate();			
-		response.sendRedirect(request.getContextPath());			
 		
-		logger.info("*** fin logout *** ");
+		response.sendRedirect(request.getContextPath());					
 	}
 	
 	public void obtDatosUsuarioSesion(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
-		logger.info("CONTROLLER mntUsario");
-		
-		logger.info("*** ini obtDatosUsuarioSesion *** ");
+		logger.info("CONTROLLER UsuarioController obtDatosUsuarioSesion");
 		
 		HttpSession session			= request.getSession();
 		
@@ -357,17 +348,13 @@ public class UsuarioController extends BaseController {
 					jsonPerfil +
 				"}";
 		
-		this.escribirTextoSalida(response, result);
-		
-		logger.info("*** fin obtDatosUsuarioSesion *** ");
+		this.escribirTextoSalida(response, result);		
 	}
 	
 	
 	public void mntContrasena(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
-		logger.info("CONTROLLER mntUsario");
-		
-		logger.info("*** ini actContrasena *** ");
+		logger.info("CONTROLLER UsuarioController mntContrasena");
 		
 		HttpSession session			= request.getSession();
 		
@@ -381,15 +368,12 @@ public class UsuarioController extends BaseController {
 		
 		result += "{\"tx\":"+commons.web.UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName())+"}";
 		
-		this.escribirTextoSalida(response, result);
-		
-		logger.info("*** fin actContrasena *** ");
+		this.escribirTextoSalida(response, result);			
 	}
 	
 	public void obtUsuario(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
-
-		logger.info("CONTROLLER mntUsario");
+		logger.info("CONTROLLER UsuarioController obtUsuario");
 		
 		String result			= "";
 		TransaccionWeb tx		= new TransaccionWeb();
@@ -408,8 +392,6 @@ public class UsuarioController extends BaseController {
 		result += "{\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + "," +
 					"\"usuario\":"+ UtilWeb.objectToJson(usuario, null, Usuario.class.getName()) + "}";
 		
-		this.escribirTextoSalida(response, result);
-		 
-		
+		this.escribirTextoSalida(response, result);		 
 	}
 }

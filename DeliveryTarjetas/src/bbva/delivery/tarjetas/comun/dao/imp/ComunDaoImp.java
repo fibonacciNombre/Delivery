@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import oracle.jdbc.OracleTypes;
 
+import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
@@ -20,35 +21,37 @@ import bbva.delivery.tarjetas.util.JdbcHelper;
 @Repository("comunDao")
 public class ComunDaoImp extends JdbcDaoBase implements ComunDao {
 
-	private static final ResourceBundle resources = ResourceBundle
-			.getBundle("configuracion");
+	private static final ResourceBundle resources = ResourceBundle.getBundle("configuracion");
+	
+	private static Logger logger = Logger.getLogger(ComunDaoImp.class.getName());
 	
 	public Constante obtenerConstante(String ideConstante) {
-		// TODO Auto-generated method stub
+		logger.info("DAO ComunDaoImp obtenerConstante");
 		return null;
 	}
 
 	@Override
 	public Parametro obtenerParametro(Parametro parametro) {
-		// TODO Auto-generated method stub
+		logger.info("DAO ComunDaoImp obtenerParametro");
 		return null;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Parametro> lstParametro(Parametro param) {
-		  
-		List<Parametro> lista = null; 
-		MapSqlParameterSource in = null;
+		
+		logger.info("DAO ComunDaoImp lstParametro");
+		
+		List<Parametro> lista 		= null;
+		SimpleJdbcCall call 		= null;
+		Map<String, Object> out 	= null;
+		MapSqlParameterSource in 	= new MapSqlParameterSource();
 
-		SimpleJdbcCall call = null;
-		Map<String, Object> out = null;
-		in = new MapSqlParameterSource();
-
-		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
-				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
-				resources.getString(ConstantsProperties.PQ_DEL_COMUN),
-				"sp_lst_parametro");
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(
+							getJdbcTemplate(),
+							resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
+							resources.getString(ConstantsProperties.PQ_DEL_COMUN),
+							"sp_lst_parametro");
  
 		JdbcHelper.setInParameter(call, in, "a_idparametrotipo", OracleTypes.VARCHAR, param.getIdparametrotipo()); 
 		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, Parametro.class);
@@ -63,17 +66,18 @@ public class ComunDaoImp extends JdbcDaoBase implements ComunDao {
 	@Override
 	public List<Parametro> cmbParametro(Parametro param) {
 		  
-		List<Parametro> lista = null; 
-		MapSqlParameterSource in = null;
-
-		SimpleJdbcCall call = null;
-		Map<String, Object> out = null;
-		in = new MapSqlParameterSource();
-
-		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
-				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
-				resources.getString(ConstantsProperties.PQ_DEL_COMUN),
-				"sp_cmb_parametro");
+		logger.info("DAO ComunDaoImp cmbParametro");
+		
+		List<Parametro> lista 		= null; 		
+		SimpleJdbcCall call 		= null;
+		Map<String, Object> out 	= null;
+		MapSqlParameterSource in 	= new MapSqlParameterSource();
+		
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(
+								getJdbcTemplate(),
+								resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
+								resources.getString(ConstantsProperties.PQ_DEL_COMUN),
+								"sp_cmb_parametro");
  
 		JdbcHelper.setInParameter(call, in, "a_idparametrotipo", OracleTypes.VARCHAR, param.getIdparametrotipo()); 
 		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, Parametro.class);
@@ -84,18 +88,12 @@ public class ComunDaoImp extends JdbcDaoBase implements ComunDao {
 		return lista;
 	}
 
-
-
 	@Override
 	public void obtenerListaParametros(Parametro param) {
-		// TODO Auto-generated method stub
-		
+		logger.info("DAO ComunDaoImp obtenerListaParametros");		
 	}
 
 	public void mntArchivoblob(ArchivoBlob param) {
-		// TODO Auto-generated method stub
-		
+		logger.info("DAO ComunDaoImp mntArchivoblob");		
 	}
-	
-	
 }

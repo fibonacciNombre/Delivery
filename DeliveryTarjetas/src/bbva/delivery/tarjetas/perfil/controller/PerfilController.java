@@ -39,7 +39,7 @@ public class PerfilController extends BaseController {
 	public void lstPerfil(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		logger.info("Controller lstPerfil");
+		logger.info("CONTROLLER PerfilController lstPerfil");
 		
 		String result				= "";
 		String lstperfiles 			= "\"\"";
@@ -71,7 +71,7 @@ public class PerfilController extends BaseController {
 	public void obtPerfil(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		logger.info("Controller obtPerfil");
+		logger.info("CONTROLLER PerfilController obtPerfil");
 		
 		String result				= "";
 		String lstperfil 			= "";
@@ -100,7 +100,7 @@ public class PerfilController extends BaseController {
 	public void mntPerfil(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		logger.info("Controller mntCourier");
+		logger.info("CONTROLLER PerfilController mntPerfil");
 		
 		String result			= "";
 		HttpSession session 	= request.getSession();

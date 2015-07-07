@@ -72,7 +72,6 @@ public class DeliveryController extends BaseController{
 	
 	public String goMntCargaDelivery(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-
 		System.out.println("goCargaDelivery	-->		mnt-carga-delivery.jsp");
 		return "delivery/mnt-delivery";
 	}
@@ -86,7 +85,7 @@ public class DeliveryController extends BaseController{
 	public void mntDelivery(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		logger.info("CONTROLLER mntDelivery");
+		logger.info("CONTROLLER DeliveryController mntDelivery");
 		
 		String result			= "";
 		HttpSession session 	= request.getSession();
@@ -96,8 +95,7 @@ public class DeliveryController extends BaseController{
 		
 		delivery.setUsuario(usuarioSes.getCodusuario());
 	
-		try {
-			
+		try {			
 			deliveryService.mntDelivery(delivery);			
 			tx.setMessagetx("Su transacción fue realizada con éxito");
 			
@@ -113,7 +111,7 @@ public class DeliveryController extends BaseController{
 	public void obtArchivoLstEntregas(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		logger.info("CONTROLLER obtArchivoLstEntregas");
+		logger.info("CONTROLLER DeliveryController obtArchivoLstEntregas");
 		
 		String result		= "";
 		String temporal		= "";
@@ -122,7 +120,7 @@ public class DeliveryController extends BaseController{
 		Delivery delivery 	= new Delivery(request.getParameterMap());
 		Tercero tercero 	= new Tercero(request.getParameterMap());
 		
-		temporal = //"temp/"+
+		temporal = "temp/"+
 					"ListadoEntregas"+
 					cal.get(Calendar.DATE)+
 					(cal.get(Calendar.MONTH)+1)+
@@ -137,8 +135,8 @@ public class DeliveryController extends BaseController{
 		System.out.println(temporal);
 		
 		result += "{"
-				+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
-				+ "\"archivo\":\"" + temporal.replace("\\", "\\\\") + "\"" 
+					+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+					+ "\"archivo\":\"" + temporal.replace("\\", "\\\\") + "\"" 
 				+ "}";
 	
 		this.escribirTextoSalida(response,result);
@@ -148,7 +146,7 @@ public class DeliveryController extends BaseController{
 	public void lstDelivery(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
-		logger.info("CONTROLLER lstDelivery");
+		logger.info("CONTROLLER DeliveryController lstDelivery");
 		
 		String result				= "";
 		String lstdelivery 			= "";
@@ -169,8 +167,8 @@ public class DeliveryController extends BaseController{
 		}
 
 		result += "{"
-				+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
-				+ "\"lst\":" + lstdelivery 
+					+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+					+ "\"lst\":" + lstdelivery 
 				+ "}";
 		
 		this.escribirTextoSalida(response, result);		 
@@ -179,7 +177,7 @@ public class DeliveryController extends BaseController{
 	@SuppressWarnings("rawtypes")
 	public void uploadFile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		logger.info("CONTROLLER uploadFile");
+		logger.info("CONTROLLER DeliveryController uploadFile");
 		
 		Archivo archivo 		= new Archivo();
 		JSONObject joRetorno 	= new JSONObject();
@@ -235,10 +233,9 @@ public class DeliveryController extends BaseController{
 		}
 	}
 	
-	//Vista del PDF
-    public void getArchivoPDF(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void getArchivoPDF(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-    	logger.info("CONTROLLER getArchivoPDF");
+    	logger.info("CONTROLLER DeliveryController getArchivoPDF");
 		
 		String result			= "";
 		TransaccionWeb tx		= new TransaccionWeb();
@@ -252,9 +249,8 @@ public class DeliveryController extends BaseController{
 			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
 		}
 		result += "{"
-				+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
-				+ "\"archivopdf\":"+ UtilWeb.objectToJson(archivoPDF, null, ArchivoPDF.class.getName()) 
-				
+					+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+					+ "\"archivopdf\":"+ UtilWeb.objectToJson(archivoPDF, null, ArchivoPDF.class.getName()) 				
 				+ "}";
 	
 		this.escribirTextoSalida(response,result);

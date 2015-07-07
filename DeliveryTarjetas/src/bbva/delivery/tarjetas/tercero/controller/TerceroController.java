@@ -37,11 +37,10 @@ public class TerceroController extends BaseController {
 	@Override
 	public ModelAndView save(HttpServletRequest request,HttpServletResponse response) {return null;}
 	
-	
 	public void lstTerceros(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		logger.info("CONTROLLER lstTerceros");
+		logger.info("CONTROLLER TerceroController lstTerceros");
 		
 		String result				= "";
 		String lsttercero			= "";
@@ -68,10 +67,34 @@ public class TerceroController extends BaseController {
 
 	}
 
-		public void mntTercero(HttpServletRequest request,
+	public void obtTercero(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+		logger.info("CONTROLLER TerceroController lstTerceros");
+		
+		String result				= "";
+		TransaccionWeb tx			= new TransaccionWeb();				
+		Tercero tercero 			=  new Tercero(request.getParameterMap());
+
+		try {	
+			tercero = terceroService.obtTercero(tercero);						
+		} catch (Error e) {
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+			tx.setMessagetx(e.getMessage());
+		}
+
+		result += "{"
+					+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+					+ "\"tercero\":" + UtilWeb.objectToJson(tercero, null, Tercero.class.getName()) 
+					+ "}";
+		
+		this.escribirTextoSalida(response, result);
+
+	}
+	public void mntTercero(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
-		logger.info("CONTROLLER mntTercero");
+		logger.info("CONTROLLER TerceroController mntTercero");
 			
 		String result			= "";
 		HttpSession session 	= request.getSession();

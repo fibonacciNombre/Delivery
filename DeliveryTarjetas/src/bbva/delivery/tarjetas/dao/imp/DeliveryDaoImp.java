@@ -33,7 +33,7 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 	@Override
 	public void mntDelivery(Delivery param) { 
 		
-		logger.info("DAO mntDelivery");
+		logger.info("DAO DeliveryDaoImp mntDelivery");
 		
 		SimpleJdbcCall call = null;
 		MapSqlParameterSource in = null;
@@ -84,7 +84,7 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 	@Override
 	public List<Delivery> lstDelivery(Delivery delivery, Tercero tercero) {
 		 
-		logger.info("DAO lstDelivery");
+		logger.info("DAO DeliveryDaoImp lstDelivery");
 		
 		List<Delivery> lista = null; 
 		MapSqlParameterSource in = null;
@@ -115,7 +115,7 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 	@Override
 	public BigDecimal crearGrupoCargaDelivery() { 
 		
-		logger.info("DAO crearGrupoCargaDelivery");
+		logger.info("DAO DeliveryDaoImp crearGrupoCargaDelivery");
 		
 		SimpleJdbcCall call = null;
 		MapSqlParameterSource in = null;
@@ -140,7 +140,7 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 	@Override
 	public Integer valCourierDelivery(String dnicourier) {
 		
-		logger.info("DAO valCourierDelivery");
+		logger.info("DAO DeliveryDaoImp valCourierDelivery");
 		
 		SimpleJdbcCall call = null;
 		MapSqlParameterSource in = null;
@@ -165,7 +165,7 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 	@Override
 	public void mntArchivo(Archivo param) { 
 		
-		logger.info("DAO mntArchivo");
+		logger.info("DAO DeliveryDaoImp mntArchivo");
 		
 		SimpleJdbcCall call = null;
 		MapSqlParameterSource in = null;
@@ -192,8 +192,11 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 	
 	@SuppressWarnings("unchecked")
 	public List<ArchivoPDF> getArchivoPDF( ArchivoPDF archivoPDF){
-		logger.debug("INI DAO: Ejecutando metodo getArchivoPDF");
+		
+		logger.info("DAO DeliveryDaoImp getArchivoPDF");
+		
 		System.out.println("INI DAO: Ejecutando metodo getArchivoPDF");
+		
 		List<ArchivoPDF> rcer = null;
 		MapSqlParameterSource in = null;
 		
@@ -201,12 +204,12 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 		Map<String, Object> out = null;
 		in = new MapSqlParameterSource();
 		
-		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), "BBVADESA", "PQ_DEL_SERVICIOS", "sp_obt_delivery_archivo_pdf");
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), 
+								resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY), 
+								resources.getString(ConstantsProperties.PQ_DEL_SERVICIO), 
+								"sp_obt_delivery_archivo_pdf");
 
 		JdbcHelper.setInParameter(call, in, "a_iddelivery", OracleTypes.NUMERIC, archivoPDF.getCodentrega());
-		//JdbcHelper.setInParameter(call, in, "a_codbbva", OracleTypes.VARCHAR, requestChangeEstadoRegistro.getCodbbva());
-		//JdbcHelper.setInParameter(call, in, "a_archivodeliverypdf", OracleTypes.CLOB, archivoPDF.getArchivo());
-		//JdbcHelper.setInParameter(call, in, "a_historial", OracleTypes.VARCHAR, ToStringBuilder.reflectionToString(requestTransferirArchivo,ToStringStyle.MULTI_LINE_STYLE));
 		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, ArchivoPDF.class);
 		
 		

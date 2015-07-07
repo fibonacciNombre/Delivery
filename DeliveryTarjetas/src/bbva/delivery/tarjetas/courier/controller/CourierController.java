@@ -77,7 +77,7 @@ public class CourierController extends BaseController {
 	public void lstCourier(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		logger.info("CONTROLLER lstCourier");
+		logger.info("CONTROLLER CourierController lstCourier");
 		
 		String result				= "";
 		String lstcourier 			= "";
@@ -107,7 +107,7 @@ public class CourierController extends BaseController {
 	public void obtCourier(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		logger.info("Controller obtCourier");
+		logger.info("CONTROLLER CourierController obtCourier");
 		
 		String result				= "";
 		String lstcourier 			= "";
@@ -137,7 +137,7 @@ public class CourierController extends BaseController {
 	public void mntCourier(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		logger.info("Controller mntCourier");
+		logger.info("CONTROLLER CourierController mntCourier");
 		
 		String result			= "";
 		HttpSession session 	= request.getSession();
@@ -164,7 +164,7 @@ public class CourierController extends BaseController {
 	public void lstColaboradores(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		logger.info("Controller lstColaboradores");
+		logger.info("CONTROLLER CourierController lstColaboradores");
 		
 		String result				= "";
 		String lstterceros 			= "";

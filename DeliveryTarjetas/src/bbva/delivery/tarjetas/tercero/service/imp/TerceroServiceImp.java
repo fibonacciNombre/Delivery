@@ -27,7 +27,7 @@ public class TerceroServiceImp implements TerceroService {
 	@Override
 	public void mntTercero(Tercero tercero) {
 		
-		logger.info("SERVICE mntTercero");
+		logger.info("SERVICE TerceroServiceImp mntTercero");
 		
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		Date date = new Date();
@@ -39,17 +39,19 @@ public class TerceroServiceImp implements TerceroService {
 
 	@Override
 	public List<Tercero> lstTerceros(Tercero tercero) { 
-		logger.info("SERVICE lstTerceros");
+		logger.info("SERVICE TerceroServiceImp lstTerceros");
 		return terceroDao.lstTerceros(tercero);
 	}
 	
 	@Override
 	public BigDecimal obtTerceroXNrodoc(String nrodocumento){
+		logger.info("SERVICE TerceroServiceImp obtTerceroXNrodoc");
 		return terceroDao.obtTerceroXNrodoc(nrodocumento);
 	}
 	
 	@Override
 	public Tercero obtTercero (Tercero tercero){
+		logger.info("SERVICE TerceroServiceImp obtTercero");
 		return terceroDao.obtTercero(tercero);
 	}
 }
