@@ -69,6 +69,6 @@
 	<!-- ASPECTS DEFINITIONS -->
 	<bean id="auditaController" class="bbva.delivery.tarjetas.aspecto.AuditaController" />
 
- 	<!--<bean id="portalwebconfig" class="bbva.delivery.tarjetas.util.DeliveryProperties"></bean>-->
+ 	<!--<bean id="deliverytarjetasProperties" class="bbva.delivery.tarjetas.util.DeliveryProperties"></bean>-->
 	
 </beans>
