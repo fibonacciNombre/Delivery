@@ -34,7 +34,8 @@ public class Constants {
 	//Constantes INDICADORES DE ESTADOS
 	public static final Integer DELIVERY_IDPESTADO_ACTIVO				=  1;
 	public static final Integer DELIVERY_IDPESTADO_INACTIVO				=  0;
-
+	public static final Integer DELIVERY_CARGA_OK 						=  0;
+	public static final Integer DELIVERY_CARGA_WARNING 					=  2;	
 	public static final Integer DELIVERY_INDMNT_REGISTRAR				=  0;
 	public static final Integer DELIVERY_INDMNT_ACTUALIZAR				=  1;
 	
@@ -59,9 +60,6 @@ public class Constants {
 	//Constante de tipo de archivos permitidos en la carga de excel de entregas
 	public static final  String[] EXT_EXCEL 							= {"xls", "xlsx"};
 	public static final Integer NROHOJAEXCEL							= 0;
-	public static final Integer DELIVERY_PENDIENTE = 10;
-	public static final Integer DELIVERY_CARGA_OK = 0;
-	public static final Integer DELIVERY_CARGA_WARNING = 2;
-	public static final Integer TIPODOCUMENTO_DNI = 1;
+	public static final Integer TIPODOCUMENTO_DNI 						= 1;
 	 
 }

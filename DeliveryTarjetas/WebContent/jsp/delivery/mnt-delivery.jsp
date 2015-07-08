@@ -10,7 +10,7 @@
     <form id="form-bsqmntdelivery">
     
     	<input type="hidden" class="form-control" id="idcourier" name="idcourier"/>
-    	<input type="hidden" class="form-control" id="idpestadodelivery" name="idpestadodelivery" value="10"/>
+    	<input type="hidden" class="form-control" id="idpestadodelivery" name="idpestadodelivery"/>
     	
     	<div class="panel panel-default">
 	    	<div class="panel-heading">
@@ -157,9 +157,9 @@
      	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','cbocourier', ['idcourier','rznsocial'], {form: 'form-bsqmntdelivery'});
     	
     	callCargaControlParam('DELWEB_ESTADO', 'form-bsqmntdelivery #idpestado', true);
-    	//cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','idcourier', ['idcourier','rznsocial'], {form: 'form-cargar-entrega-tarjeta-edit'});
  
-
+		$("#form-bsqmntdelivery #idpestadodelivery").val(CTE_INIT_DELIVERYSTS_PENDIENTE);
+		
     	initDatePicker("fecentrega","calendario");
     	
     	$("#t-responsable").remove();

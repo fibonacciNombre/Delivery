@@ -144,7 +144,8 @@
 			$('#form-cargararchivo').ajaxForm({	
 												url		:"/DeliveryTarjetas/delivery.do?method=uploadFile&"+
 																						"idcourier="+ idcourier_ + "&"+
-																						"fecentrega="+ fechaentrega_ , 
+																						"fecentrega="+ fechaentrega_ +"&"+
+																						"idpestadodelivery="+ CTE_INIT_DELIVERYSTS_PENDIENTE ,
 												type	:"post", 
 												success	:function(data){ 
 

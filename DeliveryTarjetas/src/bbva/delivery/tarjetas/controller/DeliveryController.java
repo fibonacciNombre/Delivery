@@ -179,19 +179,23 @@ public class DeliveryController extends BaseController{
 
 		logger.info("CONTROLLER DeliveryController uploadFile");
 		
-		Archivo archivo 		= new Archivo();
-		JSONObject joRetorno 	= new JSONObject();
-		HttpSession session 	= request.getSession();
-		boolean isMultipart 	= ServletFileUpload.isMultipartContent(request);
+		Archivo archivo 			= new Archivo();
+		Delivery deliveryTemp		= new Delivery();
+		JSONObject joRetorno 		= new JSONObject();
+		HttpSession session 		= request.getSession();
+		boolean isMultipart 		= ServletFileUpload.isMultipartContent(request);
 		
-		String fecentrega		= request.getParameter("fecentrega");
-		Integer idcourier 		= Integer.parseInt(request.getParameter("idcourier"));
-
+		String fecentrega			= request.getParameter("fecentrega");
+		Integer idcourier 			= Integer.parseInt(request.getParameter("idcourier"));
+		Integer idpestadodelivery	= Integer.parseInt(request.getParameter("idpestadodelivery"));
+		
  		Usuario usuarioSes    	= (Usuario)session.getAttribute(Constants.REQ_SESSION_USUARIO);
  		
  		archivo.setIdcourier(idcourier);
  		archivo.setUsuario(usuarioSes.getCodusuario());
-		 
+		
+ 		deliveryTemp.setIdpestadodelivery(idpestadodelivery);
+ 		
 		Date dfechaentrega 		= null;
 		DateFormat df			= new SimpleDateFormat("dd/MM/yyyy");
 		 
@@ -218,7 +222,7 @@ public class DeliveryController extends BaseController{
 					if(item.getFieldName().equalsIgnoreCase("filename")){
 						archivo.setFilename(f.getOriginalFilename());
 					
-						joRetorno = deliveryService.cargarExcelDelivery(f, archivo);
+						joRetorno = deliveryService.cargarExcelDelivery(f, archivo, deliveryTemp);
 						break;
 					}
 				}

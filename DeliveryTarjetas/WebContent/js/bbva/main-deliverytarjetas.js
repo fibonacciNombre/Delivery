@@ -149,6 +149,8 @@ function loadSesionInicial(){
 	if((CTE_JSON_USUARIOWEB==undefined || CTE_JSON_USUARIOWEB==null) || (CTE_JSON_TERCERO==undefined || CTE_JSON_TERCERO==null))
 		cerrarSession();					
 	
+	obtParametrosIniciales();
+	
 	if (CTE_JSON_PERFIL.idperfil != CTE_INIT_IDROL_ADMIN_WEB)
 		$(".view-admin").remove();
 	
@@ -158,8 +160,6 @@ function loadSesionInicial(){
 	}else{	
 		
 		CTE_LOAD_INIT 					= 1;
-		
-		obtParametrosIniciales();
 		
 		CTE_INIT_PARAM_ESTADO 			= obtParametrosMaestros('DELWEB_ESTADO');
 		CTE_INIT_PARAM_TIPDOCUMENTO 	= obtParametrosMaestros('DELWEB_TIPODOCUMENTO');
@@ -285,6 +285,12 @@ function obtParametrosIniciales(){
 											CTE_INIT_IDROL_COLAB_BBVA = rsp.lst[i].codigon;
 										if(rsp.lst[i].abreviatura == 'PERFIL_CONSWS')
 											CTE_INIT_IDROL_ADMIN_WS = rsp.lst[i].codigon;
+										if(rsp.lst[i].abreviatura == 'REGISTRO_ACT')
+											CTE_INIT_REGISTROSTS_ACTIVO = rsp.lst[i].codigon;
+										if(rsp.lst[i].abreviatura == 'REGISTRO_INA')
+											CTE_INIT_REGISTROSTS_INACTIVO = rsp.lst[i].codigon;
+										if(rsp.lst[i].abreviatura == 'DELIVERY_PEND')
+											CTE_INIT_DELIVERYSTS_PENDIENTE = rsp.lst[i].codigon;
 									}
 								}
 							}
@@ -484,7 +490,7 @@ function rowEntregaSelectedUtil(json, formEdit, loadColaboradores) {
 										$("#form-detdelivery #idtercero").empty();
 										
 										for ( var i = 0; i < rsp.lst.length; i++) { 
-											if(rsp.lst[i].idpestado==1){
+											if(rsp.lst[i].idpestado==CTE_INIT_REGISTROSTS_ACTIVO){
 												var opcion = '<option value="'+rsp.lst[i].idtercero+'" >'+ rsp.lst[i].nrodocumento+ " - " +rsp.lst[i].nomcompleto + '</option>';
 												$("#form-detdelivery #idtercero").append(opcion);	
 											}											 

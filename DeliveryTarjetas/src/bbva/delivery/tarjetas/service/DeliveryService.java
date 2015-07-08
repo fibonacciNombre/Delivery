@@ -22,7 +22,7 @@ public interface DeliveryService {
 	 
 	Integer valCourierDelivery(String dnicourier);
 	
-	JSONObject cargarExcelDelivery(MultipartFile multipartFile,Archivo archivo) throws FileNotFoundException;
+	JSONObject cargarExcelDelivery(MultipartFile multipartFile,Archivo archivo, Delivery deliveryTemp) throws FileNotFoundException;
 
 	String obtArchivoLstDelivery(Delivery delivery, Tercero tercero) throws IOException;
 	

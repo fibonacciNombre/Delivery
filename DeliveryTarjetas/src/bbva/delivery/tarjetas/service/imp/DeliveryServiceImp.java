@@ -211,7 +211,7 @@ public class DeliveryServiceImp implements DeliveryService {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public JSONObject cargarExcelDelivery(MultipartFile multipartFile, Archivo archivo) throws FileNotFoundException{
+	public JSONObject cargarExcelDelivery(MultipartFile multipartFile, Archivo archivo, Delivery deliveryTemp) throws FileNotFoundException{
 		
 		logger.info("SERVICE DeliveryServiceImp cargarExcelDelivery");
 		
@@ -226,7 +226,7 @@ public class DeliveryServiceImp implements DeliveryService {
 			   mtoasoctarjeta, horaentrega, lugarentrega, indverificacion, direccioncli, telfmovilcli,
 			   latitudofi, longitudofi, correocli, ordenentrega, dnitrabajador;
 		
-		Delivery carga = new Delivery();
+		Delivery rowDelivery = new Delivery();
 		/** Se obtiene la extensión del archivo **/
 		String extArchivo = FilenameUtils.getExtension(archivo.getFilename());
 		
@@ -269,12 +269,12 @@ public class DeliveryServiceImp implements DeliveryService {
 					if(resultado == 0){
 						
 						/**Seteamos los datos generales **/
-						carga.setGrupocarga(idgrupoCarga);
-						carga.setUsuario(archivo.getUsuario());
-						carga.setIdpestado(Constants.DELIVERY_IDPESTADO_ACTIVO);
+						rowDelivery.setGrupocarga(idgrupoCarga);
+						rowDelivery.setUsuario(archivo.getUsuario());
+						rowDelivery.setIdpestado(Constants.DELIVERY_IDPESTADO_ACTIVO);
 
-						carga.setIdpestadodelivery(Constants.DELIVERY_PENDIENTE);
-						carga.setIdarchivo(archivo.getIdarchivo());
+						rowDelivery.setIdpestadodelivery(deliveryTemp.getIdpestadodelivery());
+						rowDelivery.setIdarchivo(archivo.getIdarchivo());
 						
 						/** Recorremos las filas sin contar el header **/
 						for (int r = 1; r < rows; r++) {
@@ -382,50 +382,50 @@ public class DeliveryServiceImp implements DeliveryService {
 								resultado = Constants.DELIVERY_CARGA_WARNING ;
 							}
 							
-							carga.setIddelivery(null);
+							rowDelivery.setIddelivery(null);
 								
-							carga.setTipodocumento(tipodocumento);
-							carga.setNrodocumentocli(nrodocumentocli);
-							carga.setNombrescli(nombrescli);
-							carga.setTipotarjeta(tipotarjeta);
-							carga.setPridigtarjeta(pridigtarjeta);
-							carga.setUltdigtarjeta(ultdigtarjeta);
-							carga.setNrocontrato(nrocontrato);
+							rowDelivery.setTipodocumento(tipodocumento);
+							rowDelivery.setNrodocumentocli(nrodocumentocli);
+							rowDelivery.setNombrescli(nombrescli);
+							rowDelivery.setTipotarjeta(tipotarjeta);
+							rowDelivery.setPridigtarjeta(pridigtarjeta);
+							rowDelivery.setUltdigtarjeta(ultdigtarjeta);
+							rowDelivery.setNrocontrato(nrocontrato);
 							
 							try {
-								carga.setMtoasoctarjeta(new BigDecimal(mtoasoctarjeta));
+								rowDelivery.setMtoasoctarjeta(new BigDecimal(mtoasoctarjeta));
 							} catch (Exception e) {
-								carga.setMtoasoctarjeta(null);
+								rowDelivery.setMtoasoctarjeta(null);
 							}
 							
-							carga.setHoraentrega(horaentrega);
-							carga.setLugarentrega(lugarentrega);
+							rowDelivery.setHoraentrega(horaentrega);
+							rowDelivery.setLugarentrega(lugarentrega);
 
-							carga.setIndverificacion(indverificacion);
-							carga.setDireccioncli(direccioncli);
-							carga.setDistritocli(distritocli);
+							rowDelivery.setIndverificacion(indverificacion);
+							rowDelivery.setDireccioncli(direccioncli);
+							rowDelivery.setDistritocli(distritocli);
 							
 							try {
-								carga.setLatitudofi(new BigDecimal(latitudofi));
+								rowDelivery.setLatitudofi(new BigDecimal(latitudofi));
 							} catch (Exception e) {
-								carga.setLatitudofi(null);
+								rowDelivery.setLatitudofi(null);
 							}
 							
 							try {
-								carga.setLongitudofi(new BigDecimal(longitudofi));
+								rowDelivery.setLongitudofi(new BigDecimal(longitudofi));
 							} catch (Exception e) {
-								carga.setLongitudofi(null);
+								rowDelivery.setLongitudofi(null);
 							}
 							
-							carga.setCorreocli(correocli);
-							carga.setTelmovilcli(telfmovilcli);
-							carga.setOrdenentrega(ordenentrega);
-							carga.setDnitrabajador(dnitrabajador);
+							rowDelivery.setCorreocli(correocli);
+							rowDelivery.setTelmovilcli(telfmovilcli);
+							rowDelivery.setOrdenentrega(ordenentrega);
+							rowDelivery.setDnitrabajador(dnitrabajador);
 
-							carga.setIdpestadocarga(resultado);
+							rowDelivery.setIdpestadocarga(resultado);
 							
 							/** Verificacion si dni del colaborador esta en algun tercero **/
-							idtercero = terceroService.obtTerceroXNrodoc(carga.getDnitrabajador());
+							idtercero = terceroService.obtTerceroXNrodoc(rowDelivery.getDnitrabajador());
 							
 							/** Si no esta lo registramos como tercero **/
 							if(idtercero == null){
@@ -434,7 +434,7 @@ public class DeliveryServiceImp implements DeliveryService {
 								tercero.setIdpestado(Constants.DELIVERY_IDPESTADO_ACTIVO);
 								tercero.setUsuario(archivo.getUsuario());
 								tercero.setIdptipodocumento(Constants.TIPODOCUMENTO_DNI);
-								tercero.setNrodocumento(carga.getDnitrabajador());
+								tercero.setNrodocumento(rowDelivery.getDnitrabajador());
 								tercero.setIdcourier(archivo.getIdcourier());
 								terceroService.mntTercero(tercero);
 								idtercero = tercero.getIdtercero();
@@ -444,7 +444,7 @@ public class DeliveryServiceImp implements DeliveryService {
 							
 							if(resultado == Constants.DELIVERY_CARGA_WARNING ){
 
-								carga.setIdpestadocarga(Constants.DELIVERY_CARGA_WARNING );
+								rowDelivery.setIdpestadocarga(Constants.DELIVERY_CARGA_WARNING );
 								mensajeRegistro = mensajeRegistro + getFormatMensaje("<b>Alerta! Fila Nro " + r +"</b>" + mensaje );
 								mensaje = "";
 								
@@ -469,9 +469,9 @@ public class DeliveryServiceImp implements DeliveryService {
 								resultado = Constants.DELIVERY_CARGA_OK;
 							}
 								
-							carga.setIdtercero(idtercero);
+							rowDelivery.setIdtercero(idtercero);
 							
-							mntDelivery(carga);
+							mntDelivery(rowDelivery);
  
 						}	
 					} 
