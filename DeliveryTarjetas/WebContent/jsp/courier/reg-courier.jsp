@@ -43,13 +43,45 @@
 
 <script>
 	
+	<%-- ini / mfarfanr / ajustes --%>
+	function validacionNroDocumento(){
+		
+		$("#form-registrocourier #nrodocumentocou").rules("remove");
+		
+		if($("#form-registrocourier #idptipodocumento").val()==1){
+			$("#form-registrocourier #nrodocumentocou").rules("add", {
+				required	: true,
+				digits		: true,
+				minlength 	: 8,
+				maxlength 	: 8,
+				messages: {
+					required 		: 'Ingrese número de documento',
+					minlength 		: 'Ingrese 8 digitos',
+					maxlength 		: 'Ingrese sólo 8 digitos',
+					digits			: 'Ingrese sólo números'
+				 }
+				});	
+		}else{
+			$("#form-registrocourier #nrodocumentocou").rules("add", {
+				required	: true,
+				digits		: true,
+				minlength 	: 11,
+				maxlength 	: 11,
+				messages: {
+					required 		: 'Ingrese número de documento',
+					minlength 		: 'Ingrese 11 digitos',
+					maxlength 		: 'Ingrese sólo 11 digitos',
+					digits			: 'Ingrese sólo números'
+				 }
+			});
+		}	
+		
+	}
+	<%-- fin / mfarfanr / ajustes --%>
+	
     $().ready(function(){
     	
     	loadModalCargando();
-    	
-    	callCargaControlParam('DELWEB_TIPODOCUMENTO','form-registrocourier #idptipodocumento',false);
-    	
-    	callCargaControlParam('DELWEB_ESTADO','form-registrocourier #idpestado',false);
     	
 		$("#form-registrocourier").validate({
 			rules : {
@@ -110,6 +142,12 @@
 			}
 		});	
 		
+		<%-- ini / mfarfanr / ajustes --%>
+		callCargaControlParam('DELWEB_TIPODOCUMENTO','form-registrocourier #idptipodocumento',false);
+    	
+    	callCargaControlParam('DELWEB_ESTADO','form-registrocourier #idpestado',false);
+    	<%-- fin / mfarfanr / ajustes --%>
+    	
 		closeModalCargando();
 	});
     

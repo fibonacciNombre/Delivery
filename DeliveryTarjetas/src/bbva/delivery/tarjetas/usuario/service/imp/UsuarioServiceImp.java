@@ -17,6 +17,8 @@ import bbva.delivery.tarjetas.courier.dao.CourierDao;
 import bbva.delivery.tarjetas.tercero.bean.Tercero;
 import bbva.delivery.tarjetas.tercero.dao.TerceroDao;
 import bbva.delivery.tarjetas.usuario.bean.LoginWeb;
+import bbva.delivery.tarjetas.usuario.bean.Oficina;
+import bbva.delivery.tarjetas.usuario.bean.Subgerente;
 import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import bbva.delivery.tarjetas.usuario.dao.UsuarioDao;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
@@ -128,11 +130,54 @@ public class UsuarioServiceImp implements UsuarioService {
 		
 		usuarioDao.mntUsuario(usuario);
 	}
+	
+	@Override
+	public void mntUsuarioGerente(Usuario usuario) {
+		
+		logger.info("SERVICE UsuarioServiceImp mntUsuarioGerente");
+		
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		Date date = new Date();
+		
+		usuario.setHistorial("Usuario: " + usuario.getUsumodificacion() + ", Fecha:" + dateFormat.format(date) + ", " +  usuario.toString());
+		
+		usuarioDao.mntUsuarioGerente(usuario);
+	}
+	
+	@Override
+	public void mntOficina(Oficina oficina) {		
+		logger.info("SERVICE UsuarioServiceImp mntOficina");						
+		usuarioDao.mntOficina(oficina);
+	}
 
+	@Override
+	public List<Subgerente> lstSubgerentes(Subgerente subgerente){
+		logger.info("SERVICE UsuarioServiceImp lstSubgerentes");
+		return usuarioDao.lstSubgerentes(subgerente);
+	}
+	
+	@Override
+	public void mntSubgerente(Subgerente subgerente){
+		logger.info("SERVICE UsuarioServiceImp mntSubgerente");						
+		usuarioDao.mntSubgerente(subgerente);
+	}
+	
 	@Override
 	public List<Usuario> lstUsuarios(Usuario usuario) {
 		logger.info("SERVICE UsuarioServiceImp lstUsuarios");
 		return usuarioDao.lstUsuarios(usuario);
+	}
+	
+	@Override
+	public List<Usuario> lstUsuarios2(Usuario usuario) {
+		logger.info("SERVICE UsuarioServiceImp lstUsuarios");
+		return usuarioDao.lstUsuarios2(usuario);
+	}
+	
+	@Override
+	public List<Oficina> lstOficinas(Oficina oficina) {
+		logger.info("SERVICE UsuarioServiceImp lstUsuarios");
+		return usuarioDao.lstOficinas(oficina);
 	}
 
 	@Override
@@ -154,5 +199,11 @@ public class UsuarioServiceImp implements UsuarioService {
 	public List<Usuario> lstUsuariosWS(Usuario usuario) {
 		logger.info("SERVICE UsuarioServiceImp lstUsuariosWS");
 		return usuarioDao.lstUsuariosWS(usuario);
+	}
+
+	@Override
+	public Oficina obtOficina(Oficina oficina) {
+		logger.info("SERVICE UsuarioServiceImp obtOficina");
+		return usuarioDao.obtOficina(oficina);
 	}
 }

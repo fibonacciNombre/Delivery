@@ -41,6 +41,40 @@
 </div>
 
 <script>
+	<%-- ini / mfarfanr / ajustes --%>
+	function validacionNroDocumento(){
+		
+		$("#form-mntcourier #nrodocumentocou").rules("remove");
+		
+		if($("#form-mntcourier #idptipodocumento").val()==1){
+			$("#form-mntcourier #nrodocumentocou").rules("add", {
+				required	: true,
+				digits		: true,
+				minlength 	: 8,
+				maxlength 	: 8,
+				messages: {
+					required 		: 'Ingrese número de documento',
+					minlength 		: 'Ingrese 8 digitos',
+					maxlength 		: 'Ingrese sólo 8 digitos',
+					digits			: 'Ingrese sólo números'
+				 }
+				});	
+		}else{
+			$("#form-mntcourier #nrodocumentocou").rules("add", {
+				required	: true,
+				digits		: true,
+				minlength 	: 11,
+				maxlength 	: 11,
+				messages: {
+					required 		: 'Ingrese número de documento',
+					minlength 		: 'Ingrese 11 digitos',
+					maxlength 		: 'Ingrese sólo 11 digitos',
+					digits			: 'Ingrese sólo números'
+				 }
+			});
+		}	
+	}
+	<%-- fin / mfarfanr / ajustes --%>
 	
 	$().ready(function(){
 		
@@ -54,8 +88,7 @@
 				idptipodocumento 	: {				required 	: true },
 				
 				nrodocumentocou		: {				required	: true,
-													digits 	 	: true,
-													minlength 	: 11 },
+													digits 	 	: true },
 													
 				direccion 			: {				required 	: true },
 				
@@ -80,8 +113,7 @@
 				idptipodocumento 	: {				required 	: "Debes seleccionar el tipo de documento" },
 				
 				nrodocumentocou		: {				required	: "Debes ingresar el nro. de documento",
-													digits 	 	: "Debes ingresar sólo números",
-													minlength 	: "Dedes ingresar un mínimo de 11 dígitos"},
+													digits 	 	: "Debes ingresar sólo números"},
 													
 				direccion 			: {				required 	: "Debes ingresar la dirección completa" },
 				
@@ -102,6 +134,7 @@
 				idpestado 			: {				required 	: "Debes seleccionar un estado" }
 			}
 		});	
+		
 	});
 	
 	function actualizarCourier() {

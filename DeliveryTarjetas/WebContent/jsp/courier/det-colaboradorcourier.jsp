@@ -106,6 +106,8 @@
 		 
 	 		loadModalCargando();
 	 		
+	 		$("#form-mntcolaborador #idcourier").val($("#form-mntcolaborador #cbocourier").val());
+	 		
 	 		$.ajax({
 				type 		: "POST",
 				url 		: "/DeliveryTarjetas/tercero.do?method=mntTercero",

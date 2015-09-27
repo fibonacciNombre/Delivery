@@ -115,6 +115,24 @@ public class DeliveryServiceImp implements DeliveryService {
 		return deliveryDao.valCourierDelivery(dnicourier);
 	}
   
+	@Override
+	public List<Delivery> lstDelivery2(Delivery delivery, Tercero tercero){
+		logger.info("SERVICE DeliveryServiceImp lstDelivery2");
+		return deliveryDao.lstDelivery2(delivery, tercero);
+	}
+	
+	@Override
+	public List<Delivery> lstDeliveryOficinas(Delivery delivery, Tercero tercero){
+		logger.info("SERVICE DeliveryServiceImp lstDeliveryOficinas");
+		return deliveryDao.lstDeliveryOficinas(delivery, tercero);
+	}
+	
+	@Override
+	public List<Delivery> lstDeliveryOficinasByDni(Delivery delivery) {
+		logger.info("SERVICE DeliveryServiceImp lstDeliveryOficinasByDni");
+		return deliveryDao.lstDeliveryOficinasByDni(delivery);
+	}
+	
 	public void mntArchivo(Archivo param){
 		logger.info("SERVICE DeliveryServiceImp mntArchivo");
 		deliveryDao.mntArchivo(param);
@@ -224,10 +242,10 @@ public class DeliveryServiceImp implements DeliveryService {
  
 		String nrodocumentocli, tipodocumento, nombrescli, tipotarjeta, pridigtarjeta, ultdigtarjeta, nrocontrato, distritocli,     
 			   mtoasoctarjeta, horaentrega, lugarentrega, indverificacion, direccioncli, telfmovilcli,
-			   latitudofi, longitudofi, correocli, ordenentrega, dnitrabajador;
+			   latitudofi, longitudofi, correocli, ordenentrega, dnitrabajador, remito, referencia, ordenservicio;
 		
 		Delivery rowDelivery = new Delivery();
-		/** Se obtiene la extensión del archivo **/
+		/** Se obtiene la extensi�n del archivo **/
 		String extArchivo = FilenameUtils.getExtension(archivo.getFilename());
 		
 		/** Verificamos si es una de las extensiones permitidas **/
@@ -274,6 +292,8 @@ public class DeliveryServiceImp implements DeliveryService {
 						rowDelivery.setIdpestado(Constants.DELIVERY_IDPESTADO_ACTIVO);
 
 						rowDelivery.setIdpestadodelivery(deliveryTemp.getIdpestadodelivery());
+						rowDelivery.setFecentrega(deliveryTemp.getFecentrega());
+						rowDelivery.setIdcourier(deliveryTemp.getIdcourier());
 						rowDelivery.setIdarchivo(archivo.getIdarchivo());
 						
 						/** Recorremos las filas sin contar el header **/
@@ -302,6 +322,9 @@ public class DeliveryServiceImp implements DeliveryService {
 							telfmovilcli    = getCellValue(row, 16); 
 							ordenentrega 	= getCellValue(row, 17); 
 							dnitrabajador 	= getCellValue(row, 18);
+							remito 			= getCellValue(row, 19);
+							referencia		= getCellValue(row, 20);
+							ordenservicio	= getCellValue(row, 21);
 							
 							if (tipodocumento == null) {
 								resultado = Constants.DELIVERY_CARGA_WARNING  ;
@@ -350,7 +373,7 @@ public class DeliveryServiceImp implements DeliveryService {
 							
 							if (indverificacion == null) {
 								resultado = Constants.DELIVERY_CARGA_WARNING ;
-								mensaje += getFormatMensaje(" - Indicador de verificación no enviado.");	
+								mensaje += getFormatMensaje(" - Indicador de verificaci�n no enviado.");	
 							}
 							
 							if (direccioncli == null) {
@@ -421,7 +444,9 @@ public class DeliveryServiceImp implements DeliveryService {
 							rowDelivery.setTelmovilcli(telfmovilcli);
 							rowDelivery.setOrdenentrega(ordenentrega);
 							rowDelivery.setDnitrabajador(dnitrabajador);
-
+							rowDelivery.setRemito(remito);
+							rowDelivery.setReferencia(referencia);
+							rowDelivery.setOrdenservicio(ordenservicio);
 							rowDelivery.setIdpestadocarga(resultado);
 							
 							/** Verificacion si dni del colaborador esta en algun tercero **/
@@ -465,7 +490,8 @@ public class DeliveryServiceImp implements DeliveryService {
 								correocli 		= null;
 								ordenentrega 	= null;
 								dnitrabajador 	= null; 
-								
+								remito			= null;
+								referencia		= null;
 								resultado = Constants.DELIVERY_CARGA_OK;
 							}
 								
@@ -692,8 +718,10 @@ public class DeliveryServiceImp implements DeliveryService {
 		Cell dnitrabajadorHeader = headerRow.createCell(16);
 		dnitrabajadorHeader.setCellValue("DNI Trabajador");
 		
+		/** ini / mfarfanr / ajustes**/
 		List<Delivery> lstDelivery = lstDelivery(delivery, tercero);
-		
+//		List<Delivery> lstDelivery = lstDelivery2(delivery, tercero);
+		/** fin / mfarfanr / ajustes**/
 		int row = 1;
 		
 		for(Delivery d: lstDelivery){

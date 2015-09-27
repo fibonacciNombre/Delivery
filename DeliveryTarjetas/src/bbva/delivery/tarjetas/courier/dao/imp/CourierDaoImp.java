@@ -97,8 +97,11 @@ public class CourierDaoImp extends JdbcDaoBase implements CourierDao {
 	      JdbcHelper.setInParameter(call, in, "a_idptipodocumento", Types.INTEGER, courier.getIdptipodocumento());
 	      JdbcHelper.setInParameter(call, in, "a_direccion", 		Types.VARCHAR, courier.getDireccion());  
 	      JdbcHelper.setInParameter(call, in, "a_idpestado", 		Types.INTEGER, courier.getIdpestado()); 
-	      JdbcHelper.setInParameter(call, in, "a_correo", 			Types.VARCHAR, courier.getCorreo()); 
-	      JdbcHelper.setInParameter(call, in, "a_historial", 		Types.VARCHAR, courier.getHistorial()); 
+	      JdbcHelper.setInParameter(call, in, "a_correo", 			Types.VARCHAR, courier.getCorreo());
+	      /** ini / mfarfanr / ajustes **/
+//	      JdbcHelper.setInParameter(call, in, "a_historial", 		Types.VARCHAR, courier.getHistorial());
+	      JdbcHelper.setInParameter(call, in, "a_historial", 		Types.CLOB, courier.getHistorial());
+	      /** fin / mfarfanr / ajustes **/
 	      JdbcHelper.setInParameter(call, in, "a_usuario", 		Types.VARCHAR, courier.getUsuario()); 
 		out = call.execute(in);
 		

@@ -145,7 +145,7 @@
 												url		:"/DeliveryTarjetas/delivery.do?method=uploadFile&"+
 																						"idcourier="+ idcourier_ + "&"+
 																						"fecentrega="+ fechaentrega_ +"&"+
-																						"idpestadodelivery="+ CTE_INIT_DELIVERYSTS_PENDIENTE ,
+																						"idpestadodelivery=0" ,
 												type	:"post", 
 												success	:function(data){ 
 

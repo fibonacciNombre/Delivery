@@ -5,6 +5,7 @@ import java.util.List;
 import bbva.delivery.tarjetas.comun.bean.ArchivoBlob;
 import bbva.delivery.tarjetas.comun.bean.Constante;
 import bbva.delivery.tarjetas.comun.bean.Parametro;
+import bbva.delivery.tarjetas.comun.bean.ParametroUbigeo;
 
 public interface ComunService {	
 	
@@ -29,9 +30,15 @@ public interface ComunService {
 	 * @param parametro los filtros para la b�squeda del parametro
 	 * @return la lista de valores del parametro buscado seg�n los filtros
 	 */
-	List<Parametro> lstParametro(Parametro parametro);
+	List<Parametro> lstParametro(Parametro parametro);	
 	
 	List<Parametro> cmbParametro(Parametro parametro);
+	
+	List<ParametroUbigeo> lstDepartamentos(ParametroUbigeo parametro);
+	
+	List<ParametroUbigeo> lstProvincias(ParametroUbigeo parametro);
+	
+	List<ParametroUbigeo> lstDistritos(ParametroUbigeo parametro);
 	
 	/**
 	 * 

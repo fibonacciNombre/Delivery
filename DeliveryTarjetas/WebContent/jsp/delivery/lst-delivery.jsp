@@ -4,7 +4,7 @@
 	
 	<h3 class="container-title">
 		<span class="vineta-title"></span>
-		<span>Consultar entregas a realizar</span>
+		<span>Consulta de entregas</span>
 	</h3>
 	
     <form id="form-bsqlstdelivery">
@@ -60,7 +60,7 @@
 						</div>
 							
 						<div class="form-group" id="nrodocumento-div">
-							<label for="dnitrabajador" class="col-md-6 control-label">DNI del Colaborador</label>
+							<label for="dnitrabajador" class="col-md-6 control-label">DNI del Mensajero</label>
 							<div class="col-md-6">								
 								<input type="text" class="form-control" id="nrodocumento"  name="nrodocumento" maxlength="12">							
 							</div>
@@ -107,13 +107,13 @@
 		<table id="table-lstdelivery" class="table table-hover table-bordered table-inter text-center">
 		 	<thead>
 				<tr> 
-	 				<th class="text-center">Fecha Entrega</th>  
-	 				<th class="text-center">DNI Cliente</th>
+					<th class="text-center">Código entrega</th>
+	 				<th class="text-center">Fecha entrega</th>  
+	 				<th class="text-center">DNI cliente</th>
 				 	<th class="text-center">Nombre cliente</th>
 				 	<th class="text-center">Lugar de entrega</th>
-				 	<th class="text-center">Observaciones</th>					
-					<th class="text-center">Detalle</th>
-					<th class="text-center">PDF</th>					
+				 	<th class="text-center">Estado</th>					
+					<th class="text-center">Detalle</th>									
 				</tr>
 			</thead>
 			<tbody class="vcenter">
@@ -178,9 +178,11 @@
 		param.idcourier 			= $("#form-bsqlstdelivery #idcourier").val();
 		param.fechaentregaarh 		= $("#form-bsqlstdelivery #fecentrega").val();
 		param.idpestadodelivery 	= $("#form-bsqlstdelivery #idpestadodelivery").val();
-
-		var lstDelivery			= bsqDeliveryUtil(param);
 		
+		/** ini / mfarfanr / ajustes**/
+		//var lstDelivery				= bsqDeliveryUtil(param);
+		var lstDelivery				= bsqDeliveryUtil(param);
+		/** fin / mfarfanr / ajustes**/
 		if(lstDelivery!= undefined && lstDelivery.length > 0){											
 			cargarTablaLstDelivery(lstDelivery);
 			$("#container-lst-detdelivery").slideDown(1000);
@@ -217,6 +219,9 @@
 			"bAutoWidth" 	: true,
 			"oLanguage"  	: {"sUrl": "/DeliveryTarjetas/recursos/idioma/es_ES.txt"},
 			"columns" 		: [ 
+								{ "data" 		: "iddelivery",
+									"orderable"	: false,
+									"sWidth" 	: "10%" },
 								{ "data" 		: "fecentrega",
 									"orderable"	: false,
 									"sWidth" 	: "12%" },
@@ -229,21 +234,15 @@
 								{ "data" 		: "lugarentrega",
 									"sWidth" 	: "20%",
 									"orderable"	: false }, 
-								{ "data" 		: "lugarentrega",
+								{ "data" 		: "estado",
 									"orderable"	: false,
-									"sWidth" 	: "15%" }, 															
+									"sWidth" 	: "10%" }, 															
                    				{ "data"      	: "",
 									"orderable"	: false,
-									"sWidth" 	: "10%",
+									"sWidth" 	: "6%",
                       				"class"		: "text-center",
                        	 			"mRender"  	: function (data, type, full) {
-                        	 								return linkDetalleDelivery(full,false,false);  }},
-								{ "data"      	: "",
-									"orderable"	: false,
-									"sWidth" 	: "5%",
-                      				"class"		: "text-center",
-                  	 				"mRender"  	: function (data, type, full) {
-                   	 									return linkPDF(full.iddelivery);  }}                        	 								
+                        	 								return linkDetalleDelivery(full,false,false);  }}		
 							],
 			"fnDrawCallback" 	: function() {mostrarDatatable("#table-lstdelivery");},
 			"fnCreatedRow"		: function (r, data, i) {

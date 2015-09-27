@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
+import bbva.delivery.tarjetas.bean.Configuracion;
 import bbva.delivery.tarjetas.bean.Archivo;
 import bbva.delivery.tarjetas.bean.ArchivoPDF;
 import bbva.delivery.tarjetas.bean.Delivery;
@@ -73,6 +74,11 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 	      JdbcHelper.setInParameter(call, in, "a_historial"        , 	Types.VARCHAR, param.getHistorial()); 
 	      JdbcHelper.setInParameter(call, in, "a_grupocarga"        , 	Types.INTEGER, param.getGrupocarga()); 
 	      JdbcHelper.setInParameter(call, in, "a_usuario"        , 	Types.VARCHAR, param.getUsuario()); 
+	      JdbcHelper.setInParameter(call, in, "a_remito"        , 	Types.VARCHAR, param.getRemito());
+	      JdbcHelper.setInParameter(call, in, "a_referencia"        , 	Types.VARCHAR, param.getReferencia());
+	      JdbcHelper.setInParameter(call, in, "a_idcourier"        , 	Types.INTEGER, param.getIdcourier());
+	      JdbcHelper.setInParameter(call, in, "a_fecentrega"        , 	Types.VARCHAR, param.getFecentrega());
+	      JdbcHelper.setInParameter(call, in, "a_ordenservicio"        , 	Types.VARCHAR, param.getOrdenservicio());
 	          
 		out = call.execute(in);
 		
@@ -106,6 +112,92 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 		JdbcHelper.setInParameter(call, in, "a_nrodocumento", 	 	OracleTypes.VARCHAR, tercero.getNrodocumento());
 		JdbcHelper.setOutParameter(call, 	"a_cursor", 		 	OracleTypes.CURSOR,  Delivery.class);
 
+		out = call.execute(in);
+		lista = (List<Delivery>) out.get("a_cursor");
+		 
+		return lista;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Delivery> lstDelivery2(Delivery delivery, Tercero tercero) {
+		 
+		logger.info("DAO DeliveryDaoImp lstDelivery2");
+		
+		List<Delivery> lista = null; 
+		MapSqlParameterSource in = null;
+
+		SimpleJdbcCall call = null;
+		Map<String, Object> out = null;
+		in = new MapSqlParameterSource();
+
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
+				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
+				resources.getString(ConstantsProperties.PQ_DEL_COURIER),
+				"sp_lst_delivery2");
+
+		JdbcHelper.setInParameter(call, in, "a_fecentrega", 	 	OracleTypes.DATE, 	 delivery.getFechaentregaarh());
+		JdbcHelper.setInParameter(call, in, "a_idcourier", 		 	OracleTypes.INTEGER, delivery.getIdcourier());
+		JdbcHelper.setInParameter(call, in, "a_nrodocumentocli", 	OracleTypes.VARCHAR, delivery.getNrodocumentocli());
+		JdbcHelper.setInParameter(call, in, "a_idpestadodelivery", 	OracleTypes.INTEGER, delivery.getIdpestadodelivery());
+		JdbcHelper.setInParameter(call, in, "a_tipodocumento",	 	OracleTypes.VARCHAR, tercero.getIdptipodocumento());
+		JdbcHelper.setInParameter(call, in, "a_nrodocumento", 	 	OracleTypes.VARCHAR, tercero.getNrodocumento());
+		JdbcHelper.setOutParameter(call, 	"a_cursor", 		 	OracleTypes.CURSOR,  Delivery.class);
+
+		out = call.execute(in);
+		lista = (List<Delivery>) out.get("a_cursor");
+		 
+		return lista;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Delivery> lstDeliveryOficinas(Delivery delivery, Tercero tercero) {
+		 
+		logger.info("DAO DeliveryDaoImp lstDeliveryOficinas");
+		
+		List<Delivery> lista = null; 
+		MapSqlParameterSource in = null;
+
+		SimpleJdbcCall call = null;
+		Map<String, Object> out = null;
+		in = new MapSqlParameterSource();
+
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
+				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
+				resources.getString(ConstantsProperties.PQ_DEL_COURIER),
+				"sp_lst_delivery_oficina");
+
+		JdbcHelper.setInParameter(call, in, "a_idoficina", 		 	OracleTypes.INTEGER, delivery.getIdoficina());
+		JdbcHelper.setInParameter(call, in, "a_nrodocumentocli", 	OracleTypes.VARCHAR, delivery.getNrodocumentocli());
+		JdbcHelper.setInParameter(call, in, "a_idpestadodelivery", 	OracleTypes.INTEGER, delivery.getIdpestadodelivery());		
+		JdbcHelper.setOutParameter(call, 	"a_cursor", 		 	OracleTypes.CURSOR,  Delivery.class);
+
+		out = call.execute(in);
+		lista = (List<Delivery>) out.get("a_cursor");
+		 
+		return lista;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Delivery> lstDeliveryOficinasByDni(Delivery delivery){
+		logger.info("DAO DeliveryDaoImp lstDeliveryOficinasByDni");
+		
+		List<Delivery> lista = null; 
+		MapSqlParameterSource in = null;
+
+		SimpleJdbcCall call = null;
+		Map<String, Object> out = null;
+		in = new MapSqlParameterSource();
+
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(),
+				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY),
+				resources.getString(ConstantsProperties.PQ_DEL_COURIER),
+				"sp_lst_delivery_oficina_by_dni");
+		
+		JdbcHelper.setInParameter(call, in, "a_nrodocumentocli", 	OracleTypes.VARCHAR, delivery.getNrodocumentocli());
+		
 		out = call.execute(in);
 		lista = (List<Delivery>) out.get("a_cursor");
 		 
@@ -221,5 +313,28 @@ public class DeliveryDaoImp extends JdbcDaoBase implements DeliveryDao {
 		logger.debug("FIN DAO: Ejecutando metodo getArchivoPDF");
 		
 		return rcer;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Configuracion> getConfiguracion_Parametros(){
+		logger.debug("INI DAO: Ejecutando metodo getConfiguracion_Parametros");
+		System.out.println("INI DAO: Ejecutando metodo getConfiguracion_Parametros");
+		List<Configuracion> lista = null;
+		
+		MapSqlParameterSource in = null;
+		
+		SimpleJdbcCall call= null;
+		Map<String, Object> out = null;
+		in = new MapSqlParameterSource();
+
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY) , resources.getString(ConstantsProperties.PQ_DEL_SERVICIO), "sp_get_config_param");		
+		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, Configuracion.class);
+		
+		out = call.execute(in);
+		
+		lista = (List<Configuracion>) out.get("a_cursor");
+		System.out.println("FIN DAO: Ejecutando metodo getConfiguracion_Parametros");
+		logger.debug("FIN DAO: Ejecutando metodo getConfiguracion_Parametros");
+		return lista;
 	}
 }

@@ -79,7 +79,7 @@
 						--%>
 
 						<div class="form-group">
-							<label for="nrodocumentocli" class="col-md-5 control-label">DNI del cliente</label>
+							<label for="nrodocumentocli" class="col-md-5 control-label">Número de documento del cliente</label>
 							<div class="col-md-7">								
 								<input type="text" class="form-control" id="nrodocumentocli"  name="nrodocumentocli" maxlength="8">							
 							</div>
@@ -131,7 +131,7 @@
 		<table id="table-lstmntdelivery" class="table table-hover table-bordered table-inter text-center">
 		 	<thead>
 				<tr> 
-	 				<th class="text-center">N° Tarjeta</th>
+	 				<th class="text-center">Código entrega</th>
 					<th class="text-center">DNI Cliente</th>
 				 	<th class="text-center">Nombre Cliente</th>
 				 	<th class="text-center">Responsable</th>
@@ -157,10 +157,12 @@
      	cargarCombo('/DeliveryTarjetas/courier.do', 'lstCourier','cbocourier', ['idcourier','rznsocial'], {form: 'form-bsqmntdelivery'});
     	
     	callCargaControlParam('DELWEB_ESTADO', 'form-bsqmntdelivery #idpestado', true);
- 
-		$("#form-bsqmntdelivery #idpestadodelivery").val(CTE_INIT_DELIVERYSTS_PENDIENTE);
-		
-    	initDatePicker("fecentrega","calendario");
+ 	
+    	/** ini / mfarfanr / ajustes**/
+		//$("#form-bsqmntdelivery #idpestadodelivery").val(-1);
+		$("#form-bsqmntdelivery #idpestadodelivery").val(0);
+		/** fin / mfarfanr / ajustes**/
+    	initDatePicker("fecentrega","calendario");    	
     	
     	$("#t-responsable").remove();
 		$("#tabs-responsable").remove();
@@ -201,7 +203,9 @@
 		param.dnitrabajador 	= $("#form-bsqmntdelivery #dnitrabajador").val();
  		--%> 		
 
+ 		/** ini / mfarfanr / ajustes**/
 		var lstDelivery			= bsqDeliveryUtil(param);
+		/** fin / mfarfanr / ajustes**/
 		
 		if(lstDelivery!= undefined && lstDelivery.length > 0){											
 			cargarTablaLstDelivery(lstDelivery);
@@ -238,7 +242,7 @@
 			"bAutoWidth" 	: true,
 			"oLanguage"  	: {"sUrl": "/DeliveryTarjetas/recursos/idioma/es_ES.txt"},
 			"columns" 		: [ 
-								{ "data" 		: "ultdigtarjeta",
+								{ "data" 		: "iddelivery",
 									"orderable"	: false,
 									"sWidth" 	: "15%" },
 								{ "data" 		: "nrodocumentocli",
@@ -247,7 +251,7 @@
 								{ "data" 		: "nombrescli",
 									"orderable"	: false,
 									"sWidth" 	: "25%" },
-									{ "data" 		: "responsable",
+								{ "data" 		: "responsable",
 									"sWidth" 	: "30%",
 									"orderable"	: false }, 
 								{ "data" 		: "fecentrega",

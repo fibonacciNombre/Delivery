@@ -70,7 +70,7 @@
 		</script>
 		
    		<script type="text/javascript">
-   			
+   			/*
 			$.idleTimeout('#idletimeout', '.container-body', {
 				idleAfter				: 1200,
 				pollingInterval			: 300,
@@ -90,7 +90,7 @@
 											$(this).slideUp(); // hide the warning bar
 				}
 			});
-			
+			*/
 		</script>
 				
 	</body>	

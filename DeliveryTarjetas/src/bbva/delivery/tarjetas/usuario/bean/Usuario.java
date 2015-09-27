@@ -41,7 +41,10 @@ public class Usuario implements Serializable {
 	private Tercero tercero;
 	private Perfil perfil;
 	private Courier courier;
-	
+	private Integer idoficina;
+	private String oficina;
+	private String ubigeo;
+	private Integer mntgerente;
 	
 
 	@SuppressWarnings("rawtypes")
@@ -181,6 +184,35 @@ public class Usuario implements Serializable {
 	}
 	public void setIndaccion(Integer indaccion) {
 		this.indaccion = indaccion;
+	}
+	
+	public Integer getIdoficina(){
+		return idoficina;
+	}
+	public void setIdoficina(Integer idoficina){
+		this.idoficina = idoficina;
+	}
+	
+	public String getOficina(){
+		return oficina;
+	}
+	public void setOficina(String oficina){
+		this.oficina = oficina;
+	}
+	
+	public String getUbigeo(){
+		return ubigeo;
+	}
+	public void setUbigeo(String ubigeo){
+		this.ubigeo = ubigeo;
+	}
+
+	public Integer getMntgerente() {
+		return mntgerente;
+	}
+
+	public void setMntgerente(Integer mntgerente) {
+		this.mntgerente = mntgerente;
 	}
 
 	@Override

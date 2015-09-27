@@ -242,3 +242,19 @@ function initDatePicker(idCtrl, classCtrl){
 		$("#"+idCtrl).datepicker("show");
 	});
 }
+function initDatePicker2(idCtrl, classCtrl){
+	$(idCtrl).datepicker({ 
+		beforeShow 	: function() {
+			setTimeout(function() {
+				$('.ui-datepicker').css({'z-index' : 9999, 'border' : '1px solid #ccc'});
+			}, 0);
+		},
+		onSelect : function(dateText, inst) {
+			$(idCtrl).removeClass("error");
+		}
+	});
+				
+	$("."+classCtrl).click(function() {
+		$(idCtrl).datepicker("show");
+	});
+}

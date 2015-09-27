@@ -38,6 +38,8 @@ public class Delivery {
 	private String responsable;
 // 	private Date fecentregaarch;
  	private String rutaexpotacion;
+ 	private String remito;
+ 	private String referencia;
  
  	private Integer idptipodocumento; 
  	private String codcourier; 
@@ -45,6 +47,10 @@ public class Delivery {
 	private Date fechaentregaarh;
 	private String usuario;
 	
+	private String estado;	
+	private String ordenservicio;
+	private String oficina;
+	private Integer idoficina;
 	
 	public Delivery(){
 		
@@ -53,7 +59,7 @@ public class Delivery {
 	@SuppressWarnings("rawtypes")
 	public Delivery(Map params) throws Exception {
 		ResourceManager.populateDtoFromMap(this, params);
-	}
+	}		
 
 	public BigDecimal getIddelivery() {
 		return iddelivery;
@@ -313,7 +319,14 @@ public class Delivery {
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
-
+	
+	public String getEstado(){
+		return estado;
+	}
+	public void setEstado(String estado){
+		this.estado = estado;
+	}	
+	
 	@Override
 	public String toString() {
 		return "Delivery [iddelivery=" + iddelivery + ", tipodocumento="
@@ -334,7 +347,7 @@ public class Delivery {
 				+ ", idpestadodelivery=" + idpestadodelivery + ", grupocarga="
 				+ grupocarga + ", codcourier=" + codcourier
 				+ ", dnitrabajador=" + dnitrabajador + ", fechaentregaarh="
-				+ fechaentregaarh + ", usuario=" + usuario + "]";
+				+ fechaentregaarh + ", usuario=" + usuario + ", estado=" + estado + "]";
 	}
 
 	public String getResponsable() {
@@ -360,7 +373,39 @@ public class Delivery {
 	public void setIdptipodocumento(Integer idptipodocumento) {
 		this.idptipodocumento = idptipodocumento;
 	}
- 
-  
 	
+	public String getRemito(){
+		return remito;
+	}
+	public void setRemito(String remito){
+		this.remito = remito;
+	}  	
+	
+	public String getReferencia(){
+		return referencia;
+	}
+	public void setReferencia(String referencia){
+		this.referencia = referencia;				
+	}
+	
+	public String getOrdenservicio(){
+		return ordenservicio;
+	}
+	public void setOrdenservicio(String ordenservicio){
+		this.ordenservicio = ordenservicio;
+	}
+	
+	public String getOficina(){
+		return oficina;
+	}
+	public void setOficina(String oficina){
+		this.oficina = oficina;				
+	}
+	
+	public Integer getIdoficina(){
+		return idoficina;
+	}
+	public void setIdoficina(Integer idoficina){
+		this.idoficina = idoficina;
+	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import bbva.delivery.tarjetas.comun.bean.ArchivoBlob;
 import bbva.delivery.tarjetas.comun.bean.Constante;
 import bbva.delivery.tarjetas.comun.bean.Parametro;
+import bbva.delivery.tarjetas.comun.bean.ParametroUbigeo;
 
 public interface ComunDao{
 	/**
@@ -31,6 +32,12 @@ public interface ComunDao{
 	List<Parametro> lstParametro(Parametro parametro);
 	
 	List<Parametro> cmbParametro(Parametro parametro);
+	
+	List<ParametroUbigeo> lstDepartamentos(ParametroUbigeo parametro);
+	
+	List<ParametroUbigeo> lstProvincias(ParametroUbigeo parametro);
+	
+	List<ParametroUbigeo> lstDistritos(ParametroUbigeo parametro);
 	
 	/**
 	 * 

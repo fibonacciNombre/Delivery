@@ -115,6 +115,8 @@ function obtDatosUsuarioSesion(){
 			
 						if(rsp.Usuarioweb.length>0){
 							CTE_JSON_USUARIOWEB  = rsp.Usuarioweb[0];
+							CTE_IDOFICINA = CTE_JSON_USUARIOWEB.idoficina;
+							CTE_DETALLE_OFICINA = CTE_JSON_USUARIOWEB.oficina;
 							$("#form-datos-usuario #idusuario").val(rsp.indmobile);
 						}
 						
@@ -137,7 +139,7 @@ function obtDatosUsuarioSesion(){
 						}
 						
 						if($.trim(CTE_JSON_TERCERO.nombres))
-							$("#nombreUsuarioHeader").text("Bienvenido "+ toTitleCase(CTE_JSON_TERCERO.nombres));
+							$("#nombreUsuarioHeader").text("Bienvenido "+ toTitleCase(CTE_JSON_TERCERO.nombres) + " " + toTitleCase(CTE_JSON_TERCERO.apepaterno) + " " + toTitleCase(CTE_JSON_TERCERO.apematerno));
 						
 		},
 		error : function(xhr, ajaxOptions, thrownError) {}
@@ -151,8 +153,19 @@ function loadSesionInicial(){
 	
 	obtParametrosIniciales();
 	
-	if (CTE_JSON_PERFIL.idperfil != CTE_INIT_IDROL_ADMIN_WEB)
+	if (CTE_JSON_PERFIL.idperfil == CTE_INIT_IDROL_ADMIN_WEB){
+		$(".view-oficina").remove();
+	}
+	
+	if (CTE_JSON_PERFIL.idperfil == CTE_INIT_IDROL_COLAB_BBVA){		
+		$(".view-courier").remove();
 		$(".view-admin").remove();
+	}
+	
+	if(CTE_JSON_PERFIL.idperfil == CTE_INIT_IDROL_COLAB_COURIER){
+		$(".view-oficina").remove();
+		$(".view-admin").remove();
+	}
 	
 	if(CTE_JSON_USUARIOWEB.indrnvcontrasena=="S"){
 		closeModalCargando();
@@ -166,8 +179,16 @@ function loadSesionInicial(){
 		CTE_INIT_PERFILES				= obtMaestroPerfil();
 		CTE_INIT_COURIERS				= obtMaestroCouriers();
 		
-		$("#panelDelivery").click();
-		$("#view-lst-entrega").click();
+		if(CTE_JSON_PERFIL.idperfil != CTE_INIT_IDROL_COLAB_BBVA){
+			$("#panelDelivery").click();
+			$("#view-lst-entrega").click();
+		}
+		else{
+			$("#panelOficina").click();
+			$("#view-lst-oficina").click();
+			
+			//closeModalCargando();
+		}
 	}
 }
 
@@ -338,6 +359,114 @@ function bsqDeliveryUtil(paramQuery){
 	return lstDelivery;
 }
 
+function bsqDeliveryOficinas(paramQuery){
+	
+	var lstDelivery;
+	
+	$.ajax({
+		type 			: "POST",
+		url 			: "/DeliveryTarjetas/delivery.do?method=lstDeliveryOficinas",
+		cache 			: false,
+		async 			: false,
+		dataType 		: 'json',
+		contentType 	: "application/x-www-form-urlencoded; charset=UTF-8",
+		data 			: paramQuery,
+		success 		: function(rsp) {				
+								
+								var status 	= rsp.tx.statustx;
+								var message = rsp.messagetx;
+			
+								closeModalCargando();
+								
+								if(status == 0){													
+									if(rsp.lst!= undefined && rsp.lst.length > 0){											
+										lstDelivery = rsp.lst;
+									
+									}else
+										loadModalMensaje("Atención","No se encontraron resultados por la búsqueda realizada",null);
+								}
+		},
+		error 			: function(xhr, ajaxOptions, thrownError) {
+								closeModalCargando();
+								loadModalMensaje('Lo Sentimos','<center>Hubo problemas en el procesamiento de datos.</center>',function(){}); 
+		}
+	});
+	
+	return lstDelivery;
+}
+
+function bsqDeliveryOficinasByDni(paramQuery){
+	
+	var lstDelivery;
+	
+	$.ajax({
+		type 			: "POST",
+		url 			: "/DeliveryTarjetas/delivery.do?method=lstDeliveryOficinasByDni",
+		cache 			: false,
+		async 			: false,
+		dataType 		: 'json',
+		contentType 	: "application/x-www-form-urlencoded; charset=UTF-8",
+		data 			: paramQuery,
+		success 		: function(rsp) {				
+								
+								var status 	= rsp.tx.statustx;
+								var message = rsp.messagetx;
+			
+								closeModalCargando();
+								
+								if(status == 0){													
+									if(rsp.lst!= undefined && rsp.lst.length > 0){											
+										lstDelivery = rsp.lst;
+									
+									}else
+										loadModalMensaje("Atención","No se encontraron resultados por la búsqueda realizada",null);
+								}
+		},
+		error 			: function(xhr, ajaxOptions, thrownError) {
+								closeModalCargando();
+								loadModalMensaje('Lo Sentimos','<center>Hubo problemas en el procesamiento de datos.</center>',function(){}); 
+		}
+	});
+	
+	return lstDelivery;
+}
+
+function bsqDeliveryUtil2(paramQuery){
+	
+	var lstDelivery;
+	
+	$.ajax({
+		type 			: "POST",
+		url 			: "/DeliveryTarjetas/delivery.do?method=lstDelivery2",
+		cache 			: false,
+		async 			: false,
+		dataType 		: 'json',
+		contentType 	: "application/x-www-form-urlencoded; charset=UTF-8",
+		data 			: paramQuery,
+		success 		: function(rsp) {				
+								
+								var status 	= rsp.tx.statustx;
+								var message = rsp.messagetx;
+			
+								closeModalCargando();
+								
+								if(status == 0){													
+									if(rsp.lst!= undefined && rsp.lst.length > 0){											
+										lstDelivery = rsp.lst;
+									
+									}else
+										loadModalMensaje("Atención","No se encontraron resultados por la búsqueda realizada",null);
+								}
+		},
+		error 			: function(xhr, ajaxOptions, thrownError) {
+								closeModalCargando();
+								loadModalMensaje('Lo Sentimos','<center>Hubo problemas en el procesamiento de datos.</center>',function(){}); 
+		}
+	});
+	
+	return lstDelivery;
+}
+
 function obtArchivoLstEntregas(paramQuery){
 	
 	var pathFile		= "";
@@ -433,7 +562,8 @@ function rowEntregaSelectedUtil(json, formEdit, loadColaboradores) {
     $("#form-detdelivery #pridigtarjeta").val(json.pridigtarjeta);
     $("#form-detdelivery #ultdigtarjeta").val(json.ultdigtarjeta);
     $("#form-detdelivery #nrocontrato").val(json.nrocontrato);
-    $("#form-detdelivery #mtoasoctarjeta").val(json.mtoasoctarjeta);
+    $("#form-detdelivery #remito").val(json.remito);
+    $("#form-detdelivery #referencia").val(json.referencia);
     $("#form-detdelivery #fecentrega").val(json.fecentrega);
     $("#form-detdelivery #horaentrega").val(json.horaentrega);
     $("#form-detdelivery #lugarentrega").val(json.lugarentrega);
@@ -444,7 +574,7 @@ function rowEntregaSelectedUtil(json, formEdit, loadColaboradores) {
     $("#form-detdelivery #longitudofi").val(json.longitudofi);
     $("#form-detdelivery #correocli").val(json.correocli);
     $("#form-detdelivery #telmovilcli").val(json.telmovilcli);
-    $("#form-detdelivery #ordenentrega").val(json.ordenentrega);
+    $("#form-detdelivery #ordenentrega").val(json.iddelivery);
     $("#form-detdelivery #idcourier").val(json.idcourier);
     $("#form-detdelivery #idtercero").val(json.idtercero);
     $("#form-detdelivery #idpestado").val(json.idpestado);
@@ -456,9 +586,12 @@ function rowEntregaSelectedUtil(json, formEdit, loadColaboradores) {
     $("#form-detdelivery #cbocourier").val(json.idcourier);
     $("#form-detdelivery #fecentregaarch").val(json.fecentrega);
     $("#form-detdelivery #idpestadodelivery").val(json.idpestadodelivery);
+    $("#form-detdelivery #ordenservicio").val(json.ordenservicio);
+    $("#form-detdelivery #oficina").val(json.oficina);
     
     $("#form-detdelivery #cbocourier").attr("disabled","disabled");
-    $("#form-detdelivery #idpestadodelivery").attr("disabled","disabled");
+    //$("#form-detdelivery #idpestadodelivery").attr("disabled","disabled");
+    $("#form-detdelivery #indverificacion").attr("disabled","disabled");
     
     if(!formEdit){
     	$("#form-detdelivery *").attr("disabled",true);
@@ -576,7 +709,7 @@ function getClickPdf(iddelivery){
 											loadModalMensaje('Atención',archivopdf.mensaje,function(){}); 
 									
 								}else{
-									loadModalMensaje('Atención',message,function(){}); 
+									loadModalMensaje('Atención: ',message,function(){}); 
 								}
 		},
 		error 			: function(xhr, ajaxOptions, thrownError) {						

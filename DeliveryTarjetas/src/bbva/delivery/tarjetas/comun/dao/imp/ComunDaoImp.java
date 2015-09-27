@@ -15,6 +15,7 @@ import bbva.delivery.tarjetas.commons.ConstantsProperties;
 import bbva.delivery.tarjetas.comun.bean.ArchivoBlob;
 import bbva.delivery.tarjetas.comun.bean.Constante;
 import bbva.delivery.tarjetas.comun.bean.Parametro;
+import bbva.delivery.tarjetas.comun.bean.ParametroUbigeo;
 import bbva.delivery.tarjetas.comun.dao.ComunDao;
 import bbva.delivery.tarjetas.util.JdbcHelper;
 
@@ -84,6 +85,78 @@ public class ComunDaoImp extends JdbcDaoBase implements ComunDao {
 		 
 		out = call.execute(in);
 		lista = (List<Parametro>) out.get("a_cursor");
+		  
+		return lista;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ParametroUbigeo> lstDepartamentos(ParametroUbigeo parametro)	
+	{
+		logger.info("DAO ComunDaoImp lstDepartamentos");
+		
+		List<ParametroUbigeo> lista 		= null; 		
+		SimpleJdbcCall call 		= null;
+		Map<String, Object> out 	= null;
+		MapSqlParameterSource in 	= new MapSqlParameterSource();
+				
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), 
+				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY), 
+				resources.getString(ConstantsProperties.PQ_DEL_SERVICIO),
+				"sp_lst_departamentos_servicio");
+		
+		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, ParametroUbigeo.class);
+ 		
+		out = call.execute(in);
+		lista = (List<ParametroUbigeo>) out.get("a_cursor");
+		  
+		return lista;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ParametroUbigeo> lstProvincias(ParametroUbigeo parametro)	
+	{
+		logger.info("DAO ComunDaoImp lstDepartamentos");
+		
+		List<ParametroUbigeo> lista 		= null; 		
+		SimpleJdbcCall call 		= null;
+		Map<String, Object> out 	= null;
+		MapSqlParameterSource in 	= new MapSqlParameterSource();
+				
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), 
+				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY), 
+				resources.getString(ConstantsProperties.PQ_DEL_SERVICIO),
+				"sp_lst_provincias_servicio");
+		JdbcHelper.setInParameter(call, in, "a_ubigeodpto", OracleTypes.VARCHAR, parametro.getUbigeo());
+		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, ParametroUbigeo.class);
+ 		
+		out = call.execute(in);
+		lista = (List<ParametroUbigeo>) out.get("a_cursor");
+		  
+		return lista;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ParametroUbigeo> lstDistritos(ParametroUbigeo parametro)	
+	{
+		logger.info("DAO ComunDaoImp lstDepartamentos");
+		
+		List<ParametroUbigeo> lista 		= null; 		
+		SimpleJdbcCall call 		= null;
+		Map<String, Object> out 	= null;
+		MapSqlParameterSource in 	= new MapSqlParameterSource();
+				
+		call = JdbcHelper.initializeSimpleJdbcCallProcedure(getJdbcTemplate(), 
+				resources.getString(ConstantsProperties.OWNER_ESQUEMA_DELIVERY), 
+				resources.getString(ConstantsProperties.PQ_DEL_SERVICIO),
+				"sp_lst_distritos_servicio");
+		JdbcHelper.setInParameter(call, in, "a_ubigeoprov", OracleTypes.VARCHAR, parametro.getUbigeo());
+		JdbcHelper.setOutParameter(call, "a_cursor", OracleTypes.CURSOR, ParametroUbigeo.class);
+ 		
+		out = call.execute(in);
+		lista = (List<ParametroUbigeo>) out.get("a_cursor");
 		  
 		return lista;
 	}

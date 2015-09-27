@@ -19,9 +19,16 @@
 			<label for="idptipodocumento"
 				class="col-md-12 control-label required">Tipo de documento </label>
 			<div class="col-md-12">
+				<%-- ini / mfarfanr / ajustes --%>
+				<%--
 				<select class="form-control" id="idptipodocumento"
-					name="idptipodocumento">
+					name="idptipodocumento>
 				</select>
+				--%>
+				<select class="form-control" id="idptipodocumento"
+					name="idptipodocumento" onchange="javascript:validacionNroDocumento();">
+				</select>
+				<%-- ini / mfarfanr / ajustes --%>
 				<div class="result"></div>
 			</div>
 		</div>
@@ -127,3 +134,7 @@
 	</div>
 
 </div>
+
+<script>
+
+</script>

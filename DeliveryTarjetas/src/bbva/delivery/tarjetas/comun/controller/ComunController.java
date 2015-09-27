@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import bbva.delivery.tarjetas.anotaciones.AdviceController; 
 import bbva.delivery.tarjetas.commons.Constants;
 import bbva.delivery.tarjetas.comun.bean.Parametro;
+import bbva.delivery.tarjetas.comun.bean.ParametroUbigeo;
 import bbva.delivery.tarjetas.comun.bean.TransaccionWeb;
 import bbva.delivery.tarjetas.comun.service.ComunService;
 import commons.framework.BaseController;
@@ -84,5 +85,86 @@ public class ComunController extends BaseController {
 
 		this.escribirTextoSalida(response, lstparametro);
 		 
+	}
+
+	public void lstDepartamentos(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		logger.info("CONTROLLER ComunController lstDepartamentos");
+		
+		String result					= "";
+		String lstparametro 			= "";
+		List<ParametroUbigeo> listaParametro 	= null;
+		TransaccionWeb tx				= new TransaccionWeb();
+		ParametroUbigeo parametro 			= new ParametroUbigeo(request.getParameterMap());
+		
+		try {
+			listaParametro = comunService.lstDepartamentos(parametro);
+			lstparametro = commons.web.UtilWeb.listaToArrayJson(listaParametro, null,
+					ParametroUbigeo.class.getName());
+		} catch (Error e) {
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+			lstparametro = "{" + e.getMessage() + "}";
+		}
+		
+		result += "{"
+				+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+				+ "\"lst\":" + lstparametro 
+				+ "}";
+		this.escribirTextoSalida(response, result);		 
+	}
+	
+	public void lstProvincias(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		logger.info("CONTROLLER ComunController lstProvincias");
+		
+		String result					= "";
+		String lstparametro 			= "";
+		List<ParametroUbigeo> listaParametro 	= null;
+		TransaccionWeb tx				= new TransaccionWeb();
+		ParametroUbigeo parametro 			= new ParametroUbigeo(request.getParameterMap());
+		
+		try {
+			listaParametro = comunService.lstProvincias(parametro);
+			lstparametro = commons.web.UtilWeb.listaToArrayJson(listaParametro, null,
+					ParametroUbigeo.class.getName());
+		} catch (Error e) {
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+			lstparametro = "{" + e.getMessage() + "}";
+		}
+		
+		result += "{"
+				+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+				+ "\"lst\":" + lstparametro 
+				+ "}";
+		this.escribirTextoSalida(response, result);		 
+	}
+	
+	public void lstDistritos(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		logger.info("CONTROLLER ComunController lstDistritos");
+		
+		String result					= "";
+		String lstparametro 			= "";
+		List<ParametroUbigeo> listaParametro 	= null;
+		TransaccionWeb tx				= new TransaccionWeb();
+		ParametroUbigeo parametro 			= new ParametroUbigeo(request.getParameterMap());
+		
+		try {
+			listaParametro = comunService.lstDistritos(parametro);
+			lstparametro = commons.web.UtilWeb.listaToArrayJson(listaParametro, null,
+					ParametroUbigeo.class.getName());
+		} catch (Error e) {
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+			lstparametro = "{" + e.getMessage() + "}";
+		}
+		
+		result += "{"
+				+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+				+ "\"lst\":" + lstparametro 
+				+ "}";
+		this.escribirTextoSalida(response, result);		 
 	}
 }

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import bbva.delivery.tarjetas.comun.bean.ArchivoBlob;
 import bbva.delivery.tarjetas.comun.bean.Constante;
 import bbva.delivery.tarjetas.comun.bean.Parametro;
+import bbva.delivery.tarjetas.comun.bean.ParametroUbigeo;
 import bbva.delivery.tarjetas.comun.dao.ComunDao;
 import bbva.delivery.tarjetas.comun.service.ComunService;
 
@@ -50,6 +51,21 @@ public class ComunServiceImp implements ComunService {
 	public List<Parametro> cmbParametro(Parametro parametro) {
 		logger.info("SERVICE ComunServiceImp cmbParametro");
 		return comunDao.cmbParametro(parametro);
+	}
+	
+	public List<ParametroUbigeo> lstDepartamentos(ParametroUbigeo parametro){
+		logger.info("SERVICE ComunServiceImp lstDepartamentos");
+		return comunDao.lstDepartamentos(parametro);
+	}
+	
+	public List<ParametroUbigeo> lstProvincias(ParametroUbigeo parametro){
+		logger.info("SERVICE ComunServiceImp lstProvincias");
+		return comunDao.lstProvincias(parametro);
+	}
+	
+	public List<ParametroUbigeo> lstDistritos(ParametroUbigeo parametro){
+		logger.info("SERVICE ComunServiceImp lstDistritos");
+		return comunDao.lstDistritos(parametro);
 	}
 
 	/* (non-Javadoc)

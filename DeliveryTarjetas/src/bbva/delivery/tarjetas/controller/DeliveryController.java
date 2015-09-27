@@ -1,6 +1,7 @@
 package bbva.delivery.tarjetas.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,7 +38,6 @@ import bbva.delivery.tarjetas.service.DeliveryService;
 import bbva.delivery.tarjetas.tercero.bean.Tercero;
 import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
-
 import commons.framework.BaseController;
 import commons.web.UtilWeb;
 
@@ -78,8 +78,14 @@ public class DeliveryController extends BaseController{
 	
 	public String goLstDelivery(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		System.out.println("goCargaDelivery	-->		carga-delivery.jsp");
+		System.out.println("goCargaDelivery	-->		lst-delivery.jsp");
 		return "delivery/lst-delivery";
+	}
+	
+	public String goLstDeliveryOficina(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		System.out.println("goLstDeliveryOficina	-->		lst-delivery-oficina.jsp");
+		return "delivery/lst-delivery-oficina";
 	}
 	
 	public void mntDelivery(HttpServletRequest request,
@@ -96,8 +102,9 @@ public class DeliveryController extends BaseController{
 		delivery.setUsuario(usuarioSes.getCodusuario());
 	
 		try {			
-			deliveryService.mntDelivery(delivery);			
-			tx.setMessagetx("Su transacción fue realizada con éxito");
+			deliveryService.mntDelivery(delivery);
+			logger.info("Remito: " + delivery.getRemito());
+			tx.setMessagetx("Su transacci�n fue realizada con �xito");
 			
 		} catch (Error e) {
 			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
@@ -120,7 +127,7 @@ public class DeliveryController extends BaseController{
 		Delivery delivery 	= new Delivery(request.getParameterMap());
 		Tercero tercero 	= new Tercero(request.getParameterMap());
 		
-		temporal = "temp/"+
+		temporal = //"temp/"+
 					"ListadoEntregas"+
 					cal.get(Calendar.DATE)+
 					(cal.get(Calendar.MONTH)+1)+
@@ -142,7 +149,6 @@ public class DeliveryController extends BaseController{
 		this.escribirTextoSalida(response,result);
 	}
 
-	
 	public void lstDelivery(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
@@ -174,6 +180,97 @@ public class DeliveryController extends BaseController{
 		this.escribirTextoSalida(response, result);		 
 	} 
 	
+	public void lstDelivery2(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		logger.info("CONTROLLER DeliveryController lstDelivery2");
+		
+		String result				= "";
+		String lstdelivery 			= "";
+		List<Delivery> listaCarga 	= null;
+		TransaccionWeb tx			= new TransaccionWeb();
+		
+		Delivery delivery 			= new Delivery(request.getParameterMap());
+		Tercero tercero 			= new Tercero(request.getParameterMap());
+
+		try {
+			
+			listaCarga 		= deliveryService.lstDelivery2(delivery, tercero);			
+			lstdelivery 	= commons.web.UtilWeb.listaToArrayJson(listaCarga, null,Delivery.class.getName());
+			
+		} catch (Error e) {
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+			lstdelivery = "{" + e.getMessage() + "}";
+		}
+
+		result += "{"
+					+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+					+ "\"lst\":" + lstdelivery 
+				+ "}";
+		
+		this.escribirTextoSalida(response, result);		 
+	}
+	
+	public void lstDeliveryOficinasByDni(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		logger.info("CONTROLLER DeliveryController lstDeliveryOficinas");
+		
+		String result				= "";
+		String lstdelivery 			= "";
+		List<Delivery> listaCarga 	= null;
+		TransaccionWeb tx			= new TransaccionWeb();
+		
+		Delivery delivery 			= new Delivery(request.getParameterMap());		
+
+		try {
+			
+			listaCarga 		= deliveryService.lstDeliveryOficinasByDni(delivery);			
+			lstdelivery 	= commons.web.UtilWeb.listaToArrayJson(listaCarga, null,Delivery.class.getName());
+			
+		} catch (Error e) {
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+			lstdelivery = "{" + e.getMessage() + "}";
+		}
+
+		result += "{"
+					+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+					+ "\"lst\":" + lstdelivery 
+				+ "}";
+		
+		this.escribirTextoSalida(response, result);	
+	}
+	
+	public void lstDeliveryOficinas(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		logger.info("CONTROLLER DeliveryController lstDeliveryOficinas");
+		
+		String result				= "";
+		String lstdelivery 			= "";
+		List<Delivery> listaCarga 	= null;
+		TransaccionWeb tx			= new TransaccionWeb();
+		
+		Delivery delivery 			= new Delivery(request.getParameterMap());
+		Tercero tercero 			= new Tercero(request.getParameterMap());
+
+		try {
+			
+			listaCarga 		= deliveryService.lstDeliveryOficinas(delivery, tercero);			
+			lstdelivery 	= commons.web.UtilWeb.listaToArrayJson(listaCarga, null,Delivery.class.getName());
+			
+		} catch (Error e) {
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+			lstdelivery = "{" + e.getMessage() + "}";
+		}
+
+		result += "{"
+					+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+					+ "\"lst\":" + lstdelivery 
+				+ "}";
+		
+		this.escribirTextoSalida(response, result);		 
+	}
+	
 	@SuppressWarnings("rawtypes")
 	public void uploadFile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -195,8 +292,10 @@ public class DeliveryController extends BaseController{
  		archivo.setUsuario(usuarioSes.getCodusuario());
 		
  		deliveryTemp.setIdpestadodelivery(idpestadodelivery);
- 		
-		Date dfechaentrega 		= null;
+ 		deliveryTemp.setFecentrega(fecentrega);
+ 		deliveryTemp.setIdcourier(new BigDecimal(String.valueOf(idcourier)));
+		
+ 		Date dfechaentrega 		= null;
 		DateFormat df			= new SimpleDateFormat("dd/MM/yyyy");
 		 
 		try {			

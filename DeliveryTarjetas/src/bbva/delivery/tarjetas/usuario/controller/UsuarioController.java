@@ -25,9 +25,10 @@ import bbva.delivery.tarjetas.perfil.service.PerfilService;
 import bbva.delivery.tarjetas.tercero.bean.Tercero;
 import bbva.delivery.tarjetas.tercero.service.TerceroService;
 import bbva.delivery.tarjetas.usuario.bean.LoginWeb;
+import bbva.delivery.tarjetas.usuario.bean.Oficina;
+import bbva.delivery.tarjetas.usuario.bean.Subgerente;
 import bbva.delivery.tarjetas.usuario.bean.Usuario;
 import bbva.delivery.tarjetas.usuario.service.UsuarioService;
-
 import commons.framework.BaseController;
 import commons.web.UtilWeb;
 
@@ -102,6 +103,48 @@ public class UsuarioController extends BaseController {
 		return "usuario/act-contrasena"; 
 	}
 	
+	public String goRegOficina(HttpServletRequest request,
+			HttpServletResponse response)throws Exception {
+		
+		System.out.println("goRegOficina	-->		reg-oficina.jsp");
+		return "usuario/reg-oficina";
+	}
+	
+	public String goMntOficina(HttpServletRequest request,
+			HttpServletResponse response)throws Exception {
+		
+		System.out.println("goMntOficina	-->		mnt-oficina.jsp");
+		return "usuario/mnt-oficina";
+	}
+	
+	public String goRegUsuarioOf (HttpServletRequest request,
+			HttpServletResponse response)throws Exception {
+		
+		System.out.println("goRegUsuarioOf	-->		reg-oficina-usuario.jsp");
+		return "usuario/reg-usuario-gerente";
+	}
+	
+	public String goMntUsuarioOf (HttpServletRequest request,
+			HttpServletResponse response)throws Exception {
+		
+		System.out.println("goMntUsuarioOf	-->		mnt-oficina-usuario.jsp");
+		return "usuario/mnt-usuario-gerente";
+	}
+	
+	public String goRegSubGerenteOf (HttpServletRequest request,
+			HttpServletResponse response)throws Exception {
+		
+		System.out.println("goRegGerenteOf	-->		reg-oficina-subgerente.jsp");
+		return "usuario/reg-oficina-subgerente";
+	}
+	
+	public String goMntSubGerenteOf (HttpServletRequest request,
+			HttpServletResponse response)throws Exception {
+		
+		System.out.println("goMntGerenteOf	-->		mnt-oficina-subgerente.jsp");
+		return "usuario/mnt-oficina-subgerente";
+	}
+	
 	public void lstUsuarios(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
@@ -118,6 +161,68 @@ public class UsuarioController extends BaseController {
 			listaUsuario 	= usuarioService.lstUsuarios(usuario);
 			
 			lstusuario 		= UtilWeb.listaToArrayJson(listaUsuario, null, Usuario.class.getName());			
+				
+		} catch (Error e) {
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+			lstusuario = "{" + e.getMessage() + "}";
+		}
+		
+		result += "{"
+					+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+					+ "\"lst\":" + lstusuario 
+					+ "}";
+		
+		this.escribirTextoSalida(response, result);
+
+	}
+	
+	public void lstUsuarios2(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+		logger.info("CONTROLLER UsuarioController lstUsuarios2");
+		
+		String result				= "";
+		String lstusuario 			= "";
+		List<Usuario> listaUsuario 	= null;
+		TransaccionWeb tx			= new TransaccionWeb();				
+		Usuario usuario 			= new Usuario(request.getParameterMap()); 
+ 					
+		try {
+			
+			listaUsuario 	= usuarioService.lstUsuarios2(usuario);
+			
+			lstusuario 		= UtilWeb.listaToArrayJson(listaUsuario, null, Usuario.class.getName());			
+				
+		} catch (Error e) {
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+			lstusuario = "{" + e.getMessage() + "}";
+		}
+		
+		result += "{"
+					+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+					+ "\"lst\":" + lstusuario 
+					+ "}";
+		
+		this.escribirTextoSalida(response, result);
+
+	}
+	
+	public void lstOficinas(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+		logger.info("CONTROLLER UsuarioController lstOficinas");
+		
+		String result				= "";
+		String lstusuario 			= "";
+		List<Oficina> listaOficina 	= null;
+		TransaccionWeb tx			= new TransaccionWeb();				
+		Oficina oficina 			= new Oficina(request.getParameterMap()); 
+ 					
+		try {
+			
+			listaOficina 	= usuarioService.lstOficinas(oficina);
+			
+			lstusuario 		= UtilWeb.listaToArrayJson(listaOficina, null, Oficina.class.getName());			
 				
 		} catch (Error e) {
 			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
@@ -199,7 +304,11 @@ public class UsuarioController extends BaseController {
 				usuario.setIdtercero(tercero.getIdtercero());
 			}
 			
-			usuarioService.mntUsuario(usuario);
+			if(usuario.getMntgerente()==null)
+				usuarioService.mntUsuario(usuario);
+			
+			if(usuario.getMntgerente()!=null && usuario.getMntgerente()==1)
+				usuarioService.mntUsuarioGerente(usuario);
 			
 			if(usuario.getIndaccion() == Constants.DELIVERY_INDMNT_REGISTRAR)			
 					usuarioService.mntContrasena(usuario);
@@ -212,6 +321,91 @@ public class UsuarioController extends BaseController {
 
 		result += "{\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + "," +
 					"\"usuario\":"+ UtilWeb.objectToJson(usuario, null, Usuario.class.getName()) + "}";
+		
+		this.escribirTextoSalida(response, result);		 
+	}
+	
+	public void mntSubgerente(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+		logger.info("CONTROLLER UsuarioController mntSubgerente");
+		
+		String result			= "";		
+		TransaccionWeb tx		= new TransaccionWeb();		
+		Subgerente subgerente 		= new Subgerente(request.getParameterMap());
+		
+		try {						 		
+			usuarioService.mntSubgerente(subgerente);					
+			
+			tx.setMessagetx("Su transaccion fue realizada con exito");
+			
+		} catch (Error e) {
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+		}
+
+		result += "{\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + "," +
+					"\"subgerente\":"+ UtilWeb.objectToJson(subgerente, null, Subgerente.class.getName()) + "}";
+		
+		this.escribirTextoSalida(response, result);		 
+	}
+	
+	public void lstSubgerentes(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+		logger.info("CONTROLLER UsuarioController lstSubgerentes");
+		
+		String result				= "";
+		String lstusuario 			= "";
+		List<Subgerente> listaSubgerente 	= null;
+		TransaccionWeb tx			= new TransaccionWeb();				
+		Subgerente subgerente 			= new Subgerente(request.getParameterMap()); 
+ 					
+		try {
+			
+			listaSubgerente 	= usuarioService.lstSubgerentes(subgerente);
+			
+			lstusuario 		= UtilWeb.listaToArrayJson(listaSubgerente, null, Subgerente.class.getName());			
+				
+		} catch (Error e) {
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+			lstusuario = "{" + e.getMessage() + "}";
+		}
+		
+		result += "{"
+					+ "\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + ","
+					+ "\"lst\":" + lstusuario 
+					+ "}";
+		
+		this.escribirTextoSalida(response, result);
+
+	}
+	
+	public void mntOficina(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+		logger.info("CONTROLLER UsuarioController mntOficina");
+		
+		String result			= "";
+		HttpSession session 	= request.getSession();
+		TransaccionWeb tx		= new TransaccionWeb();		
+		Oficina oficina 		= new Oficina(request.getParameterMap());		
+		Usuario usrSession 		= (Usuario) session.getAttribute(Constants.REQ_SESSION_USUARIO);
+		
+		try {			
+			 
+			oficina.setUsucreacion(usrSession.getCodusuario());
+			oficina.setUsumodificacion(usrSession.getCodusuario());					
+			
+			usuarioService.mntOficina(oficina);					
+			
+			tx.setMessagetx("Su transaccion fue realizada con exito");
+			
+		} catch (Error e) {
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+		}
+
+		result += "{\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + "," +
+					"\"oficina\":"+ UtilWeb.objectToJson(oficina, null, Oficina.class.getName()) + "}";
 		
 		this.escribirTextoSalida(response, result);		 
 	}
@@ -304,7 +498,7 @@ public class UsuarioController extends BaseController {
 		String jsonUsuario			= "\"Usuarioweb\":[";
 		String jsonPerfil			= "\"Perfil\":[";
 		String jsonTercero			= "\"Tercero\":[";
-		String jsonCourier			= "\"Courier\":[";
+		String jsonCourier			= "\"Courier\":[";		
 		
 		usuario	= (Usuario) session.getAttribute(Constants.REQ_SESSION_USUARIO);
 		
@@ -351,20 +545,15 @@ public class UsuarioController extends BaseController {
 		this.escribirTextoSalida(response, result);		
 	}
 	
-	
 	public void mntContrasena(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
 		logger.info("CONTROLLER UsuarioController mntContrasena");
-		
-		HttpSession session			= request.getSession();
 		
 		String result				= "";
 		TransaccionWeb tx			= new TransaccionWeb();
 		Usuario usuario 			= new Usuario(request.getParameterMap());
 		
 		usuarioService.mntContrasena(usuario);
-		
-		session.setAttribute(Constants.REQ_SESSION_USUARIO, usuario);
 		
 		result += "{\"tx\":"+commons.web.UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName())+"}";
 		
@@ -391,6 +580,30 @@ public class UsuarioController extends BaseController {
 
 		result += "{\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + "," +
 					"\"usuario\":"+ UtilWeb.objectToJson(usuario, null, Usuario.class.getName()) + "}";
+		
+		this.escribirTextoSalida(response, result);		 
+	}
+	
+	public void obtOficina(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		logger.info("CONTROLLER UsuarioController obtOficina");
+		
+		String result			= "";
+		TransaccionWeb tx		= new TransaccionWeb();
+		Oficina oficina 		= new Oficina(request.getParameterMap());		
+		
+		try {
+			
+			oficina = usuarioService.obtOficina(oficina);
+			
+			tx.setMessagetx("Su transaccion fue realizada con exito");
+			
+		} catch (Error e) {
+			tx.setStatustx(Constants.TRANSACCION_STATUS_ERROR);
+		}
+
+		result += "{\"tx\":"+ UtilWeb.objectToJson(tx, null, TransaccionWeb.class.getName()) + "," +
+					"\"oficina\":"+ UtilWeb.objectToJson(oficina, null, Oficina.class.getName()) + "}";
 		
 		this.escribirTextoSalida(response, result);		 
 	}

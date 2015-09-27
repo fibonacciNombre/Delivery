@@ -19,6 +19,12 @@ public interface DeliveryService {
 	void mntArchivo(Archivo param);
 	
 	List<Delivery> lstDelivery(Delivery param, Tercero tercero) throws IOException;
+	
+	List<Delivery> lstDelivery2(Delivery param, Tercero tercero) throws IOException;
+	
+	List<Delivery> lstDeliveryOficinas(Delivery param, Tercero tercero) throws IOException;
+	
+	List<Delivery> lstDeliveryOficinasByDni(Delivery param) throws IOException;
 	 
 	Integer valCourierDelivery(String dnicourier);
 	

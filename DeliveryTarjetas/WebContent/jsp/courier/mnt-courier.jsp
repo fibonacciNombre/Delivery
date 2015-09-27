@@ -221,6 +221,9 @@
 		$("#form-mntcourier #idpestado").val(json.idpestado);
 		$("#form-mntcourier #observacion").val(json.observacion);
 		
+		<%-- ini / mfarfanr / ajustes --%>
+		validacionNroDocumento();
+		<%-- fin / mfarfanr / ajustes --%>
 		closeModalCargando();
 	}
 </script>
